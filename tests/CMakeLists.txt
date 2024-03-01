@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+
 project(tests VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_FLAGS "-DTEST_PLOTS")
@@ -27,7 +29,15 @@ else()
     endif()
 endif()
 
-target_link_libraries(tests PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
+target_link_libraries(tests PRIVATE Qt6::Widgets)
+
+find_package(Qt6 REQUIRED COMPONENTS Core)
+target_link_libraries(tests PRIVATE Qt6::Core)
+
+find_package(Qt6 REQUIRED COMPONENTS PrintSupport)
+target_link_libraries(tests PRIVATE Qt6::PrintSupport)
+
 target_link_libraries(tests PRIVATE core)
 target_link_libraries(tests PRIVATE ${Boost_LIBRARIES})
 target_compile_definitions(tests PRIVATE QCUSTOMPLOT_USE_LIBRARY)
