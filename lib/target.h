@@ -1,8 +1,6 @@
 #pragma once
 #include "base.h"
 
-typedef void* json;
-
 namespace LIB {
 
 class Target : public JSONable {
