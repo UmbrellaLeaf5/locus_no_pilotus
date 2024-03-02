@@ -1,5 +1,4 @@
-#ifndef MODULE_H
-#define MODULE_H
+#pragma once
 
 // Get water vapor density on specified height.
 // SRC: (2.25) from citation
@@ -8,5 +7,3 @@
 //   rh : relative humidity, n/d
 //   pho_w_max : saturated vapor density, g/m**3
 double rho_w(double h, double rh = 0.6, double pho_w_max = 12.8 * 0.001);
-
-#endif  // MODULE_H

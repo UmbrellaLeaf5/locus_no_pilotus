@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+
 project(tests VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_FLAGS "-DTEST_PLOTS")
@@ -9,17 +11,19 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
+
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET tests APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
+# set_property(TARGET tests APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+# ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
         add_library(tests SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+
+    # Define properties for Android with Qt 5 after find_package() calls as:
+    # set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(tests
             ${PROJECT_SOURCES}
@@ -27,9 +31,11 @@ else()
     endif()
 endif()
 
-target_link_libraries(tests PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(tests PRIVATE core)
 target_link_libraries(tests PRIVATE ${Boost_LIBRARIES})
+
+target_link_libraries(tests PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
+
 target_compile_definitions(tests PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(tests PUBLIC qcustomplot)
 
