@@ -13,9 +13,7 @@ namespace tt = boost::test_tools;
 
 BOOST_AUTO_TEST_SUITE(test_rho_w)
 
-BOOST_AUTO_TEST_CASE(ground_level) {
-  BOOST_TEST(rho_w(0, 0.5, 42) == 21);
-}
+BOOST_AUTO_TEST_CASE(ground_level) { BOOST_TEST(rho_w(0, 0.5, 42) == 21); }
 
 BOOST_AUTO_TEST_CASE(rho_w_2000m) {
   BOOST_TEST(rho_w(2000 - 1e-6) == rho_w(2000 + 1e-6), tt::tolerance(1e-6));
