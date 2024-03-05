@@ -21,3 +21,4 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/qcustomplot) # here adding qcustomplo
 add_subdirectory(lib)
 # add_subdirectory(tests)
 add_subdirectory(main)
+add_subdirectory(Backend)
