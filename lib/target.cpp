@@ -2,8 +2,8 @@
 
 namespace LIB {
 
-json Target::save() const { return json(); }
+json Target::Save() const { return json(); }
 
-JSONable* Target::load(const json& j) { return new Target(0, 0); }
+JSONable* Target::Load(const json& j) { return new Target(0, 0); }
 
 }  // namespace LIB
