@@ -2,7 +2,7 @@
 
 typedef void* json;
 
-namespace LIB {
+namespace lib {
 
 class JSONable {
  public:
@@ -12,4 +12,4 @@ class JSONable {
   virtual JSONable* Load(const json& j) = 0;
 };
 
-}  // namespace LIB
+}  // namespace lib

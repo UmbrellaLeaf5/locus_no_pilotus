@@ -1,7 +1,7 @@
 #pragma once
 #include "base.h"
 
-namespace LIB {
+namespace lib {
 
 class Target : public JSONable {
  public:
@@ -19,4 +19,4 @@ class Target : public JSONable {
   double x_, y_;
 };
 
-}  // namespace LIB
+}  // namespace lib

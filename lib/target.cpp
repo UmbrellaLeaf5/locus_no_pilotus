@@ -1,9 +1,9 @@
 #include "target.h"
 
-namespace LIB {
+namespace lib {
 
 json Target::Save() const { return json(); }
 
 JSONable* Target::Load(const json& j) { return new Target(0, 0); }
 
-}  // namespace LIB
+}  // namespace lib
