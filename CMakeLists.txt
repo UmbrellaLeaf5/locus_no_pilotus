@@ -18,5 +18,6 @@ find_package(Boost REQUIRED COMPONENTS locale unit_test_framework)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/qcustomplot) # here adding qcustomplot subfolder
 add_subdirectory(lib)
+add_subdirectory(gui)
 add_subdirectory(tests)
 add_subdirectory(main)
