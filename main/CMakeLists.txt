@@ -30,8 +30,11 @@ else()
 endif()
 
 target_link_libraries(main PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(main PRIVATE core)
+target_link_libraries(main PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+
 target_link_libraries(main PRIVATE qcustomplot)
+target_link_libraries(main PRIVATE core)
+target_link_libraries(main PRIVATE gui)
 
 set_target_properties(main PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
