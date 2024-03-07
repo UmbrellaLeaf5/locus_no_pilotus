@@ -2,14 +2,14 @@
 
 typedef void* json;
 
-namespace LIB {
+namespace lib {
 
 class JSONable {
  public:
   // JSONable(const json& j);
 
-  virtual json save() const = 0;
-  virtual JSONable load(const json& j) = 0;
+  virtual json Save() const = 0;
+  virtual JSONable* Load(const json& j) = 0;
 };
 
-}  // namespace LIB
+}  // namespace lib
