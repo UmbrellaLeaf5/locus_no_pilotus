@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)
@@ -21,3 +22,4 @@ add_subdirectory(lib)
 add_subdirectory(gui)
 add_subdirectory(tests)
 add_subdirectory(main)
+add_subdirectory(Backend)
