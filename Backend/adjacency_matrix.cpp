@@ -1,4 +1,4 @@
-#include "Adjacency matrix.h"
+#include "adjacency_matrix.h"
 
 #include <cfloat>
 
