@@ -68,6 +68,16 @@
        <property name="text">
         <string/>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/target.png</normaloff>../images/target.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -80,6 +90,16 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/AA.png</normaloff>../images/AA.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -94,6 +114,16 @@
        <property name="text">
         <string/>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -107,6 +137,16 @@
        <property name="text">
         <string/>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/high_hills.png</normaloff>../images/high_hills.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
@@ -119,6 +159,16 @@
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/sliders.png</normaloff>../images/sliders.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
        </property>
       </widget>
      </item>
