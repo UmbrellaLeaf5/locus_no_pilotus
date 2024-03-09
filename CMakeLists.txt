@@ -16,9 +16,12 @@ set(Boost_USE_STATIC_LIBS OFF)
 
 find_package(Boost REQUIRED COMPONENTS locale unit_test_framework)
 
+# add images to build directory
+file(COPY ${CMAKE_SOURCE_DIR}/images DESTINATION ${CMAKE_BINARY_DIR})
+
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/qcustomplot) # here adding qcustomplot subfolder
 add_subdirectory(lib)
 add_subdirectory(gui)
 add_subdirectory(tests)
 add_subdirectory(main)
-add_subdirectory(Backend)
+add_subdirectory(backend)
