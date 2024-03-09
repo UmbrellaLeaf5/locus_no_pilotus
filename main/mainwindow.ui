@@ -36,6 +36,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="pushButtonDrawTrajectory">
+       <property name="styleSheet">
+        <string>QPushButton#pushButtonDrawTrajectory {
+                  
+                }
+        </string>
+       </property>
        <property name="minimumSize">
         <size>
          <width>50</width>
