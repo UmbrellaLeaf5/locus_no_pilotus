@@ -29,7 +29,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>50</width>
+      <width>52</width>
       <height>575</height>
      </rect>
     </property>
@@ -45,70 +45,80 @@
        <property name="text">
         <string/>
        </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../images/play_triangle.png</normaloff>../images/play_triangle.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>40</width>
+         <height>40</height>
+        </size>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonAddTarget">
-      <property name="minimumSize">
+       <property name="minimumSize">
         <size>
          <width>50</width>
          <height>50</height>
         </size>
        </property>
        <property name="text">
-        <string></string>
+        <string/>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonAddObject_1">
-      <property name="minimumSize">
+       <property name="minimumSize">
         <size>
          <width>50</width>
          <height>50</height>
         </size>
        </property>
        <property name="text">
-        <string></string>
+        <string/>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonAddObject_2">
-      <property name="minimumSize">
+       <property name="minimumSize">
         <size>
          <width>50</width>
          <height>50</height>
         </size>
        </property>
        <property name="text">
-        <string></string>
+        <string/>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonAddObject_3">
-      <property name="minimumSize">
+       <property name="minimumSize">
         <size>
          <width>50</width>
          <height>50</height>
         </size>
        </property>
        <property name="text">
-        <string></string>
+        <string/>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonEditObjects">
-      <property name="minimumSize">
+       <property name="minimumSize">
         <size>
          <width>50</width>
          <height>50</height>
         </size>
        </property>
        <property name="text">
-        <string></string>
+        <string/>
        </property>
       </widget>
      </item>
