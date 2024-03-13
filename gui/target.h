@@ -9,9 +9,9 @@ namespace gui {
 
 class Target : public Drawable {
  public:
-  inline Target(double x, double y) : data_(new lib::Target(x, y)) {}
-  inline Target(lib::Point p) : data_(new lib::Target(p)) {}
-  inline Target() : data_(new lib::Target()) {}
+  inline Target(double x, double y) : data_{new lib::Target(x, y)} {}
+  inline Target(lib::Point p) : data_{new lib::Target(p)} {}
+  inline Target() : data_{new lib::Target()} {}
 
   inline ~Target() { delete data_; }
 
