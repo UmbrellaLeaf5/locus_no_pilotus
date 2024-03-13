@@ -17,10 +17,10 @@
    <widget class="QCustomPlot" name="plot" native="true">
     <property name="geometry">
      <rect>
-      <x>59</x>
+      <x>60</x>
       <y>0</y>
-      <width>731</width>
-      <height>571</height>
+      <width>730</width>
+      <height>560</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -33,7 +33,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>52</width>
+      <width>50</width>
       <height>575</height>
      </rect>
     </property>
@@ -222,7 +222,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
