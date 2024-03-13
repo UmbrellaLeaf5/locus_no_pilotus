@@ -10,15 +10,24 @@ void TrappyLine::Draw(QCustomPlot* plot) const {
   graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 8));
 
   auto targets = trappy_line_.GetTargets();
-  auto x_1 = targets[0].GetPoint().x;
-  QVector<double> x(targets.size()), y(targets.size());
 
-  for (size_t i = 0; i < x.size(); i++) {
-    x[i] = targets[i].GetPoint().x;
-    y[i] = targets[i].GetPoint().y;
+  // Добавляем график с точками
+  for (int i = 0; i < targets.size() - 1; i++) {
+    QVector<double> xData = {targets[i].GetPoint().x,
+                             targets[i + 1].GetPoint().x};
+    QVector<double> yData = {targets[i].GetPoint().y,
+                             targets[i + 1].GetPoint().y};
+    graph->setData(xData, yData);
   }
 
-  graph->setData(x, y);
+  // Добавляем линии для соединения попарных точек
+  for (int i = 0; i < targets.size() - 1; i++) {
+    graph = plot->addGraph(plot->xAxis, plot->yAxis);
+    graph->setPen(QPen(Qt::red));
+    graph->setData(
+        QVector<double>{targets[i].GetPoint().x, targets[i + 1].GetPoint().x},
+        QVector<double>{targets[i].GetPoint().y, targets[i + 1].GetPoint().y});
+  }
 }
 
 }  // namespace gui
