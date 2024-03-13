@@ -5,7 +5,7 @@ namespace lib {
 
 class Target : public JSONable {
  public:
-  inline Target(double x, double y) : p_{lib::Point(x, y)} {}
+  inline Target(double x, double y) : p_{Point(x, y)} {}
   inline Target(const Point& p) : p_{p} {}
   inline Target() : p_{Point()} {}
 
@@ -15,6 +15,7 @@ class Target : public JSONable {
   inline Point GetPoint() const { return p_; }
 
   inline void SetPoint(const Point& p) { p_ = p; }
+  inline void SetPoint(double x, double y) { p_ = Point(x, y); }
 
  private:
   Point p_;
