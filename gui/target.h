@@ -9,21 +9,21 @@ namespace gui {
 
 class Target : public Drawable {
  public:
-  inline Target(double x, double y) : data_{new lib::Target(x, y)} {}
-  inline Target(lib::Point p) : data_{new lib::Target(p)} {}
-  inline Target() : data_{new lib::Target()} {}
-
-  inline ~Target() { delete data_; }
+  inline Target(double x, double y) : data_(x, y) {}
+  inline Target(lib::Point p) : data_(p) {}
+  inline Target() : data_() {}
 
   void Draw(QCustomPlot* plot) const override;
 
-  inline void SetPoint(lib::Point p) { data_->SetPoint(p); }
-  inline void SetPoint(double x, double y) { data_->SetPoint(x, y); }
+  inline void SetPoint(lib::Point p) { data_.SetPoint(p); }
+  inline void SetPoint(double x, double y) { data_.SetPoint(x, y); }
 
-  inline lib::Point GetPoint() const { return data_->GetPoint(); }
+  inline lib::Point GetPoint() const { return data_.GetPoint(); }
+
+  inline lib::Target GetData() const { return data_; }
 
  private:
-  lib::Target* data_;
+  lib::Target data_;
 };
 
 }  // namespace gui
