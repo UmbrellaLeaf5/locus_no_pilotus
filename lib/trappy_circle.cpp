@@ -1,4 +1,4 @@
-#include "circle_obstacle.h"
+#include "trappy_circle.h"
 
 json lib::TrappyCircle::Save() const { return json(); }
 

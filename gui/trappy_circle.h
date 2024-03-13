@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../lib/base.h"
-#include "../lib/circle_obstacle.h"
+#include "../lib/trappy_circle.h"
 #include "base.h"
 #include "qcustomplot.h"
 
