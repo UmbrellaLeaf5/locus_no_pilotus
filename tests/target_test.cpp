@@ -19,18 +19,18 @@ BOOST_AUTO_TEST_SUITE(target)
 BOOST_AUTO_TEST_CASE(zero) {
   {
     Target t(0, 0);
-    BOOST_TEST(t.GetX() == 0);
-    BOOST_TEST(t.GetY() == 0);
+    BOOST_TEST(t.GetPoint().x == 0);
+    BOOST_TEST(t.GetPoint().y == 0);
   }
   {
     Target t(1, 0);
-    BOOST_TEST(t.GetX() == 1);
-    BOOST_TEST(t.GetY() == 0);
+    BOOST_TEST(t.GetPoint().x == 1);
+    BOOST_TEST(t.GetPoint().y == 0);
   }
   {
     Target t(0, 1);
-    BOOST_TEST(t.GetX() == 0);
-    BOOST_TEST(t.GetY() == 1);
+    BOOST_TEST(t.GetPoint().x == 0);
+    BOOST_TEST(t.GetPoint().y == 1);
   }
 }
 
@@ -41,8 +41,8 @@ BOOST_AUTO_TEST_CASE(random_get) {
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen);
     Target t(x, y);
-    BOOST_TEST(t.GetX() == x);
-    BOOST_TEST(t.GetY() == y);
+    BOOST_TEST(t.GetPoint().x == x);
+    BOOST_TEST(t.GetPoint().y == y);
   }
 }
 
@@ -53,10 +53,9 @@ BOOST_AUTO_TEST_CASE(random_set) {
   Target t(0, 0);
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen);
-    t.SetX(x);
-    t.SetY(y);
-    BOOST_TEST(t.GetX() == x);
-    BOOST_TEST(t.GetY() == y);
+    t.SetPoint(x, y);
+    BOOST_TEST(t.GetPoint().x == x);
+    BOOST_TEST(t.GetPoint().y == y);
   }
 }
 

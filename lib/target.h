@@ -5,18 +5,20 @@ namespace lib {
 
 class Target : public JSONable {
  public:
-  inline Target(double x, double y) : x_{x}, y_{y} {}
+  inline Target(double x, double y) : p_{Point(x, y)} {}
+  inline Target(const Point& p) : p_{p} {}
+  inline Target() : p_{Point()} {}
+
   json Save() const override;
   JSONable* Load(const json& j) override;
 
-  inline double GetX() const { return x_; }
-  inline double GetY() const { return y_; }
+  inline Point GetPoint() const { return p_; }
 
-  inline void SetX(double x) { x_ = x; }
-  inline void SetY(double y) { y_ = y; }
+  inline void SetPoint(const Point& p) { p_ = p; }
+  inline void SetPoint(double x, double y) { p_ = Point(x, y); }
 
  private:
-  double x_, y_;
+  Point p_;
 };
 
 }  // namespace lib
