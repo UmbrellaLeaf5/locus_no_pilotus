@@ -17,11 +17,15 @@
    <widget class="QCustomPlot" name="plot" native="true">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>59</x>
       <y>0</y>
-      <width>750</width>
-      <height>575</height>
+      <width>731</width>
+      <height>571</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string>QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -36,17 +40,15 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="pushButtonDrawTrajectory">
-       <property name="styleSheet">
-        <string>QPushButton#pushButtonDrawTrajectory {
-                  
-                }
-        </string>
-       </property>
        <property name="minimumSize">
         <size>
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </property>
        <property name="text">
         <string/>
@@ -71,6 +73,10 @@
          <height>50</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -93,6 +99,10 @@
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </property>
        <property name="text">
         <string/>
@@ -117,6 +127,10 @@
          <height>50</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -140,6 +154,10 @@
          <height>50</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -162,6 +180,10 @@
          <width>50</width>
          <height>50</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </property>
        <property name="text">
         <string/>
@@ -200,7 +222,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
