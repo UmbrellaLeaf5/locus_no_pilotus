@@ -10,15 +10,25 @@ void TrappyLine::Draw(QCustomPlot* plot) const {
   graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 8));
 
   auto targets = trappy_line_.GetTargets();
-  auto x_1 = targets[0].GetPoint().x;
-  QVector<double> x(targets.size()), y(targets.size());
 
-  for (size_t i = 0; i < x.size(); i++) {
-    x[i] = targets[i].GetPoint().x;
-    y[i] = targets[i].GetPoint().y;
+  for (int i = 0; i < targets.size() - 1; i++) {
+    QPen pen;
+    pen.setColor(QColor(200, 50, 50, 255));
+    pen.setStyle(Qt::SolidLine);
+    graph->setPen(pen);
+
+    graph->setData({targets[i].GetPoint().x, targets[i + 1].GetPoint().x},
+                   {targets[i].GetPoint().y, targets[i + 1].GetPoint().y});
+
+    graph = plot->addGraph(plot->xAxis, plot->yAxis);
+
+    pen.setStyle(Qt::DashLine);
+    graph->setPen(pen);
+
+    graph->setData(
+        QVector<double>{targets[i].GetPoint().x, targets[i + 1].GetPoint().x},
+        QVector<double>{targets[i].GetPoint().y, targets[i + 1].GetPoint().y});
   }
-
-  graph->setData(x, y);
 }
 
 }  // namespace gui

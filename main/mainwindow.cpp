@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 
-#include "../gui/no_direct_fly_rule.h"
+#include "../gui/hill.h"
 #include "../gui/target.h"
-#include "../lib/target.h"
+#include "../gui/trappy_circle.h"
+#include "../gui/trappy_line.h"
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,6 +20,12 @@ MainWindow::MainWindow(QWidget *parent)
 
   gui::TrappyLine tr{t_1, t_2};
   tr.Draw(ui->plot);
+
+  gui::TrappyCircle trc{1, 2, 50};
+  gui::Hill hill{{2, 3}, 40};
+
+  trc.Draw(ui->plot);
+  hill.Draw(ui->plot);
 }
 
 MainWindow::~MainWindow() { delete ui; }
