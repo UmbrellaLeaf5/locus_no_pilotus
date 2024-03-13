@@ -10,7 +10,7 @@ void gui::Target::Draw(QCustomPlot* plot) const {
   graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
 
   QVector<double> x(1), y(1);
-  x[0] = GetX();
-  y[0] = GetY();
+  x[0] = GetPoint().x;
+  y[0] = GetPoint().y;
   graph->setData(x, y);
 }

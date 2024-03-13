@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../lib/base.h"
 #include "../lib/target.h"
 #include "base.h"
 #include "qcustomplot.h"
@@ -8,19 +9,20 @@ namespace gui {
 
 class Target : public Drawable {
  public:
-  inline Target(double x, double y) : data_(x, y) {}
-  inline Target() : data_() {}
+  inline Target(double x, double y) : data_(new lib::Target(x, y)) {}
+  inline Target(lib::Point p) : data_(new lib::Target(p)) {}
+  inline Target() : data_(new lib::Target()) {}
+
+  inline ~Target() { delete data_; }
 
   void Draw(QCustomPlot* plot) const override;
 
-  inline void SetX(double x) { data_.SetX(x); }
-  inline void SetY(double y) { data_.SetY(y); }
+  inline void SetPoint(lib::Point p) { data_->SetPoint(p); }
 
-  inline double GetX() const { return data_.GetX(); }
-  inline double GetY() const { return data_.GetY(); }
+  inline lib::Point GetPoint() const { return data_->GetPoint(); }
 
  private:
-  lib::Target data_;
+  lib::Target* data_;
 };
 
 }  // namespace gui
