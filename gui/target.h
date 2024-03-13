@@ -5,10 +5,11 @@
 #include "qcustomplot.h"
 
 namespace gui {
+
 class Target : public Drawable {
  public:
-  inline Target() : data_({0, 0}) {}
-  inline Target(double x, double y) : data_({x, y}) {}
+  inline Target(double x, double y) : data_(x, y) {}
+  inline Target() : data_() {}
 
   void Draw(QCustomPlot* plot) const override;
 
@@ -21,4 +22,5 @@ class Target : public Drawable {
  private:
   lib::Target data_;
 };
+
 }  // namespace gui
