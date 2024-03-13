@@ -11,19 +11,20 @@ void TrappyLine::Draw(QCustomPlot* plot) const {
 
   auto targets = trappy_line_.GetTargets();
 
-  // Добавляем график с точками
   for (int i = 0; i < targets.size() - 1; i++) {
-    QVector<double> xData = {targets[i].GetPoint().x,
-                             targets[i + 1].GetPoint().x};
-    QVector<double> yData = {targets[i].GetPoint().y,
-                             targets[i + 1].GetPoint().y};
-    graph->setData(xData, yData);
-  }
+    QPen pen;
+    pen.setColor(QColor(200, 50, 50, 255));
+    pen.setStyle(Qt::SolidLine);
+    graph->setPen(pen);
 
-  // Добавляем линии для соединения попарных точек
-  for (int i = 0; i < targets.size() - 1; i++) {
+    graph->setData({targets[i].GetPoint().x, targets[i + 1].GetPoint().x},
+                   {targets[i].GetPoint().y, targets[i + 1].GetPoint().y});
+
     graph = plot->addGraph(plot->xAxis, plot->yAxis);
-    graph->setPen(QPen(Qt::red));
+
+    pen.setStyle(Qt::DashLine);
+    graph->setPen(pen);
+
     graph->setData(
         QVector<double>{targets[i].GetPoint().x, targets[i + 1].GetPoint().x},
         QVector<double>{targets[i].GetPoint().y, targets[i + 1].GetPoint().y});
