@@ -27,7 +27,7 @@ void TrappyLine::Draw(QCustomPlot* plot) const {
   graph->setLineStyle(QCPGraph::lsLine);
   graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 8));
 
-  auto targets = trappy_line_.GetTargets();
+  auto targets = data_.GetTargets();
 
   for (int i = 0; i < targets.size(); i++) {
     graph->addData({targets[i].GetPoint().x}, {targets[i].GetPoint().y});
@@ -39,15 +39,15 @@ void TrappyLine::UpdateData(std::initializer_list<gui::Target> targets) {
   for (const auto& target : targets) {
     l_targets.push_back(target.GetData());
   }
-  trappy_line_ = lib::TrappyLine(l_targets);
+  data_ = lib::TrappyLine(l_targets);
 }
 
 void TrappyLine::AddData(std::initializer_list<gui::Target> targets) {
-  std::vector<lib::Target> l_targets = trappy_line_.GetTargets();
+  std::vector<lib::Target> l_targets = data_.GetTargets();
   for (const auto& target : targets) {
     l_targets.push_back(target.GetData());
   }
-  trappy_line_ = lib::TrappyLine(l_targets);
+  data_ = lib::TrappyLine(l_targets);
 }
 
 }  // namespace gui

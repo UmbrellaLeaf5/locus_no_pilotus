@@ -9,8 +9,12 @@
 
 namespace gui {
 
+// MEANS: фигура линии опасного перелета
 class TrappyLine : public Drawable {
  public:
+  // конструктора по умолчанию быть не может, так как
+  // опасная зона должна быть отрисована в конкретном месте
+
   TrappyLine(std::initializer_list<gui::Target> targets);
 
   void Draw(QCustomPlot* plot) const override;
@@ -22,15 +26,19 @@ class TrappyLine : public Drawable {
   }
 
   inline std::vector<lib::Target> GetTargets() const {
-    return trappy_line_.GetTargets();
+    return data_.GetTargets();
   }
 
  private:
+  // DOES: обновляет объекты в приватном поле lib::TrappyLine
+  // ARGS: [std::initializer_list<gui::Target>]: объекты - контр. точки
   void UpdateData(std::initializer_list<gui::Target> targets);
 
+  // DOES: добавляет объекты в приватное поле lib::TrappyLine
+  // ARGS: [std::initializer_list<gui::Target>]: объекты - контр. точки
   void AddData(std::initializer_list<gui::Target> targets);
 
-  lib::TrappyLine trappy_line_;
+  lib::TrappyLine data_;
 };
 
 }  // namespace gui
