@@ -12,6 +12,9 @@ class TrappyLine : public JSONable {
  public:
   inline TrappyLine() = default;
 
+  // конструктор происходит исключительно по КТ,
+  // так как только между ними может быть перелет
+
   inline TrappyLine(std::vector<lib::Target> targets) : targets_{targets} {}
 
   json Save() const override;

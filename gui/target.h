@@ -10,7 +10,7 @@ namespace gui {
 class Target : public Drawable {
  public:
   // конструктора по умолчанию быть не может, так как
-  // КП должна быть отрисована в конкретном месте
+  // КТ должна быть отрисована в конкретном месте
 
   inline Target(double x, double y) : data_(x, y) {}
   inline Target(lib::Point p) : data_(p) {}

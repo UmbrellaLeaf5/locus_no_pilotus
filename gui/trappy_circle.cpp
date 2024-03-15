@@ -5,6 +5,8 @@
 void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
   auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
 
+  // фигура представляет собой красный круг с полупрозрачной заливкой
+
   graph->setLineStyle(QCPGraph::lsNone);
   graph->setScatterStyle(
       QCPScatterStyle(QCPScatterStyle::ssCircle, QColor(200, 50, 50, 255),
