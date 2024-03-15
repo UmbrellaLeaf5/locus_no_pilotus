@@ -9,8 +9,6 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
   graph->setScatterStyle(
       QCPScatterStyle(QCPScatterStyle::ssCircle, QColor(200, 50, 50, 255),
                       QColor(200, 50, 50, 100), GetRadius()));
-  QVector<double> x(1), y(1);
-  x[0] = GetCenter().x;
-  y[0] = GetCenter().y;
-  graph->setData(x, y);
+
+  graph->setData({GetCenter().x}, {GetCenter().y});
 }
