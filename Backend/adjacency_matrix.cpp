@@ -113,12 +113,12 @@ float AdjacencyMatrix::ReductionColumn() {
 
 std::pair<int, int> AdjacencyMatrix::HighestPowerOfZero() const {
   int row, col;
-  float min = FLT_MAX;
+  float max = 0;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
       if (matrix[i][j] == 0) {
-        if (min_numbers[i + j] < min) {
-          min = min_numbers[i + j];
+        if ((min_numbers[i] + min_numbers[n + j]) > max) {
+          max = min_numbers[i] + min_numbers[n + j];
           row = i;
           col = j;
         }
