@@ -7,6 +7,7 @@
 
 namespace lib {
 
+// MEANS: линия опасного перелета
 class TrappyLine : public JSONable {
  public:
   inline TrappyLine() = default;
@@ -20,7 +21,7 @@ class TrappyLine : public JSONable {
     targets_ = targets;
   }
 
-  inline void AddTarget(std::vector<lib::Target> targets) {
+  inline void AddTargets(std::vector<lib::Target> targets) {
     for (const auto& target : targets) {
       targets_.push_back(target);
     }

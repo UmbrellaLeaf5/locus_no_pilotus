@@ -1,6 +1,6 @@
 #pragma once
 
-typedef void* json;
+using json = void*;
 
 namespace lib {
 
@@ -15,6 +15,7 @@ class JSONable {
 struct Point {
   double x;
   double y;
+
   Point(double x = 0, double y = 0) : x{x}, y{y} {}
 
   Point(const Point& p) : x{p.x}, y{p.y} {}
@@ -24,11 +25,13 @@ struct Point {
     y = p.y;
     return *this;
   }
+
   Point& operator+=(const Point& d) {
     x += d.x;
     y += d.y;
     return *this;
   }
+
   Point& operator-=(const Point& d) {
     x -= d.x;
     y -= d.y;

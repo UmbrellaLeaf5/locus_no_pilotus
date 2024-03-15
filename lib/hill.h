@@ -3,6 +3,8 @@
 #include "base.h"
 
 namespace lib {
+
+// MEANS: рельеф с высотой
 class Hill : public JSONable {
  public:
   Hill(Point center = {0, 0}, double radius = 0)
@@ -21,4 +23,5 @@ class Hill : public JSONable {
   Point center_;
   double radius_;
 };
+
 }  // namespace lib
