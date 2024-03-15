@@ -45,7 +45,7 @@ class AdjacencyMatrix {
   void BottomLineEvaluations();
 
   // Найти 2 минимума в стоке или столбце
-  Minimums FindTwoMinimums(Mins type) const;
+  Minimums FindTwoMinimums(Mins type, int index) const;
 
   // Вычитает из каждой строки минимальный элемент этой строки, находит
   // второй минимальный элемент. Возвращаеет сумму минимальных элементов по

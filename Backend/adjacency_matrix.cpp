@@ -32,20 +32,18 @@ void AdjacencyMatrix::BottomLineEvaluations() {
   evaluation.second += evaluation.first;
 }
 
-Minimums AdjacencyMatrix::FindTwoMinimums(Mins type) const {
+Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, int index) const {
   Minimums result;
   float first_min = FLT_MAX;
   float second_min = FLT_MAX;
   switch (type) {
     case Mins::Rows: {
-      for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-          if (matrix[i][j] < first_min) {
-            second_min = first_min;
-            first_min = matrix[i][j];
-          } else if (matrix[i][j] < second_min) {
-            second_min = matrix[i][j];
-          }
+      for (int j = 0; j < n; ++j) {
+        if (matrix[index][j] < first_min) {
+          second_min = first_min;
+          first_min = matrix[index][j];
+        } else if (matrix[index][j] < second_min) {
+          second_min = matrix[index][j];
         }
       }
       result.first = first_min;
@@ -55,13 +53,11 @@ Minimums AdjacencyMatrix::FindTwoMinimums(Mins type) const {
 
     case Mins::Columns: {
       for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-          if (matrix[j][i] < first_min) {
-            second_min = first_min;
-            first_min = matrix[j][i];
-          } else if (matrix[j][i] < second_min) {
-            second_min = matrix[j][i];
-          }
+        if (matrix[i][index] < first_min) {
+          second_min = first_min;
+          first_min = matrix[i][index];
+        } else if (matrix[i][index] < second_min) {
+          second_min = matrix[i][index];
         }
       }
       result.first = first_min;
@@ -81,7 +77,7 @@ Minimums AdjacencyMatrix::FindTwoMinimums(Mins type) const {
 float AdjacencyMatrix::ReductionLine() {
   float mins_sum = 0;
   for (int i = 0; i < n; ++i) {
-    Minimums twoMins = FindTwoMinimums(Mins::Rows);
+    Minimums twoMins = FindTwoMinimums(Mins::Rows, i);
     float first_min = twoMins.first;
     float second_min = twoMins.second;
     for (int j = 0; j < n; ++j) {
@@ -98,7 +94,7 @@ float AdjacencyMatrix::ReductionLine() {
 float AdjacencyMatrix::ReductionColumn() {
   float mins_sum = 0;
   for (int i = 0; i < n; ++i) {
-    Minimums twoMins = FindTwoMinimums(Mins::Columns);
+    Minimums twoMins = FindTwoMinimums(Mins::Columns, i);
     float first_min = twoMins.first;
     float second_min = twoMins.second;
     for (int j = 0; j < n; ++j) {
