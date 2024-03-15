@@ -9,6 +9,8 @@ namespace lib {
 
 class TrappyLine : public JSONable {
  public:
+  inline TrappyLine() = default;
+
   inline TrappyLine(std::vector<lib::Target> targets) : targets_{targets} {}
 
   json Save() const override;
