@@ -29,6 +29,7 @@ void AdjacencyMatrix::BottomLineEvaluations() {
   std::pair<int, int> zero_pos = HighestPowerOfZero();
   matrix[zero_pos.first][zero_pos.second] = FLT_MAX;
   evaluation.second = ReductionLine() + ReductionColumn();
+  evaluation.second += evaluation.first;
 }
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type) const {

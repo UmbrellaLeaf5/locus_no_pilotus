@@ -1,11 +1,10 @@
 #include <vector>
 
+// Структура для хранения двух минимумов строки/столбца
 struct Minimums {
   float first;
   float second;
 };
-
-enum class Mins { Rows, Columns };
 
 class AdjacencyMatrix {
  public:
@@ -21,7 +20,9 @@ class AdjacencyMatrix {
     min_numbers.resize(n + n);
     BottomLineEvaluations();
   }
+  enum Mins { Rows, Columns };
 
+  // Изменение элемента матрицы
   void SetMatrixValue(int i, int j, float num);
 
   // Возвращает 2 числа: первую и вторую(без одного ребра) оценки расстояний
