@@ -1,28 +1,50 @@
 #include <vector>
 
+struct Minimums {
+  float first;
+  float second;
+};
+
+enum class Mins { Rows, Columns };
+
 class AdjacencyMatrix {
  public:
-  AdjacencyMatrix(std::vector<std::vector<float>> nums)
-      : matrix{nums}, rows{nums.size()}, cols{nums[0].size()} {
-    min_numbers.resize(rows + cols);
+  AdjacencyMatrix(size_t size) : n{size} {
+    matrix.resize(n);
+    for (auto elem : matrix) {
+      elem.resize(n, 0.0);
+    }
   }
 
+  AdjacencyMatrix(std::vector<std::vector<float>> nums)
+      : matrix{nums}, n{nums.size()} {
+    min_numbers.resize(n + n);
+    BottomLineEvaluations();
+  }
+
+  void SetMatrixValue(int i, int j, float num);
+
   // Возвращает 2 числа: первую и вторую(без одного ребра) оценки расстояний
-  std::pair<float, float> GetBottomLineAssessments() const;
+  std::pair<float, float> GetBottomLineEvaluations() const;
 
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
   AdjacencyMatrix Minor(int i, int j);
 
  private:
-  size_t rows, cols;
+  // Размер матрицы
+  size_t n;
+
   std::vector<std::vector<float>> matrix;
   // Минимальный элемент в каждой строке и в каждом столбце
   std::vector<float> min_numbers;
   // Оценки пути для данной матрицы(первая и более точная)
-  std::pair<float, float> assessment;
+  std::pair<float, float> evaluation;
 
   // Возвращает 2 числа: Первая оценка снизу и вторая, более точная оценка снизу
-  void BottomLineAssessments();
+  void BottomLineEvaluations();
+
+  // Найти 2 минимума в стоке или столбце
+  Minimums FindTwoMinimums(Mins type) const;
 
   // Вычитает из каждой строки минимальный элемент этой строки, находит
   // второй минимальный элемент. Возвращаеет сумму минимальных элементов по
