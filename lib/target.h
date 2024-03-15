@@ -1,8 +1,11 @@
 #pragma once
+
 #include "base.h"
+#include "point.h"
 
 namespace lib {
 
+// MEANS: контрольная точка
 class Target : public JSONable {
  public:
   inline Target(double x, double y) : p_{Point(x, y)} {}
