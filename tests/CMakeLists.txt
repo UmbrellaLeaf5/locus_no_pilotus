@@ -32,6 +32,7 @@ else()
 endif()
 
 target_link_libraries(tests PRIVATE core)
+target_link_libraries(tests PRIVATE backend)
 target_link_libraries(tests PRIVATE ${Boost_LIBRARIES})
 
 target_link_libraries(tests PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
