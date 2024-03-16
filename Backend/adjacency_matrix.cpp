@@ -98,6 +98,7 @@ float AdjacencyMatrix::ReductionColumn() {
     float first_min = twoMins.first;
     float second_min = twoMins.second;
     for (int j = 0; j < n; ++j) {
+      if (matrix[j][i] == min_numbers[j]) min_numbers[j] -= first_min;
       matrix[j][i] -= first_min;
     }
     second_min -= first_min;
