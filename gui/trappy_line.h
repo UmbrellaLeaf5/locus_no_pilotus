@@ -1,63 +1,44 @@
 #pragma once
 
 #include <initializer_list>
+#include <stdexcept>
 #include <vector>
 
 #include "../lib/trappy_line.h"
-
-// #include "base.h"
 #include "target.h"
 
 namespace gui {
 
+// MEANS: фигура линии опасного перелета
 class TrappyLine : public Drawable {
  public:
-  inline TrappyLine(std::initializer_list<gui::Target> targets)
-      : trappy_line_{targets_} {
-    UpdateTargets(targets);
-    UpdateData();
-  }
+  // конструктора по умолчанию быть не может, так как
+  // опасная зона должна быть отрисована в конкретном месте
 
-  inline TrappyLine(std::vector<gui::Target> targets) : trappy_line_{targets_} {
-    UpdateTargets(targets);
-    UpdateData();
-  }
+  TrappyLine(std::initializer_list<gui::Target> targets);
 
   void Draw(QCustomPlot* plot) const override;
 
-  inline void SetNewTargets(std::vector<gui::Target> targets) {
-    UpdateTargets(targets);
-    UpdateData();
-  }
+  void SetNewTargets(std::initializer_list<gui::Target> targets);
 
-  inline void AddTarget(gui::Target target) {
-    targets_.push_back(target.GetData());
-    UpdateData();
+  inline void AddTargets(std::initializer_list<gui::Target> targets) {
+    AddData(targets);
   }
 
   inline std::vector<lib::Target> GetTargets() const {
-    return trappy_line_.GetTargets();
+    return data_.GetTargets();
   }
 
  private:
-  inline void UpdateData() { trappy_line_ = lib::TrappyLine(targets_); }
+  // DOES: обновляет объекты в приватном поле lib::TrappyLine
+  // ARGS: [std::initializer_list<gui::Target>]: объекты - контр. точки
+  void UpdateData(std::initializer_list<gui::Target> targets);
 
-  inline void UpdateTargets(std::vector<gui::Target> targets) {
-    targets_.clear();
-    for (const auto& target : targets) {
-      targets_.push_back(target.GetData());
-    }
-  }
+  // DOES: добавляет объекты в приватное поле lib::TrappyLine
+  // ARGS: [std::initializer_list<gui::Target>]: объекты - контр. точки
+  void AddData(std::initializer_list<gui::Target> targets);
 
-  inline void UpdateTargets(std::initializer_list<gui::Target> targets) {
-    targets_.clear();
-    for (const auto& target : targets) {
-      targets_.push_back(target.GetData());
-    }
-  }
-
-  std::vector<lib::Target> targets_;
-  lib::TrappyLine trappy_line_;
+  lib::TrappyLine data_;
 };
 
 }  // namespace gui

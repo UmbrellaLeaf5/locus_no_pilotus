@@ -1,8 +1,11 @@
 #pragma once
 
 #include "base.h"
+#include "point.h"
 
 namespace lib {
+
+// MEANS: опасная зона
 class TrappyCircle : public JSONable {
  public:
   TrappyCircle(Point center = {0, 0}, double radius = 0)
@@ -21,4 +24,5 @@ class TrappyCircle : public JSONable {
   Point center_;
   double radius_;
 };
+
 }  // namespace lib

@@ -1,17 +1,19 @@
 #pragma once
 
-#include "../lib/base.h"
 #include "../lib/target.h"
 #include "base.h"
 #include "qcustomplot.h"
 
 namespace gui {
 
+// MEANS: фигура контрольной точки
 class Target : public Drawable {
  public:
+  // конструктора по умолчанию быть не может, так как
+  // КТ должна быть отрисована в конкретном месте
+
   inline Target(double x, double y) : data_(x, y) {}
   inline Target(lib::Point p) : data_(p) {}
-  inline Target() : data_() {}
 
   void Draw(QCustomPlot* plot) const override;
 
