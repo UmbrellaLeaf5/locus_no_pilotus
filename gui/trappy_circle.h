@@ -12,11 +12,13 @@ class TrappyCircle : public Drawable {
   // конструктора по умолчанию быть не может, так как
   // опасная зона должна быть отрисована в конкретном месте
 
-  inline TrappyCircle(double x, double y, double radius)
-      : data_(lib::Point{x, y}, radius) {}
+  inline TrappyCircle(double x, double y, double radius,
+                      QColor color = QColor(200, 50, 50, 255))
+      : data_(lib::Point{x, y}, radius), color_{color} {}
 
-  inline TrappyCircle(lib::Point center, double radius)
-      : data_(center, radius) {}
+  inline TrappyCircle(lib::Point center, double radius,
+                      QColor color = QColor(200, 50, 50, 255))
+      : data_(center, radius), color_{color} {}
 
   inline lib::Point GetCenter() const { return data_.GetCenter(); }
   inline double GetRadius() const { return data_.GetRadius(); }
@@ -28,6 +30,7 @@ class TrappyCircle : public Drawable {
 
  private:
   lib::TrappyCircle data_;
+  QColor color_;
 };
 
 }  // namespace gui
