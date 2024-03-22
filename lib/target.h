@@ -8,9 +8,9 @@ namespace lib {
 // MEANS: контрольная точка
 class Target : public JSONable {
  public:
-  inline Target(double x, double y) : p_{Point(x, y)} {}
+  inline Target(double x, double y) : p_(x, y) {}
   inline Target(const Point& p) : p_{p} {}
-  inline Target() : p_{Point()} {}
+  inline Target() : p_(0, 0) {}
 
   json Save() const override;
   JSONable* Load(const json& j) override;
