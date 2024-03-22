@@ -10,3 +10,7 @@ target_link_libraries(gui PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
 target_compile_definitions(gui PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(gui PUBLIC qcustomplot)
+
+install(TARGETS gui
+  RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
+)
