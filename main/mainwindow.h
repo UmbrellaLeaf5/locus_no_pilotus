@@ -1,5 +1,7 @@
 #pragma once
 
+#include <add_data_form.h>
+
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -16,6 +18,13 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
+ private slots:
+  void on_pushButtonAddObject_1_clicked();
+
+ public slots:
+  void AddTrappyCircle(double x, double y, double radius);
+
  private:
   Ui::MainWindow* ui;
+  AddDataForm* adf;
 };

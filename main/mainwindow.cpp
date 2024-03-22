@@ -6,7 +6,7 @@
 #include "../gui/trappy_line.h"
 #include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
@@ -22,12 +22,24 @@ MainWindow::MainWindow(QWidget *parent)
   tr.Draw(ui->plot);
 
   gui::TrappyCircle trc{1, 2, 50};
-  gui::Hill hill_1{{2, 3}, {3, 2}, {4, 4}};
-  gui::Hill hill_2({1, 4}, 0.25, 6);
+  gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
 
   trc.Draw(ui->plot);
-  hill_1.Draw(ui->plot);
-  hill_2.Draw(ui->plot);
+  hill.Draw(ui->plot);
 }
 
 MainWindow::~MainWindow() { delete ui; }
+
+void MainWindow::on_pushButtonAddObject_1_clicked() {
+  AddDataForm* adf = new AddDataForm;
+  adf->setModal(true);
+  adf->show();
+  connect(adf, &AddDataForm::AddTrappyCircle, this,
+          &MainWindow::AddTrappyCircle);
+}
+
+void MainWindow::AddTrappyCircle(double x, double y, double radius) {
+  gui::TrappyCircle trc{x, y, radius};
+  trc.Draw(ui->plot);
+  ui->plot->replot();
+}
