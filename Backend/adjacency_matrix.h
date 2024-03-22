@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 // Структура для хранения двух минимумов строки/столбца
@@ -18,15 +20,17 @@ class AdjacencyMatrix {
   AdjacencyMatrix(std::vector<std::vector<float>> nums)
       : matrix{nums}, n{nums.size()} {
     min_numbers.resize(n + n);
-    BottomLineEvaluations();
+    BottomLineEvaluation();
   }
   enum Mins { Rows, Columns };
 
   // Изменение элемента матрицы
   void SetMatrixValue(int i, int j, float num);
 
-  // Возвращает 2 числа: первую и вторую(без одного ребра) оценки расстояний
-  std::pair<float, float> GetBottomLineEvaluations() const;
+  // Возвращает оценку расстояния
+  float GetBottomLineEvaluation() const;
+
+  std::pair<int, int> GetSelectedEdge() const;
 
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
   AdjacencyMatrix Minor(int i, int j);
@@ -39,10 +43,13 @@ class AdjacencyMatrix {
   // Минимальный элемент в каждой строке и в каждом столбце
   std::vector<float> min_numbers;
   // Оценки пути для данной матрицы(первая и более точная)
-  std::pair<float, float> evaluation;
+  float evaluation;
+  // ребро, которое выбирается для следующего шага в алгоритме Литтла
+  std::pair<int, int> selected_edge;
 
-  // Возвращает 2 числа: Первая оценка снизу и вторая, более точная оценка снизу
-  void BottomLineEvaluations();
+  // Возвращает 2 числа: Первая оценка снизу и вторая, более точная оценка
+  // снизу
+  void BottomLineEvaluation();
 
   // Найти 2 минимума в стоке или столбце
   Minimums FindTwoMinimums(Mins type, int index) const;

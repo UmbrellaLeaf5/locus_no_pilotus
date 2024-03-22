@@ -6,9 +6,7 @@ void AdjacencyMatrix::SetMatrixValue(int i, int j, float num) {
   matrix[i][j] = num;
 }
 
-std::pair<float, float> AdjacencyMatrix::GetBottomLineEvaluations() const {
-  return evaluation;
-}
+float AdjacencyMatrix::GetBottomLineEvaluation() const { return evaluation; }
 
 AdjacencyMatrix AdjacencyMatrix::Minor(int i, int j) {
   AdjacencyMatrix minor{n - 1};
@@ -24,12 +22,9 @@ AdjacencyMatrix AdjacencyMatrix::Minor(int i, int j) {
   return minor;
 }
 
-void AdjacencyMatrix::BottomLineEvaluations() {
-  evaluation.first = ReductionLine() + ReductionColumn();
-  std::pair<int, int> zero_pos = HighestPowerOfZero();
-  matrix[zero_pos.first][zero_pos.second] = FLT_MAX;
-  evaluation.second = ReductionLine() + ReductionColumn();
-  evaluation.second += evaluation.first;
+void AdjacencyMatrix::BottomLineEvaluation() {
+  evaluation = ReductionLine() + ReductionColumn();
+  selected_edge = HighestPowerOfZero();
 }
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, int index) const {
