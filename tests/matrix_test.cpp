@@ -19,9 +19,11 @@ BOOST_AUTO_TEST_CASE(random_matrix_3x3) {
   AdjacencyMatrix matrix = AdjacencyMatrix(
       {{FLT_MAX, 80, 98}, {91, FLT_MAX, 59}, {16, 21, FLT_MAX}});
 
-  std::pair<float, float> asmt = {155, 205};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 155;
+  std::pair<int, int> edge = {2, 3};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_CASE(random_matrix_4x4) {
@@ -30,9 +32,11 @@ BOOST_AUTO_TEST_CASE(random_matrix_4x4) {
                                             {13, 75, FLT_MAX, 63},
                                             {88, 24, 58, FLT_MAX}});
 
-  std::pair<float, float> asmt = {138, 173};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 138;
+  std::pair<int, int> edge = {4, 2};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_CASE(random_matrix_5x5) {
@@ -42,9 +46,11 @@ BOOST_AUTO_TEST_CASE(random_matrix_5x5) {
                                             {4, 78, 32, FLT_MAX, 32},
                                             {57, 86, 83, 24, FLT_MAX}});
 
-  std::pair<float, float> asmt = {146, 195};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 146;
+  std::pair<int, int> edge = {3, 2};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -57,9 +63,11 @@ BOOST_AUTO_TEST_CASE(symmetric_matrix_4x4) {
                                             {99, 81, FLT_MAX, 55},
                                             {64, 25, 55, FLT_MAX}});
 
-  std::pair<float, float> asmt = {146, 192};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 146;
+  std::pair<int, int> edge = {1, 2};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_CASE(symmetric_matrix_6x6) {
@@ -70,9 +78,11 @@ BOOST_AUTO_TEST_CASE(symmetric_matrix_6x6) {
                                             {18, 16, 19, 35, FLT_MAX, 15},
                                             {12, 54, 69, 73, 15, FLT_MAX}});
 
-  std::pair<float, float> asmt = {118, 126};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 118;
+  std::pair<int, int> edge = {2, 3};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_CASE(symmetric_matrix_10x10) {
@@ -88,9 +98,11 @@ BOOST_AUTO_TEST_CASE(symmetric_matrix_10x10) {
                        {492, 272, 20, 414, 340, 90, 105, 369, FLT_MAX, 377},
                        {62, 127, 446, 330, 406, 189, 379, 422, 377, FLT_MAX}});
 
-  std::pair<float, float> asmt = {659, 893};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 659;
+  std::pair<int, int> edge = {5, 4};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -103,9 +115,11 @@ BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_4x4) {
                                             {99, 81, FLT_MAX, 55},
                                             {64, FLT_MAX, 55, FLT_MAX}});
 
-  std::pair<float, float> asmt = {146, 218};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 146;
+  std::pair<int, int> edge = {1, 2};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_6x6) {
@@ -117,9 +131,11 @@ BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_6x6) {
                        {18, 16, 19, 35, FLT_MAX, 15},
                        {FLT_MAX, 54, 69, 73, 15, FLT_MAX}});
 
-  std::pair<float, float> asmt = {146, 184};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 146;
+  std::pair<int, int> edge = {5, 6};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_CASE(symmetric_obstacle_wise_matrix_10x10) {
@@ -135,9 +151,11 @@ BOOST_AUTO_TEST_CASE(symmetric_obstacle_wise_matrix_10x10) {
        {492, 272, 20, FLT_MAX, FLT_MAX, 90, 105, 369, FLT_MAX, 377},
        {62, 127, 446, 330, 406, 189, 379, 422, 377, FLT_MAX}});
 
-  std::pair<float, float> asmt = {708, 995};
-  BOOST_TEST(matrix.GetBottomLineEvaluations().first == asmt.first);
-  BOOST_TEST(matrix.GetBottomLineEvaluations().second == asmt.second);
+  float asmt = 708;
+  std::pair<int, int> edge = {10, 1};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

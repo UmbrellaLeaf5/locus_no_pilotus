@@ -8,6 +8,10 @@ void AdjacencyMatrix::SetMatrixValue(int i, int j, float num) {
 
 float AdjacencyMatrix::GetBottomLineEvaluation() const { return evaluation; }
 
+std::pair<int, int> AdjacencyMatrix::GetSelectedEdge() const {
+  return selected_edge;
+}
+
 AdjacencyMatrix AdjacencyMatrix::Minor(int i, int j) {
   AdjacencyMatrix minor{n - 1};
   for (int k = 0; k < n; ++k) {
