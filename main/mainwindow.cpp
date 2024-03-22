@@ -22,10 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
   tr.Draw(ui->plot);
 
   gui::TrappyCircle trc{1, 2, 50};
-  gui::Hill hill{{2, 3}, 40};
+  gui::Hill hill_1{{2, 3}, {3, 2}, {4, 4}};
+  gui::Hill hill_2({1, 4}, 0.25, 6);
 
   trc.Draw(ui->plot);
-  hill.Draw(ui->plot);
+  hill_1.Draw(ui->plot);
+  hill_2.Draw(ui->plot);
 }
 
 MainWindow::~MainWindow() { delete ui; }
