@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget* parent)
   gui::TrappyLine tr{t_1, t_2};
   tr.Draw(ui->plot);
 
-  gui::TrappyCircle trc{1, 2, 50};
+  gui::TrappyCircle trc({1, 2}, 50);
   gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
 
   trc.Draw(ui->plot);
@@ -39,7 +39,7 @@ void MainWindow::on_pushButtonAddObject_1_clicked() {
 }
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
-  gui::TrappyCircle trc{x, y, radius};
+  gui::TrappyCircle trc(x, y, radius);
   trc.Draw(ui->plot);
   ui->plot->replot();
 }

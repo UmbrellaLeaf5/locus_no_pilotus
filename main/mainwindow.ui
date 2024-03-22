@@ -253,7 +253,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -355,8 +355,8 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <y>-1</y>
     </hint>
     <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
+     <x>400</x>
+     <y>300</y>
     </hint>
    </hints>
   </connection>
