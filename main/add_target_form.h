@@ -1,6 +1,4 @@
-#ifndef ADD_TARGET_FORM_H
-#define ADD_TARGET_FORM_H
-
+#pragma once
 #include <QDialog>
 
 namespace Ui {
@@ -25,5 +23,3 @@ class AddTargetForm : public QDialog {
  private:
   Ui::AddTargetForm *ui;
 };
-
-#endif  // ADD_TARGET_FORM_H

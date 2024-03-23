@@ -1,6 +1,6 @@
 #pragma once
 
-#include <add_data_form.h>
+#include <add_trappy_circle_form.h>
 #include <add_target_form.h>
 
 #include <QMainWindow>

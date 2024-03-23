@@ -1,6 +1,4 @@
-#ifndef ADD_DATA_FORM_H
-#define ADD_DATA_FORM_H
-
+#pragma once
 #include <QDialog>
 
 namespace Ui {
@@ -26,5 +24,3 @@ class AddDataForm : public QDialog {
  private:
   Ui::AddDataForm *ui;
 };
-
-#endif  // ADD_DATA_FORM_H
