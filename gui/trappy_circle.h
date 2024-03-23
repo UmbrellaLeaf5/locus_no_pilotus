@@ -9,8 +9,7 @@ namespace gui {
 // MEANS: фигура опасной зоны
 class TrappyCircle : public Drawable {
  public:
-  // конструктора по умолчанию быть не может, так как
-  // опасная зона должна быть отрисована в конкретном месте
+  TrappyCircle() = default;
 
   inline TrappyCircle(double x, double y, double radius,
                       QColor color = QColor(200, 50, 50, 255))

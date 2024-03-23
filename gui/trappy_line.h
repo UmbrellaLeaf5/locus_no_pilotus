@@ -12,8 +12,7 @@ namespace gui {
 // MEANS: фигура линии опасного перелета
 class TrappyLine : public Drawable {
  public:
-  // конструктора по умолчанию быть не может, так как
-  // опасная зона должна быть отрисована в конкретном месте
+  TrappyLine() = default;
 
   TrappyLine(std::initializer_list<gui::Target> targets);
 
