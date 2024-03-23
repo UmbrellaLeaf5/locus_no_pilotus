@@ -31,6 +31,11 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
+void MainWindow::AddTarget(double x, double y) {
+  manager.Add(gui::Target(x, y));
+  manager.Draw(PlotManager::ObjectType::Targets);
+}
+
 void MainWindow::on_pushButtonAddTarget_clicked() {
   AddTargetForm* atf = new AddTargetForm;
   atf->setWindowTitle("Add Target");
@@ -40,10 +45,10 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
   connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
 }
 
-void MainWindow::AddTarget(double x, double y) {
-  gui::Target t(x, y);
-  t.Draw(ui->plot);
-  ui->plot->replot();
+void MainWindow::AddTrappyCircle(double x, double y, double radius,
+                                 QColor color) {
+  manager.Add(gui::TrappyCircle(x, y, radius, color));
+  manager.Draw(PlotManager::ObjectType::TrappyCircles);
 }
 
 void MainWindow::on_pushButtonAddObject_1_clicked() {
@@ -56,21 +61,19 @@ void MainWindow::on_pushButtonAddObject_1_clicked() {
           &MainWindow::AddTrappyCircle);
 }
 
-void MainWindow::AddTrappyCircle(double x, double y, double radius,
-                                 QColor color) {
-  gui::TrappyCircle trc(x, y, radius, color);
-  trc.Draw(ui->plot);
-  ui->plot->replot();
-}
-
 void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
+  // на данный момент просто добавляем новые
+  // точки при создании новой линии опасного перелета
+
   gui::Target t1(x1, y1);
   gui::Target t2(x2, y2);
-  t1.Draw(ui->plot);
-  t2.Draw(ui->plot);
-  gui::TrappyLine trl{t1, t2};
-  trl.Draw(ui->plot);
-  ui->plot->replot();
+
+  manager.Add(t1);
+  manager.Add(t2);
+  manager.Draw(PlotManager::ObjectType::Targets);
+
+  manager.Add(gui::TrappyLine({t1, t2}));
+  manager.Draw(PlotManager::ObjectType::TrappyLines);
 }
 
 void MainWindow::on_pushButtonAddObject_2_clicked() {

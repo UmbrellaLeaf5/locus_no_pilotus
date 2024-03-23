@@ -26,7 +26,7 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddObject_1_clicked();
   void on_pushButtonAddObject_2_clicked();
 
- public slots:
+  //  public slots:
   void AddTrappyCircle(double x, double y, double radius, QColor color);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);

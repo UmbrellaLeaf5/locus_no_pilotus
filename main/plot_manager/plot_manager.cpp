@@ -64,4 +64,6 @@ void PlotManager::Draw(ObjectType obj_type) const {
       break;
     }
   }
+
+  plot_->replot();
 }
