@@ -11,7 +11,7 @@ namespace lib {
 // MEANS: рельеф с высотой
 class Hill : public JSONable {
  public:
-  inline Hill() = default;
+  Hill() = default;
 
   // так как рельеф является многоугольником, его можно построить по точкам:
 

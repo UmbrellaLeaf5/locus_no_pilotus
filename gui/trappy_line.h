@@ -20,13 +20,11 @@ class TrappyLine : public Drawable {
 
   void SetNewTargets(std::initializer_list<gui::Target> targets);
 
-  inline void AddTargets(std::initializer_list<gui::Target> targets) {
+  void AddTargets(std::initializer_list<gui::Target> targets) {
     AddData(targets);
   }
 
-  inline std::vector<lib::Target> GetTargets() const {
-    return data_.GetTargets();
-  }
+  std::vector<lib::Target> GetTargets() const { return data_.GetTargets(); }
 
  private:
   // DOES: обновляет объекты в приватном поле lib::TrappyLine

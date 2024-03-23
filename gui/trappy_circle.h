@@ -11,19 +11,19 @@ class TrappyCircle : public Drawable {
  public:
   TrappyCircle() = default;
 
-  inline TrappyCircle(double x, double y, double radius,
-                      QColor color = QColor(200, 50, 50, 255))
+  TrappyCircle(double x, double y, double radius,
+               QColor color = QColor(200, 50, 50, 255))
       : data_(lib::Point{x, y}, radius), color_{color} {}
 
-  inline TrappyCircle(lib::Point center, double radius,
-                      QColor color = QColor(200, 50, 50, 255))
+  TrappyCircle(lib::Point center, double radius,
+               QColor color = QColor(200, 50, 50, 255))
       : data_(center, radius), color_{color} {}
 
-  inline lib::Point GetCenter() const { return data_.GetCenter(); }
-  inline double GetRadius() const { return data_.GetRadius(); }
+  lib::Point GetCenter() const { return data_.GetCenter(); }
+  double GetRadius() const { return data_.GetRadius(); }
 
-  inline void SetCenter(const lib::Point& center) { data_.SetCenter(center); }
-  inline void SetRadius(double radius) { data_.SetRadius(radius); }
+  void SetCenter(const lib::Point& center) { data_.SetCenter(center); }
+  void SetRadius(double radius) { data_.SetRadius(radius); }
 
   void Draw(QCustomPlot* plot) const override;
 
