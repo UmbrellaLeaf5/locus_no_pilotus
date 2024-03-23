@@ -14,11 +14,11 @@ class TrappyCircle : public JSONable {
   json Save() const override;
   JSONable* Load(const json& j) override;
 
-  inline Point GetCenter() const { return center_; }
-  inline double GetRadius() const { return radius_; }
+  Point GetCenter() const { return center_; }
+  double GetRadius() const { return radius_; }
 
-  inline void SetCenter(const Point& center) { center_ = center; }
-  inline void SetRadius(double r) { radius_ = r; }
+  void SetCenter(const Point& center) { center_ = center; }
+  void SetRadius(double r) { radius_ = r; }
 
  private:
   Point center_;

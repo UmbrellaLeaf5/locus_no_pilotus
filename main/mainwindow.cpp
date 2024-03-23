@@ -6,26 +6,30 @@
 #include "../gui/trappy_line.h"
 #include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+  manager_.SetPlot(ui->plot);
 
-  gui::Target t_1(3, 4);
-  gui::Target t_2(2, 1);
-  gui::Target t_3(1, 1);
+  {  // проверка функционала графических классов и менеджера
 
-  t_1.Draw(ui->plot);
-  t_2.Draw(ui->plot);
-  t_3.Draw(ui->plot);
+    gui::Target t_1(3, 4);
+    gui::Target t_2(2, 1);
+    gui::Target t_3(1, 1);
 
-  gui::TrappyLine tr{t_1, t_2};
-  tr.Draw(ui->plot);
+    manager_.Set({t_1, t_2, t_3});
 
-  gui::TrappyCircle trc{1, 2, 50};
-  gui::Hill hill{{2, 3}, 40};
+    gui::TrappyLine tr{t_1, t_2};
+    manager_.Add(tr);
 
-  trc.Draw(ui->plot);
-  hill.Draw(ui->plot);
+    gui::TrappyCircle trc({1, 2}, 50);
+    manager_.Add(trc);
+
+    gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
+    manager_.Add(hill);
+
+    manager_.Draw();
+  }
 }
 
 MainWindow::~MainWindow() { delete ui; }

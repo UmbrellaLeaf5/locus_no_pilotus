@@ -8,13 +8,9 @@ struct Point {
 
   Point(double x = 0, double y = 0) : x{x}, y{y} {}
 
-  Point(const Point& p) : x{p.x}, y{p.y} {}
+  Point(const Point& p) = default;
 
-  inline Point& operator=(const Point& p) {
-    x = p.x;
-    y = p.y;
-    return *this;
-  }
+  Point& operator=(const Point& p) = default;
 
   Point& operator+=(const Point& d) {
     x += d.x;

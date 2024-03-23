@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
+project(locus_no_pilotus)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_AUTOUIC ON)

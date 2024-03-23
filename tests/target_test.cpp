@@ -16,21 +16,15 @@ using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(target)
 
-BOOST_AUTO_TEST_CASE(zero) {
-  {
-    Target t(0, 0);
-    BOOST_TEST(t.GetPoint().x == 0);
-    BOOST_TEST(t.GetPoint().y == 0);
-  }
-  {
-    Target t(1, 0);
-    BOOST_TEST(t.GetPoint().x == 1);
-    BOOST_TEST(t.GetPoint().y == 0);
-  }
-  {
-    Target t(0, 1);
-    BOOST_TEST(t.GetPoint().x == 0);
-    BOOST_TEST(t.GetPoint().y == 1);
+BOOST_AUTO_TEST_CASE(simple_construct) {
+  struct {
+    double x, y;
+  } cases[] = {{0, 0}, {0, 1}, {1, 0}};
+
+  for (auto c : cases) {
+    Target t(c.x, c.y);
+    BOOST_TEST(t.GetPoint().x == c.x);
+    BOOST_TEST(t.GetPoint().y == c.y);
   }
 }
 

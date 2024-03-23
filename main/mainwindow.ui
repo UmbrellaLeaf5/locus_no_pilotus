@@ -13,208 +13,239 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QCustomPlot" name="plot" native="true">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>0</y>
-      <width>730</width>
-      <height>560</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string>QPushButton::hover{background-color: rgb(184, 184, 184);}
+  <widget class="QWidget" name="mainLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="buttonLayout">
+      <item>
+       <widget class="QPushButton" name="pushButtonDrawTrajectory">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton::hover{background-color: rgb(184,184,184);
+border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>50</width>
-      <height>575</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButtonDrawTrajectory">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../images/play_triangle.png</normaloff>../images/play_triangle.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonAddTarget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../images/play_triangle.png</normaloff>../images/play_triangle.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>40</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonAddTarget">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../images/target.png</normaloff>../images/target.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonAddTrappyCircle">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../images/target.png</normaloff>../images/target.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>40</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonAddObject_1">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../images/AA.png</normaloff>../images/AA.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonAddTrappyLine">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../images/AA.png</normaloff>../images/AA.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>40</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonAddObject_2">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonAddHill">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>40</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonAddObject_3">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../images/high_hills.png</normaloff>../images/high_hills.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonEditObjects">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../images/high_hills.png</normaloff>../images/high_hills.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>40</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonEditObjects">
-       <property name="minimumSize">
-        <size>
-         <width>50</width>
-         <height>50</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);}
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../images/sliders.png</normaloff>../images/sliders.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QCustomPlot" name="plot" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string>QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
 QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset>
-         <normaloff>../images/sliders.png</normaloff>../images/sliders.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>40</width>
-         <height>40</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </widget>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -222,7 +253,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -256,25 +287,40 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <property name="text">
     <string>New</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSave">
    <property name="text">
     <string>Save</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionSave_as">
    <property name="text">
     <string>Save as...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
   </action>
   <action name="actionFormat">
    <property name="text">
     <string>Format</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
   <action name="actionStyle">
@@ -297,5 +343,22 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionNew</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

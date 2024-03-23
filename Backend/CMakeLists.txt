@@ -5,3 +5,7 @@ project(backend VERSION 0.1 LANGUAGES CXX)
 file(GLOB PROJECT_SOURCES "*.h" "*.cpp")
 
 add_library(backend STATIC ${PROJECT_SOURCES})
+
+install(TARGETS backend
+  RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
+)
