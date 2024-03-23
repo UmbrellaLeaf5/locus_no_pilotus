@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddObject_1_clicked();
 
  public slots:
-  void AddTrappyCircle(double x, double y, double radius);
+  void AddTrappyCircle(double x, double y, double radius, QColor color);
 
  private:
   Ui::MainWindow* ui;

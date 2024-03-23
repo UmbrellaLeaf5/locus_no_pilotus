@@ -15,9 +15,12 @@ class AddDataForm : public QDialog {
   ~AddDataForm();
 
  signals:
-  void AddTrappyCircle(double x, double y, double radius);
+  void AddTrappyCircle(double x, double y, double radius, QColor color);
 
  private slots:
+
+  void on_pushButton_clicked();
+  void on_pushButton_2_clicked();
   void on_pushButton_3_clicked();
 
  private:

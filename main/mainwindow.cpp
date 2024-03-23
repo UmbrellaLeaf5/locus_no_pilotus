@@ -38,8 +38,9 @@ void MainWindow::on_pushButtonAddObject_1_clicked() {
           &MainWindow::AddTrappyCircle);
 }
 
-void MainWindow::AddTrappyCircle(double x, double y, double radius) {
-  gui::TrappyCircle trc(x, y, radius);
+void MainWindow::AddTrappyCircle(double x, double y, double radius,
+                                 QColor color) {
+  gui::TrappyCircle trc(x, y, radius, color);
   trc.Draw(ui->plot);
   ui->plot->replot();
 }
