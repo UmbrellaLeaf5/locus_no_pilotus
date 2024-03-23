@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.20)
 
 project(main VERSION 0.1 LANGUAGES CXX)
 
-file(GLOB PROJECT_SOURCES "*.h" "*.cpp" "*.ui" "${CMAKE_CURRENT_LIST_DIR}/add_objects_forms/*.h" "${CMAKE_CURRENT_LIST_DIR}/add_objects_forms/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/add_objects_forms/*.ui")
+file(GLOB PROJECT_SOURCES "*.h" "*.cpp" "*.ui"
+  "${CMAKE_CURRENT_LIST_DIR}/add_objects_forms/*.h" "${CMAKE_CURRENT_LIST_DIR}/add_objects_forms/*.cpp" "${CMAKE_CURRENT_LIST_DIR}/add_objects_forms/*.ui"
+  "${CMAKE_CURRENT_LIST_DIR}/plot_manager/*.h" "${CMAKE_CURRENT_LIST_DIR}/plot_manager/*.cpp")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(main

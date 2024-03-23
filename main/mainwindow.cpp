@@ -9,23 +9,24 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+  manager.SetPlot(ui->plot);
 
   gui::Target t_1(3, 4);
   gui::Target t_2(2, 1);
   gui::Target t_3(1, 1);
 
-  t_1.Draw(ui->plot);
-  t_2.Draw(ui->plot);
-  t_3.Draw(ui->plot);
+  manager.Set({t_1, t_2, t_3});
 
   gui::TrappyLine tr{t_1, t_2};
-  tr.Draw(ui->plot);
+  manager.Add(tr);
 
   gui::TrappyCircle trc({1, 2}, 50);
-  gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
+  manager.Add(trc);
 
-  trc.Draw(ui->plot);
-  hill.Draw(ui->plot);
+  gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
+  manager.Add(hill);
+
+  manager.Draw();
 }
 
 MainWindow::~MainWindow() { delete ui; }

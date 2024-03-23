@@ -3,6 +3,7 @@
 #include <add_objects_forms/add_target_form.h>
 #include <add_objects_forms/add_trappy_circle_form.h>
 #include <add_objects_forms/add_trappy_line_form.h>
+#include <plot_manager/plot_manager.h>
 
 #include <QMainWindow>
 
@@ -31,5 +32,6 @@ class MainWindow : public QMainWindow {
   void AddTrappyLine(double x1, double y1, double x2, double y2);
 
  private:
+  PlotManager manager;
   Ui::MainWindow* ui;
 };
