@@ -32,6 +32,6 @@ class MainWindow : public QMainWindow {
   void AddTrappyLine(double x1, double y1, double x2, double y2);
 
  private:
-  PlotManager manager;
+  PlotManager manager_;
   Ui::MainWindow* ui;
 };

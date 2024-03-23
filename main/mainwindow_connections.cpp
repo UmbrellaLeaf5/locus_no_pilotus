@@ -9,8 +9,8 @@
 #include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {
-  manager.Add(gui::Target(x, y));
-  manager.Draw(PlotManager::ObjectType::Targets);
+  manager_.Add(gui::Target(x, y));
+  manager_.Draw(PlotManager::ObjectType::Targets);
 }
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
@@ -24,8 +24,8 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius,
                                  QColor color) {
-  manager.Add(gui::TrappyCircle(x, y, radius, color));
-  manager.Draw(PlotManager::ObjectType::TrappyCircles);
+  manager_.Add(gui::TrappyCircle(x, y, radius, color));
+  manager_.Draw(PlotManager::ObjectType::TrappyCircles);
 }
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   AddTrappyCircleForm* adf = new AddTrappyCircleForm;
@@ -44,12 +44,12 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   gui::Target t1(x1, y1);
   gui::Target t2(x2, y2);
 
-  manager.Add(t1);
-  manager.Add(t2);
-  manager.Draw(PlotManager::ObjectType::Targets);
+  manager_.Add(t1);
+  manager_.Add(t2);
+  manager_.Draw(PlotManager::ObjectType::Targets);
 
-  manager.Add(gui::TrappyLine({t1, t2}));
-  manager.Draw(PlotManager::ObjectType::TrappyLines);
+  manager_.Add(gui::TrappyLine({t1, t2}));
+  manager_.Draw(PlotManager::ObjectType::TrappyLines);
 }
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   AddTrappyLineForm* adl = new AddTrappyLineForm;

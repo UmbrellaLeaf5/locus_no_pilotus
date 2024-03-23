@@ -9,7 +9,7 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  manager.SetPlot(ui->plot);
+  manager_.SetPlot(ui->plot);
 
   {  // проверка функционала графических классов и менеджера
 
@@ -17,18 +17,18 @@ MainWindow::MainWindow(QWidget* parent)
     gui::Target t_2(2, 1);
     gui::Target t_3(1, 1);
 
-    manager.Set({t_1, t_2, t_3});
+    manager_.Set({t_1, t_2, t_3});
 
     gui::TrappyLine tr{t_1, t_2};
-    manager.Add(tr);
+    manager_.Add(tr);
 
     gui::TrappyCircle trc({1, 2}, 50);
-    manager.Add(trc);
+    manager_.Add(trc);
 
     gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
-    manager.Add(hill);
+    manager_.Add(hill);
 
-    manager.Draw();
+    manager_.Draw();
   }
 }
 
