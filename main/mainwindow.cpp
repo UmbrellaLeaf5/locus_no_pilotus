@@ -30,8 +30,25 @@ MainWindow::MainWindow(QWidget* parent)
 
 MainWindow::~MainWindow() { delete ui; }
 
+void MainWindow::on_pushButtonAddTarget_clicked() {
+  AddTargetForm* atf = new AddTargetForm;
+  atf->setWindowTitle("Add Target");
+  atf->setWindowIcon(QIcon("../images/target.png"));
+  atf->setModal(true);
+  atf->show();
+  connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
+}
+
+void MainWindow::AddTarget(double x, double y) {
+  gui::Target t(x, y);
+  t.Draw(ui->plot);
+  ui->plot->replot();
+}
+
 void MainWindow::on_pushButtonAddObject_1_clicked() {
   AddDataForm* adf = new AddDataForm;
+  adf->setWindowTitle("Add Trappy Circle");
+  adf->setWindowIcon(QIcon("../images/AA.png"));
   adf->setModal(true);
   adf->show();
   connect(adf, &AddDataForm::AddTrappyCircle, this,

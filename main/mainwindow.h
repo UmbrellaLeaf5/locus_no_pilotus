@@ -1,6 +1,7 @@
 #pragma once
 
 #include <add_data_form.h>
+#include <add_target_form.h>
 
 #include <QMainWindow>
 
@@ -21,8 +22,11 @@ class MainWindow : public QMainWindow {
  private slots:
   void on_pushButtonAddObject_1_clicked();
 
+  void on_pushButtonAddTarget_clicked();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius, QColor color);
+  void AddTarget(double x, double y);
 
  private:
   Ui::MainWindow* ui;
