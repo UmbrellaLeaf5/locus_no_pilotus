@@ -2,15 +2,15 @@
 #include <QDialog>
 
 namespace Ui {
-class AddDataForm;
+class AddTrappyCircleForm;
 }
 
-class AddDataForm : public QDialog {
+class AddTrappyCircleForm : public QDialog {
   Q_OBJECT
 
  public:
-  explicit AddDataForm(QWidget *parent = nullptr);
-  ~AddDataForm();
+  explicit AddTrappyCircleForm(QWidget *parent = nullptr);
+  ~AddTrappyCircleForm();
 
  signals:
   void AddTrappyCircle(double x, double y, double radius, QColor color);
@@ -22,5 +22,5 @@ class AddDataForm : public QDialog {
   void on_pushButton_3_clicked();
 
  private:
-  Ui::AddDataForm *ui;
+  Ui::AddTrappyCircleForm *ui;
 };
