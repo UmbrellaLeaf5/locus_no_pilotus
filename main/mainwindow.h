@@ -1,9 +1,10 @@
 #pragma once
 
-#include <add_trappy_circle_form.h>
-#include <add_target_form.h>
+#include <add_objects_forms/add_target_form.h>
+#include <add_objects_forms/add_trappy_circle_form.h>
 
 #include <QMainWindow>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
