@@ -46,12 +46,12 @@ void MainWindow::AddTarget(double x, double y) {
 }
 
 void MainWindow::on_pushButtonAddObject_1_clicked() {
-  AddDataForm* adf = new AddDataForm;
+  AddTrappyCircleForm* adf = new AddTrappyCircleForm;
   adf->setWindowTitle("Add Trappy Circle");
   adf->setWindowIcon(QIcon("../images/AA.png"));
   adf->setModal(true);
   adf->show();
-  connect(adf, &AddDataForm::AddTrappyCircle, this,
+  connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
           &MainWindow::AddTrappyCircle);
 }
 
@@ -60,4 +60,24 @@ void MainWindow::AddTrappyCircle(double x, double y, double radius,
   gui::TrappyCircle trc(x, y, radius, color);
   trc.Draw(ui->plot);
   ui->plot->replot();
+}
+
+void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
+  gui::Target t1(x1, y1);
+  gui::Target t2(x2, y2);
+  t1.Draw(ui->plot);
+  t2.Draw(ui->plot);
+  gui::TrappyLine trl{t1, t2};
+  trl.Draw(ui->plot);
+  ui->plot->replot();
+}
+
+void MainWindow::on_pushButtonAddObject_2_clicked() {
+  AddTrappyLineForm* adl = new AddTrappyLineForm;
+  adl->setWindowTitle("Add Trappy Line");
+  adl->setWindowIcon(QIcon("../images/enemy.png"));
+  adl->setModal(true);
+  adl->show();
+  connect(adl, &AddTrappyLineForm::AddTrappyLine, this,
+          &MainWindow::AddTrappyLine);
 }
