@@ -85,7 +85,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddObject_1">
+       <widget class="QPushButton" name="pushButtonAddTrappyCircle">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -118,7 +118,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddObject_2">
+       <widget class="QPushButton" name="pushButtonAddTrappyLine">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -151,7 +151,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddObject_3">
+       <widget class="QPushButton" name="pushButtonAddHill">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -253,7 +253,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -351,8 +351,8 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <slot>update()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>0</x>
-     <y>0</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
     <hint type="destinationlabel">
      <x>400</x>

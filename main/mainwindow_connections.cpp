@@ -27,8 +27,7 @@ void MainWindow::AddTrappyCircle(double x, double y, double radius,
   manager.Add(gui::TrappyCircle(x, y, radius, color));
   manager.Draw(PlotManager::ObjectType::TrappyCircles);
 }
-
-void MainWindow::on_pushButtonAddObject_1_clicked() {
+void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   AddTrappyCircleForm* adf = new AddTrappyCircleForm;
   adf->setWindowTitle("Add Trappy Circle");
   adf->setWindowIcon(QIcon("../images/AA.png"));
@@ -52,8 +51,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   manager.Add(gui::TrappyLine({t1, t2}));
   manager.Draw(PlotManager::ObjectType::TrappyLines);
 }
-
-void MainWindow::on_pushButtonAddObject_2_clicked() {
+void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   AddTrappyLineForm* adl = new AddTrappyLineForm;
   adl->setWindowTitle("Add Trappy Line");
   adl->setWindowIcon(QIcon("../images/enemy.png"));
