@@ -15,6 +15,16 @@ namespace utf = boost::unit_test;
 
 BOOST_AUTO_TEST_SUITE(random_matrix)
 
+BOOST_AUTO_TEST_CASE(random_matrix_2x2) {
+  AdjacencyMatrix matrix = AdjacencyMatrix({{FLT_MAX, 80}, {91, FLT_MAX}});
+
+  float asmt = 171;
+  std::pair<int, int> edge = {1, 2};
+  BOOST_TEST(matrix.GetBottomLineEvaluation() == asmt);
+  BOOST_TEST(matrix.GetSelectedEdge().first == edge.first - 1);
+  BOOST_TEST(matrix.GetSelectedEdge().second == edge.second - 1);
+}
+
 BOOST_AUTO_TEST_CASE(random_matrix_3x3) {
   AdjacencyMatrix matrix = AdjacencyMatrix(
       {{FLT_MAX, 80, 98}, {91, FLT_MAX, 59}, {16, 21, FLT_MAX}});
