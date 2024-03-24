@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>200</height>
+    <height>225</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,9 +24,9 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="inputLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="abscissaLabel">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -38,7 +38,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="abscissaLineEdit">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -47,7 +47,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="ordinateLabel">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -59,7 +59,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="ordinateLineEdit">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -70,9 +70,9 @@
      </layout>
     </item>
     <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="buttonsLayout">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="clearButton">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -84,7 +84,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="createButton">
         <property name="font">
          <font>
           <family>Verdana</family>

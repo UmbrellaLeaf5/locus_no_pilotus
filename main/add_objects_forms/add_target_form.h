@@ -16,9 +16,8 @@ class AddTargetForm : public QDialog {
   void AddTarget(double x, double y);
 
  private slots:
-  void on_pushButton_clicked();
-
-  void on_pushButton_2_clicked();
+  void on_clearButton_clicked();
+  void on_createButton_clicked();
 
  private:
   Ui::AddTargetForm *ui;

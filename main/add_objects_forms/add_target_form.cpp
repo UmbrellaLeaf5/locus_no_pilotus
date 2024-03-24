@@ -9,14 +9,14 @@ AddTargetForm::AddTargetForm(QWidget *parent)
 
 AddTargetForm::~AddTargetForm() { delete ui; }
 
-void AddTargetForm::on_pushButton_clicked() {
-  ui->lineEdit->clear();
-  ui->lineEdit_2->clear();
+void AddTargetForm::on_clearButton_clicked() {
+  ui->abscissaLineEdit->clear();
+  ui->ordinateLineEdit->clear();
 }
 
-void AddTargetForm::on_pushButton_2_clicked() {
-  double x = (ui->lineEdit->displayText()).toDouble();
-  double y = (ui->lineEdit_2->displayText()).toDouble();
+void AddTargetForm::on_createButton_clicked() {
+  double x = (ui->abscissaLineEdit->displayText()).toDouble();
+  double y = (ui->ordinateLineEdit->displayText()).toDouble();
   emit AddTarget(x, y);
   close();
 }
