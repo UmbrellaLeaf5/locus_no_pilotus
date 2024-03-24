@@ -109,7 +109,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="colorPushButton">
+       <widget class="QPushButton" name="colorSelectPushButton">
         <property name="font">
          <font>
           <family>Verdana</family>
