@@ -24,12 +24,20 @@ class AdjacencyMatrix {
   }
   enum Mins { Rows, Columns };
 
+  // Копирующее присваивание для матрицы
+  AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
+
   // Изменение элемента матрицы
   void SetMatrixValue(int i, int j, float num);
+
+  // Возвращает размер матрицы
+  int GetSize() const;
 
   // Возвращает оценку расстояния
   float GetBottomLineEvaluation() const;
 
+  // Возвращает выбранное на данной итерации
+  // ребро для последующего рассмотрения
   std::pair<int, int> GetSelectedEdge() const;
 
   // Возвращает минор матрицы(без i-той строки и j-того столбца)

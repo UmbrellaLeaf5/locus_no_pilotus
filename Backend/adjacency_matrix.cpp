@@ -2,9 +2,17 @@
 
 #include <cfloat>
 
+AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& m) {
+  n = m.GetSize();
+  matrix = m.matrix;
+  return *this;
+}
+
 void AdjacencyMatrix::SetMatrixValue(int i, int j, float num) {
   matrix[i][j] = num;
 }
+
+int AdjacencyMatrix::GetSize() const { return n; }
 
 float AdjacencyMatrix::GetBottomLineEvaluation() const { return evaluation; }
 
