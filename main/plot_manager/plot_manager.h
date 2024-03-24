@@ -10,7 +10,7 @@
 #include "../../gui/trappy_line.h"
 #include "qcustomplot.h"
 
-// MEANS: вспомогательный класс, упрощает управление классами gui на QCustomPlot
+// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotManager {
  public:
   PlotManager() = default;
@@ -18,17 +18,22 @@ class PlotManager {
   PlotManager(QCustomPlot* plot)
       : hills_(0), targets_(0), tr_circles_(0), tr_lines_(0), plot_(plot) {}
 
-  // MEANS: типы объектов по категориям
+  // @brief типы объектов по категориям
   enum ObjectType { Hills, Targets, TrappyCircles, TrappyLines, All };
 
   // methods
 
-  // DOES: привязывает менеджер к полотну
-  // ARGS: [QCustomPlot*]: указатель на полотно
+  /**
+   * @brief устанавливает значение plot
+   * (привязывает менеджер к полотну)
+   * @param plot указатель на полотно
+   */
   void SetPlot(QCustomPlot* plot) { plot_.reset(plot); }
 
-  // DOES: отрисовывает на полотне определенные категории объектов
-  // ARGS: [ObjectType]: тип категории объектов
+  /**
+   * @brief отрисовывает на полотне определенные категории объектов
+   * @param obj_type тип категории объектов
+   */
   void Draw(ObjectType obj_type = ObjectType::All) const;
 
   // ----------------------   Target methods   ----------------------
@@ -37,11 +42,17 @@ class PlotManager {
   void Add(std::initializer_list<gui::Target>);
   void Set(std::initializer_list<gui::Target>);
 
-  // RETURNS: [std::vector<gui::Target>&]: ссылки на объекты К.Т.
-  // (позволяет менять объекты, т.к. ссылка не const)
-  std::vector<gui::Target>& TargetsRef() { return targets_; }
+  /**
+   * @brief возвращает значение targets
+   * (позволяет менять объекты, т.к. ссылка не const)
+   * @return std::vector<gui::Target>& ссылки на объекты К.Т.
+   */
+  std::vector<gui::Target>& GetTargets() { return targets_; }
 
-  // RETURNS: [const std::vector<gui::Target>&]: объекты К.Т.
+  /**
+   * @brief возвращает значение targets
+   * @return const std::vector<gui::Target>& ссылки на объекты К.Т.
+   */
   const std::vector<gui::Target>& GetTargets() const { return targets_; }
 
   // ----------------------    Hill methods    ----------------------
@@ -50,9 +61,12 @@ class PlotManager {
   void Add(std::initializer_list<gui::Hill>);
   void Set(std::initializer_list<gui::Hill>);
 
-  // RETURNS: [std::vector<gui::Hill>&]: ссылки на объекты рельефа
-  // (позволяет менять объекты, т.к. ссылка не const)
-  std::vector<gui::Hill>& HillsRef() { return hills_; }
+  /**
+   * @brief возвращает значение Hills
+   * (позволяет менять объекты, т.к. ссылка не const)
+   * @return std::vector<gui::Hill>& ссылки на объекты рельефа
+   */
+  std::vector<gui::Hill>& GetHills() { return hills_; }
 
   // RETURNS: [const std::vector<gui::Hill>&]: объекты рельефа
   const std::vector<gui::Hill>& GetHills() const { return hills_; }
@@ -63,11 +77,17 @@ class PlotManager {
   void Add(std::initializer_list<gui::TrappyCircle>);
   void Set(std::initializer_list<gui::TrappyCircle>);
 
-  // RETURNS: [std::vector<gui::TrappyCircle>&]: ссылки на объекты опасной зоны
-  // (позволяет менять объекты, т.к. ссылка не const)
-  std::vector<gui::TrappyCircle>& TrappyCirclesRef() { return tr_circles_; }
+  /**
+   * @brief возвращает значение Trappy Circles
+   * (позволяет менять объекты, т.к. ссылка не const)
+   * @return std::vector<gui::TrappyCircle>& ссылки на объекты опасной зоны
+   */
+  std::vector<gui::TrappyCircle>& GetTrappyCircles() { return tr_circles_; }
 
-  // RETURNS: [const std::vector<gui::TrappyCircle>&]: объекты опасной зоны
+  /**
+   * @brief возвращает значение Trappy Circles
+   * @return const std::vector<gui::TrappyCircle>& объекты опасной зоны
+   */
   const std::vector<gui::TrappyCircle>& GetTrappyCircles() const {
     return tr_circles_;
   }
@@ -78,11 +98,19 @@ class PlotManager {
   void Add(std::initializer_list<gui::TrappyLine>);
   void Set(std::initializer_list<gui::TrappyLine>);
 
-  // RETURNS: [std::vector<gui::TrappyLine>&]: ссылки на объекты оп. перелета
-  // (позволяет менять объекты, т.к. ссылка не const)
-  std::vector<gui::TrappyLine>& TrappyLinesRef() { return tr_lines_; }
+  /**
+   * @brief возвращает значение Trappy Lines
+   * (позволяет менять объекты, т.к. ссылка не const)
+   * @return std::vector<gui::TrappyLine>& ссылки на объекты оп. перелета
+   */
+  std::vector<gui::TrappyLine>& GetTrappyLines() { return tr_lines_; }
 
-  // RETURNS: [const std::vector<gui::TrappyLine>&]: объекты оп. перелета
+  // RETURNS: [const std::vector<gui::TrappyLine>&]:
+
+  /**
+   * @brief возвращает значение Trappy Lines
+   * @return const std::vector<gui::TrappyLine>& ссылки на объекты оп. перелета
+   */
   const std::vector<gui::TrappyLine>& GetTrappyLines() const {
     return tr_lines_;
   }

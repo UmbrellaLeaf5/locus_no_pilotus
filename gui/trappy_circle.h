@@ -6,7 +6,7 @@
 
 namespace gui {
 
-// MEANS: фигура опасной зоны
+// @brief фигура опасной зоны
 class TrappyCircle : public Drawable {
  public:
   TrappyCircle() = default;

@@ -9,19 +9,29 @@
 
 namespace gui {
 
-// MEANS: фигура рельефа с высотой
+// @brief фигура рельефа с высотой
 class Hill : public Drawable {
  public:
   Hill() = default;
 
-  // MEANS: конструктор правильного многоугольного рельефа
-  // ARGS: [lib::Point]: центр описанной окружности;
-  // ARGS: [double]: радиус опис. окр.; [size_t]: кол-во вершин
+  /**
+   * @brief инициализирует новый экземпляр Hill
+   *
+   * @param center центр описанной окружности
+   * @param radius радиус опис. окр.
+   * @param vertices_amount кол-во вершин
+   * @param color цвет
+   */
   Hill(lib::Point center, double radius, std::size_t vertices_amount,
        QColor color = QColor(50, 200, 50, 255))
       : data_(center, radius, vertices_amount), color_{color} {}
 
-  // MEANS: конструктор многоугольного рельефа (по точкам)
+  /**
+   * @brief инициализирует новый экземпляр Hill
+   *
+   * @param points список точек
+   * @param color цвет
+   */
   Hill(std::initializer_list<lib::Point> points,
        QColor color = QColor(50, 200, 50, 255))
       : data_(points), color_{color} {}

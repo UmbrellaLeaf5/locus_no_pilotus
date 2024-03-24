@@ -8,7 +8,7 @@
 
 namespace lib {
 
-// MEANS: линия опасного перелета
+// @brief линия опасного перелета
 class TrappyLine : public JSONable {
  public:
   TrappyLine() = default;
