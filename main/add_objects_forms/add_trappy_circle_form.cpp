@@ -11,24 +11,26 @@ AddTrappyCircleForm::AddTrappyCircleForm(QWidget* parent)
 
 AddTrappyCircleForm::~AddTrappyCircleForm() { delete ui; }
 
-void AddTrappyCircleForm::on_pushButton_clicked() {
-  ui->lineEdit->clear();
-  ui->lineEdit_2->clear();
-  ui->lineEdit_3->clear();
-  ui->lineEdit_4->clear();
+void AddTrappyCircleForm::on_clearPushButton_clicked() {
+  ui->abscissaLineEdit->clear();
+  ui->ordinateLineEdit->clear();
+  ui->radiusLineEdit->clear();
+  ui->colorLineEdit->clear();
 }
 
-void AddTrappyCircleForm::on_pushButton_2_clicked() {
+void AddTrappyCircleForm::on_colorSelectPushButton_clicked() {
   QColorDialog* qcd = new QColorDialog;
   qcd->setModal(true);
-  ui->lineEdit_4->setText(qcd->getColor().name());
+  ui->colorLineEdit->setText(qcd->getColor().name());
 }
 
-void AddTrappyCircleForm::on_pushButton_3_clicked() {
-  double x = (ui->lineEdit->displayText()).toDouble();
-  double y = (ui->lineEdit_2->displayText()).toDouble();
-  double radius = (ui->lineEdit_3->displayText()).toDouble();
-  QColor color = QColor(ui->lineEdit_4->displayText());
+void AddTrappyCircleForm::on_createPushButton_clicked() {
+  double x = (ui->abscissaLineEdit->displayText()).toDouble();
+  double y = (ui->ordinateLineEdit->displayText()).toDouble();
+  double radius = (ui->radiusLineEdit->displayText()).toDouble();
+
+  QColor color = QColor(ui->colorLineEdit->displayText());
+
   emit AddTrappyCircle(x, y, radius, color);
   close();
 }

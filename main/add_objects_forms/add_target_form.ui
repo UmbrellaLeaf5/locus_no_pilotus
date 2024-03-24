@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>225</height>
+    <height>220</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,7 +72,7 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="buttonsLayout">
       <item>
-       <widget class="QPushButton" name="clearButton">
+       <widget class="QPushButton" name="clearPushButton">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -84,7 +84,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="createButton">
+       <widget class="QPushButton" name="createPushButton">
         <property name="font">
          <font>
           <family>Verdana</family>
