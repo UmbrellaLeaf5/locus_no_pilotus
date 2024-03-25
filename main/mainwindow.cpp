@@ -13,13 +13,13 @@ MainWindow::MainWindow(QWidget* parent)
   manager_.SetPlot(ui->plot);
 
   {  // проверка функционала графических классов и менеджера
-//     IC();  // IGNORE
+     //     IC();  // IGNORE
     gui::Target t_1(3, 4);
     gui::Target t_2(2, 1);
     gui::Target t_3(1, 1);
 
-//     IC(t_3.GetPoint().x);  // IGNORE
-//     IC(t_3.GetPoint().y);  // IGNORE
+    //     IC(t_3.GetPoint().x);  // IGNORE
+    //     IC(t_3.GetPoint().y);  // IGNORE
 
     manager_.Set({t_1, t_2, t_3});
 
