@@ -5,7 +5,7 @@
 
 namespace lib {
 
-// MEANS: контрольная точка
+// @brief контрольная точка
 class Target : public JSONable {
  public:
   Target(double x, double y) : p_(x, y) {}

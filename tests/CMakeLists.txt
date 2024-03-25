@@ -4,7 +4,7 @@ project(tests VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_FLAGS "-DTEST_PLOTS")
 
-file(GLOB PROJECT_SOURCES "*.h" "*.cpp" "*.ui")
+file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp" "*.ui")
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(tests
@@ -47,9 +47,11 @@ set_target_properties(tests PROPERTIES
   MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
 
-install(TARGETS tests
-  RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
-)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.vscode")
+  install(TARGETS tests
+    RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
+  )
+endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(tests)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,42 +23,72 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="coordinatesLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="font">
-           <font>
-            <family>Verdana</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Clear all</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="font">
-           <font>
-            <family>Verdana</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Create</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QLabel" name="abscissaLabel">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>X:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="abscissaLineEdit">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="ordianateLabel">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Y:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="ordinateLineEdit">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="radiusLabel">
+        <property name="text">
+         <string>Radius:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="radiusLineEdit">
+        <property name="font">
+         <font>
+          <family>Verdana</family>
+         </font>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item row="2" column="0">
+     <layout class="QHBoxLayout" name="colorLayout">
       <item>
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="colorLabel">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -70,14 +100,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_4">
+       <widget class="QLineEdit" name="colorLineEdit">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -86,7 +109,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="colorSelectPushButton">
         <property name="font">
          <font>
           <family>Verdana</family>
@@ -99,63 +122,29 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="buttonsLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QPushButton" name="clearPushButton">
         <property name="font">
          <font>
           <family>Verdana</family>
          </font>
         </property>
         <property name="text">
-         <string>X:</string>
+         <string>Clear all</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="font">
-         <font>
-          <family>Verdana</family>
-         </font>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QPushButton" name="createPushButton">
         <property name="font">
          <font>
           <family>Verdana</family>
          </font>
         </property>
         <property name="text">
-         <string>Y:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_2">
-        <property name="font">
-         <font>
-          <family>Verdana</family>
-         </font>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Radius:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_3">
-        <property name="font">
-         <font>
-          <family>Verdana</family>
-         </font>
+         <string>Create</string>
         </property>
        </widget>
       </item>

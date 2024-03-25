@@ -6,7 +6,7 @@
 
 namespace gui {
 
-// MEANS: фигура контрольной точки
+// @brief фигура контрольной точки
 class Target : public Drawable {
  public:
   Target() = default;

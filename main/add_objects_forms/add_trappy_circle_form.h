@@ -16,10 +16,9 @@ class AddTrappyCircleForm : public QDialog {
   void AddTrappyCircle(double x, double y, double radius, QColor color);
 
  private slots:
-
-  void on_pushButton_clicked();
-  void on_pushButton_2_clicked();
-  void on_pushButton_3_clicked();
+  void on_clearPushButton_clicked();
+  void on_createPushButton_clicked();
+  void on_colorSelectPushButton_clicked();
 
  private:
   Ui::AddTrappyCircleForm *ui;

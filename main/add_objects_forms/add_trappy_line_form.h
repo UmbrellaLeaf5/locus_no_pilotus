@@ -17,8 +17,8 @@ class AddTrappyLineForm : public QDialog {
   void AddTrappyLine(double x1, double y1, double x2, double y2);
 
  private slots:
-  void on_pushButton_clicked();
-  void on_pushButton_2_clicked();
+  void on_clearPushButton_clicked();
+  void on_createPushButton_clicked();
 
  private:
   Ui::AddTrappyLineForm *ui;
