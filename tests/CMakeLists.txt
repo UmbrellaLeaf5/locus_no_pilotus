@@ -47,11 +47,9 @@ set_target_properties(tests PROPERTIES
   MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.vscode")
-  install(TARGETS tests
-    RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
-  )
-endif()
+include("${CMAKE_CURRENT_SOURCE_DIR}/../cmake_paths.cmake")
+include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
+add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} tests)
 
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(tests)

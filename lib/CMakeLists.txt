@@ -6,8 +6,6 @@ file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp")
 
 add_library(lib STATIC ${PROJECT_SOURCES})
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.vscode")
-  install(TARGETS lib
-    RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
-  )
-endif()
+include("${CMAKE_CURRENT_SOURCE_DIR}/../cmake_paths.cmake")
+include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
+add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} lib)

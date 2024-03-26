@@ -11,8 +11,6 @@ target_link_libraries(gui PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 target_compile_definitions(gui PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(gui PUBLIC qcustomplot)
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.vscode")
-  install(TARGETS gui
-    RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
-  )
-endif()
+include("${CMAKE_CURRENT_SOURCE_DIR}/../cmake_paths.cmake")
+include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
+add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} gui)
