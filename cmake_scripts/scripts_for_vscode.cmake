@@ -28,7 +28,7 @@ function(add_qt_runtime START_DIR TARGET)
 
   foreach(SUBFOLDER ${SUBFOLDERS})
     if(IS_DIRECTORY ${SUBFOLDER})
-      load_qcustomplot_dll(${SUBFOLDER})
+      add_qt_runtime(${SUBFOLDER} TARGET)
     endif()
   endforeach()
 endfunction()
