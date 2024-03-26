@@ -49,6 +49,14 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.vscode")
   )
 endif()
 
+# and the programmer with icecream-cpp wants to use extra lib for easier code debbuging
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../icecream-cpp")
+  cmake_path(SET ICECREAM_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../icecream-cpp")
+  list(APPEND CMAKE_PREFIX_PATH ${ICECREAM_DIR})
+  find_package(IcecreamCpp)
+  include_directories(SYSTEM ${IcecreamCpp_INCLUDE_DIRS})
+endif()
+
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(main)
 endif()

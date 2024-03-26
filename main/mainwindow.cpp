@@ -4,8 +4,8 @@
 #include "../gui/target.h"
 #include "../gui/trappy_circle.h"
 #include "../gui/trappy_line.h"
-// #include "../icecream-cpp/icecream.hpp"  // IGNORE
 #include "./ui_mainwindow.h"
+// #include "icecream.hpp"  // IGNORE
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {

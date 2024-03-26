@@ -39,9 +39,3 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.vscode")
     file(COPY ${file} DESTINATION ${CMAKE_BINARY_DIR}/main)
   endforeach()
 endif()
-
-# and the programmer with icecream-cpp wants to use extra lib for easier code debbuging
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.icecream-cpp")
-  find_package(IcecreamCpp)
-  include_directories(SYSTEM ${IcecreamCpp_INCLUDE_DIRS})
-endif()
