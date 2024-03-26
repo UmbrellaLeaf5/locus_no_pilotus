@@ -10,7 +10,7 @@ function(add_icecream_cpp_lib START_DIR)
 
   foreach(ABOVEFOLDER ${ABOVEFOLDERS})
     if(IS_DIRECTORY ${ABOVEFOLDER})
-      if (${ABOVEFOLDER} MATCHES "locus_no_pilotus")
+      if(${ABOVEFOLDER} MATCHES "locus_no_pilotus")
         message("IcecreamCpp not found.")
         return()
       else()
