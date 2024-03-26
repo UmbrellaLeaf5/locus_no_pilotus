@@ -48,12 +48,8 @@ include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
 add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} main)
 
 # and the programmer with icecream-cpp wants to use extra lib for easier code debbuging
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../icecream-cpp")
-  cmake_path(SET ICECREAM_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../icecream-cpp")
-  list(APPEND CMAKE_PREFIX_PATH ${ICECREAM_DIR})
-  find_package(IcecreamCpp)
-  include_directories(SYSTEM ${IcecreamCpp_INCLUDE_DIRS})
-endif()
+include(${CMAKESCRIPTS_DIR}/scripts_for_icecream_cpp.cmake)
+add_icecream_cpp_lib(${CMAKE_CURRENT_SOURCE_DIR})
 
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(main)
