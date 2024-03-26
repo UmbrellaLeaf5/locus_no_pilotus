@@ -1,4 +1,6 @@
 function(add_icecream_cpp_lib START_DIR)
+  set(MAX_RECURSION_DEPTH 100)
+
   if(EXISTS "${START_DIR}/../icecream-cpp")
     list(APPEND CMAKE_PREFIX_PATH "${START_DIR}/../icecream-cpp")
     find_package(IcecreamCpp)
@@ -13,4 +15,8 @@ function(add_icecream_cpp_lib START_DIR)
       add_icecream_cpp_lib(${ABOVEFOLDER})
     endif()
   endforeach()
+
+  if(${__recursion_depth} EQUAL ${MAX_RECURSION_DEPTH})
+    message("IceCreamCpp not found")
+  endif()
 endfunction()
