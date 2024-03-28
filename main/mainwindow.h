@@ -25,21 +25,17 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddTarget_clicked();
   void on_pushButtonAddTrappyCircle_clicked();
   void on_pushButtonAddTrappyLine_clicked();
+  void on_pushButtonEditObjects_clicked();
 
-  //  public slots:
+  void on_actionTarget_triggered();
+  void on_actionTrappy_Circle_triggered();
+  void on_actionTrappy_Line_triggered();
+  void on_actionHill_triggered();
+
+ public slots:
   void AddTrappyCircle(double x, double y, double radius, QColor color);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
-
-  void on_actionTarget_triggered();
-
-  void on_actionTrappy_Circle_triggered();
-
-  void on_actionTrappy_Line_triggered();
-
-  void on_actionHill_triggered();
-
-  void on_pushButtonEditObjects_clicked();
 
  private:
   PlotManager manager_;

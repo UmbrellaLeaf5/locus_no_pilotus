@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget* parent)
     gui::TrappyLine tr{t_1, t_2};
     manager_.Add(tr);
 
-    gui::TrappyCircle trc({1, 2}, 50);
+    gui::TrappyCircle trc({1, 2}, 0.5);
     manager_.Add(trc);
 
     gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
