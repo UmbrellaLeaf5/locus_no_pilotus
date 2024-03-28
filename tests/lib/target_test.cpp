@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <random>
 
+#include "icecream.hpp"  //IGNORE
+
 // #include "qcustomplot.h"
 
 #if !defined(WIN32)
@@ -14,15 +16,23 @@ namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
 using namespace lib;
 
-BOOST_AUTO_TEST_SUITE(target)
+BOOST_AUTO_TEST_SUITE(lib_target)
 
 BOOST_AUTO_TEST_CASE(simple_construct) {
   struct {
     double x, y;
   } cases[] = {{0, 0}, {0, 1}, {1, 0}};
 
+  // конструктор по (double, double)
   for (auto c : cases) {
     Target t(c.x, c.y);
+    BOOST_TEST(t.GetPoint().x == c.x);
+    BOOST_TEST(t.GetPoint().y == c.y);
+  }
+
+  // конструктор по lib::Point
+  for (auto c : cases) {
+    Target t{c.x, c.y};
     BOOST_TEST(t.GetPoint().x == c.x);
     BOOST_TEST(t.GetPoint().y == c.y);
   }
