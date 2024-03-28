@@ -17,3 +17,5 @@ namespace utf = boost::unit_test;
 using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(lib_hill)
+//
+BOOST_AUTO_TEST_SUITE_END()
