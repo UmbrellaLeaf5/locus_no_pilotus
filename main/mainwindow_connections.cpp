@@ -60,3 +60,36 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   connect(adl, &AddTrappyLineForm::AddTrappyLine, this,
           &MainWindow::AddTrappyLine);
 }
+
+void MainWindow::on_actionTarget_triggered() {
+  AddTargetForm* atf = new AddTargetForm;
+  atf->setWindowTitle("Add Target");
+  atf->setWindowIcon(QIcon("../images/target.png"));
+  atf->setModal(true);
+  atf->show();
+  connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
+}
+
+void MainWindow::on_actionTrappy_Circle_triggered() {
+  AddTrappyCircleForm* adf = new AddTrappyCircleForm;
+  adf->setWindowTitle("Add Trappy Circle");
+  adf->setWindowIcon(QIcon("../images/AA.png"));
+  adf->setModal(true);
+  adf->show();
+  connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
+          &MainWindow::AddTrappyCircle);
+}
+
+void MainWindow::on_actionTrappy_Line_triggered() {
+  AddTrappyLineForm* adl = new AddTrappyLineForm;
+  adl->setWindowTitle("Add Trappy Line");
+  adl->setWindowIcon(QIcon("../images/enemy.png"));
+  adl->setModal(true);
+  adl->show();
+  connect(adl, &AddTrappyLineForm::AddTrappyLine, this,
+          &MainWindow::AddTrappyLine);
+}
+
+void MainWindow::on_actionHill_triggered() {}
+
+void MainWindow::on_pushButtonEditObjects_clicked() {}

@@ -240,8 +240,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </sizepolicy>
       </property>
       <property name="styleSheet">
-       <string>QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
-QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
+       <string notr="true"/>
       </property>
      </widget>
     </item>
@@ -253,8 +252,12 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -278,11 +281,31 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <string>Help ❔</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuAdd">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="title">
+     <string>Add➕</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionTarget"/>
+    <addaction name="actionTrappy_Circle"/>
+    <addaction name="actionTrappy_Line"/>
+    <addaction name="actionHill"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuAdd"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents"/>
+  </widget>
   <action name="actionNew">
    <property name="text">
     <string>New</string>
@@ -331,6 +354,32 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
   <action name="actionZoom">
    <property name="text">
     <string>Zoom</string>
+   </property>
+  </action>
+  <action name="actionTarget">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Target</string>
+   </property>
+  </action>
+  <action name="actionTrappy_Circle">
+   <property name="text">
+    <string>Trappy Circle</string>
+   </property>
+  </action>
+  <action name="actionTrappy_Line">
+   <property name="text">
+    <string>Trappy Line</string>
+   </property>
+  </action>
+  <action name="actionHill">
+   <property name="text">
+    <string>Hill</string>
    </property>
   </action>
  </widget>

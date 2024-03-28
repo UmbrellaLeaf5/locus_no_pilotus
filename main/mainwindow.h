@@ -31,6 +31,16 @@ class MainWindow : public QMainWindow {
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
 
+  void on_actionTarget_triggered();
+
+  void on_actionTrappy_Circle_triggered();
+
+  void on_actionTrappy_Line_triggered();
+
+  void on_actionHill_triggered();
+
+  void on_pushButtonEditObjects_clicked();
+
  private:
   PlotManager manager_;
   Ui::MainWindow* ui;
