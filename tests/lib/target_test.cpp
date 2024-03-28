@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <random>
 
-#include "icecream.hpp"  //IGNORE
+// #include "icecream.hpp"  //IGNORE
 
 // #include "qcustomplot.h"
 
@@ -26,6 +26,7 @@ BOOST_AUTO_TEST_CASE(simple_construct) {
   // конструктор по (double, double)
   for (auto c : cases) {
     Target t(c.x, c.y);
+
     BOOST_TEST(t.GetPoint().x == c.x);
     BOOST_TEST(t.GetPoint().y == c.y);
   }
@@ -33,6 +34,7 @@ BOOST_AUTO_TEST_CASE(simple_construct) {
   // конструктор по lib::Point
   for (auto c : cases) {
     Target t{c.x, c.y};
+
     BOOST_TEST(t.GetPoint().x == c.x);
     BOOST_TEST(t.GetPoint().y == c.y);
   }
@@ -44,7 +46,9 @@ BOOST_AUTO_TEST_CASE(random_get) {
   std::uniform_real_distribution<> dis(-1000, 1000);
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen);
+
     Target t(x, y);
+
     BOOST_TEST(t.GetPoint().x == x);
     BOOST_TEST(t.GetPoint().y == y);
   }
@@ -57,7 +61,9 @@ BOOST_AUTO_TEST_CASE(random_set) {
   Target t(0, 0);
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen);
+
     t.SetPoint(x, y);
+
     BOOST_TEST(t.GetPoint().x == x);
     BOOST_TEST(t.GetPoint().y == y);
   }
