@@ -31,35 +31,17 @@ void PlotManager::Set(std::initializer_list<gui::TrappyLine> tr_lines) {
 }
 
 void PlotManager::Draw(ObjectType obj_type) const {
-  switch (obj_type) {
-    case ObjectType::Targets: {
-      for (const auto& target : targets_) target.Draw(plot_.get());
-      break;
-    }
+  if (obj_type == ObjectType::Targets || obj_type == ObjectType::All)
+    for (const auto& target : targets_) target.Draw(plot_.get());
 
-    case ObjectType::Hills: {
-      for (const auto& hill : hills_) hill.Draw(plot_.get());
-      break;
-    }
+  if (obj_type == ObjectType::Hills || obj_type == ObjectType::All)
+    for (const auto& hill : hills_) hill.Draw(plot_.get());
 
-    case ObjectType::TrappyCircles: {
-      for (const auto& tr_circle : tr_circles_) tr_circle.Draw(plot_.get());
-      break;
-    }
+  if (obj_type == ObjectType::TrappyCircles || obj_type == ObjectType::All)
+    for (const auto& tr_circle : tr_circles_) tr_circle.Draw(plot_.get());
 
-    case ObjectType::TrappyLines: {
-      for (const auto& tr_line : tr_lines_) tr_line.Draw(plot_.get());
-      break;
-    }
-
-    case ObjectType::All: {
-      for (const auto& target : targets_) target.Draw(plot_.get());
-      for (const auto& hill : hills_) hill.Draw(plot_.get());
-      for (const auto& tr_circle : tr_circles_) tr_circle.Draw(plot_.get());
-      for (const auto& tr_line : tr_lines_) tr_line.Draw(plot_.get());
-      break;
-    }
-  }
+  if (obj_type == ObjectType::TrappyLines || obj_type == ObjectType::All)
+    for (const auto& tr_line : tr_lines_) tr_line.Draw(plot_.get());
 
   plot_->replot();
 }

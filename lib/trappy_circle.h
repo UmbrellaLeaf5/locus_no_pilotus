@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 #include "base.h"
 #include "point.h"
 
@@ -9,7 +11,11 @@ namespace lib {
 class TrappyCircle : public JSONable {
  public:
   TrappyCircle(Point center = {0, 0}, double radius = 0)
-      : center_{center}, radius_{radius} {}
+      : center_{center}, radius_{radius} {
+    if (radius < 0)
+      throw std::invalid_argument(
+          "trappy circle cannot have of negative radius");
+  }
 
   json Save() const override;
   JSONable* Load(const json& j) override;
