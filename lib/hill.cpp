@@ -1,14 +1,28 @@
 #include "hill.h"
 
 #include <cmath>
+#include <stdexcept>
+#include <string>
 
 namespace lib {
+
+Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
+  if (points.size() == 0 || points.size() == 1)
+    throw std::invalid_argument("hill cannot consist of one or zero points");
+}
 
 json Hill::Save() const { return json(); }
 
 JSONable* Hill::Load(const json& j) { return nullptr; }
 
 Hill::Hill(Point center, double radius, size_t vertices_amount) {
+  if (vertices_amount == 0 || vertices_amount == 1)
+    throw std::invalid_argument("hill cannot consist of " +
+                                std::to_string(vertices_amount) + " point");
+
+  if (radius < 0)
+    throw std::invalid_argument("hill cannot have of negative radius");
+
   for (size_t i = 0; i < vertices_amount; i++) {
     // каждый раз двигаем точку по окружности
     // делаем это, рассчитывая угол в зависимости от кол-ва вершин
