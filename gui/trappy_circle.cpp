@@ -3,15 +3,18 @@
 #include "qcustomplot.h"
 
 void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
-  auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
-
   // фигура представляет собой красный круг с полупрозрачной заливкой
+
+  // QPen pen;
+  // pen.setColor(color_);
 
   QColor fill_color = QColor(color_.red(), color_.green(), color_.blue(), 100);
 
-  graph->setLineStyle(QCPGraph::lsNone);
-  graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, color_,
-                                         fill_color, GetRadius()));
-
-  graph->setData({GetCenter().x}, {GetCenter().y});
+  QCPItemEllipse* ellipse = new QCPItemEllipse(plot);
+  ellipse->setPen(QColor(color_));
+  ellipse->setBrush(fill_color);
+  ellipse->topLeft->setCoords(GetCenter().x - GetRadius(),
+                              GetCenter().y + GetRadius());
+  ellipse->bottomRight->setCoords(GetCenter().x + GetRadius(),
+                                  GetCenter().y - GetRadius());
 }
