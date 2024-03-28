@@ -15,13 +15,10 @@ MainWindow::MainWindow(QWidget* parent)
   manager_.SetPlot(ui->plot);
 
   {  // проверка функционала графических классов и менеджера
-     //     IC();  // IGNORE
+
     gui::Target t_1(3, 4);
     gui::Target t_2(2, 1);
     gui::Target t_3(1, 1);
-
-    //     IC(t_3.GetPoint().x);  // IGNORE
-    //     IC(t_3.GetPoint().y);  // IGNORE
 
     manager_.Set({t_1, t_2, t_3});
 
@@ -35,16 +32,6 @@ MainWindow::MainWindow(QWidget* parent)
     manager_.Add(hill);
 
     manager_.Draw();
-
-    //     IC(manager_.GetHills().size(), manager_.GetTargets().size(),  //
-    //     IGNORE
-    //        manager_.GetTrappyCircles().size(),                        //
-    //        IGNORE manager_.GetTrappyLines().size()); // IGNORE
-    // manager_.Remove(0, PlotManager::ObjectType::All);
-    //     IC(manager_.GetHills().size(), manager_.GetTargets().size(),  //
-    //     IGNORE
-    //        manager_.GetTrappyCircles().size(),                        //
-    //        IGNORE manager_.GetTrappyLines().size()); // IGNORE
   }
 }
 
