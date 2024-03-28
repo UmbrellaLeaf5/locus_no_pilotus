@@ -10,6 +10,8 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
+  ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
+                            QCP::iSelectPlottables);
   manager_.SetPlot(ui->plot);
 
   {  // проверка функционала графических классов и менеджера
@@ -33,6 +35,16 @@ MainWindow::MainWindow(QWidget* parent)
     manager_.Add(hill);
 
     manager_.Draw();
+
+    //     IC(manager_.GetHills().size(), manager_.GetTargets().size(),  //
+    //     IGNORE
+    //        manager_.GetTrappyCircles().size(),                        //
+    //        IGNORE manager_.GetTrappyLines().size()); // IGNORE
+    // manager_.Remove(0, PlotManager::ObjectType::All);
+    //     IC(manager_.GetHills().size(), manager_.GetTargets().size(),  //
+    //     IGNORE
+    //        manager_.GetTrappyCircles().size(),                        //
+    //        IGNORE manager_.GetTrappyLines().size()); // IGNORE
   }
 }
 
