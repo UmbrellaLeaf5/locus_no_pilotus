@@ -18,12 +18,22 @@ class TravellingSalesmansProblem {
   // Отсортирован в порядке возрастания нижней оценки
   std::vector<std::shared_ptr<TSPNode>> paths_stack;
 
+  // Ребра получившегося маршрута
+  std::vector<Edge> edge_path;
+
   // Вспомогательные методы для работы с paths_stack
   // Заменяет вершину графа на её детей, без нарушения порядка
   void ExpandStack();
 
   // Находит место для вставки вершины
   size_t FindIndex(int eval) const;
+
+  // Замыкает Гамильтонов цикл обхода
+  void CompleteEdgePath();
+
+  // Перевод ребер, содержащихся в пути в
+  // последовательность обхода вершин
+  std::vector<int> ConvertToIntPath();
 
   // Возвращает порядок следования вершин в оптимальном маршруте
   // TODO: Научится порядок следования вершин в маршруте,

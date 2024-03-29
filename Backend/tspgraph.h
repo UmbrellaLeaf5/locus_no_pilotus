@@ -15,6 +15,7 @@ struct Edge {
   int end_num;
   bool is_included;
 };
+
 // Вершина графа с соответствующей матрицей смежности
 struct TSPNode {
   TSPNode(AdjacencyMatrix& m,
@@ -31,6 +32,6 @@ struct TSPNode {
   std::shared_ptr<TSPNode> with_edge = nullptr;
   std::shared_ptr<TSPNode> without_edge = nullptr;
   AdjacencyMatrix matrix;
-  float evaluation;
+  double evaluation;
   std::vector<Edge> path;
 };
