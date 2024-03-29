@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget* parent)
           SLOT(on_plot_MousePressed()));
 
   manager_.SetPlot(ui->plot);
+  manager_.SetSettingsLabels(ui->hillInfoLabel, ui->targetInfoLabel,
+                             ui->trappyCircleInfoLabel,
+                             ui->trappyLineInfoLabel);
 
   {  // проверка функционала графических классов и менеджера
 

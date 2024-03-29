@@ -26,15 +26,30 @@ class PlotManager {
   /**
    * @brief устанавливает значение plot
    * (привязывает менеджер к полотну)
-   * @param plot указатель на полотно
+   * @param plot: указатель на полотно
    */
   void SetPlot(QCustomPlot* plot) { plot_.reset(plot); }
 
   /**
-   * @brief отрисовывает на полотне определенные категории объектов
-   * @param obj_type тип категории объектов
+   * @brief устанавливает значение всех лейблов с информацией
+   * @param hills_info: лейбл с информацией о hills
+   * @param targets_info: лейбл с информацией о targets
+   * @param tr_circles_info: лейбл с информацией о trappy circles
+   * @param tr_lines_info: лейбл с информацией о trappy lines
    */
-  void Draw(ObjectType obj_type = ObjectType::All) const;
+  void SetSettingsLabels(QLabel* hills_info, QLabel* targets_info,
+                         QLabel* tr_circles_info, QLabel* tr_lines_info) {
+    hills_info_.reset(hills_info);
+    targets_info_.reset(targets_info);
+    tr_circles_info_.reset(tr_circles_info);
+    tr_lines_info_.reset(tr_lines_info);
+  }
+
+  /**
+   * @brief отрисовывает на полотне определенные типы объектов
+   * @param obj_type: тип объектов
+   */
+  void Draw(ObjectType obj_type = ObjectType::All);
 
   // ----------------------   Target methods   ----------------------
 
@@ -118,8 +133,19 @@ class PlotManager {
   // ~methods
 
  private:
+  /**
+   * @brief обновляет данный в лейблах определенных типов объектов
+   * @param obj_type: тип объектов
+   */
+  void UpdateInfo(ObjectType obj_type = ObjectType::All);
+
   // i love unique_ptr's, i love logic schemes
   std::unique_ptr<QCustomPlot> plot_;
+
+  std::unique_ptr<QLabel> hills_info_{nullptr};
+  std::unique_ptr<QLabel> targets_info_{nullptr};
+  std::unique_ptr<QLabel> tr_circles_info_{nullptr};
+  std::unique_ptr<QLabel> tr_lines_info_{nullptr};
 
   std::vector<gui::Hill> hills_;
   std::vector<gui::Target> targets_;

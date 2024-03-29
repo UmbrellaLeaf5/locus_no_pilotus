@@ -30,7 +30,7 @@ void PlotManager::Set(std::initializer_list<gui::TrappyLine> tr_lines) {
   tr_lines_ = {tr_lines.begin(), tr_lines.end()};
 }
 
-void PlotManager::Draw(ObjectType obj_type) const {
+void PlotManager::Draw(ObjectType obj_type) {
   if (obj_type == ObjectType::Targets || obj_type == ObjectType::All)
     for (const auto& target : targets_) target.Draw(plot_.get());
 
@@ -43,5 +43,66 @@ void PlotManager::Draw(ObjectType obj_type) const {
   if (obj_type == ObjectType::TrappyLines || obj_type == ObjectType::All)
     for (const auto& tr_line : tr_lines_) tr_line.Draw(plot_.get());
 
+  UpdateInfo(obj_type);
   plot_->replot();
+}
+
+void PlotManager::UpdateInfo(ObjectType obj_type) {
+  if (obj_type == ObjectType::Targets || obj_type == ObjectType::All) {
+    QString text = "Targets on plot: \n";
+    for (size_t i = 0; i < targets_.size(); i++) {
+      auto target = targets_[i];
+      text += "  target n." + std::to_string(i + 1) + ":\n";
+      text += "    x: " + std::to_string(target.GetPoint().x) + "\n";
+      text += "    y: " + std::to_string(target.GetPoint().y) + "\n";
+    }
+
+    targets_info_->setText(text);
+    targets_info_->setWordWrap(true);
+  }
+
+  if (obj_type == ObjectType::Hills || obj_type == ObjectType::All) {
+    QString text = "Hills on plot: \n";
+    for (size_t i = 0; i < hills_.size(); i++) {
+      auto hill = hills_[i];
+      text += "  hill n." + std::to_string(i + 1) + ":\n";
+      text += "    x: " + std::to_string(hill.GetCenter().x) + "\n";
+      text += "    y: " + std::to_string(hill.GetCenter().y) + "\n";
+      text += "    r: " + std::to_string(hill.GetRadius()) + "\n";
+    }
+
+    hills_info_->setText(text);
+    hills_info_->setWordWrap(true);
+  }
+
+  if (obj_type == ObjectType::TrappyCircles || obj_type == ObjectType::All) {
+    QString text = "Trappy circles on plot: \n";
+    for (size_t i = 0; i < tr_circles_.size(); i++) {
+      auto tr_circle = tr_circles_[i];
+      text += "  trappy c. n." + std::to_string(i + 1) + ":\n";
+      text += "    x: " + std::to_string(tr_circle.GetCenter().x) + "\n";
+      text += "    y: " + std::to_string(tr_circle.GetCenter().y) + "\n";
+      text += "    r: " + std::to_string(tr_circle.GetRadius()) + "\n";
+    }
+
+    tr_circles_info_->setText(text);
+    tr_circles_info_->setWordWrap(true);
+  }
+
+  if (obj_type == ObjectType::TrappyLines || obj_type == ObjectType::All) {
+    QString text = "Trappy lines on plot: \n";
+    for (size_t i = 0; i < tr_lines_.size(); i++) {
+      auto tr_line = tr_lines_[i];
+      text += "  trappy l. n." + std::to_string(i + 1) + ":\n";
+      for (size_t j = 0; j < tr_line.GetTargets().size(); j++) {
+        auto target = tr_line.GetTargets()[j];
+        text += "   target n." + std::to_string(j + 1) + ":\n";
+        text += "     x: " + std::to_string(target.GetPoint().x) + "\n";
+        text += "     y: " + std::to_string(target.GetPoint().y) + "\n";
+      }
+    }
+
+    tr_lines_info_->setText(text);
+    tr_lines_info_->setWordWrap(true);
+  }
 }

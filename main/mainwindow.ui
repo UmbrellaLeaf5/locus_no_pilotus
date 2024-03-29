@@ -324,8 +324,8 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
   <widget class="QDockWidget" name="plotSettingsDockWidget">
    <property name="minimumSize">
     <size>
-     <width>60</width>
-     <height>70</height>
+     <width>100</width>
+     <height>520</height>
     </size>
    </property>
    <property name="cursor">
@@ -349,15 +349,15 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    </attribute>
    <widget class="QWidget" name="plotSettingsDockWidgetContents">
     <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
     <property name="minimumSize">
      <size>
-      <width>50</width>
-      <height>50</height>
+      <width>100</width>
+      <height>500</height>
      </size>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget">
@@ -365,18 +365,24 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>50</width>
-       <height>530</height>
+       <width>200</width>
+       <height>600</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="plotSettingsDockWidgetLayout">
       <item>
        <widget class="QLabel" name="targetInfoLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
         </property>
         <property name="text">
          <string/>
@@ -386,10 +392,16 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
       <item>
        <widget class="QLabel" name="hillInfoLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
         </property>
         <property name="text">
          <string/>
@@ -399,10 +411,16 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
       <item>
        <widget class="QLabel" name="trappyCircleInfoLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
         </property>
         <property name="text">
          <string/>
@@ -412,10 +430,16 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
       <item>
        <widget class="QLabel" name="trappyLineInfoLabel">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
         </property>
         <property name="text">
          <string/>
