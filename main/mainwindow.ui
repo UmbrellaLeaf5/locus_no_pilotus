@@ -328,6 +328,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <widget class="QWidget" name="dockWidgetContents"/>
   </widget>
   <action name="actionNew">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/new_file.png</normaloff>../images/new_file.png</iconset>
+   </property>
    <property name="text">
     <string>New</string>
    </property>
@@ -336,6 +340,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    </property>
   </action>
   <action name="actionOpen">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/open_file.png</normaloff>../images/open_file.png</iconset>
+   </property>
    <property name="text">
     <string>Open</string>
    </property>
@@ -344,6 +352,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/save_file.png</normaloff>../images/save_file.png</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -352,6 +364,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    </property>
   </action>
   <action name="actionSave_as">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/save_file_as.png</normaloff>../images/save_file_as.png</iconset>
+   </property>
    <property name="text">
     <string>Save as...</string>
    </property>
@@ -384,21 +400,37 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <property name="checked">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/target.png</normaloff>../images/target.png</iconset>
+   </property>
    <property name="text">
     <string>Target</string>
    </property>
   </action>
   <action name="actionTrappy_Circle">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/AA.png</normaloff>../images/AA.png</iconset>
+   </property>
    <property name="text">
     <string>Trappy Circle</string>
    </property>
   </action>
   <action name="actionTrappy_Line">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
+   </property>
    <property name="text">
     <string>Trappy Line</string>
    </property>
   </action>
   <action name="actionHill">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/high_hills.png</normaloff>../images/high_hills.png</iconset>
+   </property>
    <property name="text">
     <string>Hill</string>
    </property>
