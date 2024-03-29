@@ -6,10 +6,13 @@ void gui::Hill::Draw(QCustomPlot* plot) const {
 
   auto curve = new QCPCurve(plot->xAxis, plot->yAxis);
 
+  QColor fill_color = QColor(color_.red(), color_.green(), color_.blue(), 100);
+
   QPen pen;
   pen.setColor(color_);
   pen.setStyle(Qt::SolidLine);
   curve->setPen(pen);
+  curve->setBrush(fill_color);
 
   curve->setLineStyle(QCPCurve::lsLine);
 

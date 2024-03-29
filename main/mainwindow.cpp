@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget* parent)
     gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
     manager_.Add(hill);
 
+    manager_.Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
+
     manager_.Draw();
   }
 }
