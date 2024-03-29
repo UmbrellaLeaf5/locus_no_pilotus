@@ -10,16 +10,16 @@ struct Minimums {
 
 class AdjacencyMatrix {
  public:
-  AdjacencyMatrix(size_t size) : _size{size}, _min_numbers(_size + _size) {
-    _matrix.resize(_size + 1);
-    for (auto& elem : _matrix) {
-      elem.resize(_size + 1, 0.0);
+  AdjacencyMatrix(size_t size) : size_{size}, min_numbers_(size_ + size_) {
+    matrix_.resize(size_ + 1);
+    for (auto& elem : matrix_) {
+      elem.resize(size_ + 1, 0.0);
     }
-    for (size_t i = 0; i < _size; ++i) {
-      _matrix[i][_size] = i;
-      _matrix[_size][i] = i;
+    for (size_t i = 0; i < size_; ++i) {
+      matrix_[i][size_] = i;
+      matrix_[size_][i] = i;
     }
-    _min_numbers.resize(_size + _size);
+    min_numbers_.resize(size_ + size_);
   }
 
   // Конструктор по вектору векторов
@@ -35,21 +35,21 @@ class AdjacencyMatrix {
   void SetMatrixValue(size_t i, size_t j, double num);
 
   // Возвращает размер матрицы
-  size_t GetSize() const { return _size; }
+  size_t GetSize() const { return size_; }
 
   // Возвращает элемент матрицы
-  double GetMatrixValue(size_t i, size_t j) const { return _matrix[i][j]; }
+  double GetMatrixValue(size_t i, size_t j) const { return matrix_[i][j]; }
 
   // Возвращает оценку расстояния
-  double GetBottomLineEvaluation() const { return _evaluation; }
+  double GetBottomLineEvaluation() const { return evaluation_; }
 
   // Возвращает выбранное на данной итерации
   // ребро для последующего рассмотрения
-  std::pair<size_t, size_t> GetSelectedEdge() const { return _selected_edge; }
+  std::pair<size_t, size_t> GetSelectedEdge() const { return selected_edge_; }
 
   // Возвращает выбранное на данной итерации
   // значение матрицы для последующего рассмотрения
-  std::pair<size_t, size_t> GetSelectedValue() const { return _selected_value; }
+  std::pair<size_t, size_t> GetSelectedValue() const { return selected_value_; }
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
   AdjacencyMatrix Minor(size_t i, size_t j);
 
@@ -61,20 +61,20 @@ class AdjacencyMatrix {
 
  private:
   // Размер матрицы
-  size_t _size;
+  size_t size_;
   // Матрица
-  std::vector<std::vector<double>> _matrix;
+  std::vector<std::vector<double>> matrix_;
   // Редуцированная версия матрицы
-  std::vector<std::vector<double>> _reducted_matrix;
+  std::vector<std::vector<double>> reducted_matrix_;
   // Минимальный элемент в каждой строке и в каждом столбце
-  std::vector<double> _min_numbers;
+  std::vector<double> min_numbers_;
   // Оценка пути для данной матрицы
-  double _evaluation = 0;
+  double evaluation_ = 0;
   // Ребро, которое выбирается для следующего шага в алгоритме Литтла
-  std::pair<size_t, size_t> _selected_edge;
+  std::pair<size_t, size_t> selected_edge_;
   // Значение матрицы, которое выбирается для следующего шага в алгоритме
   // Литтла
-  std::pair<size_t, size_t> _selected_value;
+  std::pair<size_t, size_t> selected_value_;
 
   // Найти 2 минимума в строке или столбце
   Minimums FindTwoMinimums(Mins type, size_t index) const;
