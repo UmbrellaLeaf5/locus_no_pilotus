@@ -11,17 +11,21 @@ struct Minimums {
 class AdjacencyMatrix {
  public:
   AdjacencyMatrix(size_t size) : n{size} {
-    matrix.resize(n);
-    for (auto elem : matrix) {
-      elem.resize(n, 0.0);
+    matrix.resize(n + 1);
+    for (auto& elem : matrix) {
+      elem.resize(n + 1, 0.0);
     }
+    for (size_t i = 0; i < n; ++i) {
+      matrix[i][n] = i;
+      matrix[n][i] = i;
+    }
+    min_numbers.resize(n + n);
   }
 
-  AdjacencyMatrix(std::vector<std::vector<float>> nums)
-      : matrix{nums}, n{nums.size()} {
-    min_numbers.resize(n + n);
-    BottomLineEvaluation();
-  }
+  // Конструктор по вектору векторов
+  // Зависит от того, является ли полученная матрица минором
+  AdjacencyMatrix(std::vector<std::vector<float>> nums, bool is_minor = false);
+
   enum Mins { Rows, Columns };
 
   // Копирующее присваивание для матрицы
@@ -40,39 +44,44 @@ class AdjacencyMatrix {
   // ребро для последующего рассмотрения
   std::pair<int, int> GetSelectedEdge() const;
 
+  // Возвращает выбранное на данной итерации
+  // значение матрицы для последующего рассмотрения
+  std::pair<int, int> GetSelectedValue() const;
+
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
   AdjacencyMatrix Minor(int i, int j);
+
+  // Возвращает редуцированную версию матрицы
+  AdjacencyMatrix Reducted();
+
+  // Считает данные для матрицы
+  void CalculateData();
 
  private:
   // Размер матрицы
   size_t n;
 
   std::vector<std::vector<float>> matrix;
+  // Редуцированная версия матрицы
+  std::vector<std::vector<float>> reducted_matrix;
   // Минимальный элемент в каждой строке и в каждом столбце
   std::vector<float> min_numbers;
-  // Оценки пути для данной матрицы(первая и более точная)
-  float evaluation;
-  // ребро, которое выбирается для следующего шага в алгоритме Литтла
+  // Оценка пути для данной матрицы
+  float evaluation = 0;
+  // Ребро, которое выбирается для следующего шага в алгоритме Литтла
   std::pair<int, int> selected_edge;
+  // Значение матрицы, которое выбирается для следующего шага в алгоритме
+  // Литтла
+  std::pair<int, int> selected_value;
 
-  // Возвращает 2 числа: Первая оценка снизу и вторая, более точная оценка
-  // снизу
-  void BottomLineEvaluation();
-
-  // Найти 2 минимума в стоке или столбце
+  // Найти 2 минимума в строке или столбце
   Minimums FindTwoMinimums(Mins type, int index) const;
 
-  // Вычитает из каждой строки минимальный элемент этой строки, находит
-  // второй минимальный элемент. Возвращаеет сумму минимальных элементов по
-  // строкам
-  float ReductionLine();
+  // Редуцирует матрицу сначала по строкам, затем по столбцам
+  // Находит нижнюю оценку для матрицы
+  float BottomLineEvaluation();
 
-  // Вычитает из каждого столбца минимальный элемент этого столбца, находит
-  // второй минимальный элемент. Возвращаеет сумму минимальных элементов по
-  // столбцам
-  float ReductionColumn();
-
-  // Возвращает позицию нуля с наибольшей степенью(сумма минимального элемента в
-  // этой же строке и в этом же столбце)
+  // Возвращает позицию нуля с наибольшей степенью(сумма минимального элемента
+  // в этой же строке и в этом же столбце)
   std::pair<int, int> HighestPowerOfZero() const;
 };
