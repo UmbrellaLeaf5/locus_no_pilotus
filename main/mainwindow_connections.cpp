@@ -7,6 +7,7 @@
 #include "../gui/trappy_circle.h"
 #include "../gui/trappy_line.h"
 #include "./ui_mainwindow.h"
+// #include "icecream.hpp"  // IGNORE
 
 void MainWindow::AddTarget(double x, double y) {
   manager_.Add(gui::Target(x, y));
@@ -87,3 +88,9 @@ void MainWindow::on_pushButtonAddHill_clicked() {
 }
 
 void MainWindow::on_pushButtonEditObjects_clicked() {}
+
+void MainWindow::on_plot_MousePressed() {
+  //   IC();  // IGNORE
+  ui->plot->setCursor(Qt::CrossCursor);
+  ui->plot->replot();
+}

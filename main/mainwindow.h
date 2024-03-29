@@ -34,6 +34,8 @@ class MainWindow : public QMainWindow {
   void on_actionTrappy_Line_triggered();
   void on_actionHill_triggered();
 
+  void on_plot_MousePressed();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius, QColor color);
   void AddTarget(double x, double y);

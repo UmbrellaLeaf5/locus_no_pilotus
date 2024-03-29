@@ -11,7 +11,11 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
   ui->setupUi(this);
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
-                            QCP::iSelectPlottables);
+                            QCP::iSelectPlottables | QCP::iSelectItems);
+
+  connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+          SLOT(on_plot_MousePressed()));
+
   manager_.SetPlot(ui->plot);
 
   {  // проверка функционала графических классов и менеджера
