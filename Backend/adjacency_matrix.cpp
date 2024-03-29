@@ -2,7 +2,7 @@
 
 #include <cfloat>
 
-AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<float>> nums,
+AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums,
                                  bool is_minor)
     : matrix{nums}, n{nums.size() - is_minor} {
   if (!is_minor) {
@@ -29,14 +29,18 @@ AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& m) {
   return *this;
 }
 
-void AdjacencyMatrix::SetMatrixValue(int i, int j, float num) {
+void AdjacencyMatrix::SetMatrixValue(int i, int j, double num) {
   matrix[i][j] = num;
   CalculateData();
 }
 
 int AdjacencyMatrix::GetSize() const { return n; }
 
-float AdjacencyMatrix::GetBottomLineEvaluation() const { return evaluation; }
+double AdjacencyMatrix::GetMatrixValue(int i, int j) const {
+  return matrix[i][j];
+}
+
+double AdjacencyMatrix::GetBottomLineEvaluation() const { return evaluation; }
 
 std::pair<int, int> AdjacencyMatrix::GetSelectedEdge() const {
   return selected_edge;
@@ -47,7 +51,7 @@ std::pair<int, int> AdjacencyMatrix::GetSelectedValue() const {
 }
 
 AdjacencyMatrix AdjacencyMatrix::Minor(int i, int j) {
-  std::vector<std::vector<float>> minor_matrix = matrix;
+  std::vector<std::vector<double>> minor_matrix = matrix;
   minor_matrix.erase(minor_matrix.begin() + i);
   for (size_t k = 0; k < n + 1; ++k) {
     minor_matrix[k].erase(minor_matrix[k].begin() + j);
@@ -65,8 +69,8 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, int index) const {
   Minimums result;
-  float first_min = FLT_MAX;
-  float second_min = FLT_MAX;
+  double first_min = FLT_MAX;
+  double second_min = FLT_MAX;
   switch (type) {
     case Mins::Rows: {
       for (int j = 0; j < n; ++j) {
@@ -105,13 +109,13 @@ Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, int index) const {
   return result;
 }
 
-float AdjacencyMatrix::BottomLineEvaluation() {
+double AdjacencyMatrix::BottomLineEvaluation() {
   reducted_matrix = matrix;
-  float mins_sum = 0;
+  double mins_sum = 0;
   for (int i = 0; i < n; ++i) {
     Minimums twoMins = FindTwoMinimums(Mins::Rows, i);
-    float first_min = twoMins.first;
-    float second_min = twoMins.second;
+    double first_min = twoMins.first;
+    double second_min = twoMins.second;
     for (int j = 0; j < n; ++j) {
       reducted_matrix[i][j] -= first_min;
     }
@@ -122,8 +126,8 @@ float AdjacencyMatrix::BottomLineEvaluation() {
 
   for (int i = 0; i < n; ++i) {
     Minimums twoMins = FindTwoMinimums(Mins::Columns, i);
-    float first_min = twoMins.first;
-    float second_min = twoMins.second;
+    double first_min = twoMins.first;
+    double second_min = twoMins.second;
     for (int j = 0; j < n; ++j) {
       if (reducted_matrix[j][i] == min_numbers[j]) min_numbers[j] -= first_min;
       reducted_matrix[j][i] -= first_min;
@@ -138,7 +142,7 @@ float AdjacencyMatrix::BottomLineEvaluation() {
 
 std::pair<int, int> AdjacencyMatrix::HighestPowerOfZero() const {
   int row = 0, col = 0;
-  float max = 0;
+  double max = 0;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
       if (reducted_matrix[i][j] == 0) {

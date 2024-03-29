@@ -4,8 +4,8 @@
 
 // Структура для хранения двух минимумов строки/столбца
 struct Minimums {
-  float first;
-  float second;
+  double first;
+  double second;
 };
 
 class AdjacencyMatrix {
@@ -24,7 +24,7 @@ class AdjacencyMatrix {
 
   // Конструктор по вектору векторов
   // Зависит от того, является ли полученная матрица минором
-  AdjacencyMatrix(std::vector<std::vector<float>> nums, bool is_minor = false);
+  AdjacencyMatrix(std::vector<std::vector<double>> nums, bool is_minor = false);
 
   enum Mins { Rows, Columns };
 
@@ -32,13 +32,16 @@ class AdjacencyMatrix {
   AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
 
   // Изменение элемента матрицы
-  void SetMatrixValue(int i, int j, float num);
+  void SetMatrixValue(int i, int j, double num);
 
   // Возвращает размер матрицы
   int GetSize() const;
 
+  // Возвращает элемент матрицы
+  double GetMatrixValue(int i, int j) const;
+
   // Возвращает оценку расстояния
-  float GetBottomLineEvaluation() const;
+  double GetBottomLineEvaluation() const;
 
   // Возвращает выбранное на данной итерации
   // ребро для последующего рассмотрения
@@ -61,13 +64,13 @@ class AdjacencyMatrix {
   // Размер матрицы
   size_t n;
 
-  std::vector<std::vector<float>> matrix;
+  std::vector<std::vector<double>> matrix;
   // Редуцированная версия матрицы
-  std::vector<std::vector<float>> reducted_matrix;
+  std::vector<std::vector<double>> reducted_matrix;
   // Минимальный элемент в каждой строке и в каждом столбце
-  std::vector<float> min_numbers;
+  std::vector<double> min_numbers;
   // Оценка пути для данной матрицы
-  float evaluation = 0;
+  double evaluation = 0;
   // Ребро, которое выбирается для следующего шага в алгоритме Литтла
   std::pair<int, int> selected_edge;
   // Значение матрицы, которое выбирается для следующего шага в алгоритме
@@ -79,7 +82,7 @@ class AdjacencyMatrix {
 
   // Редуцирует матрицу сначала по строкам, затем по столбцам
   // Находит нижнюю оценку для матрицы
-  float BottomLineEvaluation();
+  double BottomLineEvaluation();
 
   // Возвращает позицию нуля с наибольшей степенью(сумма минимального элемента
   // в этой же строке и в этом же столбце)
