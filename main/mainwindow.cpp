@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     manager_.Draw();
   }
+
+  ui->plotSettingsDockWidget->setVisible(false);
 }
 
 MainWindow::~MainWindow() { delete ui; }

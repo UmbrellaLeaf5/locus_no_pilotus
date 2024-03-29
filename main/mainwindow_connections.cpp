@@ -87,7 +87,9 @@ void MainWindow::on_pushButtonAddHill_clicked() {
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
 }
 
-void MainWindow::on_pushButtonEditObjects_clicked() {}
+void MainWindow::on_pushButtonEditObjects_clicked() {
+  ui->plotSettingsDockWidget->setVisible(true);
+}
 
 void MainWindow::on_plot_MousePressed() {
   //   IC();  // IGNORE
