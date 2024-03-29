@@ -25,6 +25,8 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddTarget_clicked();
   void on_pushButtonAddTrappyCircle_clicked();
   void on_pushButtonAddTrappyLine_clicked();
+  void on_pushButtonAddHill_clicked();
+
   void on_pushButtonEditObjects_clicked();
 
   void on_actionTarget_triggered();

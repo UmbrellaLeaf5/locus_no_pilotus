@@ -14,12 +14,16 @@ void MainWindow::AddTarget(double x, double y) {
 }
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
-  AddTargetForm* atf = new AddTargetForm;
-  atf->setWindowTitle("Add Target");
-  atf->setWindowIcon(QIcon("../images/target.png"));
-  atf->setModal(true);
-  atf->show();
-  connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
+  // AddTargetForm* atf = new AddTargetForm;
+  // atf->setWindowTitle("Add Target");
+  // atf->setWindowIcon(QIcon("../images/target.png"));
+  // atf->setModal(true);
+  // atf->show();
+
+  ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
+                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+
+  // connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
 }
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius,
@@ -28,13 +32,17 @@ void MainWindow::AddTrappyCircle(double x, double y, double radius,
   manager_.Draw(PlotManager::ObjectType::TrappyCircles);
 }
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
-  AddTrappyCircleForm* adf = new AddTrappyCircleForm;
-  adf->setWindowTitle("Add Trappy Circle");
-  adf->setWindowIcon(QIcon("../images/AA.png"));
-  adf->setModal(true);
-  adf->show();
-  connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
-          &MainWindow::AddTrappyCircle);
+  // AddTrappyCircleForm* adf = new AddTrappyCircleForm;
+  // adf->setWindowTitle("Add Trappy Circle");
+  // adf->setWindowIcon(QIcon("../images/AA.png"));
+  // adf->setModal(true);
+  // adf->show();
+
+  ui->plot->setCursor(QCursor(
+      QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+
+  // connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
+  //         &MainWindow::AddTrappyCircle);
 }
 
 void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
@@ -51,14 +59,19 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   manager_.Add(gui::TrappyLine({t1, t2}));
   manager_.Draw(PlotManager::ObjectType::TrappyLines);
 }
+
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
-  AddTrappyLineForm* adl = new AddTrappyLineForm;
-  adl->setWindowTitle("Add Trappy Line");
-  adl->setWindowIcon(QIcon("../images/enemy.png"));
-  adl->setModal(true);
-  adl->show();
-  connect(adl, &AddTrappyLineForm::AddTrappyLine, this,
-          &MainWindow::AddTrappyLine);
+  // AddTrappyLineForm* adl = new AddTrappyLineForm;
+  // adl->setWindowTitle("Add Trappy Line");
+  // adl->setWindowIcon(QIcon("../images/enemy.png"));
+  // adl->setModal(true);
+  // adl->show();
+
+  ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
+                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+
+  // connect(adl, &AddTrappyLineForm::AddTrappyLine, this,
+  //         &MainWindow::AddTrappyLine);
 }
 
 void MainWindow::on_actionTarget_triggered() {
@@ -91,5 +104,10 @@ void MainWindow::on_actionTrappy_Line_triggered() {
 }
 
 void MainWindow::on_actionHill_triggered() {}
+
+void MainWindow::on_pushButtonAddHill_clicked() {
+  ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
+                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+}
 
 void MainWindow::on_pushButtonEditObjects_clicked() {}
