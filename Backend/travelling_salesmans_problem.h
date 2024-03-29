@@ -11,7 +11,7 @@ class TravellingSalesmansProblem {
   TravellingSalesmansProblem(AdjacencyMatrix& matrix);
 
   // Возвращает оптимальный маршрут для данной задачи
-  inline std::vector<int> GetTrajectory() { return CalculateTrajectory(); }
+  inline std::vector<size_t> GetTrajectory() { return CalculateTrajectory(); }
 
  private:
   // Вектор с указателями на вершины графа
@@ -26,17 +26,17 @@ class TravellingSalesmansProblem {
   void ExpandStack();
 
   // Находит место для вставки вершины
-  size_t FindIndex(int eval) const;
+  size_t FindIndex(size_t eval) const;
 
   // Замыкает Гамильтонов цикл обхода
   void CompleteEdgePath();
 
   // Перевод ребер, содержащихся в пути в
   // последовательность обхода вершин
-  std::vector<int> ConvertToIntPath();
+  std::vector<size_t> ConvertTosize_tPath();
 
   // Возвращает порядок следования вершин в оптимальном маршруте
   // TODO: Научится порядок следования вершин в маршруте,
   // зная запрещенные и обязательные ребра
-  std::vector<int> CalculateTrajectory();
+  std::vector<size_t> CalculateTrajectory();
 };

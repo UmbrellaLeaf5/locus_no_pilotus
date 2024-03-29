@@ -9,10 +9,10 @@
 
 // Ребро между двумя контрольными точками
 struct Edge {
-  Edge(std::pair<int, int> edge, bool state)
+  Edge(std::pair<size_t, size_t> edge, bool state)
       : start_num{edge.first}, end_num{edge.second}, is_included{state} {}
-  int start_num;
-  int end_num;
+  size_t start_num;
+  size_t end_num;
   bool is_included;
 };
 

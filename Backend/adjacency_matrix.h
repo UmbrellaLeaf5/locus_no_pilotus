@@ -10,16 +10,16 @@ struct Minimums {
 
 class AdjacencyMatrix {
  public:
-  AdjacencyMatrix(size_t size) : n{size} {
-    matrix.resize(n + 1);
-    for (auto& elem : matrix) {
-      elem.resize(n + 1, 0.0);
+  AdjacencyMatrix(size_t size) : _size{size}, _min_numbers(_size + _size) {
+    _matrix.resize(_size + 1);
+    for (auto& elem : _matrix) {
+      elem.resize(_size + 1, 0.0);
     }
-    for (size_t i = 0; i < n; ++i) {
-      matrix[i][n] = i;
-      matrix[n][i] = i;
+    for (size_t i = 0; i < _size; ++i) {
+      _matrix[i][_size] = i;
+      _matrix[_size][i] = i;
     }
-    min_numbers.resize(n + n);
+    _min_numbers.resize(_size + _size);
   }
 
   // Конструктор по вектору векторов
@@ -32,27 +32,26 @@ class AdjacencyMatrix {
   AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
 
   // Изменение элемента матрицы
-  void SetMatrixValue(int i, int j, double num);
+  void SetMatrixValue(size_t i, size_t j, double num);
 
   // Возвращает размер матрицы
-  int GetSize() const;
+  size_t GetSize() const { return _size; }
 
   // Возвращает элемент матрицы
-  double GetMatrixValue(int i, int j) const;
+  double GetMatrixValue(size_t i, size_t j) const { return _matrix[i][j]; }
 
   // Возвращает оценку расстояния
-  double GetBottomLineEvaluation() const;
+  double GetBottomLineEvaluation() const { return _evaluation; }
 
   // Возвращает выбранное на данной итерации
   // ребро для последующего рассмотрения
-  std::pair<int, int> GetSelectedEdge() const;
+  std::pair<size_t, size_t> GetSelectedEdge() const { return _selected_edge; }
 
   // Возвращает выбранное на данной итерации
   // значение матрицы для последующего рассмотрения
-  std::pair<int, int> GetSelectedValue() const;
-
+  std::pair<size_t, size_t> GetSelectedValue() const { return _selected_value; }
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
-  AdjacencyMatrix Minor(int i, int j);
+  AdjacencyMatrix Minor(size_t i, size_t j);
 
   // Возвращает редуцированную версию матрицы
   AdjacencyMatrix Reducted();
@@ -62,23 +61,23 @@ class AdjacencyMatrix {
 
  private:
   // Размер матрицы
-  size_t n;
-
-  std::vector<std::vector<double>> matrix;
+  size_t _size;
+  // Матрица
+  std::vector<std::vector<double>> _matrix;
   // Редуцированная версия матрицы
-  std::vector<std::vector<double>> reducted_matrix;
+  std::vector<std::vector<double>> _reducted_matrix;
   // Минимальный элемент в каждой строке и в каждом столбце
-  std::vector<double> min_numbers;
+  std::vector<double> _min_numbers;
   // Оценка пути для данной матрицы
-  double evaluation = 0;
+  double _evaluation = 0;
   // Ребро, которое выбирается для следующего шага в алгоритме Литтла
-  std::pair<int, int> selected_edge;
+  std::pair<size_t, size_t> _selected_edge;
   // Значение матрицы, которое выбирается для следующего шага в алгоритме
   // Литтла
-  std::pair<int, int> selected_value;
+  std::pair<size_t, size_t> _selected_value;
 
   // Найти 2 минимума в строке или столбце
-  Minimums FindTwoMinimums(Mins type, int index) const;
+  Minimums FindTwoMinimums(Mins type, size_t index) const;
 
   // Редуцирует матрицу сначала по строкам, затем по столбцам
   // Находит нижнюю оценку для матрицы
@@ -86,5 +85,5 @@ class AdjacencyMatrix {
 
   // Возвращает позицию нуля с наибольшей степенью(сумма минимального элемента
   // в этой же строке и в этом же столбце)
-  std::pair<int, int> HighestPowerOfZero() const;
+  std::pair<size_t, size_t> HighestPowerOfZero() const;
 };
