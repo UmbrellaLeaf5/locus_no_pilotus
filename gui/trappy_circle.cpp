@@ -4,13 +4,14 @@
 
 void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
   // фигура представляет собой красный круг с полупрозрачной заливкой
+  // (красный по умолчанию, однако цвет задаётся в аргументах конструктора)
 
-  // QPen pen;
-  // pen.setColor(color_);
+  auto ellipse = new QCPItemEllipse(plot);
 
   QColor fill_color = QColor(color_.red(), color_.green(), color_.blue(), 100);
 
-  QCPItemEllipse* ellipse = new QCPItemEllipse(plot);
+  // QPen pen;
+  // pen.setColor(color_);
   ellipse->setPen(QColor(color_));
   ellipse->setBrush(fill_color);
   ellipse->topLeft->setCoords(GetCenter().x - GetRadius(),

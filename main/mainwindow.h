@@ -38,6 +38,7 @@ class MainWindow : public QMainWindow {
   void AddTrappyCircle(double x, double y, double radius, QColor color);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
+  void AddHill();
 
  private:
   PlotManager manager_;

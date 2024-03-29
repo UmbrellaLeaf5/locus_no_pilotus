@@ -17,10 +17,10 @@ void TrappyLine::SetNewTargets(std::initializer_list<gui::Target> targets) {
 }
 
 void TrappyLine::Draw(QCustomPlot* plot) const {
-  auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
-
   // фигура представляет собой пунктирное красное соединение между
   // заданными контрольными точками (причем эти точки выделяются)
+
+  auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
 
   QPen pen;
   pen.setColor(QColor(200, 50, 50, 255));

@@ -16,7 +16,6 @@ class Hill : public Drawable {
 
   /**
    * @brief инициализирует новый экземпляр Hill
-   *
    * @param center центр описанной окружности
    * @param radius радиус опис. окр.
    * @param vertices_amount кол-во вершин
@@ -28,7 +27,6 @@ class Hill : public Drawable {
 
   /**
    * @brief инициализирует новый экземпляр Hill
-   *
    * @param points список точек
    * @param color цвет
    */
@@ -38,6 +36,8 @@ class Hill : public Drawable {
 
   lib::Point GetCenter() const;
   double GetRadius() const;
+
+  std::vector<lib::Point> GetPoints() const { return data_.GetPoints(); }
 
   void Draw(QCustomPlot* plot) const override;
 

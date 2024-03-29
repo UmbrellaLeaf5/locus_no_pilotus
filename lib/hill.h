@@ -24,8 +24,6 @@ class Hill : public JSONable {
    */
   Hill(Point center, double radius, std::size_t vertices_amount);
 
-  // или :
-
   /**
    * @brief инициализирует новый экземпляр Hill
    * (так как рельеф является многоугольником, его можно построить по точкам)

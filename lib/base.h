@@ -4,6 +4,7 @@ using json = void*;
 
 namespace lib {
 
+// @brief объект, возможный к считыванию по .json файлу [абстрактный класс]
 class JSONable {
  public:
   // JSONable(const json& j);
