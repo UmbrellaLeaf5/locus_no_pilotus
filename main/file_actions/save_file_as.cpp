@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include <vector>
 
-#include "../lib/base.h"
+#include "../../lib/base.h"
 #include "mainwindow.h"
 
 void MainWindow::on_actionSave_as_triggered() {
