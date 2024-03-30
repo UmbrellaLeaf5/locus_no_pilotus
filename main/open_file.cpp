@@ -26,16 +26,25 @@ void MainWindow::on_actionOpen_triggered() {
   QJsonValue json_trappy_lines = root.value("Trappy_Lines");
   QJsonValue json_hills = root.value("Hills");
 
+  std::vector<gui::Target> targets_from_file;
+
   if (json_targets.isArray()) {
     QJsonArray targets_array = json_targets.toArray();
 
     for (size_t i = 0; i < targets_array.size(); i++) {
       QJsonObject target_obj = targets_array.at(i).toObject();
 
-      manager_.Add(gui::Target(target_obj.value("X").toDouble(),
-                               target_obj.value("Y").toDouble()));
+      // manager_.Add(gui::Target(target_obj.value("X").toDouble(),
+      //                          target_obj.value("Y").toDouble()));
+
+      targets_from_file.push_back(gui::Target(
+          target_obj.value("X").toDouble(), target_obj.value("Y").toDouble()));
     }
   }
+
+  manager_.Set(targets_from_file);
+
+  std::vector<gui::TrappyCircle> tr_circles_from_file;
 
   if (json_trappy_circles.isArray()) {
     QJsonArray trappy_circles_array = json_trappy_circles.toArray();
@@ -43,13 +52,23 @@ void MainWindow::on_actionOpen_triggered() {
     for (size_t i = 0; i < trappy_circles_array.size(); i++) {
       QJsonObject trappy_circle_obj = trappy_circles_array.at(i).toObject();
 
-      manager_.Add(
+      // manager_.Add(
+      //     gui::TrappyCircle(trappy_circle_obj.value("X").toDouble(),
+      //                       trappy_circle_obj.value("Y").toDouble(),
+      //                       trappy_circle_obj.value("R").toDouble(),
+      //                       trappy_circle_obj.value("Color").toString()));
+
+      tr_circles_from_file.push_back(
           gui::TrappyCircle(trappy_circle_obj.value("X").toDouble(),
                             trappy_circle_obj.value("Y").toDouble(),
                             trappy_circle_obj.value("R").toDouble(),
                             trappy_circle_obj.value("Color").toString()));
     }
   }
+
+  manager_.Set(tr_circles_from_file);
+
+  std::vector<gui::TrappyLine> tr_lines_from_file;
 
   if (json_trappy_lines.isArray()) {
     QJsonArray trappy_lines_array = json_trappy_lines.toArray();
@@ -74,10 +93,15 @@ void MainWindow::on_actionOpen_triggered() {
         }
       }
 
-      gui::TrappyLine tl{t1, t2};
-      manager_.Add(tl);
+      // gui::TrappyLine tl{t1, t2};
+      // manager_.Add(tl);
+      tr_lines_from_file.push_back({t1, t2});
     }
   }
+
+  manager_.Set(tr_lines_from_file);
+
+  std::vector<gui::Hill> hills_from_file;
 
   if (json_hills.isArray()) {
     QJsonArray hills_array = json_hills.toArray();
@@ -93,9 +117,12 @@ void MainWindow::on_actionOpen_triggered() {
              hill_obj.value("Y" + QString::number(j + 1)).toDouble()});
       }
 
-      manager_.Add(gui::Hill(points));
+      // manager_.Add(gui::Hill(points));
+      hills_from_file.push_back(gui::Hill(points));
     }
   }
+
+  manager_.Set(hills_from_file);
 
   manager_.Draw();
 }

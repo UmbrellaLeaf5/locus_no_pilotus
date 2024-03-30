@@ -56,6 +56,7 @@ class PlotManager {
   void Add(gui::Target t) { targets_.push_back(t); }
   void Add(std::initializer_list<gui::Target>);
   void Set(std::initializer_list<gui::Target>);
+  void Set(std::vector<gui::Target>);
 
   /**
    * @brief возвращает значение targets
@@ -75,6 +76,7 @@ class PlotManager {
   void Add(gui::Hill h) { hills_.push_back(h); }
   void Add(std::initializer_list<gui::Hill>);
   void Set(std::initializer_list<gui::Hill>);
+  void Set(std::vector<gui::Hill>);
 
   /**
    * @brief возвращает значение Hills
@@ -91,6 +93,7 @@ class PlotManager {
   void Add(gui::TrappyCircle tr_c) { tr_circles_.push_back(tr_c); }
   void Add(std::initializer_list<gui::TrappyCircle>);
   void Set(std::initializer_list<gui::TrappyCircle>);
+  void Set(std::vector<gui::TrappyCircle>);
 
   /**
    * @brief возвращает значение Trappy Circles
@@ -112,6 +115,7 @@ class PlotManager {
   void Add(gui::TrappyLine tr_l) { tr_lines_.push_back(tr_l); }
   void Add(std::initializer_list<gui::TrappyLine>);
   void Set(std::initializer_list<gui::TrappyLine>);
+  void Set(std::vector<gui::TrappyLine>);
 
   /**
    * @brief возвращает значение Trappy Lines
