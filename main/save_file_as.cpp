@@ -7,7 +7,7 @@
 #include "mainwindow.h"
 
 void MainWindow::on_actionSave_as_triggered() {
-  QString file_name = QFileDialog::getOpenFileName(this, tr("Save as"), "json",
+  QString file_name = QFileDialog::getSaveFileName(this, tr("Save as"), "json",
                                                    tr("File (*.json)"));
   json json_file;
   QFile file;
