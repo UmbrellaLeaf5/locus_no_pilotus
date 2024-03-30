@@ -1,6 +1,8 @@
 #pragma once
 
-using json = void*;
+#include <QJsonDocument>
+
+using json = QJsonDocument;
 
 namespace lib {
 
