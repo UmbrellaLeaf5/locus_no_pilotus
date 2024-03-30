@@ -31,6 +31,7 @@ class Hill : public JSONable {
    * @throw std::invalid_argument: если кол-во вершин 1 или 0
    */
   Hill(std::initializer_list<Point> points);
+  Hill(std::vector<Point> points) : vertices_{points} {}
 
   json Save() const override;
   JSONable* Load(const json& j) override;
