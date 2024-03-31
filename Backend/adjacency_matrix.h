@@ -1,63 +1,89 @@
+#pragma once
+
 #include <vector>
 
 // Структура для хранения двух минимумов строки/столбца
 struct Minimums {
-  float first;
-  float second;
+  double first;
+  double second;
 };
 
 class AdjacencyMatrix {
  public:
-  AdjacencyMatrix(size_t size) : n{size} {
-    matrix.resize(n);
-    for (auto elem : matrix) {
-      elem.resize(n, 0.0);
+  AdjacencyMatrix(std::size_t size) : size_{size}, min_numbers_(size_ + size_) {
+    matrix_.resize(size_ + 1);
+    for (auto& elem : matrix_) {
+      elem.resize(size_ + 1, 0.0);
     }
+    for (std::size_t i = 0; i < size_; ++i) {
+      matrix_[i][size_] = i;
+      matrix_[size_][i] = i;
+    }
+    min_numbers_.resize(size_ + size_);
   }
 
-  AdjacencyMatrix(std::vector<std::vector<float>> nums)
-      : matrix{nums}, n{nums.size()} {
-    min_numbers.resize(n + n);
-    BottomLineEvaluations();
-  }
+  // Конструктор по вектору векторов
+  // Зависит от того, является ли полученная матрица минором
+  AdjacencyMatrix(std::vector<std::vector<double>> nums, bool is_minor = false);
+
   enum Mins { Rows, Columns };
 
+  // Копирующее присваивание для матрицы
+  AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
+
   // Изменение элемента матрицы
-  void SetMatrixValue(int i, int j, float num);
+  void SetMatrixValue(std::size_t i, std::size_t j, double num);
 
-  // Возвращает 2 числа: первую и вторую(без одного ребра) оценки расстояний
-  std::pair<float, float> GetBottomLineEvaluations() const;
+  // Возвращает размер матрицы
+  std::size_t GetSize() const { return size_; }
 
+  // Возвращает элемент матрицы
+  double GetMatrixValue(std::size_t i, std::size_t j) const { return matrix_[i][j]; }
+
+  // Возвращает оценку расстояния
+  double GetBottomLineEvaluation() const { return evaluation_; }
+
+  // Возвращает выбранное на данной итерации
+  // ребро для последующего рассмотрения
+  std::pair<std::size_t, std::size_t> GetSelectedEdge() const { return selected_edge_; }
+
+  // Возвращает выбранное на данной итерации
+  // значение матрицы для последующего рассмотрения
+  std::pair<std::size_t, std::size_t> GetSelectedValue() const { return selected_value_; }
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
-  AdjacencyMatrix Minor(int i, int j);
+  AdjacencyMatrix Minor(std::size_t i, std::size_t j);
+
+  // Возвращает редуцированную версию матрицы
+  AdjacencyMatrix Reducted();
+
+  // Считает данные для матрицы
+  void CalculateData();
 
  private:
   // Размер матрицы
-  size_t n;
-
-  std::vector<std::vector<float>> matrix;
+  std::size_t size_;
+  // Матрица
+  std::vector<std::vector<double>> matrix_;
+  // Редуцированная версия матрицы
+  std::vector<std::vector<double>> reducted_matrix_;
   // Минимальный элемент в каждой строке и в каждом столбце
-  std::vector<float> min_numbers;
-  // Оценки пути для данной матрицы(первая и более точная)
-  std::pair<float, float> evaluation;
+  std::vector<double> min_numbers_;
+  // Оценка пути для данной матрицы
+  double evaluation_ = 0;
+  // Ребро, которое выбирается для следующего шага в алгоритме Литтла
+  std::pair<std::size_t, std::size_t> selected_edge_;
+  // Значение матрицы, которое выбирается для следующего шага в алгоритме
+  // Литтла
+  std::pair<std::size_t, std::size_t> selected_value_;
 
-  // Возвращает 2 числа: Первая оценка снизу и вторая, более точная оценка снизу
-  void BottomLineEvaluations();
+  // Найти 2 минимума в строке или столбце
+  Minimums FindTwoMinimums(Mins type, std::size_t index) const;
 
-  // Найти 2 минимума в стоке или столбце
-  Minimums FindTwoMinimums(Mins type, int index) const;
+  // Редуцирует матрицу сначала по строкам, затем по столбцам
+  // Находит нижнюю оценку для матрицы
+  double BottomLineEvaluation();
 
-  // Вычитает из каждой строки минимальный элемент этой строки, находит
-  // второй минимальный элемент. Возвращаеет сумму минимальных элементов по
-  // строкам
-  float ReductionLine();
-
-  // Вычитает из каждого столбца минимальный элемент этого столбца, находит
-  // второй минимальный элемент. Возвращаеет сумму минимальных элементов по
-  // столбцам
-  float ReductionColumn();
-
-  // Возвращает позицию нуля с наибольшей степенью(сумма минимального элемента в
-  // этой же строке и в этом же столбце)
-  std::pair<int, int> HighestPowerOfZero() const;
+  // Возвращает позицию нуля с наибольшей степенью(сумма минимального элемента
+  // в этой же строке и в этом же столбце)
+  std::pair<std::size_t, std::size_t> HighestPowerOfZero() const;
 };
