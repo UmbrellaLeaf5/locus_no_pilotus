@@ -43,7 +43,6 @@ set_target_properties(main PROPERTIES
   MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
 )
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/../cmake_paths.cmake")
 include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
 add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} main)
 
