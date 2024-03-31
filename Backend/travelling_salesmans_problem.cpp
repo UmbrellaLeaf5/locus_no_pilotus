@@ -7,8 +7,8 @@ TravellingSalesmansProblem::TravellingSalesmansProblem(AdjacencyMatrix& m) {
 }
 
 void TravellingSalesmansProblem::ExpandStack() {
-  std::pair<size_t, size_t> value = paths_stack[0]->matrix.GetSelectedValue();
-  std::pair<size_t, size_t> edge = paths_stack[0]->matrix.GetSelectedEdge();
+  std::pair<std::size_t, std::size_t> value = paths_stack[0]->matrix.GetSelectedValue();
+  std::pair<std::size_t, std::size_t> edge = paths_stack[0]->matrix.GetSelectedEdge();
   // Первый ребенок, c включением edge
   Edge included(edge, true);
   AdjacencyMatrix with_edge_matrix = paths_stack[0]->matrix.Reducted();
@@ -25,8 +25,8 @@ void TravellingSalesmansProblem::ExpandStack() {
       std::make_shared<TSPNode>(without_edge_matrix, paths_stack[0], excluded);
 
   // Добавляем детей в стек вершин,удаляем их родителя
-  size_t with_eval = paths_stack[0]->with_edge->evaluation;
-  size_t without_eval = paths_stack[0]->without_edge->evaluation;
+  std::size_t with_eval = paths_stack[0]->with_edge->evaluation;
+  std::size_t without_eval = paths_stack[0]->without_edge->evaluation;
   if (FindIndex(with_eval) < paths_stack.size())
     paths_stack.insert(paths_stack.begin() + FindIndex(with_eval),
                        paths_stack[0]->with_edge);
@@ -40,13 +40,13 @@ void TravellingSalesmansProblem::ExpandStack() {
   paths_stack.erase(paths_stack.begin());
 }
 
-size_t TravellingSalesmansProblem::FindIndex(size_t eval) const {
+std::size_t TravellingSalesmansProblem::FindIndex(std::size_t eval) const {
   // Нижняя и верхняя границы
-  size_t start = 0;
-  size_t end = paths_stack.size() - 1;
+  std::size_t start = 0;
+  std::size_t end = paths_stack.size() - 1;
   // Уменьшение области поиска
   while (start < end) {
-    size_t mid = (start + end) / 2;
+    std::size_t mid = (start + end) / 2;
     // Если eval нашлось
     if (paths_stack[mid]->evaluation == eval)
       return mid + 1;
@@ -61,9 +61,9 @@ size_t TravellingSalesmansProblem::FindIndex(size_t eval) const {
 void TravellingSalesmansProblem::CompleteEdgePath() {
   Edge missed_start_edge(std::pair(0, 0), true);
   Edge missed_end_edge(std::pair(0, 0), true);
-  size_t n = paths_stack[0]->matrix.GetSize();
-  for (size_t i = 0; i < 2; ++i) {
-    for (size_t j = 0; j < 2; ++j) {
+  std::size_t n = paths_stack[0]->matrix.GetSize();
+  for (std::size_t i = 0; i < 2; ++i) {
+    for (std::size_t j = 0; j < 2; ++j) {
       if (paths_stack[0]->matrix.GetMatrixValue(i, n) ==
           paths_stack[0]->matrix.GetMatrixValue(n, j)) {
         missed_start_edge.end_num = paths_stack[0]->matrix.GetMatrixValue(n, j);
@@ -85,15 +85,15 @@ void TravellingSalesmansProblem::CompleteEdgePath() {
   edge_path.push_back(missed_end_edge);
 }
 
-std::vector<size_t> TravellingSalesmansProblem::ConvertTosize_tPath() {
-  std::map<size_t, size_t> cleared_edge_path;
-  for (size_t i = 0; i < edge_path.size(); ++i) {
+std::vector<std::size_t> TravellingSalesmansProblem::ConvertTosize_tPath() {
+  std::map<std::size_t, std::size_t> cleared_edge_path;
+  for (std::size_t i = 0; i < edge_path.size(); ++i) {
     if (edge_path[i].is_included)
       cleared_edge_path[edge_path[i].start_num] = edge_path[i].end_num;
   }
-  std::vector<size_t> final_path;
+  std::vector<std::size_t> final_path;
   final_path.push_back(0);
-  size_t key = 0;
+  std::size_t key = 0;
   while (cleared_edge_path[key] != 0) {
     final_path.push_back(cleared_edge_path[key]);
     key = cleared_edge_path[key];
@@ -101,7 +101,7 @@ std::vector<size_t> TravellingSalesmansProblem::ConvertTosize_tPath() {
   return final_path;
 }
 
-std::vector<size_t> TravellingSalesmansProblem::CalculateTrajectory() {
+std::vector<std::size_t> TravellingSalesmansProblem::CalculateTrajectory() {
   while (paths_stack[0]->matrix.GetSize() > 2) ExpandStack();
   edge_path = paths_stack[0]->path;
   CompleteEdgePath();

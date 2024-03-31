@@ -7,14 +7,6 @@ function(load_qcustomplot_dll START_DIR)
     endforeach()
     return()
   endif()
-
-  file(GLOB SUBFOLDERS LIST_DIRECTORIES true ${START_DIR}/*)
-
-  foreach(SUBFOLDER ${SUBFOLDERS})
-    if(IS_DIRECTORY ${SUBFOLDER})
-      load_qcustomplot_dll(${SUBFOLDER})
-    endif()
-  endforeach()
 endfunction()
 
 function(add_qt_runtime START_DIR TARGET)
@@ -23,12 +15,4 @@ function(add_qt_runtime START_DIR TARGET)
       RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
     )
   endif()
-
-  file(GLOB SUBFOLDERS LIST_DIRECTORIES true ${START_DIR}/*)
-
-  foreach(SUBFOLDER ${SUBFOLDERS})
-    if(IS_DIRECTORY ${SUBFOLDER})
-      add_qt_runtime(${SUBFOLDER} TARGET)
-    endif()
-  endforeach()
 endfunction()
