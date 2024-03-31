@@ -46,9 +46,6 @@ set_target_properties(main PROPERTIES
 include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
 add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} main)
 
-include(${CMAKESCRIPTS_DIR}/scripts_for_icecream_cpp.cmake)
-move_icecream_hpp_to_build_dir(${LOCUS_NO_PILOTUS_DIR})
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/icecream-cpp")
 find_package(IcecreamCpp)
 include_directories(${IcecreamCpp_INCLUDE_DIRS})
 

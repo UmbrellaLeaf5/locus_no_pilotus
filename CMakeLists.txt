@@ -24,7 +24,12 @@ include(cmake_paths.cmake)
 # add images to build directory
 file(COPY ${IMAGES_DIR} DESTINATION ${CMAKE_BINARY_DIR})
 
+# because of icecream-cpp CMake settings we need to move one file to bin dir
+include(${CMAKESCRIPTS_DIR}/scripts_for_icecream_cpp.cmake)
+move_icecream_hpp_to_build_dir(${CMAKE_CURRENT_SOURCE_DIR})
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/icecream-cpp")
 add_subdirectory(${ICECREAM-CPP_DIR}) # here adding icecream-cpp subfolder
+
 add_subdirectory(${QCUSTOMPLOT_DIR}) # here adding qcustomplot subfolder
 add_subdirectory(lib)
 add_subdirectory(gui)
