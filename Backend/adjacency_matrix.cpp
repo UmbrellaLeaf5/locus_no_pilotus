@@ -21,7 +21,7 @@ AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums,
 
 AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& m) {
   size_ = m.size_;
-  matrix_ = m._matrix;
+  matrix_ = m.matrix_;
   reducted_matrix_ = m.reducted_matrix_;
   min_numbers_ = m.min_numbers_;
   evaluation_ = m.evaluation_;
@@ -48,7 +48,7 @@ AdjacencyMatrix AdjacencyMatrix::Minor(size_t i, size_t j) {
 
 AdjacencyMatrix AdjacencyMatrix::Reducted() {
   AdjacencyMatrix reducted = *this;
-  reducted._matrix = reducted_matrix_;
+  reducted.matrix_ = reducted_matrix_;
   return reducted;
 }
 
@@ -146,6 +146,6 @@ std::pair<size_t, size_t> AdjacencyMatrix::HighestPowerOfZero() const {
 void AdjacencyMatrix::CalculateData() {
   evaluation_ = BottomLineEvaluation();
   selected_value_ = HighestPowerOfZero();
-  selected_edge_ = std::make_pair(_matrix[selected_value_.first][size_],
+  selected_edge_ = std::make_pair(matrix_[selected_value_.first][size_],
                                   matrix_[size_][selected_value_.second]);
 }
