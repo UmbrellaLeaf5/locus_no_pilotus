@@ -11,7 +11,9 @@ class TravellingSalesmansProblem {
   TravellingSalesmansProblem(AdjacencyMatrix& matrix);
 
   // Возвращает оптимальный маршрут для данной задачи
-  inline std::vector<std::size_t> GetTrajectory() { return CalculateTrajectory(); }
+  inline std::vector<std::size_t> GetTrajectory() {
+    return CalculateTrajectory();
+  }
 
  private:
   // Вектор с указателями на вершины графа
@@ -25,6 +27,10 @@ class TravellingSalesmansProblem {
   // Заменяет вершину графа на её детей, без нарушения порядка
   void ExpandStack();
 
+  // Удалить ребро из матрицы смежности
+  AdjacencyMatrix DeleteEdge(AdjacencyMatrix matrix, std::size_t start_num,
+                             std::size_t end_num);
+
   // Находит место для вставки вершины
   std::size_t FindIndex(std::size_t eval) const;
 
@@ -33,7 +39,7 @@ class TravellingSalesmansProblem {
 
   // Перевод ребер, содержащихся в пути в
   // последовательность обхода вершин
-  std::vector<std::size_t> ConvertTosize_tPath();
+  std::vector<std::size_t> ConvertToVertexPath();
 
   // Возвращает порядок следования вершин в оптимальном маршруте
   // TODO: Научится порядок следования вершин в маршруте,
