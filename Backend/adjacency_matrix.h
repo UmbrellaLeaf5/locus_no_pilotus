@@ -23,8 +23,11 @@ class AdjacencyMatrix {
   }
 
   // Конструктор по вектору векторов
-  // Зависит от того, является ли полученная матрица минором
-  AdjacencyMatrix(std::vector<std::vector<double>> nums, bool is_minor = false);
+  AdjacencyMatrix(std::vector<std::vector<double>> nums);
+
+  // Конструктор по вектору векторов с добавлением
+  // строки и столбца номеров вершин
+  static AdjacencyMatrix WithExtraRowCol(std::vector<std::vector<double>> nums);
 
   enum Mins { Rows, Columns };
 
@@ -38,18 +41,24 @@ class AdjacencyMatrix {
   std::size_t GetSize() const { return size_; }
 
   // Возвращает элемент матрицы
-  double GetMatrixValue(std::size_t i, std::size_t j) const { return matrix_[i][j]; }
+  double GetMatrixValue(std::size_t i, std::size_t j) const {
+    return matrix_[i][j];
+  }
 
   // Возвращает оценку расстояния
   double GetBottomLineEvaluation() const { return evaluation_; }
 
   // Возвращает выбранное на данной итерации
   // ребро для последующего рассмотрения
-  std::pair<std::size_t, std::size_t> GetSelectedEdge() const { return selected_edge_; }
+  std::pair<std::size_t, std::size_t> GetSelectedEdge() const {
+    return selected_edge_;
+  }
 
   // Возвращает выбранное на данной итерации
   // значение матрицы для последующего рассмотрения
-  std::pair<std::size_t, std::size_t> GetSelectedValue() const { return selected_value_; }
+  std::pair<std::size_t, std::size_t> GetSelectedValue() const {
+    return selected_value_;
+  }
   // Возвращает минор матрицы(без i-той строки и j-того столбца)
   AdjacencyMatrix Minor(std::size_t i, std::size_t j);
 

@@ -2,21 +2,21 @@
 
 #include <cfloat>
 
-AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums,
-                                 bool is_minor)
-    : matrix_{nums},
-      size_{nums.size() - is_minor},
-      min_numbers_(size_ + size_) {
-  if (!is_minor) {
-    matrix_.resize(size_ + 1);
-    matrix_[size_].resize(size_ + 1);
-    for (std::size_t i = 0; i < size_; ++i) {
-      matrix_[i].resize(size_ + 1);
-      matrix_[i][size_] = i;
-      matrix_[size_][i] = i;
-    }
+AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
+    : matrix_{nums}, size_{nums.size()}, min_numbers_(size_ + size_) {}
+
+AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
+    std::vector<std::vector<double>> nums) {
+  AdjacencyMatrix m(nums);
+  m.matrix_.resize(m.size_ + 1);
+  m.matrix_[m.size_].resize(m.size_ + 1);
+  for (std::size_t i = 0; i < m.size_; ++i) {
+    m.matrix_[i].resize(m.size_ + 1);
+    m.matrix_[i][m.size_] = i;
+    m.matrix_[m.size_][i] = i;
   }
-  CalculateData();
+  m.CalculateData();
+  return m;
 }
 
 AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& m) {
@@ -38,10 +38,11 @@ void AdjacencyMatrix::SetMatrixValue(std::size_t i, std::size_t j, double num) {
 AdjacencyMatrix AdjacencyMatrix::Minor(std::size_t i, std::size_t j) {
   std::vector<std::vector<double>> minor_matrix = matrix_;
   minor_matrix.erase(minor_matrix.begin() + i);
-  for (std::size_t k = 0; k < size_ + 1; ++k) {
+  for (std::size_t k = 0; k < size_; ++k) {
     minor_matrix[k].erase(minor_matrix[k].begin() + j);
   }
-  AdjacencyMatrix minor(minor_matrix, true);
+  AdjacencyMatrix minor(minor_matrix);
+  minor.size_--;
   minor.CalculateData();
   return minor;
 }
@@ -126,7 +127,8 @@ double AdjacencyMatrix::BottomLineEvaluation() {
   return mins_sum;
 }
 
-std::pair<std::size_t, std::size_t> AdjacencyMatrix::HighestPowerOfZero() const {
+std::pair<std::size_t, std::size_t> AdjacencyMatrix::HighestPowerOfZero()
+    const {
   std::size_t row = 0, col = 0;
   double max = 0;
   for (std::size_t i = 0; i < size_; ++i) {
