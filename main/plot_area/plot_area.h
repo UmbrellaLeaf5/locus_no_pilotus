@@ -11,11 +11,11 @@
 #include "qcustomplot.h"
 
 // @brief класс, упрощающий управление классами gui на QCustomPlot
-class PlotManager {
+class PlotArea {
  public:
-  PlotManager() = default;
+  PlotArea() = default;
 
-  PlotManager(QCustomPlot* plot)
+  PlotArea(QCustomPlot* plot)
       : hills_(0), targets_(0), tr_circles_(0), tr_lines_(0), plot_(plot) {}
 
   // @brief типы объектов по категориям

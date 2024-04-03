@@ -3,7 +3,7 @@
 #include <add_objects_forms/add_target_form.h>
 #include <add_objects_forms/add_trappy_circle_form.h>
 #include <add_objects_forms/add_trappy_line_form.h>
-#include <plot_manager/plot_manager.h>
+#include <plot_area/plot_area.h>
 
 #include <QMainWindow>
 
@@ -47,6 +47,6 @@ class MainWindow : public QMainWindow {
   void AddHill();
 
  private:
-  PlotManager manager_;
+  PlotArea manager_;
   Ui::MainWindow* ui;
 };
