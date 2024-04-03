@@ -33,6 +33,12 @@ class Hill : public JSONable {
   Hill(std::initializer_list<Point> points);
   Hill(std::vector<Point> points) : vertices_{points} {}
 
+  Hill(const Hill&) = default;
+  Hill(Hill&&) = default;
+
+  Hill& operator=(const Hill&) = default;
+  Hill& operator=(Hill&&) = default;
+
   json Save() const override;
   JSONable* Load(const json& j) override;
 

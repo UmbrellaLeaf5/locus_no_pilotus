@@ -16,6 +16,8 @@ class TrappyLine : public Drawable {
 
   TrappyLine(std::initializer_list<gui::Target> targets);
 
+  TrappyLine(lib::TrappyLine data) : data_(data){};
+
   void Draw(QCustomPlot* plot) const override;
 
   void SetNewTargets(std::initializer_list<gui::Target> targets);
@@ -25,6 +27,7 @@ class TrappyLine : public Drawable {
   }
 
   std::vector<lib::Target> GetTargets() const { return data_.GetTargets(); }
+  lib::TrappyLine GetData() const { return data_; }
 
  private:
   /**

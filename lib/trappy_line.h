@@ -27,6 +27,12 @@ class TrappyLine : public JSONable {
    */
   TrappyLine(std::vector<Target> targets) : targets_{targets} {}
 
+  TrappyLine(const TrappyLine&) = default;
+  TrappyLine(TrappyLine&&) = default;
+
+  TrappyLine& operator=(const TrappyLine&) = default;
+  TrappyLine& operator=(TrappyLine&&) = default;
+
   json Save() const override;
   JSONable* Load(const json& j) override;
 

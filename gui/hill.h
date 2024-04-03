@@ -37,8 +37,12 @@ class Hill : public Drawable {
   Hill(std::vector<lib::Point> points, QColor color = QColor(50, 200, 50, 255))
       : data_(points), color_{color} {}
 
+  Hill(lib::Hill data, QColor color = QColor(50, 200, 50, 255))
+      : data_(data), color_{color} {}
+
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }
+  lib::Hill GetData() const { return data_; }
 
   std::vector<lib::Point> GetPoints() const { return data_.GetPoints(); }
 

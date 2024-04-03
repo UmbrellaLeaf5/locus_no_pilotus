@@ -55,6 +55,7 @@ class PlotManager {
 
   void Add(gui::Target t) { targets_.push_back(t); }
   void Add(std::initializer_list<gui::Target>);
+  void Add(lib::Target data) { targets_.push_back(gui::Target(data)); };
   void Set(std::initializer_list<gui::Target>);
   void Set(std::vector<gui::Target>);
 
@@ -75,6 +76,7 @@ class PlotManager {
 
   void Add(gui::Hill h) { hills_.push_back(h); }
   void Add(std::initializer_list<gui::Hill>);
+  void Add(lib::Hill data) { hills_.push_back(gui::Hill(data)); };
   void Set(std::initializer_list<gui::Hill>);
   void Set(std::vector<gui::Hill>);
 
@@ -92,6 +94,9 @@ class PlotManager {
 
   void Add(gui::TrappyCircle tr_c) { tr_circles_.push_back(tr_c); }
   void Add(std::initializer_list<gui::TrappyCircle>);
+  void Add(lib::TrappyCircle data) {
+    tr_circles_.push_back(gui::TrappyCircle(data));
+  };
   void Set(std::initializer_list<gui::TrappyCircle>);
   void Set(std::vector<gui::TrappyCircle>);
 
@@ -114,6 +119,9 @@ class PlotManager {
 
   void Add(gui::TrappyLine tr_l) { tr_lines_.push_back(tr_l); }
   void Add(std::initializer_list<gui::TrappyLine>);
+  void Add(lib::TrappyLine data) {
+    tr_lines_.push_back(gui::TrappyLine(data));
+  };
   void Set(std::initializer_list<gui::TrappyLine>);
   void Set(std::vector<gui::TrappyLine>);
 

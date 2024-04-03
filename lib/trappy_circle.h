@@ -12,6 +12,12 @@ class TrappyCircle : public JSONable {
  public:
   TrappyCircle(Point center = {0, 0}, double radius = 0);
 
+  TrappyCircle(const TrappyCircle&) = default;
+  TrappyCircle(TrappyCircle&&) = default;
+
+  TrappyCircle& operator=(const TrappyCircle&) = default;
+  TrappyCircle& operator=(TrappyCircle&&) = default;
+
   json Save() const override;
   JSONable* Load(const json& j) override;
 
