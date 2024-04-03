@@ -33,7 +33,7 @@ class TrappyLine : public JSONable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
-  json Save() const override;
+  QJsonObject Save(int id) const override;
   JSONable* Load(const json& j) override;
 
   void SetNewTargets(std::initializer_list<Target> targets) {

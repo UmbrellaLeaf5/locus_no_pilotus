@@ -11,11 +11,24 @@ Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
     throw std::invalid_argument("hill cannot consist of one or zero points");
 }
 
-json Hill::Save() const { return json(); }
+QJsonObject Hill::Save(int id) const {
+  QVariantMap hill_map;
+
+  hill_map.insert("Id", id);
+
+  for (size_t i = 0; i < vertices_.size(); i++) {
+    QVariantMap p_map;
+    p_map.insert("X", vertices_[i].x);
+    p_map.insert("Y", vertices_[i].y);
+    hill_map.insert("P" + QString::number(i + 1), p_map);
+  }
+
+  return QJsonObject::fromVariantMap(hill_map);
+}
 
 JSONable* Hill::Load(const json& j) { return nullptr; }
 
-Hill::Hill(Point center, double radius, size_t vertices_amount) {
+Hill::Hill(Point center, double radius, std::size_t vertices_amount) {
   if (vertices_amount == 0 || vertices_amount == 1)
     throw std::invalid_argument("hill cannot consist of " +
                                 std::to_string(vertices_amount) + " point");
@@ -23,7 +36,7 @@ Hill::Hill(Point center, double radius, size_t vertices_amount) {
   if (radius < 0)
     throw std::invalid_argument("hill cannot have of negative radius");
 
-  for (size_t i = 0; i < vertices_amount; i++) {
+  for (std::size_t i = 0; i < vertices_amount; i++) {
     // каждый раз двигаем точку по окружности
     // делаем это, рассчитывая угол в зависимости от кол-ва вершин
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QJsonDocument>
+#include <QJsonObject>
 
 using json = QJsonDocument;
 
@@ -11,7 +12,7 @@ class JSONable {
  public:
   // JSONable(const json& j);
 
-  virtual json Save() const = 0;
+  virtual QJsonObject Save(int id) const = 0;
   virtual JSONable* Load(const json& j) = 0;
 };
 

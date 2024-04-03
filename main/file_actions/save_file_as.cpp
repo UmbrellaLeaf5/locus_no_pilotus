@@ -6,6 +6,22 @@
 #include "../../lib/base.h"
 #include "mainwindow.h"
 
+void WriteFile(QFile &file, json json_file, std::vector<QJsonArray> arr) {
+  json_file.setArray(arr[0]);
+  file.write("{\n\"Targets\":" + json_file.toJson());
+
+  json_file.setArray(arr[1]);
+  file.write(",\n\"Trappy_Circles\":" + json_file.toJson());
+
+  json_file.setArray(arr[2]);
+  file.write(",\n\"Trappy_Lines\":" + json_file.toJson());
+
+  json_file.setArray(arr[3]);
+  file.write(",\n\"Hills\":" + json_file.toJson() + "}");
+
+  file.close();
+}
+
 void MainWindow::on_actionSave_as_triggered() {
   QString file_name = QFileDialog::getSaveFileName(this, tr("Save as"), "json",
                                                    tr("File (*.json)"));
@@ -17,117 +33,47 @@ void MainWindow::on_actionSave_as_triggered() {
   if (file.open(QIODevice::WriteOnly)) {
     int id = 10001;
 
+    std::vector<QJsonArray> arr;
+
     QJsonArray targets_array = json_file.object().value("Targets").toArray();
+    QJsonArray trappy_circles_array =
+        json_file.object().value("Trappy_Circles").toArray();
+    QJsonArray trappy_lines_array =
+        json_file.object().value("Trappy_Lines").toArray();
+    QJsonArray hills_array = json_file.object().value("Hills").toArray();
 
     for (size_t i = 0; i < manager_.GetTargets().size(); i++) {
-      QVariantMap target_map;
-
-      gui::Target t = manager_.GetTargets()[i];
-
-      target_map.insert("Id", id);
-      target_map.insert("X", t.GetPoint().x);
-      target_map.insert("Y", t.GetPoint().y);
-
-      QJsonObject target_obj = QJsonObject::fromVariantMap(target_map);
-
-      targets_array.append(target_obj);
-
+      targets_array.append(manager_.GetTargets()[i].GetData().Save(id));
       id++;
     }
-
-    json_file.setArray(targets_array);
-
-    file.write("{\n\"Targets\":" + json_file.toJson());
+    arr.push_back(targets_array);
 
     id = 20001;
 
-    QJsonArray trappy_circles_array =
-        json_file.object().value("Trappy_Circles").toArray();
-
     for (size_t i = 0; i < manager_.GetTrappyCircles().size(); i++) {
-      QVariantMap trappy_circle_map;
-
-      gui::TrappyCircle tc = manager_.GetTrappyCircles()[i];
-
-      trappy_circle_map.insert("Id", id);
-      trappy_circle_map.insert("X", tc.GetCenter().x);
-      trappy_circle_map.insert("Y", tc.GetCenter().y);
-      trappy_circle_map.insert("R", tc.GetRadius());
-      trappy_circle_map.insert("Color", tc.GetColor().name());
-
-      QJsonObject trappy_circle_obj =
-          QJsonObject::fromVariantMap(trappy_circle_map);
-
-      trappy_circles_array.append(trappy_circle_obj);
-
+      trappy_circles_array.append(
+          manager_.GetTrappyCircles()[i].GetData().Save(id));
       id++;
     }
-
-    json_file.setArray(trappy_circles_array);
-
-    file.write(",\n\"Trappy_Circles\":" + json_file.toJson());
+    arr.push_back(trappy_circles_array);
 
     id = 30001;
 
-    QJsonArray trappy_lines_array =
-        json_file.object().value("trappy_lines").toArray();
-
     for (size_t i = 0; i < manager_.GetTrappyLines().size(); i++) {
-      QVariantMap trappy_line_map;
-
-      gui::TrappyLine tl = manager_.GetTrappyLines()[i];
-      lib::Target t1 = tl.GetTargets()[0];
-      lib::Target t2 = tl.GetTargets()[1];
-
-      trappy_line_map.insert("Id", id);
-      trappy_line_map.insert("X1", t1.GetPoint().x);
-      trappy_line_map.insert("Y1", t1.GetPoint().y);
-      trappy_line_map.insert("X2", t2.GetPoint().x);
-      trappy_line_map.insert("Y2", t2.GetPoint().y);
-
-      QJsonObject trappy_line_obj =
-          QJsonObject::fromVariantMap(trappy_line_map);
-
-      trappy_lines_array.append(trappy_line_obj);
-
+      trappy_lines_array.append(
+          manager_.GetTrappyLines()[i].GetData().Save(id));
       id++;
     }
-
-    json_file.setArray(trappy_lines_array);
-
-    file.write(",\n\"Trappy_Lines\":" + json_file.toJson());
+    arr.push_back(trappy_lines_array);
 
     id = 40001;
 
-    QJsonArray hills_array = json_file.object().value("Hills").toArray();
-
     for (size_t i = 0; i < manager_.GetHills().size(); i++) {
-      QVariantMap hill_map;
-
-      hill_map.insert("Id", id);
-
-      gui::Hill h = manager_.GetHills()[i];
-
-      for (size_t i = 0; i < h.GetPoints().size(); i++) {
-        lib::Point t = h.GetPoints()[i];
-        hill_map.insert("X" + QString::number(i + 1), t.x);
-        hill_map.insert("Y" + QString::number(i + 1), t.y);
-      }
-
-      QJsonObject hill_obj = QJsonObject::fromVariantMap(hill_map);
-
-      hills_array.append(hill_obj);
-
+      hills_array.append(manager_.GetHills()[i].GetData().Save(id));
       id++;
     }
+    arr.push_back(hills_array);
 
-    json_file.setArray(hills_array);
-
-    file.write(",\n\"Hills\":" + json_file.toJson() + "}");
-
-    file.close();
+    WriteFile(file, json_file, arr);
   }
-
-  else
-    QMessageBox::information(nullptr, "File error", "Can't open json file!");
 }
