@@ -92,7 +92,6 @@ void MainWindow::on_pushButtonEditObjects_clicked() {
 }
 
 void MainWindow::on_plot_MousePressed() {
-  //   IC();  // IGNORE
   ui->plot->setCursor(Qt::CrossCursor);
   ui->plot->replot();
 }

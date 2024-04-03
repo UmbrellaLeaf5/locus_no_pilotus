@@ -4,10 +4,6 @@
 #include <cmath>
 #include <random>
 
-// #include "icecream.hpp"  //IGNORE
-
-// #include "qcustomplot.h"
-
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif
@@ -19,21 +15,25 @@ using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(lib_hill)
 
+struct {
+  double x, y, r;
+  size_t v_a;
+} cases[] = {{0, 0, 0, 2}, {0, 0, 1, 2}, {1, 0, 0, 3}},
+  exception_cases[] = {{0, 0, 0, 0}, {0, 0, 0, 1}, {1, 2, 2, 1}, {1, 3, 4, 0}};
+
 // инициализация по конструктору правильного многоугольника
 BOOST_AUTO_TEST_CASE(simple_regular_construct) {
-  struct {
-    double x, y, r;
-    size_t v_a;
-  } cases[] = {{0, 0, 0, 2}, {0, 0, 1, 2}, {1, 0, 0, 3}};
-
   for (auto c : cases) {
     Hill h(lib::Point(c.x, c.y), c.r, c.v_a);
-    //     IC(c.x, c.y, c.r, c.v_a);  // IGNORE
-
     BOOST_TEST(std::abs(h.GetCenter().x - c.x) < 1.0E-7);  // приближенно равны
     BOOST_TEST(std::abs(h.GetCenter().y - c.y) < 1.0E-7);  // приближенно равны
     BOOST_TEST(std::abs(h.GetRadius() - c.r) < 1.0E-7);
     BOOST_TEST(h.GetPoints().size() == c.v_a);
+  }
+
+  for (auto c : exception_cases) {
+    BOOST_CHECK_THROW(Hill(lib::Point(c.x, c.y), c.r, c.v_a),
+                      std::invalid_argument);
   }
 }
 
@@ -56,8 +56,6 @@ BOOST_AUTO_TEST_CASE(random_regular_construct) {
     BOOST_TEST(h.GetPoints().size() == v_a);
   }
 }
-
-// IDK: конструктор по листу точек проверять имеет смысл?
 
 // BOOST_AUTO_TEST_CASE(json_load, *utf::disabled()) {}
 // BOOST_AUTO_TEST_CASE(json_save, *utf::disabled()) {}
