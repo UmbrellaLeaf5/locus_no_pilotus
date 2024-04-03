@@ -42,7 +42,7 @@ void MainWindow::on_actionOpen_triggered() {
     }
   }
 
-  manager_.Set(targets_from_file);
+  area_.Set(targets_from_file);
 
   std::vector<gui::TrappyCircle> tr_circles_from_file;
 
@@ -66,7 +66,7 @@ void MainWindow::on_actionOpen_triggered() {
     }
   }
 
-  manager_.Set(tr_circles_from_file);
+  area_.Set(tr_circles_from_file);
 
   std::vector<gui::TrappyLine> tr_lines_from_file;
 
@@ -84,7 +84,7 @@ void MainWindow::on_actionOpen_triggered() {
       gui::Target t1;
       gui::Target t2;
 
-      for (auto t : manager_.GetTargets()) {
+      for (auto t : area_.GetTargets()) {
         if (x1 == t.GetPoint().x && y1 == t.GetPoint().y) {
           t1 = t;
 
@@ -99,7 +99,7 @@ void MainWindow::on_actionOpen_triggered() {
     }
   }
 
-  manager_.Set(tr_lines_from_file);
+  area_.Set(tr_lines_from_file);
 
   std::vector<gui::Hill> hills_from_file;
 
@@ -122,7 +122,7 @@ void MainWindow::on_actionOpen_triggered() {
     }
   }
 
-  manager_.Set(hills_from_file);
+  area_.Set(hills_from_file);
 
-  manager_.Draw();
+  area_.Draw();
 }

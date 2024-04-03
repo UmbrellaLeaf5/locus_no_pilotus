@@ -47,6 +47,6 @@ class MainWindow : public QMainWindow {
   void AddHill();
 
  private:
-  PlotArea manager_;
+  PlotArea area_;
   Ui::MainWindow* ui;
 };

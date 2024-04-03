@@ -1,119 +1,82 @@
 #include "plot_area.h"
 
-void PlotArea::Add(std::initializer_list<gui::Hill> new_hills) {
-  hills_.insert(hills_.end(), new_hills.begin(), new_hills.end());
-}
+void PlotArea::Draw(gui::ObjectType obj_type) {
+  if (obj_type == gui::ObjectType::Targets || obj_type == gui::ObjectType::All)
+    // FIXME: в этом месте поменять использование Draw на то, что в manager
+    for (const auto& target : manager_.GetTargets()) target.Draw(plot_.get());
 
-void PlotArea::Set(std::initializer_list<gui::Hill> hills) {
-  hills_ = {hills.begin(), hills.end()};
-}
+  if (obj_type == gui::ObjectType::Hills || obj_type == gui::ObjectType::All)
+    for (const auto& hill : manager_.GetHills()) hill.Draw(plot_.get());
 
-void PlotArea::Set(std::vector<gui::Hill> hills) { hills_ = hills; }
+  if (obj_type == gui::ObjectType::TrappyCircles ||
+      obj_type == gui::ObjectType::All)
+    for (const auto& tr_circle : manager_.GetTrappyCircles())
+      tr_circle.Draw(plot_.get());
 
-void PlotArea::Add(std::initializer_list<gui::Target> new_targets) {
-  targets_.insert(targets_.end(), new_targets.begin(), new_targets.end());
-}
-
-void PlotArea::Set(std::initializer_list<gui::Target> targets) {
-  targets_ = {targets.begin(), targets.end()};
-}
-
-void PlotArea::Set(std::vector<gui::Target> targets) { targets_ = targets; }
-
-void PlotArea::Add(std::initializer_list<gui::TrappyCircle> new_tr_circles) {
-  tr_circles_.insert(tr_circles_.end(), new_tr_circles.begin(),
-                     new_tr_circles.end());
-}
-
-void PlotArea::Set(std::initializer_list<gui::TrappyCircle> tr_circles) {
-  tr_circles_ = {tr_circles.begin(), tr_circles.end()};
-}
-
-void PlotArea::Set(std::vector<gui::TrappyCircle> tr_circles) {
-  tr_circles_ = tr_circles;
-}
-
-void PlotArea::Add(std::initializer_list<gui::TrappyLine> new_tr_lines) {
-  tr_lines_.insert(tr_lines_.end(), new_tr_lines.begin(), new_tr_lines.end());
-}
-
-void PlotArea::Set(std::initializer_list<gui::TrappyLine> tr_lines) {
-  tr_lines_ = {tr_lines.begin(), tr_lines.end()};
-}
-
-void PlotArea::Set(std::vector<gui::TrappyLine> tr_lines) {
-  tr_lines_ = tr_lines;
-}
-
-void PlotArea::Draw(ObjectType obj_type) {
-  if (obj_type == ObjectType::Targets || obj_type == ObjectType::All)
-    for (const auto& target : targets_) target.Draw(plot_.get());
-
-  if (obj_type == ObjectType::Hills || obj_type == ObjectType::All)
-    for (const auto& hill : hills_) hill.Draw(plot_.get());
-
-  if (obj_type == ObjectType::TrappyCircles || obj_type == ObjectType::All)
-    for (const auto& tr_circle : tr_circles_) tr_circle.Draw(plot_.get());
-
-  if (obj_type == ObjectType::TrappyLines || obj_type == ObjectType::All)
-    for (const auto& tr_line : tr_lines_) tr_line.Draw(plot_.get());
+  if (obj_type == gui::ObjectType::TrappyLines ||
+      obj_type == gui::ObjectType::All)
+    for (const auto& tr_line : manager_.GetTrappyLines())
+      tr_line.Draw(plot_.get());
 
   UpdateInfo(obj_type);
   plot_->replot();
 }
 
-void PlotArea::UpdateInfo(ObjectType obj_type) {
-  if (obj_type == ObjectType::Targets || obj_type == ObjectType::All) {
+void PlotArea::UpdateInfo(gui::ObjectType obj_type) {
+  if (obj_type == gui::ObjectType::Targets ||
+      obj_type == gui::ObjectType::All) {
     QString text = "Targets on plot: \n";
-    for (size_t i = 0; i < targets_.size(); i++) {
-      auto target = targets_[i];
-      text += "  target n." + std::to_string(i + 1) + ":\n";
-      text += "    x: " + std::to_string(target.GetPoint().x) + "\n";
-      text += "    y: " + std::to_string(target.GetPoint().y) + "\n";
+    for (size_t i = 0; i < manager_.GetTargets().size(); i++) {
+      auto target = manager_.GetTargets()[i];
+      text += "  target n." + QString::number(i + 1) + ":\n";
+      text += "    x: " + QString::number(target.GetPoint().x) + "\n";
+      text += "    y: " + QString::number(target.GetPoint().y) + "\n";
     }
 
     targets_info_->setText(text);
     targets_info_->setWordWrap(true);
   }
 
-  if (obj_type == ObjectType::Hills || obj_type == ObjectType::All) {
+  if (obj_type == gui::ObjectType::Hills || obj_type == gui::ObjectType::All) {
     QString text = "Hills on plot: \n";
-    for (size_t i = 0; i < hills_.size(); i++) {
-      auto hill = hills_[i];
-      text += "  hill n." + std::to_string(i + 1) + ":\n";
-      text += "    x: " + std::to_string(hill.GetCenter().x) + "\n";
-      text += "    y: " + std::to_string(hill.GetCenter().y) + "\n";
-      text += "    r: " + std::to_string(hill.GetRadius()) + "\n";
+    for (size_t i = 0; i < manager_.GetHills().size(); i++) {
+      auto hill = manager_.GetHills()[i];
+      text += "  hill n." + QString::number(i + 1) + ":\n";
+      text += "    x: " + QString::number(hill.GetCenter().x) + "\n";
+      text += "    y: " + QString::number(hill.GetCenter().y) + "\n";
+      text += "    r: " + QString::number(hill.GetRadius()) + "\n";
     }
 
     hills_info_->setText(text);
     hills_info_->setWordWrap(true);
   }
 
-  if (obj_type == ObjectType::TrappyCircles || obj_type == ObjectType::All) {
+  if (obj_type == gui::ObjectType::TrappyCircles ||
+      obj_type == gui::ObjectType::All) {
     QString text = "Trappy circles on plot: \n";
-    for (size_t i = 0; i < tr_circles_.size(); i++) {
-      auto tr_circle = tr_circles_[i];
-      text += "  trappy c. n." + std::to_string(i + 1) + ":\n";
-      text += "    x: " + std::to_string(tr_circle.GetCenter().x) + "\n";
-      text += "    y: " + std::to_string(tr_circle.GetCenter().y) + "\n";
-      text += "    r: " + std::to_string(tr_circle.GetRadius()) + "\n";
+    for (size_t i = 0; i < manager_.GetTrappyCircles().size(); i++) {
+      auto tr_circle = manager_.GetTrappyCircles()[i];
+      text += "  trappy c. n." + QString::number(i + 1) + ":\n";
+      text += "    x: " + QString::number(tr_circle.GetCenter().x) + "\n";
+      text += "    y: " + QString::number(tr_circle.GetCenter().y) + "\n";
+      text += "    r: " + QString::number(tr_circle.GetRadius()) + "\n";
     }
 
     tr_circles_info_->setText(text);
     tr_circles_info_->setWordWrap(true);
   }
 
-  if (obj_type == ObjectType::TrappyLines || obj_type == ObjectType::All) {
+  if (obj_type == gui::ObjectType::TrappyLines ||
+      obj_type == gui::ObjectType::All) {
     QString text = "Trappy lines on plot: \n";
-    for (size_t i = 0; i < tr_lines_.size(); i++) {
-      auto tr_line = tr_lines_[i];
-      text += "  trappy l. n." + std::to_string(i + 1) + ":\n";
+    for (size_t i = 0; i < manager_.GetTrappyLines().size(); i++) {
+      auto tr_line = manager_.GetTrappyLines()[i];
+      text += "  trappy l. n." + QString::number(i + 1) + ":\n";
       for (size_t j = 0; j < tr_line.GetTargets().size(); j++) {
         auto target = tr_line.GetTargets()[j];
-        text += "   target n." + std::to_string(j + 1) + ":\n";
-        text += "     x: " + std::to_string(target.GetPoint().x) + "\n";
-        text += "     y: " + std::to_string(target.GetPoint().y) + "\n";
+        text += "   target n." + QString::number(j + 1) + ":\n";
+        text += "     x: " + QString::number(target.GetPoint().x) + "\n";
+        text += "     y: " + QString::number(target.GetPoint().y) + "\n";
       }
     }
 

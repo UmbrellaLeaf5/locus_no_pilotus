@@ -307,7 +307,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <string notr="true"/>
     </property>
     <property name="title">
-     <string>Add➕</string>
+     <string>Add ➕</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionTarget"/>

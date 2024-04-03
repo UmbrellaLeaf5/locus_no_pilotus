@@ -4,10 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "../../gui/hill.h"
-#include "../../gui/target.h"
-#include "../../gui/trappy_circle.h"
-#include "../../gui/trappy_line.h"
+#include "../../gui/data_manager/data_manager.h"
 #include "qcustomplot.h"
 
 // @brief класс, упрощающий управление классами gui на QCustomPlot
@@ -15,11 +12,7 @@ class PlotArea {
  public:
   PlotArea() = default;
 
-  PlotArea(QCustomPlot* plot)
-      : hills_(0), targets_(0), tr_circles_(0), tr_lines_(0), plot_(plot) {}
-
-  // @brief типы объектов по категориям
-  enum ObjectType { Hills, Targets, TrappyCircles, TrappyLines, All };
+  PlotArea(QCustomPlot* plot) : manager_(), plot_(plot) {}
 
   // methods
 
@@ -49,97 +42,116 @@ class PlotArea {
    * @brief отрисовывает на полотне определенные типы объектов
    * @param obj_type: тип объектов
    */
-  void Draw(ObjectType obj_type = ObjectType::All);
+  void Draw(gui::ObjectType obj_type = gui::ObjectType::All);
 
   // ----------------------   Target methods   ----------------------
 
-  void Add(gui::Target t) { targets_.push_back(t); }
-  void Add(std::initializer_list<gui::Target>);
-  void Add(lib::Target data) { targets_.push_back(gui::Target(data)); };
-  void Set(std::initializer_list<gui::Target>);
-  void Set(std::vector<gui::Target>);
+  void Add(gui::Target t) { manager_.Add(t); }
+  void Add(std::initializer_list<gui::Target> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(lib::Target data) { manager_.Add(data); };
+  void Set(std::initializer_list<gui::Target> init_list) {
+    manager_.Set(init_list);
+  }
+  void Set(std::vector<gui::Target> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение targets
    * (позволяет менять объекты, т.к. ссылка не const)
-   * @return std::vector<gui::Target>& ссылки на объекты К.Т.
+   * @return std::vector<gui::Target>&: ссылки на объекты К.Т.
    */
-  std::vector<gui::Target>& GetTargets() { return targets_; }
+  std::vector<gui::Target>& GetTargets() { return manager_.GetTargets(); }
 
   /**
    * @brief возвращает значение targets
-   * @return const std::vector<gui::Target>& ссылки на объекты К.Т.
+   * @return const std::vector<gui::Target>&: ссылки на объекты К.Т.
    */
-  const std::vector<gui::Target>& GetTargets() const { return targets_; }
+  const std::vector<gui::Target>& GetTargets() const {
+    return manager_.GetTargets();
+  }
 
   // ----------------------    Hill methods    ----------------------
 
-  void Add(gui::Hill h) { hills_.push_back(h); }
-  void Add(std::initializer_list<gui::Hill>);
-  void Add(lib::Hill data) { hills_.push_back(gui::Hill(data)); };
-  void Set(std::initializer_list<gui::Hill>);
-  void Set(std::vector<gui::Hill>);
+  void Add(gui::Hill t) { manager_.Add(t); }
+  void Add(std::initializer_list<gui::Hill> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(lib::Hill data) { manager_.Add(data); };
+  void Set(std::initializer_list<gui::Hill> init_list) {
+    manager_.Set(init_list);
+  }
+  void Set(std::vector<gui::Hill> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение Hills
    * (позволяет менять объекты, т.к. ссылка не const)
-   * @return std::vector<gui::Hill>& ссылки на объекты рельефа
+   * @return std::vector<gui::Hill>&: ссылки на объекты рельефа
    */
-  std::vector<gui::Hill>& GetHills() { return hills_; }
+  std::vector<gui::Hill>& GetHills() { return manager_.GetHills(); }
 
-  // RETURNS: [const std::vector<gui::Hill>&]: объекты рельефа
-  const std::vector<gui::Hill>& GetHills() const { return hills_; }
+  /**
+   * @brief возвращает значение Hills
+   * @return const std::vector<gui::Hill>&: ссылки на объекты рельефа
+   */
+  const std::vector<gui::Hill>& GetHills() const { return manager_.GetHills(); }
 
   // ---------------------- TrappyCircle methods ----------------------
 
-  void Add(gui::TrappyCircle tr_c) { tr_circles_.push_back(tr_c); }
-  void Add(std::initializer_list<gui::TrappyCircle>);
-  void Add(lib::TrappyCircle data) {
-    tr_circles_.push_back(gui::TrappyCircle(data));
-  };
-  void Set(std::initializer_list<gui::TrappyCircle>);
-  void Set(std::vector<gui::TrappyCircle>);
+  void Add(gui::TrappyCircle t) { manager_.Add(t); }
+  void Add(std::initializer_list<gui::TrappyCircle> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(lib::TrappyCircle data) { manager_.Add(data); };
+  void Set(std::initializer_list<gui::TrappyCircle> init_list) {
+    manager_.Set(init_list);
+  }
+  void Set(std::vector<gui::TrappyCircle> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение Trappy Circles
    * (позволяет менять объекты, т.к. ссылка не const)
-   * @return std::vector<gui::TrappyCircle>& ссылки на объекты опасной зоны
+   * @return std::vector<gui::TrappyCircle>&: ссылки на объекты опасной зоны
    */
-  std::vector<gui::TrappyCircle>& GetTrappyCircles() { return tr_circles_; }
+  std::vector<gui::TrappyCircle>& GetTrappyCircles() {
+    return manager_.GetTrappyCircles();
+  }
 
   /**
    * @brief возвращает значение Trappy Circles
-   * @return const std::vector<gui::TrappyCircle>& объекты опасной зоны
+   * @return const std::vector<gui::TrappyCircle>&: объекты опасной зоны
    */
   const std::vector<gui::TrappyCircle>& GetTrappyCircles() const {
-    return tr_circles_;
+    return manager_.GetTrappyCircles();
   }
 
   // ----------------------  TrappyLine methods  ----------------------
 
-  void Add(gui::TrappyLine tr_l) { tr_lines_.push_back(tr_l); }
-  void Add(std::initializer_list<gui::TrappyLine>);
-  void Add(lib::TrappyLine data) {
-    tr_lines_.push_back(gui::TrappyLine(data));
-  };
-  void Set(std::initializer_list<gui::TrappyLine>);
-  void Set(std::vector<gui::TrappyLine>);
+  void Add(gui::TrappyLine t) { manager_.Add(t); }
+  void Add(std::initializer_list<gui::TrappyLine> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(lib::TrappyLine data) { manager_.Add(data); };
+  void Set(std::initializer_list<gui::TrappyLine> init_list) {
+    manager_.Set(init_list);
+  }
+  void Set(std::vector<gui::TrappyLine> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение Trappy Lines
    * (позволяет менять объекты, т.к. ссылка не const)
-   * @return std::vector<gui::TrappyLine>& ссылки на объекты оп. перелета
+   * @return std::vector<gui::TrappyLine>&: ссылки на объекты оп. перелета
    */
-  std::vector<gui::TrappyLine>& GetTrappyLines() { return tr_lines_; }
-
-  // RETURNS: [const std::vector<gui::TrappyLine>&]:
+  std::vector<gui::TrappyLine>& GetTrappyLines() {
+    return manager_.GetTrappyLines();
+  }
 
   /**
    * @brief возвращает значение Trappy Lines
-   * @return const std::vector<gui::TrappyLine>& ссылки на объекты оп. перелета
+   * @return const std::vector<gui::TrappyLine>&: ссылки на объекты оп. перелета
    */
   const std::vector<gui::TrappyLine>& GetTrappyLines() const {
-    return tr_lines_;
+    return manager_.GetTrappyLines();
   }
 
   // ~methods
@@ -149,7 +161,9 @@ class PlotArea {
    * @brief обновляет данный в лейблах определенных типов объектов
    * @param obj_type: тип объектов
    */
-  void UpdateInfo(ObjectType obj_type = ObjectType::All);
+  void UpdateInfo(gui::ObjectType obj_type = gui::ObjectType::All);
+
+  // vars
 
   // i love unique_ptr's, i love logic schemes
   std::unique_ptr<QCustomPlot> plot_;
@@ -159,8 +173,7 @@ class PlotArea {
   std::unique_ptr<QLabel> tr_circles_info_{nullptr};
   std::unique_ptr<QLabel> tr_lines_info_{nullptr};
 
-  std::vector<gui::Hill> hills_;
-  std::vector<gui::Target> targets_;
-  std::vector<gui::TrappyCircle> tr_circles_;
-  std::vector<gui::TrappyLine> tr_lines_;
+  gui::DataManager manager_;
+
+  // ~vars
 };

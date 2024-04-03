@@ -10,8 +10,8 @@
 // #include "icecream.hpp"  // IGNORE
 
 void MainWindow::AddTarget(double x, double y) {
-  manager_.Add(gui::Target(x, y));
-  manager_.Draw(PlotArea::ObjectType::Targets);
+  area_.Add(gui::Target(x, y));
+  area_.Draw(gui::ObjectType::Targets);
 }
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
@@ -30,8 +30,8 @@ void MainWindow::on_actionTarget_triggered() {
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius,
                                  QColor color) {
-  manager_.Add(gui::TrappyCircle(x, y, radius, color));
-  manager_.Draw(PlotArea::ObjectType::TrappyCircles);
+  area_.Add(gui::TrappyCircle(x, y, radius, color));
+  area_.Draw(gui::ObjectType::TrappyCircles);
 }
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   ui->plot->setCursor(QCursor(
@@ -55,12 +55,12 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   gui::Target t1(x1, y1);
   gui::Target t2(x2, y2);
 
-  manager_.Add(t1);
-  manager_.Add(t2);
-  manager_.Draw(PlotArea::ObjectType::Targets);
+  area_.Add(t1);
+  area_.Add(t2);
+  area_.Draw(gui::ObjectType::Targets);
 
-  manager_.Add(gui::TrappyLine({t1, t2}));
-  manager_.Draw(PlotArea::ObjectType::TrappyLines);
+  area_.Add(gui::TrappyLine({t1, t2}));
+  area_.Draw(gui::ObjectType::TrappyLines);
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {

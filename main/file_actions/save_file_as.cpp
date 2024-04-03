@@ -42,34 +42,33 @@ void MainWindow::on_actionSave_as_triggered() {
         json_file.object().value("Trappy_Lines").toArray();
     QJsonArray hills_array = json_file.object().value("Hills").toArray();
 
-    for (size_t i = 0; i < manager_.GetTargets().size(); i++) {
-      targets_array.append(manager_.GetTargets()[i].GetData().Save(id));
+    for (size_t i = 0; i < area_.GetTargets().size(); i++) {
+      targets_array.append(area_.GetTargets()[i].GetData().Save(id));
       id++;
     }
     arr.push_back(targets_array);
 
     id = 20001;
 
-    for (size_t i = 0; i < manager_.GetTrappyCircles().size(); i++) {
+    for (size_t i = 0; i < area_.GetTrappyCircles().size(); i++) {
       trappy_circles_array.append(
-          manager_.GetTrappyCircles()[i].GetData().Save(id));
+          area_.GetTrappyCircles()[i].GetData().Save(id));
       id++;
     }
     arr.push_back(trappy_circles_array);
 
     id = 30001;
 
-    for (size_t i = 0; i < manager_.GetTrappyLines().size(); i++) {
-      trappy_lines_array.append(
-          manager_.GetTrappyLines()[i].GetData().Save(id));
+    for (size_t i = 0; i < area_.GetTrappyLines().size(); i++) {
+      trappy_lines_array.append(area_.GetTrappyLines()[i].GetData().Save(id));
       id++;
     }
     arr.push_back(trappy_lines_array);
 
     id = 40001;
 
-    for (size_t i = 0; i < manager_.GetHills().size(); i++) {
-      hills_array.append(manager_.GetHills()[i].GetData().Save(id));
+    for (size_t i = 0; i < area_.GetHills().size(); i++) {
+      hills_array.append(area_.GetHills()[i].GetData().Save(id));
       id++;
     }
     arr.push_back(hills_array);
