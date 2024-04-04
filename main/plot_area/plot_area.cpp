@@ -22,6 +22,31 @@ void PlotArea::Redraw() {
   plot_->replot();
 }
 
+void PlotArea::Remove(gui::ObjectType obj_type, size_t index) {
+  switch (obj_type) {
+    case gui::ObjectType::Targets: {
+      plot_->removePlottable(manager_.GetTargets()[index].GetPlottableIndex());
+      break;
+    }
+    case gui::ObjectType::Hills: {
+      plot_->removePlottable(manager_.GetHills()[index].GetPlottableIndex());
+      break;
+    }
+    case gui::ObjectType::TrappyLines: {
+      plot_->removePlottable(
+          manager_.GetTrappyLines()[index].GetPlottableIndex());
+      break;
+    }
+    case gui::ObjectType::TrappyCircles: {
+      plot_->removeItem(manager_.GetTrappyCircles()[index].GetItemIndex());
+      break;
+    }
+  }
+
+  manager_.Remove(obj_type, index);
+  Redraw();
+}
+
 void PlotArea::UpdateInfo() {
   targets_info_->setText(manager_.GetTexted(gui::ObjectType::Targets));
 

@@ -32,7 +32,29 @@ void DataManager::Draw(ObjectType obj_type, size_t index, QCustomPlot* plot) {
   }
 }
 
-// void DataManager::Remove(ObjectType obj_type, size_t index) {}
+void DataManager::Remove(ObjectType obj_type, size_t index) {
+  switch (obj_type) {
+    case ObjectType::Targets: {
+      targets_.erase(targets_.begin() + index);
+      break;
+    }
+
+    case ObjectType::Hills: {
+      hills_.erase(hills_.begin() + index);
+      break;
+    }
+
+    case ObjectType::TrappyCircles: {
+      tr_circles_.erase(tr_circles_.begin() + index);
+      break;
+    }
+
+    case ObjectType::TrappyLines: {
+      tr_lines_.erase(tr_lines_.begin() + index);
+      break;
+    }
+  }
+}
 
 QString DataManager::GetTexted(ObjectType obj_type) {
   QString text;

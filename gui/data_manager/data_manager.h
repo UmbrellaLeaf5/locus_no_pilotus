@@ -36,7 +36,7 @@ class DataManager {
    * @param obj_type: тип объекта
    * @param index: индекс объекта в его векторе
    */
-  // void Remove(ObjectType obj_type, size_t index);
+  void Remove(ObjectType obj_type, size_t index);
 
   /**
    * @brief возвращает представление определенных типов объектов в виде текста

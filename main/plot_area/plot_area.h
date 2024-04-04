@@ -41,6 +41,13 @@ class PlotArea {
   // @brief перерисовывает на полотне все объекты и обновляет данные
   void Redraw();
 
+  /**
+   * @brief удаляет объект на полотне по индексу объекта в его векторе
+   * @param obj_type: тип объекта
+   * @param index: индекс в его векторе
+   */
+  void Remove(gui::ObjectType obj_type, size_t index);
+
   // ----------------------   Target methods   ----------------------
 
   // for gui::Target
