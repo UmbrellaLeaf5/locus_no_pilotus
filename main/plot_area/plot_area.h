@@ -43,16 +43,29 @@ class PlotArea {
 
   // ----------------------   Target methods   ----------------------
 
+  // for gui::Target
   void Add(gui::Target t) { manager_.Add(t); }
   void Add(std::initializer_list<gui::Target> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::Target data) { manager_.Add(data); }
+  void Add(std::vector<gui::Target> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<gui::Target> init_list) {
     manager_.Set(init_list);
   }
   void Set(std::vector<gui::Target> vec) { manager_.Set(vec); }
+
+  // for lib::Target
+  void Add(lib::Target data) { manager_.Add(data); }
+  void Add(std::initializer_list<lib::Target> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(std::vector<lib::Target> vec) { manager_.Add(vec); }
+
+  void Set(std::initializer_list<lib::Target> init_list) {
+    manager_.Add(init_list);
+  }
+  void Set(std::vector<lib::Target> vec) { manager_.Add(vec); }
 
   /**
    * @brief возвращает значение targets
@@ -71,16 +84,29 @@ class PlotArea {
 
   // ----------------------    Hill methods    ----------------------
 
+  // for gui::Hill
   void Add(gui::Hill t) { manager_.Add(t); }
   void Add(std::initializer_list<gui::Hill> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::Hill data) { manager_.Add(data); }
+  void Add(std::vector<gui::Hill> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<gui::Hill> init_list) {
     manager_.Set(init_list);
   }
   void Set(std::vector<gui::Hill> vec) { manager_.Set(vec); }
+
+  // for lib::Hill
+  void Add(lib::Hill data) { manager_.Add(data); }
+  void Add(std::initializer_list<lib::Hill> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(std::vector<lib::Hill> vec) { manager_.Add(vec); }
+
+  void Set(std::initializer_list<lib::Hill> init_list) {
+    manager_.Add(init_list);
+  }
+  void Set(std::vector<lib::Hill> vec) { manager_.Add(vec); }
 
   /**
    * @brief возвращает значение Hills
@@ -97,16 +123,29 @@ class PlotArea {
 
   // ---------------------- TrappyCircle methods ----------------------
 
+  // for gui::TrappyCircle
   void Add(gui::TrappyCircle t) { manager_.Add(t); }
   void Add(std::initializer_list<gui::TrappyCircle> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::TrappyCircle data) { manager_.Add(data); }
+  void Add(std::vector<gui::TrappyCircle> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<gui::TrappyCircle> init_list) {
     manager_.Set(init_list);
   }
   void Set(std::vector<gui::TrappyCircle> vec) { manager_.Set(vec); }
+
+  // for lib::TrappyCircle
+  void Add(lib::TrappyCircle data) { manager_.Add(data); }
+  void Add(std::initializer_list<lib::TrappyCircle> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(std::vector<lib::TrappyCircle> vec) { manager_.Add(vec); }
+
+  void Set(std::initializer_list<lib::TrappyCircle> init_list) {
+    manager_.Add(init_list);
+  }
+  void Set(std::vector<lib::TrappyCircle> vec) { manager_.Add(vec); }
 
   /**
    * @brief возвращает значение Trappy Circles
@@ -127,16 +166,29 @@ class PlotArea {
 
   // ----------------------  TrappyLine methods  ----------------------
 
+  // for gui::TrappyLine
   void Add(const gui::TrappyLine& t) { manager_.Add(t); }
   void Add(std::initializer_list<gui::TrappyLine> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::TrappyLine data) { manager_.Add(data); }
+  void Add(std::vector<gui::TrappyLine> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<gui::TrappyLine> init_list) {
     manager_.Set(init_list);
   }
   void Set(std::vector<gui::TrappyLine> vec) { manager_.Set(vec); }
+
+  // for lib::TrappyLine
+  void Add(lib::TrappyLine data) { manager_.Add(data); }
+  void Add(std::initializer_list<lib::TrappyLine> init_list) {
+    manager_.Add(init_list);
+  }
+  void Add(std::vector<lib::TrappyLine> vec) { manager_.Add(vec); }
+
+  void Set(std::initializer_list<lib::TrappyLine> init_list) {
+    manager_.Set(init_list);
+  }
+  void Set(std::vector<lib::TrappyLine> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение Trappy Lines

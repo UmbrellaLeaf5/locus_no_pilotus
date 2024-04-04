@@ -24,12 +24,19 @@ class DataManager {
   // methods
 
   /**
-   * @brief отрисовывает на полотне определенные типы объектов
-   * @param obj_type: тип объектов
+   * @brief отрисовывает на полотне объект по индексу
+   * @param obj_type: тип объекта
    * @param index: индекс объекта в его векторе
    * @param plot: указатель на полотно
    */
   void Draw(ObjectType obj_type, size_t index, QCustomPlot* plot);
+
+  /**
+   * @brief удаляет объект из менеджера по индексу
+   * @param obj_type: тип объекта
+   * @param index: индекс объекта в его векторе
+   */
+  // void Remove(ObjectType obj_type, size_t index);
 
   /**
    * @brief возвращает представление определенных типов объектов в виде текста
@@ -40,13 +47,21 @@ class DataManager {
 
   // ----------------------   Target methods   ----------------------
 
+  // for gui::Target
   void Add(gui::Target t) { targets_.push_back(t); }
   void Add(std::initializer_list<gui::Target>);
   void Add(std::vector<gui::Target>);
-  void Add(lib::Target data) { targets_.push_back(gui::Target(data)); }
 
   void Set(std::initializer_list<gui::Target>);
   void Set(std::vector<gui::Target>);
+
+  // for lib::Target
+  void Add(lib::Target data) { targets_.push_back(gui::Target(data)); }
+  void Add(std::initializer_list<lib::Target>);
+  void Add(std::vector<lib::Target>);
+
+  void Set(std::initializer_list<lib::Target>);
+  void Set(std::vector<lib::Target>);
 
   /**
    * @brief возвращает значение Targets
@@ -63,13 +78,21 @@ class DataManager {
 
   // ----------------------    Hill methods    ----------------------
 
+  // for gui::Hill
   void Add(gui::Hill h) { hills_.push_back(h); }
   void Add(std::initializer_list<gui::Hill>);
   void Add(std::vector<gui::Hill>);
-  void Add(lib::Hill data) { hills_.push_back(gui::Hill(data)); }
 
   void Set(std::initializer_list<gui::Hill>);
   void Set(std::vector<gui::Hill>);
+
+  // for lib::Hill
+  void Add(lib::Hill data) { hills_.push_back(gui::Hill(data)); }
+  void Add(std::initializer_list<lib::Hill>);
+  void Add(std::vector<lib::Hill>);
+
+  void Set(std::initializer_list<lib::Hill>);
+  void Set(std::vector<lib::Hill>);
 
   /**
    * @brief возвращает значение Hills
@@ -86,15 +109,23 @@ class DataManager {
 
   // ---------------------- TrappyCircle methods ----------------------
 
+  // for gui::TrappyCircle
   void Add(gui::TrappyCircle tr_c) { tr_circles_.push_back(tr_c); }
   void Add(std::initializer_list<gui::TrappyCircle>);
   void Add(std::vector<gui::TrappyCircle>);
-  void Add(lib::TrappyCircle data) {
-    tr_circles_.push_back(gui::TrappyCircle(data));
-  };
 
   void Set(std::initializer_list<gui::TrappyCircle>);
   void Set(std::vector<gui::TrappyCircle>);
+
+  // for lib::TrappyCircle
+  void Add(lib::TrappyCircle data) {
+    tr_circles_.push_back(gui::TrappyCircle(data));
+  };
+  void Add(std::initializer_list<lib::TrappyCircle>);
+  void Add(std::vector<lib::TrappyCircle>);
+
+  void Set(std::initializer_list<lib::TrappyCircle>);
+  void Set(std::vector<lib::TrappyCircle>);
 
   /**
    * @brief возвращает значение Trappy Circles
@@ -113,15 +144,23 @@ class DataManager {
 
   // ----------------------  TrappyLine methods  ----------------------
 
+  // for gui::TrappyLine
   void Add(gui::TrappyLine tr_l) { tr_lines_.push_back(tr_l); }
   void Add(std::initializer_list<gui::TrappyLine>);
   void Add(std::vector<gui::TrappyLine>);
-  void Add(lib::TrappyLine data) {
-    tr_lines_.push_back(gui::TrappyLine(data));
-  };
 
   void Set(std::initializer_list<gui::TrappyLine>);
   void Set(std::vector<gui::TrappyLine>);
+
+  // for lib::TrappyLine
+  void Add(lib::TrappyLine data) {
+    tr_lines_.push_back(gui::TrappyLine(data));
+  };
+  void Add(std::initializer_list<lib::TrappyLine>);
+  void Add(std::vector<lib::TrappyLine>);
+
+  void Set(std::initializer_list<lib::TrappyLine>);
+  void Set(std::vector<lib::TrappyLine>);
 
   /**
    * @brief возвращает значение Trappy Lines
