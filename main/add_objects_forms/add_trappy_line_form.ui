@@ -10,8 +10,24 @@
     <height>280</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>280</width>
+    <height>280</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Trappy Line</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>
@@ -32,26 +48,26 @@
     <item row="2" column="0">
      <layout class="QHBoxLayout" name="buttonsLayout">
       <item>
-       <widget class="QPushButton" name="clearPushButton">
-        <property name="font">
-         <font>
-          <family>Verdana</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>Clear all</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="createPushButton">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
          <string>Create</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clearPushButton">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear all</string>
         </property>
        </widget>
       </item>
@@ -60,14 +76,26 @@
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="firstPointLayout">
       <item>
-       <widget class="QLabel" name="firstPointAbscissaLabel">
+       <widget class="QLabel" name="firstPointLabel">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
-         <string>X1:</string>
+         <string>Point 1:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="firstPointAbscissaLabel">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>X:</string>
         </property>
        </widget>
       </item>
@@ -75,7 +103,7 @@
        <widget class="QLineEdit" name="firstPointAbscissaLineEdit">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
        </widget>
@@ -84,11 +112,11 @@
        <widget class="QLabel" name="firstPointOrdinateLabel">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
-         <string>Y1:</string>
+         <string>Y:</string>
         </property>
        </widget>
       </item>
@@ -96,7 +124,7 @@
        <widget class="QLineEdit" name="firstPointOrdinateLineEdit">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
        </widget>
@@ -106,14 +134,26 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="secondPointLayout">
       <item>
-       <widget class="QLabel" name="secondPointAbscissaLabel">
+       <widget class="QLabel" name="secondPointLabel">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
-         <string>X2:</string>
+         <string>Point 2:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="secondPointAbscissaLabel">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>X:</string>
         </property>
        </widget>
       </item>
@@ -121,7 +161,7 @@
        <widget class="QLineEdit" name="secondPointAbscissaLineEdit">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
        </widget>
@@ -130,11 +170,11 @@
        <widget class="QLabel" name="secondPointOrdinateLabel">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
-         <string>Y2:</string>
+         <string>Y:</string>
         </property>
        </widget>
       </item>
@@ -142,7 +182,7 @@
        <widget class="QLineEdit" name="secondPointOrdinateLineEdit">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
        </widget>

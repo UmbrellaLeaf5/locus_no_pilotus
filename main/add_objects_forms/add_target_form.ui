@@ -10,8 +10,30 @@
     <height>220</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>220</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Target</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../images/target.png</normaloff>../images/target.png</iconset>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
@@ -26,10 +48,22 @@
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="inputLayout">
       <item>
+       <widget class="QLabel" name="pointLabel">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Point:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="abscissaLabel">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
@@ -41,7 +75,7 @@
        <widget class="QLineEdit" name="abscissaLineEdit">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
        </widget>
@@ -50,7 +84,7 @@
        <widget class="QLabel" name="ordinateLabel">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
@@ -62,7 +96,7 @@
        <widget class="QLineEdit" name="ordinateLineEdit">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
        </widget>
@@ -72,26 +106,26 @@
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="buttonsLayout">
       <item>
-       <widget class="QPushButton" name="clearPushButton">
-        <property name="font">
-         <font>
-          <family>Verdana</family>
-         </font>
-        </property>
-        <property name="text">
-         <string>Clear all</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="createPushButton">
         <property name="font">
          <font>
-          <family>Verdana</family>
+          <family>Segoe UI</family>
          </font>
         </property>
         <property name="text">
          <string>Create</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clearPushButton">
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="text">
+         <string>Clear all</string>
         </property>
        </widget>
       </item>

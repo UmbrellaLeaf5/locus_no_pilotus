@@ -41,7 +41,7 @@ class MainWindow : public QMainWindow {
   void on_actionOpen_triggered();
 
  public slots:
-  void AddTrappyCircle(double x, double y, double radius, QColor color);
+  void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
   void AddHill();

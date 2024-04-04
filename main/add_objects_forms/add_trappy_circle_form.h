@@ -13,12 +13,11 @@ class AddTrappyCircleForm : public QDialog {
   ~AddTrappyCircleForm();
 
  signals:
-  void AddTrappyCircle(double x, double y, double radius, QColor color);
+  void AddTrappyCircle(double x, double y, double radius);
 
  private slots:
   void on_clearPushButton_clicked();
   void on_createPushButton_clicked();
-  void on_colorSelectPushButton_clicked();
 
  private:
   Ui::AddTrappyCircleForm *ui;
