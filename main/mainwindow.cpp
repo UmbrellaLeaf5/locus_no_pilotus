@@ -5,7 +5,6 @@
 #include "../gui/trappy_circle.h"
 #include "../gui/trappy_line.h"
 #include "./ui_mainwindow.h"
-// #include "icecream.hpp"  // IGNORE
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -39,7 +38,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     area_.Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
 
-    area_.Draw();
+    area_.Redraw();
   }
 
   ui->plotSettingsDockWidget->setVisible(false);

@@ -124,5 +124,5 @@ void MainWindow::on_actionOpen_triggered() {
 
   area_.Set(hills_from_file);
 
-  area_.Draw();
+  area_.Redraw();
 }

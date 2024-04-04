@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../../gui/data_manager/data_manager.h"
+#include "icecream.hpp"
 #include "qcustomplot.h"
 
 // @brief класс, упрощающий управление классами gui на QCustomPlot
@@ -18,7 +19,6 @@ class PlotArea {
 
   /**
    * @brief устанавливает значение plot
-   * (привязывает менеджер к полотну)
    * @param plot: указатель на полотно
    */
   void SetPlot(QCustomPlot* plot) { plot_.reset(plot); }
@@ -38,11 +38,8 @@ class PlotArea {
     tr_lines_info_.reset(tr_lines_info);
   }
 
-  /**
-   * @brief отрисовывает на полотне определенные типы объектов
-   * @param obj_type: тип объектов
-   */
-  void Draw(gui::ObjectType obj_type = gui::ObjectType::All);
+  // @brief перерисовывает на полотне все объекты и обновляет данные
+  void Redraw();
 
   // ----------------------   Target methods   ----------------------
 
@@ -50,7 +47,8 @@ class PlotArea {
   void Add(std::initializer_list<gui::Target> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::Target data) { manager_.Add(data); };
+  void Add(lib::Target data) { manager_.Add(data); }
+
   void Set(std::initializer_list<gui::Target> init_list) {
     manager_.Set(init_list);
   }
@@ -77,7 +75,8 @@ class PlotArea {
   void Add(std::initializer_list<gui::Hill> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::Hill data) { manager_.Add(data); };
+  void Add(lib::Hill data) { manager_.Add(data); }
+
   void Set(std::initializer_list<gui::Hill> init_list) {
     manager_.Set(init_list);
   }
@@ -102,7 +101,8 @@ class PlotArea {
   void Add(std::initializer_list<gui::TrappyCircle> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::TrappyCircle data) { manager_.Add(data); };
+  void Add(lib::TrappyCircle data) { manager_.Add(data); }
+
   void Set(std::initializer_list<gui::TrappyCircle> init_list) {
     manager_.Set(init_list);
   }
@@ -127,11 +127,12 @@ class PlotArea {
 
   // ----------------------  TrappyLine methods  ----------------------
 
-  void Add(gui::TrappyLine t) { manager_.Add(t); }
+  void Add(const gui::TrappyLine& t) { manager_.Add(t); }
   void Add(std::initializer_list<gui::TrappyLine> init_list) {
     manager_.Add(init_list);
   }
-  void Add(lib::TrappyLine data) { manager_.Add(data); };
+  void Add(lib::TrappyLine data) { manager_.Add(data); }
+
   void Set(std::initializer_list<gui::TrappyLine> init_list) {
     manager_.Set(init_list);
   }
@@ -157,11 +158,8 @@ class PlotArea {
   // ~methods
 
  private:
-  /**
-   * @brief обновляет данный в лейблах определенных типов объектов
-   * @param obj_type: тип объектов
-   */
-  void UpdateInfo(gui::ObjectType obj_type = gui::ObjectType::All);
+  // @brief обновляет данные в лейблах все объектов
+  void UpdateInfo();
 
   // vars
 

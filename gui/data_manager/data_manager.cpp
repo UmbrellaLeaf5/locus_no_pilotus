@@ -1,8 +1,36 @@
 #include "data_manager.h"
 
+#include "icecream.hpp"
+
 namespace gui {
 
-void DataManager::Draw(ObjectType obj_type, size_t index) {}
+void DataManager::Draw(ObjectType obj_type, size_t index, QCustomPlot* plot) {
+  switch (obj_type) {
+    case ObjectType::Targets: {
+      targets_[index].SetGraphIndex(plot->plottableCount());
+      targets_[index].Draw(plot);
+      break;
+    }
+
+    case ObjectType::Hills: {
+      hills_[index].SetGraphIndex(plot->plottableCount());
+      hills_[index].Draw(plot);
+      break;
+    }
+
+    case ObjectType::TrappyLines: {
+      tr_lines_[index].SetGraphIndex(plot->plottableCount());
+      tr_lines_[index].Draw(plot);
+      break;
+    }
+
+    case ObjectType::TrappyCircles: {
+      tr_circles_[index].SetItemIndex(plot->itemCount());
+      tr_circles_[index].Draw(plot);
+      break;
+    }
+  }
+}
 
 // ----------------------   Target methods   ----------------------
 

@@ -11,7 +11,7 @@
 
 void MainWindow::AddTarget(double x, double y) {
   area_.Add(gui::Target(x, y));
-  area_.Draw(gui::ObjectType::Targets);
+  area_.Redraw();
 }
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
@@ -31,7 +31,7 @@ void MainWindow::on_actionTarget_triggered() {
 void MainWindow::AddTrappyCircle(double x, double y, double radius,
                                  QColor color) {
   area_.Add(gui::TrappyCircle(x, y, radius, color));
-  area_.Draw(gui::ObjectType::TrappyCircles);
+  area_.Redraw();
 }
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   ui->plot->setCursor(QCursor(
@@ -57,10 +57,10 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
 
   area_.Add(t1);
   area_.Add(t2);
-  area_.Draw(gui::ObjectType::Targets);
+  area_.Redraw();
 
   area_.Add(gui::TrappyLine({t1, t2}));
-  area_.Draw(gui::ObjectType::TrappyLines);
+  area_.Redraw();
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {

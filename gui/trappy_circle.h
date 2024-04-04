@@ -32,9 +32,13 @@ class TrappyCircle : public Drawable {
 
   void Draw(QCustomPlot* plot) const override;
 
+  size_t GetItemIndex() { return item_index_; }
+  void SetItemIndex(size_t index) { item_index_ = index; }
+
  private:
   lib::TrappyCircle data_;
   QColor color_;
+  size_t item_index_;
 };
 
 }  // namespace gui
