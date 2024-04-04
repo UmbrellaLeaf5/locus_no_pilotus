@@ -31,6 +31,13 @@ class DataManager {
    */
   void Draw(ObjectType obj_type, size_t index, QCustomPlot* plot);
 
+  /**
+   * @brief возвращает представление определенных типов объектов в виде текста
+   * @param obj_type: тип объектов
+   * @return QString: текст
+   */
+  QString GetTexted(ObjectType obj_type);
+
   // ----------------------   Target methods   ----------------------
 
   void Add(gui::Target t) { targets_.push_back(t); }

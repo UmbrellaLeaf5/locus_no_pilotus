@@ -18,21 +18,87 @@ void DataManager::Draw(ObjectType obj_type, size_t index, QCustomPlot* plot) {
       break;
     }
 
-    case ObjectType::TrappyLines: {
-      tr_lines_[index].SetGraphIndex(plot->plottableCount());
-      tr_lines_[index].Draw(plot);
-      break;
-    }
-
     case ObjectType::TrappyCircles: {
       tr_circles_[index].SetItemIndex(plot->itemCount());
       tr_circles_[index].Draw(plot);
+      break;
+    }
+
+    case ObjectType::TrappyLines: {
+      tr_lines_[index].SetGraphIndex(plot->plottableCount());
+      tr_lines_[index].Draw(plot);
       break;
     }
   }
 }
 
 // ----------------------   Target methods   ----------------------
+
+QString DataManager::GetTexted(ObjectType obj_type) {
+  QString text;
+
+  switch (obj_type) {
+    case ObjectType::Targets: {
+      text += "Targets on plot: \n";
+      for (size_t i = 0; i < targets_.size(); i++) {
+        auto target = targets_[i];
+        text += "• target n." + QString::number(i + 1) + ":\n";
+        text += "   plot id: " + QString::number(target.GetPlottableIndex()) +
+                ":\n";
+        text += "   x: " + QString::number(target.GetPoint().x) + "\n";
+        text += "   y: " + QString::number(target.GetPoint().y) + "\n";
+      }
+      break;
+    }
+
+    case ObjectType::Hills: {
+      text += "Hills on plot: \n";
+      for (size_t i = 0; i < hills_.size(); i++) {
+        auto hill = hills_[i];
+        text += "• hill n." + QString::number(i + 1) + ":\n";
+        text +=
+            "   plot id: " + QString::number(hill.GetPlottableIndex()) + ":\n";
+        text += "   x: " + QString::number(hill.GetCenter().x) + "\n";
+        text += "   y: " + QString::number(hill.GetCenter().y) + "\n";
+        text += "   r: " + QString::number(hill.GetRadius()) + "\n";
+      }
+      break;
+    }
+
+    case ObjectType::TrappyCircles: {
+      text += "Trappy circles on plot: \n";
+      for (size_t i = 0; i < tr_circles_.size(); i++) {
+        auto tr_circle = tr_circles_[i];
+        text += "• trappy c. n." + QString::number(i + 1) + ":\n";
+        text +=
+            "   plot id: " + QString::number(tr_circle.GetItemIndex()) + ":\n";
+        text += "   x: " + QString::number(tr_circle.GetCenter().x) + "\n";
+        text += "   y: " + QString::number(tr_circle.GetCenter().y) + "\n";
+        text += "   r: " + QString::number(tr_circle.GetRadius()) + "\n";
+      }
+      break;
+    }
+
+    case ObjectType::TrappyLines: {
+      text += "Trappy lines on plot: \n";
+      for (size_t i = 0; i < tr_lines_.size(); i++) {
+        auto tr_line = tr_lines_[i];
+        text += "• trappy l. n." + QString::number(i + 1) + ":\n";
+        text += "   plot id: " + QString::number(tr_line.GetPlottableIndex()) +
+                ":\n";
+        for (size_t j = 0; j < tr_line.GetTargets().size(); j++) {
+          auto target = tr_line.GetTargets()[j];
+          text += "   target n." + QString::number(j + 1) + ":\n";
+          text += "    x: " + QString::number(target.GetPoint().x) + "\n";
+          text += "    y: " + QString::number(target.GetPoint().y) + "\n";
+        }
+      }
+      break;
+    }
+  }
+
+  return text;
+}
 
 void DataManager::Add(std::initializer_list<gui::Target> new_targets) {
   targets_.insert(targets_.end(), new_targets.begin(), new_targets.end());

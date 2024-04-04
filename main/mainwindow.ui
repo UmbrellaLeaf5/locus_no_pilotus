@@ -450,6 +450,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
            <property name="text">
             <string/>
            </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -468,6 +471,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -488,6 +494,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
            <property name="text">
             <string/>
            </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -506,6 +515,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
