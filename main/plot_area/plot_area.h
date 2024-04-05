@@ -70,9 +70,9 @@ class PlotArea {
   void Add(std::vector<lib::Target> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<lib::Target> init_list) {
-    manager_.Add(init_list);
+    manager_.Set(init_list);
   }
-  void Set(std::vector<lib::Target> vec) { manager_.Add(vec); }
+  void Set(std::vector<lib::Target> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение targets
@@ -111,9 +111,9 @@ class PlotArea {
   void Add(std::vector<lib::Hill> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<lib::Hill> init_list) {
-    manager_.Add(init_list);
+    manager_.Set(init_list);
   }
-  void Set(std::vector<lib::Hill> vec) { manager_.Add(vec); }
+  void Set(std::vector<lib::Hill> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение Hills
@@ -150,9 +150,9 @@ class PlotArea {
   void Add(std::vector<lib::TrappyCircle> vec) { manager_.Add(vec); }
 
   void Set(std::initializer_list<lib::TrappyCircle> init_list) {
-    manager_.Add(init_list);
+    manager_.Set(init_list);
   }
-  void Set(std::vector<lib::TrappyCircle> vec) { manager_.Add(vec); }
+  void Set(std::vector<lib::TrappyCircle> vec) { manager_.Set(vec); }
 
   /**
    * @brief возвращает значение Trappy Circles

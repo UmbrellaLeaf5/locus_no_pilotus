@@ -12,6 +12,10 @@ QJsonObject Target::Save(int id) const {
   return QJsonObject::fromVariantMap(target_map);
 }
 
-JSONable* Target::Load(const json& j) { return new Target(0, 0); }
+void Target::Load(QJsonObject target_obj) {
+  double x = target_obj.value("X").toDouble();
+  double y = target_obj.value("Y").toDouble();
+  SetPoint({x, y});
+}
 
 }  // namespace lib

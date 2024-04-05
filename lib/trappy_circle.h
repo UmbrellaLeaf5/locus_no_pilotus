@@ -19,7 +19,7 @@ class TrappyCircle : public JSONable {
   TrappyCircle& operator=(TrappyCircle&&) = default;
 
   QJsonObject Save(int id) const override;
-  JSONable* Load(const json& j) override;
+  void Load(QJsonObject trappy_circle_obj) override;
 
   Point GetCenter() const { return center_; }
   double GetRadius() const { return radius_; }

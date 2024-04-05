@@ -1,14 +1,12 @@
 #pragma once
 
 #include <initializer_list>
-#include <memory>
 #include <vector>
 
 #include "../hill.h"
 #include "../target.h"
 #include "../trappy_circle.h"
 #include "../trappy_line.h"
-#include "icecream.hpp"
 #include "qcustomplot.h"
 
 namespace gui {

@@ -26,7 +26,15 @@ QJsonObject Hill::Save(int id) const {
   return QJsonObject::fromVariantMap(hill_map);
 }
 
-JSONable* Hill::Load(const json& j) { return nullptr; }
+void Hill::Load(QJsonObject hill_obj) {
+  for (size_t i = 1; i < hill_obj.size(); i++) {
+    lib::Point vertice;
+    QJsonObject h_obj = hill_obj.value("P" + QString::number(i)).toObject();
+    vertice.x = h_obj.value("X").toDouble();
+    vertice.y = h_obj.value("Y").toDouble();
+    vertices_.push_back(vertice);
+  }
+}
 
 Hill::Hill(Point center, double radius, std::size_t vertices_amount) {
   if (vertices_amount == 0 || vertices_amount == 1)

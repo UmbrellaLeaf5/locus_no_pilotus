@@ -8,6 +8,8 @@
 
 #include <QMainWindow>
 
+#include "./gui_json_file/gui_json_file.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -51,4 +53,5 @@ class MainWindow : public QMainWindow {
  private:
   PlotArea area_;
   Ui::MainWindow* ui;
+  GuiJsonFile json_file_;
 };

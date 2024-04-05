@@ -40,7 +40,7 @@ class Hill : public JSONable {
   Hill& operator=(Hill&&) = default;
 
   QJsonObject Save(int id) const override;
-  JSONable* Load(const json& j) override;
+  void Load(QJsonObject hill_obj) override;
 
   Point GetCenter() const;
   double GetRadius() const;

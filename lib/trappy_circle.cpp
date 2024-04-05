@@ -19,6 +19,12 @@ QJsonObject TrappyCircle::Save(int id) const {
   return QJsonObject::fromVariantMap(trappy_circle_map);
 }
 
-JSONable *TrappyCircle::Load(const json &j) { return nullptr; }
+void TrappyCircle::Load(QJsonObject trappy_circle_obj) {
+  double x = trappy_circle_obj.value("X").toDouble();
+  double y = trappy_circle_obj.value("Y").toDouble();
+  double r = trappy_circle_obj.value("Radius").toDouble();
+  SetCenter({x, y});
+  SetRadius(r);
+}
 
 }  // namespace lib

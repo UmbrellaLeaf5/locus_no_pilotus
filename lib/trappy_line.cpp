@@ -20,7 +20,15 @@ QJsonObject TrappyLine::Save(int id) const {
   return QJsonObject::fromVariantMap(trappy_line_map);
 }
 
-JSONable* TrappyLine::Load(const json& j) { return nullptr; }
+void TrappyLine::Load(QJsonObject trappy_line_obj) {
+  QJsonObject p1 = trappy_line_obj.value("P1").toObject();
+  double x1 = p1.value("X").toDouble();
+  double y1 = p1.value("Y").toDouble();
+  QJsonObject p2 = trappy_line_obj.value("P2").toObject();
+  double x2 = p2.value("X").toDouble();
+  double y2 = p2.value("Y").toDouble();
+  SetNewTargets({{x1, y1}, {x2, y2}});
+}
 
 void TrappyLine::AddTargets(std::initializer_list<lib::Target> targets) {
   for (const auto& target : targets) {
