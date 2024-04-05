@@ -1,7 +1,5 @@
 #include "pathgraph.h"
 
-#include <cmath>
-
 namespace math {
 
 PathGraph::PathGraph(std::vector<CircleObstacle> obstacles, Point point1,
