@@ -1,6 +1,6 @@
 #include "trappy_circle.h"
 
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
   // фигура представляет собой красный круг с полупрозрачной заливкой
@@ -10,8 +10,6 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
 
   QColor fill_color = QColor(color_.red(), color_.green(), color_.blue(), 100);
 
-  // QPen pen;
-  // pen.setColor(color_);
   ellipse->setPen(QColor(color_));
   ellipse->setBrush(fill_color);
   ellipse->topLeft->setCoords(GetCenter().x - GetRadius(),

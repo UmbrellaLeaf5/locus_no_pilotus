@@ -1,6 +1,6 @@
 #pragma once
 
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 namespace gui {
 

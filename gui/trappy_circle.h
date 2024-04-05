@@ -1,8 +1,10 @@
 #pragma once
 
+#include <qcustomplot.h>
+
 #include "../lib/trappy_circle.h"
 #include "base.h"
-#include "qcustomplot.h"
+
 
 namespace gui {
 

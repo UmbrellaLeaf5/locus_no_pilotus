@@ -1,11 +1,13 @@
 #pragma once
 
+#include <qcustomplot.h>
+
 #include <initializer_list>
 #include <vector>
 
 #include "../lib/hill.h"
 #include "base.h"
-#include "qcustomplot.h"
+
 
 namespace gui {
 

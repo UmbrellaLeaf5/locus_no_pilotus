@@ -1,6 +1,6 @@
 #include "data_manager.h"
 
-#include "icecream.hpp"
+#include <icecream.hpp>
 
 namespace gui {
 

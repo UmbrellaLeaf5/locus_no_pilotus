@@ -1,5 +1,7 @@
 #pragma once
 
+#include <qcustomplot.h>
+
 #include <initializer_list>
 #include <vector>
 
@@ -7,7 +9,7 @@
 #include "../target.h"
 #include "../trappy_circle.h"
 #include "../trappy_line.h"
-#include "qcustomplot.h"
+
 
 namespace gui {
 

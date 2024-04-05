@@ -1,6 +1,6 @@
 #include "plot_area.h"
 
-#include "icecream.hpp"
+#include <icecream.hpp>
 
 void PlotArea::Redraw() {
   plot_->clearPlottables();

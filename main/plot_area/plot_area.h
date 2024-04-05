@@ -1,12 +1,13 @@
 #pragma once
 
+#include <qcustomplot.h>
+
+#include <icecream.hpp>
 #include <initializer_list>
 #include <memory>
 #include <vector>
 
 #include "../../gui/data_manager/data_manager.h"
-#include "icecream.hpp"
-#include "qcustomplot.h"
 
 // @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
