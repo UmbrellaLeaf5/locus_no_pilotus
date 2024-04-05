@@ -68,7 +68,16 @@ void MainWindow::on_actionTrappy_Line_triggered() {
           &MainWindow::AddTrappyLine);
 }
 
-void MainWindow::AddHill() {}
+void MainWindow::AddHill(std::vector<double> x, std::vector<double> y) {
+  auto points = std::vector<lib::Point>(x.size());
+  for (size_t i = 0; i < points.size(); i++) {
+    points[i].x = x[i];
+    points[i].y = y[i];
+  }
+
+  area_.Add(gui::Hill(points));
+  area_.Redraw();
+}
 
 void MainWindow::on_actionHill_triggered() {
   AddHillForm* adh = new AddHillForm;

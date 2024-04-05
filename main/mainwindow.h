@@ -8,7 +8,6 @@
 
 #include <QMainWindow>
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -46,7 +45,7 @@ class MainWindow : public QMainWindow {
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
-  void AddHill();
+  void AddHill(std::vector<double> x, std::vector<double> y);
 
  private:
   PlotArea area_;

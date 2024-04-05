@@ -33,9 +33,6 @@ MainWindow::MainWindow(QWidget* parent)
     gui::TrappyCircle trc({1, 2}, 0.5);
     area_.Add(trc);
 
-    gui::Hill hill{{2, 3}, {3, 2}, {4, 4}};
-    area_.Add(hill);
-
     area_.Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
 
     area_.Redraw();
