@@ -37,15 +37,16 @@ class MainWindow : public QMainWindow {
 
   void on_plot_MousePressed();
 
-  void on_actionSave_as_triggered();
+  void on_actionBeautify_triggered();
 
+  void on_actionSave_as_triggered();
   void on_actionOpen_triggered();
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
-  void AddHill(std::vector<double> x, std::vector<double> y);
+  void AddHill(std::vector<lib::Point> points);
 
  private:
   PlotArea area_;

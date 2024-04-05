@@ -68,13 +68,7 @@ void MainWindow::on_actionTrappy_Line_triggered() {
           &MainWindow::AddTrappyLine);
 }
 
-void MainWindow::AddHill(std::vector<double> x, std::vector<double> y) {
-  auto points = std::vector<lib::Point>(x.size());
-  for (size_t i = 0; i < points.size(); i++) {
-    points[i].x = x[i];
-    points[i].y = y[i];
-  }
-
+void MainWindow::AddHill(std::vector<lib::Point> points) {
   area_.Add(gui::Hill(points));
   area_.Redraw();
 }
@@ -92,6 +86,12 @@ void MainWindow::on_pushButtonAddHill_clicked() {
 
 void MainWindow::on_pushButtonEditObjects_clicked() {
   ui->plotSettingsDockWidget->setVisible(true);
+  on_actionBeautify_triggered();
+}
+
+void MainWindow::on_actionBeautify_triggered() {
+  ui->plot->xAxis->setScaleRatio(ui->plot->yAxis, 1.0);
+  ui->plot->replot();
 }
 
 void MainWindow::on_plot_MousePressed() {
