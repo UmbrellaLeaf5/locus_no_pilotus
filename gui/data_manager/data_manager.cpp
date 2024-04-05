@@ -80,9 +80,12 @@ QString DataManager::GetTexted(ObjectType obj_type) {
         text += "• hill n." + QString::number(i + 1) + ":\n";
         text +=
             "   plot id: " + QString::number(hill.GetPlottableIndex()) + ":\n";
-        text += "   x: " + QString::number(hill.GetCenter().x) + "\n";
-        text += "   y: " + QString::number(hill.GetCenter().y) + "\n";
-        text += "   r: " + QString::number(hill.GetRadius()) + "\n";
+        for (size_t j = 0; j < hill.GetPoints().size(); j++) {
+          auto point = hill.GetPoints()[j];
+          text += "   point n." + QString::number(j + 1) + ":\n";
+          text += "    x: " + QString::number(point.x) + "\n";
+          text += "    y: " + QString::number(point.y) + "\n";
+        }
       }
       break;
     }

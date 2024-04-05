@@ -70,7 +70,11 @@ void MainWindow::on_actionTrappy_Line_triggered() {
 
 void MainWindow::AddHill() {}
 
-void MainWindow::on_actionHill_triggered() {}
+void MainWindow::on_actionHill_triggered() {
+  AddHillForm* adh = new AddHillForm;
+  adh->show();
+  connect(adh, &AddHillForm::AddHill, this, &MainWindow::AddHill);
+}
 
 void MainWindow::on_pushButtonAddHill_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
