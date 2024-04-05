@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Trajectory Calculation</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../images/icon.png</normaloff>../images/icon.png</iconset>
   </property>
   <widget class="QWidget" name="mainLayoutWidget">
    <layout class="QHBoxLayout" name="mainHorizontalLayout">
