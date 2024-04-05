@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_SUITE(random_matrix)
 
 BOOST_AUTO_TEST_CASE(random_matrix_2x2) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 80}, {91, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 80}, {91, inf}});
 
   double asmt = 171;
   std::pair<int, int> edge = {0, 1};
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(random_matrix_2x2) {
 
 BOOST_AUTO_TEST_CASE(random_matrix_3x3) {
   AdjacencyMatrix matrix = AdjacencyMatrix::WithExtraRowCol(
-      {{FLT_MAX, 80, 98}, {91, FLT_MAX, 59}, {16, 21, FLT_MAX}});
+      {{inf, 80, 98}, {91, inf, 59}, {16, 21, inf}});
 
   double asmt = 155;
   std::pair<int, int> edge = {1, 2};
@@ -42,10 +42,10 @@ BOOST_AUTO_TEST_CASE(random_matrix_3x3) {
 
 BOOST_AUTO_TEST_CASE(random_matrix_4x4) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 36, 35, 91},
-                                        {16, FLT_MAX, 31, 92},
-                                        {13, 75, FLT_MAX, 63},
-                                        {88, 24, 58, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 36, 35, 91},
+                                        {16, inf, 31, 92},
+                                        {13, 75, inf, 63},
+                                        {88, 24, 58, inf}});
 
   double asmt = 138;
   std::pair<int, int> edge = {3, 1};
@@ -54,11 +54,11 @@ BOOST_AUTO_TEST_CASE(random_matrix_4x4) {
 
 BOOST_AUTO_TEST_CASE(random_matrix_5x5) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 59, 74, 21, 81},
-                                        {92, FLT_MAX, 64, 96, 33},
-                                        {64, 36, FLT_MAX, 47, 87},
-                                        {4, 78, 32, FLT_MAX, 32},
-                                        {57, 86, 83, 24, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 59, 74, 21, 81},
+                                        {92, inf, 64, 96, 33},
+                                        {64, 36, inf, 47, 87},
+                                        {4, 78, 32, inf, 32},
+                                        {57, 86, 83, 24, inf}});
 
   double asmt = 146;
   std::pair<int, int> edge = {2, 1};
@@ -71,10 +71,10 @@ BOOST_AUTO_TEST_SUITE(symmetric_matrix)
 
 BOOST_AUTO_TEST_CASE(symmetric_matrix_4x4) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 18, 99, 64},
-                                        {18, FLT_MAX, 81, 25},
-                                        {99, 81, FLT_MAX, 55},
-                                        {64, 25, 55, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 18, 99, 64},
+                                        {18, inf, 81, 25},
+                                        {99, 81, inf, 55},
+                                        {64, 25, 55, inf}});
 
   double asmt = 146;
   std::pair<int, int> edge = {0, 1};
@@ -83,12 +83,12 @@ BOOST_AUTO_TEST_CASE(symmetric_matrix_4x4) {
 
 BOOST_AUTO_TEST_CASE(symmetric_matrix_6x6) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 25, 65, 38, 18, 12},
-                                        {25, FLT_MAX, 12, 59, 16, 54},
-                                        {65, 12, FLT_MAX, 50, 19, 69},
-                                        {38, 59, 50, FLT_MAX, 35, 73},
-                                        {18, 16, 19, 35, FLT_MAX, 15},
-                                        {12, 54, 69, 73, 15, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 25, 65, 38, 18, 12},
+                                        {25, inf, 12, 59, 16, 54},
+                                        {65, 12, inf, 50, 19, 69},
+                                        {38, 59, 50, inf, 35, 73},
+                                        {18, 16, 19, 35, inf, 15},
+                                        {12, 54, 69, 73, 15, inf}});
 
   double asmt = 118;
   std::pair<int, int> edge = {1, 2};
@@ -97,16 +97,16 @@ BOOST_AUTO_TEST_CASE(symmetric_matrix_6x6) {
 
 BOOST_AUTO_TEST_CASE(symmetric_matrix_10x10) {
   AdjacencyMatrix matrix = AdjacencyMatrix::WithExtraRowCol(
-      {{FLT_MAX, 21, 188, 268, 461, 131, 366, 449, 492, 62},
-       {21, FLT_MAX, 410, 220, 333, 115, 451, 236, 272, 127},
-       {188, 410, FLT_MAX, 21, 498, 270, 280, 24, 20, 446},
-       {268, 220, 21, FLT_MAX, 48, 382, 492, 119, 414, 330},
-       {461, 333, 498, 48, FLT_MAX, 364, 366, 332, 340, 406},
-       {131, 115, 270, 382, 364, FLT_MAX, 498, 380, 90, 189},
-       {366, 451, 280, 492, 366, 498, FLT_MAX, 477, 105, 379},
-       {449, 236, 24, 119, 332, 380, 477, FLT_MAX, 369, 422},
-       {492, 272, 20, 414, 340, 90, 105, 369, FLT_MAX, 377},
-       {62, 127, 446, 330, 406, 189, 379, 422, 377, FLT_MAX}});
+      {{inf, 21, 188, 268, 461, 131, 366, 449, 492, 62},
+       {21, inf, 410, 220, 333, 115, 451, 236, 272, 127},
+       {188, 410, inf, 21, 498, 270, 280, 24, 20, 446},
+       {268, 220, 21, inf, 48, 382, 492, 119, 414, 330},
+       {461, 333, 498, 48, inf, 364, 366, 332, 340, 406},
+       {131, 115, 270, 382, 364, inf, 498, 380, 90, 189},
+       {366, 451, 280, 492, 366, 498, inf, 477, 105, 379},
+       {449, 236, 24, 119, 332, 380, 477, inf, 369, 422},
+       {492, 272, 20, 414, 340, 90, 105, 369, inf, 377},
+       {62, 127, 446, 330, 406, 189, 379, 422, 377, inf}});
 
   double asmt = 659;
   std::pair<int, int> edge = {4, 3};
@@ -119,10 +119,10 @@ BOOST_AUTO_TEST_SUITE(symm_obstacle_wise_matrix)
 
 BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_4x4) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 18, 99, 64},
-                                        {18, FLT_MAX, 81, FLT_MAX},
-                                        {99, 81, FLT_MAX, 55},
-                                        {64, FLT_MAX, 55, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 18, 99, 64},
+                                        {18, inf, 81, inf},
+                                        {99, 81, inf, 55},
+                                        {64, inf, 55, inf}});
 
   double asmt = 146;
   std::pair<int, int> edge = {0, 1};
@@ -131,12 +131,12 @@ BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_4x4) {
 
 BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_6x6) {
   AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{FLT_MAX, 25, 65, 38, 18, FLT_MAX},
-                                        {25, FLT_MAX, FLT_MAX, 59, 16, 54},
-                                        {65, FLT_MAX, FLT_MAX, 50, 19, 69},
-                                        {38, 59, 50, FLT_MAX, 35, 73},
-                                        {18, 16, 19, 35, FLT_MAX, 15},
-                                        {FLT_MAX, 54, 69, 73, 15, FLT_MAX}});
+      AdjacencyMatrix::WithExtraRowCol({{inf, 25, 65, 38, 18, inf},
+                                        {25, inf, inf, 59, 16, 54},
+                                        {65, inf, inf, 50, 19, 69},
+                                        {38, 59, 50, inf, 35, 73},
+                                        {18, 16, 19, 35, inf, 15},
+                                        {inf, 54, 69, 73, 15, inf}});
 
   double asmt = 146;
   std::pair<int, int> edge = {4, 5};
@@ -145,16 +145,16 @@ BOOST_AUTO_TEST_CASE(symm_obstacle_wise_matrix_6x6) {
 
 BOOST_AUTO_TEST_CASE(symmetric_obstacle_wise_matrix_10x10) {
   AdjacencyMatrix matrix = AdjacencyMatrix::WithExtraRowCol(
-      {{FLT_MAX, FLT_MAX, FLT_MAX, 268, 461, FLT_MAX, 366, FLT_MAX, 492, 62},
-       {FLT_MAX, FLT_MAX, 410, 220, 333, 115, 451, 236, 272, 127},
-       {FLT_MAX, 410, FLT_MAX, 21, 498, 270, 280, 24, 20, 446},
-       {268, 220, 21, FLT_MAX, 48, 382, 492, 119, FLT_MAX, 330},
-       {461, 333, 498, 48, FLT_MAX, 364, 366, FLT_MAX, FLT_MAX, 406},
-       {FLT_MAX, 115, 270, 382, 364, FLT_MAX, 498, 380, 90, 189},
-       {366, 451, 280, 492, 366, 498, FLT_MAX, 477, 105, 379},
-       {FLT_MAX, 236, 24, 119, FLT_MAX, 380, 477, FLT_MAX, 369, 422},
-       {492, 272, 20, FLT_MAX, FLT_MAX, 90, 105, 369, FLT_MAX, 377},
-       {62, 127, 446, 330, 406, 189, 379, 422, 377, FLT_MAX}});
+      {{inf, inf, inf, 268, 461, inf, 366, inf, 492, 62},
+       {inf, inf, 410, 220, 333, 115, 451, 236, 272, 127},
+       {inf, 410, inf, 21, 498, 270, 280, 24, 20, 446},
+       {268, 220, 21, inf, 48, 382, 492, 119, inf, 330},
+       {461, 333, 498, 48, inf, 364, 366, inf, inf, 406},
+       {inf, 115, 270, 382, 364, inf, 498, 380, 90, 189},
+       {366, 451, 280, 492, 366, 498, inf, 477, 105, 379},
+       {inf, 236, 24, 119, inf, 380, 477, inf, 369, 422},
+       {492, 272, 20, inf, inf, 90, 105, 369, inf, 377},
+       {62, 127, 446, 330, 406, 189, 379, 422, 377, inf}});
 
   double asmt = 708;
   std::pair<int, int> edge = {9, 0};

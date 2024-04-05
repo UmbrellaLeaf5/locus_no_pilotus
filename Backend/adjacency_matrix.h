@@ -1,6 +1,9 @@
 #pragma once
 
+#include <limits>
 #include <vector>
+
+#define inf std::numeric_limits<double>::infinity()
 
 // Структура для хранения двух минимумов строки/столбца
 struct Minimums {

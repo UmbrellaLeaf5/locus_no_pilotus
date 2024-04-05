@@ -1,7 +1,5 @@
 #include "adjacency_matrix.h"
 
-#include <cfloat>
-
 AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
     : matrix_{nums}, size_{nums.size()}, min_numbers_(size_ + size_) {}
 
@@ -55,8 +53,8 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {
   Minimums result;
-  double first_min = FLT_MAX;
-  double second_min = FLT_MAX;
+  double first_min = inf;
+  double second_min = inf;
   switch (type) {
     case Mins::Rows: {
       for (std::size_t j = 0; j < size_; ++j) {
@@ -103,7 +101,7 @@ double AdjacencyMatrix::BottomLineEvaluation() {
     double first_min = twoMins.first;
     double second_min = twoMins.second;
     for (std::size_t j = 0; j < size_; ++j) {
-      reducted_matrix_[i][j] -= first_min;
+      if (reducted_matrix_[i][j] != inf) reducted_matrix_[i][j] -= first_min;
     }
     second_min -= first_min;
     min_numbers_[i] = second_min;
@@ -117,7 +115,7 @@ double AdjacencyMatrix::BottomLineEvaluation() {
     for (std::size_t j = 0; j < size_; ++j) {
       if (reducted_matrix_[j][i] == min_numbers_[j])
         min_numbers_[j] -= first_min;
-      reducted_matrix_[j][i] -= first_min;
+      if (reducted_matrix_[i][j] != inf) reducted_matrix_[j][i] -= first_min;
     }
     second_min -= first_min;
     min_numbers_[size_ + i] = second_min;
