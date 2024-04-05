@@ -32,10 +32,10 @@ class TravellingSalesmansProblem {
                              std::size_t end_num);
 
   // Находит место для вставки вершины
-  std::size_t FindIndex(std::size_t eval) const;
+  std::size_t FindIndex(double eval) const;
 
   // Замыкает Гамильтонов цикл обхода
-  void CompleteEdgePath();
+  void CompleteEdgePath(std::shared_ptr<TSPNode> node);
 
   // Перевод ребер, содержащихся в пути в
   // последовательность обхода вершин
