@@ -277,7 +277,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -299,7 +299,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     </property>
     <addaction name="actionFormat"/>
     <addaction name="actionStyle"/>
-    <addaction name="actionZoom"/>
+    <addaction name="actionBeautify"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -329,7 +329,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <property name="minimumSize">
     <size>
      <width>175</width>
-     <height>0</height>
+     <height>117</height>
     </size>
    </property>
    <property name="baseSize">
@@ -417,7 +417,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>165</width>
+          <width>163</width>
           <height>515</height>
          </rect>
         </property>
@@ -593,9 +593,12 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     <string>Style</string>
    </property>
   </action>
-  <action name="actionZoom">
+  <action name="actionBeautify">
    <property name="text">
-    <string>Zoom</string>
+    <string>Beautify</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
   <action name="actionTarget">
