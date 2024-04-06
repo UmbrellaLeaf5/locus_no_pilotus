@@ -10,6 +10,10 @@ class TravellingSalesmansProblem {
  public:
   TravellingSalesmansProblem(AdjacencyMatrix& matrix);
 
+  // Для нескольких коммивояжеров
+  TravellingSalesmansProblem(AdjacencyMatrix& matrix,
+                             std::size_t num_of_flyers);
+
   // Возвращает оптимальный маршрут для данной задачи
   inline std::vector<std::size_t> GetTrajectory() {
     return CalculateTrajectory();
@@ -42,7 +46,5 @@ class TravellingSalesmansProblem {
   std::vector<std::size_t> ConvertToVertexPath();
 
   // Возвращает порядок следования вершин в оптимальном маршруте
-  // TODO: Научится порядок следования вершин в маршруте,
-  // зная запрещенные и обязательные ребра
   std::vector<std::size_t> CalculateTrajectory();
 };

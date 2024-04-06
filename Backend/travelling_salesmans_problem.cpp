@@ -4,7 +4,14 @@
 
 TravellingSalesmansProblem::TravellingSalesmansProblem(AdjacencyMatrix& m) {
   paths_stack.push_back(std::make_shared<TSPNode>(m));
-  if (m.GetSize() == 2) CompleteEdgePath(paths_stack[0]);
+  if (m.GetSize() == m.GetNumOfFlyers() + 1) CompleteEdgePath(paths_stack[0]);
+}
+
+TravellingSalesmansProblem::TravellingSalesmansProblem(
+    AdjacencyMatrix& m, std::size_t num_of_flyers) {
+  m.ExtendTo(num_of_flyers);
+  paths_stack.push_back(std::make_shared<TSPNode>(m));
+  if (m.GetSize() == m.GetNumOfFlyers() + 1) CompleteEdgePath(paths_stack[0]);
 }
 
 void TravellingSalesmansProblem::ExpandStack() {
@@ -53,7 +60,8 @@ void TravellingSalesmansProblem::ExpandStack() {
   with_edge_matrix = with_edge_matrix.Minor(value.first, value.second);
   paths_stack[0]->with_edge = std::make_shared<TSPNode>(
       with_edge_matrix, paths_stack[0], edge, new_chains);
-  if (paths_stack[0]->with_edge->matrix.GetSize() == 2)
+  if (paths_stack[0]->with_edge->matrix.GetSize() ==
+      paths_stack[0]->with_edge->matrix.GetNumOfFlyers() + 1)
     CompleteEdgePath(paths_stack[0]->with_edge);
 
   // Второй ребенок, c исключением edge
@@ -157,7 +165,9 @@ std::vector<std::size_t> TravellingSalesmansProblem::ConvertToVertexPath() {
 }
 
 std::vector<std::size_t> TravellingSalesmansProblem::CalculateTrajectory() {
-  while (paths_stack[0]->matrix.GetSize() > 2) ExpandStack();
+  while (paths_stack[0]->matrix.GetSize() >
+         paths_stack[0]->matrix.GetNumOfFlyers() + 1)
+    ExpandStack();
   edge_path = paths_stack[0]->path;
   return ConvertToVertexPath();
 }
