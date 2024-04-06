@@ -13,21 +13,6 @@ struct Minimums {
 
 class AdjacencyMatrix {
  public:
-  AdjacencyMatrix(std::size_t size) : size_{size}, min_numbers_(size_ + size_) {
-    matrix_.resize(size_ + 1);
-    for (auto& elem : matrix_) {
-      elem.resize(size_ + 1, 0.0);
-    }
-    for (std::size_t i = 0; i < size_; ++i) {
-      matrix_[i][size_] = i;
-      matrix_[size_][i] = i;
-    }
-    min_numbers_.resize(size_ + size_);
-  }
-
-  // Конструктор по вектору векторов
-  AdjacencyMatrix(std::vector<std::vector<double>> nums);
-
   // Конструктор по вектору векторов с добавлением
   // строки и столбца номеров вершин
   static AdjacencyMatrix WithExtraRowCol(std::vector<std::vector<double>> nums);
@@ -87,6 +72,9 @@ class AdjacencyMatrix {
   // Значение матрицы, которое выбирается для следующего шага в алгоритме
   // Литтла
   std::pair<std::size_t, std::size_t> selected_value_;
+
+  // Конструктор по вектору векторов
+  AdjacencyMatrix(std::vector<std::vector<double>> nums);
 
   // Найти 2 минимума в строке или столбце
   Minimums FindTwoMinimums(Mins type, std::size_t index) const;

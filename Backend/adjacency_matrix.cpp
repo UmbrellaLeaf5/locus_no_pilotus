@@ -1,8 +1,5 @@
 #include "adjacency_matrix.h"
 
-AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
-    : matrix_{nums}, size_{nums.size()}, min_numbers_(size_ + size_) {}
-
 AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
     std::vector<std::vector<double>> nums) {
   AdjacencyMatrix m(nums);
@@ -50,6 +47,12 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
   reducted.matrix_ = reducted_matrix_;
   return reducted;
 }
+
+AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
+    : matrix_{nums},
+      size_{nums.size()},
+      num_of_flyers_{1},
+      min_numbers_(size_ + size_) {}
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {
   Minimums result;
