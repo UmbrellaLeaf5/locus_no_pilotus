@@ -3,10 +3,6 @@
 #include <QApplication>
 #include <random>
 
-// #include "icecream.hpp"  //IGNORE
-
-// #include "qcustomplot.h"
-
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif
@@ -60,7 +56,7 @@ BOOST_AUTO_TEST_CASE(simple_comparison) {
     Point p_1(c.x_1, c.y_1), p_2(c.x_2, c.y_2);
 
     BOOST_TEST((p_1 == p_2) == (c.x_1 == c.x_2 && c.y_1 == c.y_2));
-    BOOST_TEST((p_1 != p_2) == (c.x_1 != c.x_2 || c.y_1 != c.y_2));
+    BOOST_TEST((p_1 != p_2) == !(p_1 == p_2));
   }
 }
 
@@ -75,6 +71,7 @@ BOOST_AUTO_TEST_CASE(random_comparison) {
     Point p_1(x_1, y_1), p_2(x_2, y_2);
 
     BOOST_TEST((p_1 == p_2) == (x_1 == x_2 && y_1 == y_2));
+    BOOST_TEST((p_1 != p_2) == !(p_1 == p_2));
   }
 }
 

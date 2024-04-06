@@ -13,35 +13,40 @@ class TrappyLine : public JSONable {
  public:
   TrappyLine() = default;
 
-  // конструктор происходит исключительно по КТ,
-  // так как только между ними может быть перелет
+  /**
+   * @brief инициализирует новый экземпляр Trappy Line
+   * (конструктор исключительно по КТ, только между ними может быть перелет)
+   * @param targets: лист контрольных точек
+   */
+  TrappyLine(std::initializer_list<Target> targets) : targets_{targets} {}
 
-  TrappyLine(std::initializer_list<lib::Target> targets) : targets_{targets} {}
+  /**
+   * @brief инициализирует новый экземпляр Trappy Line
+   * (конструктор исключительно по КТ, только между ними может быть перелет)
+   * @param targets: вектор контрольных точек
+   */
+  TrappyLine(std::vector<Target> targets) : targets_{targets} {}
 
-  TrappyLine(std::vector<lib::Target> targets) : targets_{targets} {}
+  TrappyLine(const TrappyLine&) = default;
+  TrappyLine(TrappyLine&&) = default;
 
-  json Save() const override;
-  JSONable* Load(const json& j) override;
+  TrappyLine& operator=(const TrappyLine&) = default;
+  TrappyLine& operator=(TrappyLine&&) = default;
 
-  void SetNewTargets(std::initializer_list<lib::Target> targets) {
+  QJsonObject Save(int id) const override;
+  void Load(QJsonObject trappy_line_obj) override;
+  bool IsChanged(QJsonObject trappy_line_obj) override;
+
+  void SetNewTargets(std::initializer_list<Target> targets) {
     targets_ = targets;
   }
 
-  void SetNewTargets(std::vector<lib::Target> targets) { targets_ = targets; }
+  void SetNewTargets(std::vector<Target> targets) { targets_ = targets; }
 
-  void AddTargets(std::initializer_list<lib::Target> targets) {
-    for (const auto& target : targets) {
-      targets_.push_back(target);
-    }
-  }
+  void AddTargets(std::initializer_list<Target> targets);
+  void AddTargets(std::vector<Target> targets);
 
-  void AddTargets(std::vector<lib::Target> targets) {
-    for (const auto& target : targets) {
-      targets_.push_back(target);
-    }
-  }
-
-  std::vector<lib::Target> GetTargets() const { return targets_; }
+  std::vector<Target> GetTargets() const { return targets_; }
 
  private:
   std::vector<Target> targets_;

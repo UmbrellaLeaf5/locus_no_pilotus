@@ -10,15 +10,17 @@ namespace lib {
 // @brief опасная зона
 class TrappyCircle : public JSONable {
  public:
-  TrappyCircle(Point center = {0, 0}, double radius = 0)
-      : center_{center}, radius_{radius} {
-    if (radius < 0)
-      throw std::invalid_argument(
-          "trappy circle cannot have of negative radius");
-  }
+  TrappyCircle(Point center = {0, 0}, double radius = 0);
 
-  json Save() const override;
-  JSONable* Load(const json& j) override;
+  TrappyCircle(const TrappyCircle&) = default;
+  TrappyCircle(TrappyCircle&&) = default;
+
+  TrappyCircle& operator=(const TrappyCircle&) = default;
+  TrappyCircle& operator=(TrappyCircle&&) = default;
+
+  QJsonObject Save(int id) const override;
+  void Load(QJsonObject trappy_circle_obj) override;
+  bool IsChanged(QJsonObject trappy_circle_obj) override;
 
   Point GetCenter() const { return center_; }
   double GetRadius() const { return radius_; }

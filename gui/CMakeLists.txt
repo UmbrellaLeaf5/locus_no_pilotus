@@ -13,3 +13,6 @@ target_link_libraries(gui PUBLIC qcustomplot)
 
 include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
 add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} gui)
+
+find_package(IcecreamCpp)
+include_directories(${IcecreamCpp_INCLUDE_DIRS})

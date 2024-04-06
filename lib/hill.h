@@ -24,8 +24,6 @@ class Hill : public JSONable {
    */
   Hill(Point center, double radius, std::size_t vertices_amount);
 
-  // или :
-
   /**
    * @brief инициализирует новый экземпляр Hill
    * (так как рельеф является многоугольником, его можно построить по точкам)
@@ -33,9 +31,17 @@ class Hill : public JSONable {
    * @throw std::invalid_argument: если кол-во вершин 1 или 0
    */
   Hill(std::initializer_list<Point> points);
+  Hill(std::vector<Point> points) : vertices_{points} {}
 
-  json Save() const override;
-  JSONable* Load(const json& j) override;
+  Hill(const Hill&) = default;
+  Hill(Hill&&) = default;
+
+  Hill& operator=(const Hill&) = default;
+  Hill& operator=(Hill&&) = default;
+
+  QJsonObject Save(int id) const override;
+  void Load(QJsonObject hill_obj) override;
+  bool IsChanged(QJsonObject hill_obj) override;
 
   Point GetCenter() const;
   double GetRadius() const;

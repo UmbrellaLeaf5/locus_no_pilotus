@@ -1,6 +1,6 @@
 #pragma once
 
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 namespace gui {
 
@@ -9,7 +9,7 @@ class Drawable {
  public:
   /**
    * @brief привязывает (рисует) экземпляр класса на полотне
-   * @param plot указатель на соотв. полотно
+   * @param plot: указатель на соотв. полотно
    */
   virtual void Draw(QCustomPlot* plot) const = 0;
 };

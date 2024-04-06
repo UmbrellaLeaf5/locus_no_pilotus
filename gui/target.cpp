@@ -1,11 +1,11 @@
 #include "target.h"
 
-#include "qcustomplot.h"
+#include <qcustomplot.h>
 
 void gui::Target::Draw(QCustomPlot* plot) const {
-  auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
+  // фигура представляет собой малую серую окружность (точку)
 
-  // фигура представляет собой серую окружность
+  auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
 
   graph->setPen(QColor(50, 50, 50, 255));
   graph->setLineStyle(QCPGraph::lsNone);
