@@ -417,8 +417,8 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>163</width>
-          <height>515</height>
+          <width>150</width>
+          <height>1000</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="guiObjectsVerticalLayout">
@@ -451,12 +451,59 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
              <height>0</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string/>
+            <string>Targets on plot:</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="targetInfoTableWidget">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="rowCount">
+            <number>3</number>
+           </property>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>75</number>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>id</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>X</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Y</string>
+            </property>
+           </row>
           </widget>
          </item>
          <item>
@@ -473,12 +520,43 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
              <height>0</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string/>
+            <string>Hills on plot:</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="hillInfoTableWidget">
+           <property name="rowCount">
+            <number>1</number>
+           </property>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>75</number>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>id</string>
+            </property>
+           </row>
           </widget>
          </item>
          <item>
@@ -495,12 +573,64 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
              <height>0</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string/>
+            <string>Trappy Circles on plot:</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="trappyCircleInfoTableWidget">
+           <property name="showGrid">
+            <bool>true</bool>
+           </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
+           <property name="rowCount">
+            <number>4</number>
+           </property>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>75</number>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>id</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>X</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Y</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>R</string>
+            </property>
+           </row>
           </widget>
          </item>
          <item>
@@ -517,12 +647,63 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
              <height>0</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <italic>false</italic>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string/>
+            <string>Trappy Lines on plot:</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
            </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="trappyLineInfoTableWidget">
+           <property name="rowCount">
+            <number>5</number>
+           </property>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>75</number>
+           </attribute>
+           <attribute name="verticalHeaderMinimumSectionSize">
+            <number>25</number>
+           </attribute>
+           <attribute name="verticalHeaderDefaultSectionSize">
+            <number>25</number>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>id</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>X_1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Y_1</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>X_2</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>Y_2</string>
+            </property>
+           </row>
           </widget>
          </item>
         </layout>
