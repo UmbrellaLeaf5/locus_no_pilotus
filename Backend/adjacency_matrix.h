@@ -56,6 +56,9 @@ class AdjacencyMatrix {
   // Считает данные для матрицы
   void CalculateData();
 
+  // Расширяет атрицу для нескольких коммивояжеров
+  void ExtendTo(std::size_t num_of_flyers);
+
  private:
   // Размер матрицы
   std::size_t size_;

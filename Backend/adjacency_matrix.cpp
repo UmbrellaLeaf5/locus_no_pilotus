@@ -152,3 +152,19 @@ void AdjacencyMatrix::CalculateData() {
   selected_edge_ = std::make_pair(matrix_[selected_value_.first][size_],
                                   matrix_[size_][selected_value_.second]);
 }
+void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
+  if (num_of_flyers > num_of_flyers_) {
+    for (std::size_t i = 1; i < num_of_flyers; ++i) {
+      matrix_.insert(matrix_.begin() + size_, matrix_[0]);
+      for (std::size_t j = 0; j < size_ + 1; ++j) {
+        matrix_[j].insert(matrix_[j].begin() + size_, matrix_[j][0]);
+      }
+      matrix_[size_ + 1][size_] = size_;
+      matrix_[size_][size_ + 1] = size_;
+      matrix_[size_ + 1].push_back(0);
+      ++size_;
+    }
+    num_of_flyers_ = num_of_flyers;
+    CalculateData();
+  }
+}
