@@ -9,7 +9,7 @@ namespace math {
 struct PathWayNode {
   PathWayNode(Point p) : point{p} {}
   std::vector<std::shared_ptr<PathWayNode>> edges;
-  std::unique_ptr<CircleObstacle> circle_prt = nullptr;
+  std::shared_ptr<CircleObstacle> circle_prt = nullptr;
   Point point;
 };
 
