@@ -11,14 +11,17 @@ class GuiJsonFile {
   void New();
   void Open(PlotArea& plot_area);
 
+  QString GetFileName() { return file_->fileName(); }
+
   void SetFile(QString file_name) { file_->setFileName(file_name); }
 
-  bool IsExistsFile() { return file_->fileName().size() != 0; }
+  bool IsExistsFile() {
+    return (file_->fileName().size() != 0 && file_->exists());
+  }
   bool IsChanged(PlotArea& plot_area);
 
  private:
   QFile* file_{new QFile};
-  QJsonDocument* json_file_{new QJsonDocument};
 
-  void WriteFile(std::vector<QJsonArray> arr);
+  QJsonObject LoadJson();
 };

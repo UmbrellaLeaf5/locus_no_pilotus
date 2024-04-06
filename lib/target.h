@@ -20,6 +20,7 @@ class Target : public JSONable {
 
   QJsonObject Save(int id) const override;
   void Load(QJsonObject target_obj) override;
+  bool IsChanged(QJsonObject target_obj) override;
 
   Point GetPoint() const { return p_; }
 

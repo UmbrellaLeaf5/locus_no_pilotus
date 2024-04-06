@@ -18,4 +18,10 @@ void Target::Load(QJsonObject target_obj) {
   SetPoint({x, y});
 }
 
+bool Target::IsChanged(QJsonObject target_obj) {
+  Point p = {target_obj.value("X").toDouble(),
+             target_obj.value("Y").toDouble()};
+  return p != p_;
+}
+
 }  // namespace lib

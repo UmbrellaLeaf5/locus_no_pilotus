@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QJsonDocument>
 #include <QJsonObject>
 
 namespace lib {
@@ -10,6 +9,7 @@ class JSONable {
  public:
   virtual QJsonObject Save(int id) const = 0;
   virtual void Load(QJsonObject obj) = 0;
+  virtual bool IsChanged(QJsonObject obj) = 0;
 };
 
 }  // namespace lib
