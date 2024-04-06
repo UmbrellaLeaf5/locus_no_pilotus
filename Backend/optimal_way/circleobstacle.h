@@ -28,6 +28,7 @@ class CircleObstacle {
  public:
   CircleObstacle(Point center, double radius)
       : center_{center}, radius_{radius} {}
+  CircleObstacle() : center_{0, 0}, radius_{0} {}
 
   Point GetCenter() const { return center_; }
   double GetRadius() const { return radius_; }
