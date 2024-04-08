@@ -64,3 +64,48 @@ BOOST_AUTO_TEST_CASE(many_tsp_random_5x5) {
   CHECK_PATH(matrix, path, num_of_flyers);
 }
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(many_tsp_symmetric)
+
+BOOST_AUTO_TEST_CASE(many_tsp_symmetric_4x4) {
+  AdjacencyMatrix matrix =
+      AdjacencyMatrix::WithExtraRowCol({{inf, 661, 18, 637},
+                                        {661, inf, 301, 887},
+                                        {18, 301, inf, 102},
+                                        {637, 887, 102, inf}});
+  std::vector<std::size_t> path = {0, 2, 3, 1, 0};
+  std::size_t num_of_flyers = 2;
+  CHECK_PATH(matrix, path, num_of_flyers);
+}
+
+BOOST_AUTO_TEST_CASE(many_tsp_symmetric_6x6) {
+  AdjacencyMatrix matrix =
+      AdjacencyMatrix::WithExtraRowCol({{inf, 259, 42, 145, 475, 47},
+                                        {259, inf, 14, 342, 270, 150},
+                                        {42, 14, inf, 139, 357, 254},
+                                        {145, 342, 139, inf, 32, 256},
+                                        {475, 270, 357, 32, inf, 963},
+                                        {47, 150, 254, 256, 963, inf}});
+  std::vector<std::size_t> path = {0, 2, 1, 4, 3, 0, 5};
+  std::size_t num_of_flyers = 2;
+  CHECK_PATH(matrix, path, num_of_flyers);
+}
+
+BOOST_AUTO_TEST_CASE(many_tsp_symmetric_10x10) {
+  AdjacencyMatrix matrix = AdjacencyMatrix::WithExtraRowCol(
+      {{inf, 68, 214, 70, 986, 63, 56, 15, 61, 30},
+       {68, inf, 856, 14, 980, 119, 642, 637, 47, 518},
+       {214, 856, inf, 1093, 247, 899, 441, 824, 1407, 55},
+       {70, 14, 1093, inf, 449, 192, 660, 349, 816, 118},
+       {986, 980, 247, 449, inf, 12, 920, 791, 43, 546},
+       {63, 119, 899, 192, 12, inf, 569, 883, 119, 351},
+       {56, 642, 441, 660, 920, 569, inf, 34, 906, 410},
+       {15, 637, 824, 349, 791, 883, 34, inf, 573, 446},
+       {61, 47, 1407, 816, 43, 119, 906, 573, inf, 98},
+       {30, 518, 55, 118, 546, 351, 410, 446, 98, inf}});
+  std::vector<std::size_t> path = {0, 2, 9, 0, 6, 7, 0, 5, 4, 8, 1, 3};
+  std::size_t num_of_flyers = 3;
+  CHECK_PATH(matrix, path, num_of_flyers);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
