@@ -10,7 +10,6 @@
 #include "../trappy_circle.h"
 #include "../trappy_line.h"
 
-
 namespace gui {
 
 // @brief типы объектов по категориям
@@ -120,7 +119,7 @@ class DataManager {
   // for lib::TrappyCircle
   void Add(lib::TrappyCircle data) {
     tr_circles_.push_back(gui::TrappyCircle(data));
-  };
+  }
   void Add(std::initializer_list<lib::TrappyCircle>);
   void Add(std::vector<lib::TrappyCircle>);
 
@@ -153,9 +152,7 @@ class DataManager {
   void Set(std::vector<gui::TrappyLine>);
 
   // for lib::TrappyLine
-  void Add(lib::TrappyLine data) {
-    tr_lines_.push_back(gui::TrappyLine(data));
-  };
+  void Add(lib::TrappyLine data) { tr_lines_.push_back(gui::TrappyLine(data)); }
   void Add(std::initializer_list<lib::TrappyLine>);
   void Add(std::vector<lib::TrappyLine>);
 
