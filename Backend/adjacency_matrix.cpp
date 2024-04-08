@@ -104,7 +104,7 @@ double AdjacencyMatrix::BottomLineEvaluation() {
     double first_min = twoMins.first;
     double second_min = twoMins.second;
     for (std::size_t j = 0; j < size_; ++j) {
-      if (reducted_matrix_[i][j] != inf) reducted_matrix_[i][j] -= first_min;
+      reducted_matrix_[i][j] -= first_min;
     }
     second_min -= first_min;
     min_numbers_[i] = second_min;
@@ -118,7 +118,7 @@ double AdjacencyMatrix::BottomLineEvaluation() {
     for (std::size_t j = 0; j < size_; ++j) {
       if (reducted_matrix_[j][i] == min_numbers_[j])
         min_numbers_[j] -= first_min;
-      if (reducted_matrix_[i][j] != inf) reducted_matrix_[j][i] -= first_min;
+      reducted_matrix_[j][i] -= first_min;
     }
     second_min -= first_min;
     min_numbers_[size_ + i] = second_min;
@@ -131,7 +131,7 @@ double AdjacencyMatrix::BottomLineEvaluation() {
 std::pair<std::size_t, std::size_t> AdjacencyMatrix::HighestPowerOfZero()
     const {
   std::size_t row = 0, col = 0;
-  double max = 0;
+  double max = -1;
   for (std::size_t i = 0; i < size_; ++i) {
     for (std::size_t j = 0; j < size_; ++j) {
       if (reducted_matrix_[i][j] == 0) {
@@ -163,6 +163,14 @@ void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
       matrix_[size_][size_ + 1] = size_;
       matrix_[size_ + 1].push_back(0);
       ++size_;
+      min_numbers_.resize(size_ + size_);
+    }
+    for (std::size_t i = 1; i < num_of_flyers; ++i) {
+      for (std::size_t j = 1; j < num_of_flyers; ++j) {
+        if (i != j) matrix_[size_ - i][size_ - j] = 0;
+      }
+      matrix_[0][size_ - i] = 0;
+      matrix_[size_ - i][0] = 0;
     }
     num_of_flyers_ = num_of_flyers;
     CalculateData();
