@@ -20,14 +20,19 @@ class TravellingSalesmansProblem {
   }
 
  private:
+  // Количество коммивояжеров
+  std::size_t num_of_flyers_;
   // Вектор с указателями на вершины графа
   // Отсортирован в порядке возрастания нижней оценки
-  std::vector<std::shared_ptr<TSPNode>> paths_stack;
+  std::vector<std::shared_ptr<TSPNode>> paths_stack_;
 
   // Ребра получившегося маршрута
-  std::vector<Edge> edge_path;
+  std::vector<Edge> edge_path_;
 
-  // Вспомогательные методы для работы с paths_stack
+  // Возвращает количество коммивояжеров
+  std::size_t GetNumOfFlyers() const { return num_of_flyers_; }
+
+  // Вспомогательные методы для работы с paths_stack_
   // Заменяет вершину графа на её детей, без нарушения порядка
   void ExpandStack();
 

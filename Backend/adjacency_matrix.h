@@ -28,8 +28,6 @@ class AdjacencyMatrix {
   // Возвращает размер матрицы
   std::size_t GetSize() const { return size_; }
 
-  // Возвращает количество коммивояжеров
-  std::size_t GetNumOfFlyers() const { return num_of_flyers_; }
   // Возвращает элемент матрицы
   double GetMatrixValue(std::size_t i, std::size_t j) const {
     return matrix_[i][j];
@@ -64,8 +62,6 @@ class AdjacencyMatrix {
  private:
   // Размер матрицы
   std::size_t size_;
-  // Количество коммивояжеров
-  std::size_t num_of_flyers_;
   // Матрица
   std::vector<std::vector<double>> matrix_;
   // Редуцированная версия матрицы
