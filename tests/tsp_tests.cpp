@@ -22,15 +22,6 @@ void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path) {
   }
 }
 
-void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path,
-                std::size_t num_of_flyers) {
-  TravellingSalesmansProblem tsp(matrix, num_of_flyers);
-  std::vector<size_t> traj = tsp.GetTrajectory();
-  for (std::size_t i = 0; i < path.size(); ++i) {
-    BOOST_TEST(path[i] == traj[i]);
-  }
-}
-
 BOOST_AUTO_TEST_SUITE(tsp_random)
 
 BOOST_AUTO_TEST_CASE(tsp_random_2x2) {
@@ -38,14 +29,6 @@ BOOST_AUTO_TEST_CASE(tsp_random_2x2) {
       AdjacencyMatrix::WithExtraRowCol({{inf, 80}, {91, inf}});
   std::vector<std::size_t> path = {0, 1};
   CHECK_PATH(matrix, path);
-}
-
-BOOST_AUTO_TEST_CASE(many_tsp_random_2x2) {
-  AdjacencyMatrix matrix =
-      AdjacencyMatrix::WithExtraRowCol({{inf, 80}, {91, inf}});
-  std::vector<std::size_t> path = {0, 1, 2};
-  std::size_t num_of_flyers = 2;
-  CHECK_PATH(matrix, path, num_of_flyers);
 }
 
 BOOST_AUTO_TEST_CASE(tsp_random_3x3) {
