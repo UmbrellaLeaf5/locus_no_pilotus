@@ -49,10 +49,7 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
 }
 
 AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
-    : matrix_{nums},
-      size_{nums.size()},
-      num_of_flyers_{1},
-      min_numbers_(size_ + size_) {}
+    : matrix_{nums}, size_{nums.size()}, min_numbers_(size_ + size_) {}
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {
   Minimums result;
@@ -153,26 +150,23 @@ void AdjacencyMatrix::CalculateData() {
                                   matrix_[size_][selected_value_.second]);
 }
 void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
-  if (num_of_flyers > num_of_flyers_) {
-    for (std::size_t i = 1; i < num_of_flyers; ++i) {
-      matrix_.insert(matrix_.begin() + size_, matrix_[0]);
-      for (std::size_t j = 0; j < size_ + 1; ++j) {
-        matrix_[j].insert(matrix_[j].begin() + size_, matrix_[j][0]);
-      }
-      matrix_[size_ + 1][size_] = size_;
-      matrix_[size_][size_ + 1] = size_;
-      matrix_[size_ + 1].push_back(0);
-      ++size_;
-      min_numbers_.resize(size_ + size_);
+  for (std::size_t i = 1; i < num_of_flyers; ++i) {
+    matrix_.insert(matrix_.begin() + size_, matrix_[0]);
+    for (std::size_t j = 0; j < size_ + 1; ++j) {
+      matrix_[j].insert(matrix_[j].begin() + size_, matrix_[j][0]);
     }
-    for (std::size_t i = 1; i < num_of_flyers; ++i) {
-      for (std::size_t j = 1; j < num_of_flyers; ++j) {
-        if (i != j) matrix_[size_ - i][size_ - j] = 0;
-      }
-      matrix_[0][size_ - i] = 0;
-      matrix_[size_ - i][0] = 0;
-    }
-    num_of_flyers_ = num_of_flyers;
-    CalculateData();
+    matrix_[size_ + 1][size_] = size_;
+    matrix_[size_][size_ + 1] = size_;
+    matrix_[size_ + 1].push_back(0);
+    ++size_;
+    min_numbers_.resize(size_ + size_);
   }
+  for (std::size_t i = 1; i < num_of_flyers; ++i) {
+    for (std::size_t j = 1; j < num_of_flyers; ++j) {
+      if (i != j) matrix_[size_ - i][size_ - j] = 0;
+    }
+    matrix_[0][size_ - i] = 0;
+    matrix_[size_ - i][0] = 0;
+  }
+  CalculateData();
 }
