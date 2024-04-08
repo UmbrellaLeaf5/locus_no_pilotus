@@ -8,7 +8,8 @@ TravellingSalesmansProblem::TravellingSalesmansProblem(AdjacencyMatrix& m) {
 }
 
 TravellingSalesmansProblem::TravellingSalesmansProblem(
-    AdjacencyMatrix& m, std::size_t num_of_flyers) {
+    AdjacencyMatrix& m, std::size_t num_of_flyers)
+    : num_of_flyers_{num_of_flyers} {
   m.ExtendTo(num_of_flyers);
   paths_stack_.push_back(std::make_shared<TSPNode>(m));
   if (m.GetSize() == 2) CompleteEdgePath(paths_stack_[0]);
@@ -156,6 +157,8 @@ std::vector<std::size_t> TravellingSalesmansProblem::ConvertToVertexPath() {
     final_path.push_back(aux_path[key]);
     key = aux_path[key];
   }
+  for (std::size_t i = 0; i < final_path.size(); ++i)
+    if (final_path[i] > final_path.size() - num_of_flyers_) final_path[i] = 0;
   return final_path;
 }
 

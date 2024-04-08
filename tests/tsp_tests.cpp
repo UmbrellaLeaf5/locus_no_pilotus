@@ -16,7 +16,7 @@ namespace utf = boost::unit_test;
 
 void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path) {
   TravellingSalesmansProblem tsp(matrix);
-  std::vector<size_t> traj = tsp.GetTrajectory();
+  std::vector<std::size_t> traj = tsp.GetTrajectory();
   for (std::size_t i = 0; i < path.size(); ++i) {
     BOOST_TEST(path[i] == traj[i]);
   }
