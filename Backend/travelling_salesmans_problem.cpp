@@ -3,29 +3,29 @@
 #include <map>
 
 TravellingSalesmansProblem::TravellingSalesmansProblem(AdjacencyMatrix& m) {
-  paths_stack.push_back(std::make_shared<TSPNode>(m));
-  if (m.GetSize() == 2) CompleteEdgePath(paths_stack[0]);
+  paths_stack_.push_back(std::make_shared<TSPNode>(m));
+  if (m.GetSize() == 2) CompleteEdgePath(paths_stack_[0]);
 }
 
 TravellingSalesmansProblem::TravellingSalesmansProblem(
     AdjacencyMatrix& m, std::size_t num_of_flyers) {
   m.ExtendTo(num_of_flyers);
-  paths_stack.push_back(std::make_shared<TSPNode>(m));
-  if (m.GetSize() == 2) CompleteEdgePath(paths_stack[0]);
+  paths_stack_.push_back(std::make_shared<TSPNode>(m));
+  if (m.GetSize() == 2) CompleteEdgePath(paths_stack_[0]);
 }
 
 void TravellingSalesmansProblem::ExpandStack() {
   std::pair<std::size_t, std::size_t> value =
-      paths_stack[0]->matrix.GetSelectedValue();
-  Edge edge(paths_stack[0]->matrix.GetSelectedEdge());
+      paths_stack_[0]->matrix.GetSelectedValue();
+  Edge edge(paths_stack_[0]->matrix.GetSelectedEdge());
 
   // Первый ребенок, c включением edge
-  AdjacencyMatrix with_edge_matrix = paths_stack[0]->matrix.Reducted();
+  AdjacencyMatrix with_edge_matrix = paths_stack_[0]->matrix.Reducted();
   with_edge_matrix = DeleteEdge(with_edge_matrix, edge.end_num, edge.start_num);
 
   // Исключение возможности цикла
-  std::map<std::size_t, std::size_t> prev_chains = paths_stack[0]->chains;
-  std::map<std::size_t, std::size_t> new_chains = paths_stack[0]->chains;
+  std::map<std::size_t, std::size_t> prev_chains = paths_stack_[0]->chains;
+  std::map<std::size_t, std::size_t> new_chains = paths_stack_[0]->chains;
   bool is_new = true;
   for (const auto& [start, end] : prev_chains) {
     if (start == edge.end_num) {
@@ -58,34 +58,34 @@ void TravellingSalesmansProblem::ExpandStack() {
   // Исключение возможности цикла
 
   with_edge_matrix = with_edge_matrix.Minor(value.first, value.second);
-  paths_stack[0]->with_edge = std::make_shared<TSPNode>(
-      with_edge_matrix, paths_stack[0], edge, new_chains);
-  if (paths_stack[0]->with_edge->matrix.GetSize() == 2)
-    CompleteEdgePath(paths_stack[0]->with_edge);
+  paths_stack_[0]->with_edge = std::make_shared<TSPNode>(
+      with_edge_matrix, paths_stack_[0], edge, new_chains);
+  if (paths_stack_[0]->with_edge->matrix.GetSize() == 2)
+    CompleteEdgePath(paths_stack_[0]->with_edge);
 
   // Второй ребенок, c исключением edge
-  AdjacencyMatrix without_edge_matrix = paths_stack[0]->matrix.Reducted();
+  AdjacencyMatrix without_edge_matrix = paths_stack_[0]->matrix.Reducted();
   without_edge_matrix =
       DeleteEdge(without_edge_matrix, edge.start_num, edge.end_num);
-  paths_stack[0]->without_edge =
-      std::make_shared<TSPNode>(without_edge_matrix, paths_stack[0]);
+  paths_stack_[0]->without_edge =
+      std::make_shared<TSPNode>(without_edge_matrix, paths_stack_[0]);
 
   // Добавляем детей в стек вершин,удаляем их родителя
-  double with_eval = paths_stack[0]->with_edge->evaluation;
-  double without_eval = paths_stack[0]->without_edge->evaluation;
+  double with_eval = paths_stack_[0]->with_edge->evaluation;
+  double without_eval = paths_stack_[0]->without_edge->evaluation;
   if (without_eval != inf)
-    if (FindIndex(without_eval) < paths_stack.size())
-      paths_stack.insert(paths_stack.begin() + FindIndex(without_eval),
-                         paths_stack[0]->without_edge);
+    if (FindIndex(without_eval) < paths_stack_.size())
+      paths_stack_.insert(paths_stack_.begin() + FindIndex(without_eval),
+                          paths_stack_[0]->without_edge);
     else
-      paths_stack.push_back(paths_stack[0]->without_edge);
+      paths_stack_.push_back(paths_stack_[0]->without_edge);
   if (with_eval != inf)
-    if (FindIndex(with_eval) < paths_stack.size())
-      paths_stack.insert(paths_stack.begin() + FindIndex(with_eval),
-                         paths_stack[0]->with_edge);
+    if (FindIndex(with_eval) < paths_stack_.size())
+      paths_stack_.insert(paths_stack_.begin() + FindIndex(with_eval),
+                          paths_stack_[0]->with_edge);
     else
-      paths_stack.push_back(paths_stack[0]->with_edge);
-  paths_stack.erase(paths_stack.begin());
+      paths_stack_.push_back(paths_stack_[0]->with_edge);
+  paths_stack_.erase(paths_stack_.begin());
 }
 
 AdjacencyMatrix TravellingSalesmansProblem::DeleteEdge(AdjacencyMatrix matrix,
@@ -104,17 +104,17 @@ AdjacencyMatrix TravellingSalesmansProblem::DeleteEdge(AdjacencyMatrix matrix,
 std::size_t TravellingSalesmansProblem::FindIndex(double eval) const {
   // Нижняя и верхняя границы
   std::size_t start = 0;
-  std::size_t end = paths_stack.size();
+  std::size_t end = paths_stack_.size();
   // Уменьшение области поиска
   while (start < end) {
     std::size_t mid = (start + end) / 2;
     // Если eval нашлось
-    if (paths_stack[mid]->evaluation == eval)
+    if (paths_stack_[mid]->evaluation == eval)
       if (mid)
         return mid;
       else
         return mid + 1;
-    else if (paths_stack[mid]->evaluation < eval)
+    else if (paths_stack_[mid]->evaluation < eval)
       start = mid + 1;
     else
       end = mid;
@@ -146,8 +146,8 @@ void TravellingSalesmansProblem::CompleteEdgePath(
 
 std::vector<std::size_t> TravellingSalesmansProblem::ConvertToVertexPath() {
   std::map<std::size_t, std::size_t> aux_path;
-  for (std::size_t i = 0; i < edge_path.size(); ++i) {
-    aux_path[edge_path[i].start_num] = edge_path[i].end_num;
+  for (std::size_t i = 0; i < edge_path_.size(); ++i) {
+    aux_path[edge_path_[i].start_num] = edge_path_[i].end_num;
   }
   std::vector<std::size_t> final_path;
   final_path.push_back(0);
@@ -160,7 +160,7 @@ std::vector<std::size_t> TravellingSalesmansProblem::ConvertToVertexPath() {
 }
 
 std::vector<std::size_t> TravellingSalesmansProblem::CalculateTrajectory() {
-  while (paths_stack[0]->matrix.GetSize() > 2) ExpandStack();
-  edge_path = paths_stack[0]->path;
+  while (paths_stack_[0]->matrix.GetSize() > 2) ExpandStack();
+  edge_path_ = paths_stack_[0]->path;
   return ConvertToVertexPath();
 }
