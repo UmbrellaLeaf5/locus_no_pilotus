@@ -1,6 +1,6 @@
 #include "points_graph.h"
 
-#include "../icecream-cpp/icecream.hpp"
+#include <icecream.hpp>
 
 void Dijkstras_algorithm::Calculate_Min_Paths() {
   while (graphs_vertex_[end_] > min_length_) {

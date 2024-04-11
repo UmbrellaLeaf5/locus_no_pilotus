@@ -1,7 +1,8 @@
 #include <QApplication>
+#include <icecream.hpp>
 
 #include "../backend/dijkstras_algorithm/points_graph.h"
-#include "../icecream-cpp/icecream.hpp"
+
 
 // #include "qcustomplot.h"
 
