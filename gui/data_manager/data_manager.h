@@ -10,13 +10,12 @@
 #include "../trappy_circle.h"
 #include "../trappy_line.h"
 
-
 namespace gui {
 
-// @brief типы объектов по категориям
+/// @brief типы объектов по категориям
 enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
 
-// @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
+/// @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
  public:
   DataManager() = default;

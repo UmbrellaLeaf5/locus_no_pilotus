@@ -8,10 +8,9 @@
 #include "../lib/hill.h"
 #include "base.h"
 
-
 namespace gui {
 
-// @brief фигура рельефа с высотой
+/// @brief фигура рельефа с высотой
 class Hill : public Drawable {
  public:
   Hill() = default;
