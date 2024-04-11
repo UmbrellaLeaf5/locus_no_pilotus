@@ -5,7 +5,6 @@
 #include "../lib/trappy_circle.h"
 #include "base.h"
 
-
 namespace gui {
 
 // @brief фигура опасной зоны

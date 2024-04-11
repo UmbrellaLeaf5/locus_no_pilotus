@@ -47,6 +47,11 @@ void PlotArea::Remove(gui::ObjectType obj_type, size_t index) {
   Redraw();
 }
 
+void PlotArea::Clear() {
+  manager_.Clear();
+  Redraw();
+}
+
 void PlotArea::UpdateInfo() {
   targets_info_->setText(manager_.GetTexted(gui::ObjectType::Targets));
 

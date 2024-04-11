@@ -10,7 +10,6 @@
 #include "../trappy_circle.h"
 #include "../trappy_line.h"
 
-
 namespace gui {
 
 // @brief типы объектов по категориям
@@ -37,6 +36,7 @@ class DataManager {
    * @param index: индекс объекта в его векторе
    */
   void Remove(ObjectType obj_type, size_t index);
+  void Clear();
 
   /**
    * @brief возвращает представление определенных типов объектов в виде текста

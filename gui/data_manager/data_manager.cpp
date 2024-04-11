@@ -56,6 +56,16 @@ void DataManager::Remove(ObjectType obj_type, size_t index) {
   }
 }
 
+void DataManager::Clear() {
+  while (targets_.size() > 0) Remove(ObjectType::Targets, 0);
+
+  while (tr_circles_.size() > 0) Remove(ObjectType::TrappyCircles, 0);
+
+  while (tr_lines_.size() > 0) Remove(ObjectType::TrappyLines, 0);
+
+  while (hills_.size() > 0) Remove(ObjectType::Hills, 0);
+}
+
 QString DataManager::GetTexted(ObjectType obj_type) {
   QString text;
 

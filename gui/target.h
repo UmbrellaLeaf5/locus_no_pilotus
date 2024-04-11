@@ -5,7 +5,6 @@
 #include "../lib/target.h"
 #include "base.h"
 
-
 namespace gui {
 
 // @brief фигура контрольной точки
