@@ -1,34 +1,51 @@
 name: Doxygen
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
   pull_request:
     branches: ["main"]
+
+permissions:
+  pages: write
+  deployments: write
+  id-token: write
   
 jobs:
-  # Single deploy job since we're just deploying
   docs:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - name: Check Software
-        run: echo "Check Software"
-        
+      # Клонируем сам репозиторий
       - name: Checkout
-        run: echo "Checkout" 
+        uses: actions/checkout@v4
+        with: 
+          submodules: 'recursive'
         
       - name: Install Doxygen
-        run: echo "Install Doxygen" 
+        run: sudo apt install doxygen && doxygen --version 
+      
+      - name: Install Graphviz
+        run: sudo apt install graphviz
 
       - name: Run Doxygen
-        run: echo "Run Doxygen" 
+        run: doxygen doxyfile
 
       - name: Upload Docs
         run: echo "Upload Docs" 
 
+      - name: Upload Docs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: './doxygen/html/'
+      
       - name: Setup Pages
-        run: echo "Setup Pages" 
-
+        uses: actions/configure-pages@v5
+        
       - name: Deploy To GitHub Pages
-        run: echo "Deploy To GitHub Pages" 
+        id: deployment
+        uses: actions/deploy-pages@v4
+
