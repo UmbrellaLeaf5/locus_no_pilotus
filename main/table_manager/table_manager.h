@@ -14,7 +14,7 @@ class TableManager {
   TableManager() = default;
 
   /**
-   * @brief устанавливает значение всех таблиц с информацией
+   * @brief устанавливает значения всех таблиц с информацией
    * @param hills_info: QTableWidget с информацией о hills
    * @param targets_info: QTableWidget с информацией о hills
    * @param tr_circles_info: QTableWidget с информацией о hills
@@ -29,11 +29,29 @@ class TableManager {
     tr_lines_table_.reset(tr_lines_info);
   }
 
-  void UpdateTargetsTable(const std::vector<gui::Target>& targets);
-  void UpdateHillsTable(const std::vector<gui::Hill>& hills);
-  void UpdateTrappyLinesTable(const std::vector<gui::TrappyLine>& trappy_lines);
-  void UpdateTrappyCirclesTable(
-      const std::vector<gui::TrappyCircle>& trappy_circles);
+  /**
+   * @brief обновляет значения таблицы с Targets
+   * @param targets: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::Target>& targets);
+
+  /**
+   * @brief обновляет значения таблицы с Hills
+   * @param hills: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::Hill>& hills);
+
+  /**
+   * @brief обновляет значения таблицы с TrappyLines
+   * @param trappy_lines: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::TrappyLine>& trappy_lines);
+
+  /**
+   * @brief обновляет значения таблицы с TrappyCircles
+   * @param trappy_circles: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::TrappyCircle>& trappy_circles);
 
  private:
   std::unique_ptr<QTableWidget> targets_table_{nullptr};

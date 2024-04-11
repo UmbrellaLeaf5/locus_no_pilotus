@@ -60,8 +60,8 @@ void PlotArea::UpdateInfoLabels() {
 }
 
 void PlotArea::UpdateTables() {
-  t_manager_.UpdateTargetsTable(manager_.GetTargets());
-  t_manager_.UpdateHillsTable(manager_.GetHills());
-  t_manager_.UpdateTrappyLinesTable(manager_.GetTrappyLines());
-  t_manager_.UpdateTrappyCirclesTable(manager_.GetTrappyCircles());
+  t_manager_.UpdateTable(manager_.GetTargets());
+  t_manager_.UpdateTable(manager_.GetHills());
+  t_manager_.UpdateTable(manager_.GetTrappyLines());
+  t_manager_.UpdateTable(manager_.GetTrappyCircles());
 }

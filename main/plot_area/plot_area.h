@@ -41,7 +41,7 @@ class PlotArea {
   }
 
   /**
-   * @brief устанавливает значение всех таблиц с информацией
+   * @brief устанавливает значения всех таблиц с информацией
    * @param hills_info: QTableWidget с информацией о hills
    * @param targets_info: QTableWidget с информацией о hills
    * @param tr_circles_info: QTableWidget с информацией о hills

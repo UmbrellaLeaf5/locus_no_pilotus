@@ -1,6 +1,6 @@
 #include "table_manager.h"
 
-void TableManager::UpdateTargetsTable(const std::vector<gui::Target>& targets) {
+void TableManager::UpdateTable(const std::vector<gui::Target>& targets) {
   targets_table_->setColumnCount(targets.size());
   for (size_t i = 0; i < targets.size(); i++) {
     targets_table_->setHorizontalHeaderItem(
@@ -16,7 +16,7 @@ void TableManager::UpdateTargetsTable(const std::vector<gui::Target>& targets) {
   targets_table_->update();
 }
 
-void TableManager::UpdateHillsTable(const std::vector<gui::Hill>& hills) {
+void TableManager::UpdateTable(const std::vector<gui::Hill>& hills) {
   // находим максимально возможное кол-во точек среди всех холмов
   size_t hills_max_points = hills[0].GetPoints().size();
   for (size_t i = 0; i < hills.size() - 1; i++) {
@@ -49,7 +49,7 @@ void TableManager::UpdateHillsTable(const std::vector<gui::Hill>& hills) {
   hills_table_->update();
 }
 
-void TableManager::UpdateTrappyLinesTable(
+void TableManager::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
   tr_lines_table_->setColumnCount(trappy_lines.size());
   for (size_t i = 0; i < trappy_lines.size(); i++) {
@@ -78,7 +78,7 @@ void TableManager::UpdateTrappyLinesTable(
   tr_lines_table_->update();
 }
 
-void TableManager::UpdateTrappyCirclesTable(
+void TableManager::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
   tr_circles_table_->setColumnCount(trappy_circles.size());
   for (size_t i = 0; i < trappy_circles.size(); i++) {
