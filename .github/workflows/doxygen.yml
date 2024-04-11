@@ -1,0 +1,34 @@
+name: Doxygen
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  
+jobs:
+  # Single deploy job since we're just deploying
+  docs:
+    runs-on: windows-latest
+    steps:
+      - name: Check Software
+        run: echo "Check Software"
+        
+      - name: Checkout
+        run: echo "Checkout" 
+        
+      - name: Install Doxygen
+        run: echo "Install Doxygen" 
+
+      - name: Run Doxygen
+        run: echo "Run Doxygen" 
+
+      - name: Upload Docs
+        run: echo "Upload Docs" 
+
+      - name: Setup Pages
+        run: echo "Setup Pages" 
+
+      - name: Deploy To GitHub Pages
+        run: echo "Deploy To GitHub Pages" 
