@@ -14,4 +14,7 @@ class Drawable {
   virtual void Draw(QCustomPlot* plot) const = 0;
 };
 
+// @brief типы объектов по категориям
+enum class GuiObjType { Targets, Hills, TrappyCircles, TrappyLines };
+
 }  // namespace gui

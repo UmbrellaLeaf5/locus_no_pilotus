@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     area_.Redraw();
 
-    area_.Remove(gui::ObjectType::Targets, 0);
+    area_.Remove(gui::GuiObjType::Targets, 0);
   }
 
   ui->plotSettingsDockWidget->setVisible(false);

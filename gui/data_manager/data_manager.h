@@ -12,9 +12,6 @@
 
 namespace gui {
 
-// @brief типы объектов по категориям
-enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
-
 // @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
  public:
@@ -28,21 +25,21 @@ class DataManager {
    * @param index: индекс объекта в его векторе
    * @param plot: указатель на полотно
    */
-  void Draw(ObjectType obj_type, size_t index, QCustomPlot* plot);
+  void Draw(GuiObjType obj_type, size_t index, QCustomPlot* plot);
 
   /**
    * @brief удаляет объект из менеджера по индексу
    * @param obj_type: тип объекта
    * @param index: индекс объекта в его векторе
    */
-  void Remove(ObjectType obj_type, size_t index);
+  void Remove(GuiObjType obj_type, size_t index);
 
   /**
    * @brief возвращает представление определенных типов объектов в виде текста
    * @param obj_type: тип объектов
    * @return QString: текст
    */
-  QString GetTexted(ObjectType obj_type);
+  QString GetTexted(GuiObjType obj_type);
 
   // ----------------------   Target methods   ----------------------
 
