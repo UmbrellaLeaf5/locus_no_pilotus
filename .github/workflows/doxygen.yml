@@ -1,22 +1,19 @@
 name: Doxygen
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
   pull_request:
     branches: ["main"]
   
 jobs:
-  # Single deploy job since we're just deploying
   docs:
     runs-on: windows-latest
     steps:
       - name: Check Software
-        run: echo "Check Software"
+        run: echo "Check Software" & where git
+        shell: cmd
         
       - name: Checkout
-        run: echo "Checkout" 
+        uses: actions/checkout@v3
         
       - name: Install Doxygen
         run: echo "Install Doxygen" 
