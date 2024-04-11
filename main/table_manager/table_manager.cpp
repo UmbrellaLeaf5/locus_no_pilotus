@@ -1,10 +1,15 @@
 #include "table_manager.h"
 
 void TableManager::UpdateTable(const std::vector<gui::Target>& targets) {
+  // кол-во столбцов = кол-во к.т.
   targets_table_->setColumnCount(targets.size());
+
   for (size_t i = 0; i < targets.size(); i++) {
     targets_table_->setHorizontalHeaderItem(
-        i, new QTableWidgetItem("n. " + QString::number(i + 1)));
+        i, new QTableWidgetItem(
+               "n. " + QString::number(i + 1)));  // номер к.т. = индекс + 1
+
+    // в строки добавляем индекс на полотне и координаты
     targets_table_->setItem(
         0, i,
         new QTableWidgetItem(QString::number(targets[i].GetPlottableIndex())));
@@ -23,12 +28,19 @@ void TableManager::UpdateTable(const std::vector<gui::Hill>& hills) {
     hills_max_points =
         std::max(hills[i].GetPoints().size(), hills[i + 1].GetPoints().size());
   }
+
+  // кол-во столбцов = кол-во рельефов
   hills_table_->setColumnCount(hills.size());
+
+  // кол-во строк = максимальное число точек * 2 (т.к. x и y) и индекс
   hills_table_->setRowCount(hills_max_points * 2 + 1);
 
   for (size_t i = 0; i < hills.size(); i++) {
     hills_table_->setHorizontalHeaderItem(
-        i, new QTableWidgetItem("n. " + QString::number(i + 1)));
+        i, new QTableWidgetItem(
+               "n. " + QString::number(i + 1)));  // номер рельефа = индекс + 1
+
+    // в строки добавляем индекс на полотне и координаты всех точек
     hills_table_->setItem(
         0, i,
         new QTableWidgetItem(QString::number(hills[i].GetPlottableIndex())));
@@ -51,10 +63,15 @@ void TableManager::UpdateTable(const std::vector<gui::Hill>& hills) {
 
 void TableManager::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
+  // кол-во столбцов = кол-во опасных линий
   tr_lines_table_->setColumnCount(trappy_lines.size());
+
   for (size_t i = 0; i < trappy_lines.size(); i++) {
     tr_lines_table_->setHorizontalHeaderItem(
-        i, new QTableWidgetItem("n. " + QString::number(i + 1)));
+        i, new QTableWidgetItem(
+               "n. " + QString::number(i + 1)));  // номер линии = индекс + 1
+
+    // в строки добавляем индекс на полотне и координаты двух точек
     tr_lines_table_->setItem(0, i,
                              new QTableWidgetItem(QString::number(
                                  trappy_lines[i].GetPlottableIndex())));
@@ -80,10 +97,15 @@ void TableManager::UpdateTable(
 
 void TableManager::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
+  // кол-во столбцов = кол-во опасных зон
   tr_circles_table_->setColumnCount(trappy_circles.size());
+
   for (size_t i = 0; i < trappy_circles.size(); i++) {
     tr_circles_table_->setHorizontalHeaderItem(
-        i, new QTableWidgetItem("n. " + QString::number(i + 1)));
+        i, new QTableWidgetItem(
+               "n. " + QString::number(i + 1)));  // номер зоны = индекс + 1
+
+    // в строки добавляем индекс на полотне и координаты точки и радиус
     tr_circles_table_->setItem(0, i,
                                new QTableWidgetItem(QString::number(
                                    trappy_circles[i].GetItemIndex())));

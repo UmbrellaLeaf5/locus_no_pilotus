@@ -9,6 +9,7 @@
 #include "../../gui/trappy_circle.h"
 #include "../../gui/trappy_line.h"
 
+/// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TableManager {
  public:
   TableManager() = default;
