@@ -10,7 +10,7 @@
 
 namespace gui {
 
-// @brief фигура линии опасного перелета
+/// @brief фигура линии опасного перелета
 class TrappyLine : public Drawable {
  public:
   TrappyLine() = default;

@@ -5,10 +5,9 @@
 #include "../lib/target.h"
 #include "base.h"
 
-
 namespace gui {
 
-// @brief фигура контрольной точки
+/// @brief фигура контрольной точки
 class Target : public Drawable {
  public:
   Target() = default;

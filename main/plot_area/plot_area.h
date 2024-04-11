@@ -9,7 +9,7 @@
 
 #include "../../gui/data_manager/data_manager.h"
 
-// @brief класс, упрощающий управление классами gui на QCustomPlot
+/// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
  public:
   PlotArea() = default;
@@ -39,7 +39,7 @@ class PlotArea {
     tr_lines_info_.reset(tr_lines_info);
   }
 
-  // @brief перерисовывает на полотне все объекты и обновляет данные
+  /// @brief перерисовывает на полотне все объекты и обновляет данные
   void Redraw();
 
   /**
@@ -218,7 +218,7 @@ class PlotArea {
   // ~methods
 
  private:
-  // @brief обновляет данные в лейблах все объектов
+  /// @brief обновляет данные в лейблах все объектов
   void UpdateInfo();
 
   // vars

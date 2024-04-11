@@ -12,7 +12,7 @@ namespace Ui {
 class AddHillForm;
 }
 
-// @brief структура из двух QLineEdit, относящихся к вводу координаты точки
+/// @brief структура из двух QLineEdit, относящихся к вводу координаты точки
 // (чтобы не использовать std::pair<std::unique_ptr<QLineEdit>, ... >)
 struct PointLineEdits {
   PointLineEdits() = default;
