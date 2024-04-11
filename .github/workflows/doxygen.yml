@@ -6,28 +6,29 @@ on:
   
 jobs:
   docs:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Check Software
-        run: echo "Check Software" & where git & where python & where pip
-        shell: cmd
-        
+      # Клонируем сам репозиторий
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with: 
           submodules: 'recursive'
         
       - name: Install Doxygen
-        run: echo "Install Doxygen" 
+        run: sudo apt install doxygen && doxygen --version 
+      
+      - name: Install Graphviz
+        run: sudo apt install graphviz
 
       - name: Run Doxygen
-        run: echo "Run Doxygen" 
+        run: doxygen doxyfile
 
       - name: Upload Docs
         run: echo "Upload Docs" 
 
-      - name: Setup Pages
-        run: echo "Setup Pages" 
+      - name: Upload Docs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: doxygen/html
 
-      - name: Deploy To GitHub Pages
-        run: echo "Deploy To GitHub Pages" 
