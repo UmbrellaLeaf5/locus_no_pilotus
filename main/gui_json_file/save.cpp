@@ -44,9 +44,8 @@ void GuiJsonFile::Save(PlotArea& plot_area) {
   QJsonDocument json_file(root);
   QString json_string = json_file.toJson(QJsonDocument::Indented);
 
-  if (file_->open(QIODevice::WriteOnly | QIODevice::Text)) {
-    QTextStream text_stream(file_);
-    text_stream << json_string;
-    file_->close();
-  }
+  file_->open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream text_stream(file_);
+  text_stream << json_string;
+  file_->close();
 }
