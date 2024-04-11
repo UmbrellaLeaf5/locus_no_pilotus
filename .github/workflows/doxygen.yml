@@ -18,12 +18,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      # Клонируем сам репозиторий
       - name: Checkout
         uses: actions/checkout@v4
         with: 
           submodules: 'recursive'
-        
+
       - name: Install Doxygen
         run: sudo apt install doxygen && doxygen --version 
       
@@ -34,18 +33,14 @@ jobs:
         run: doxygen doxyfile
 
       - name: Upload Docs
-        run: echo "Upload Docs" 
-
-      - name: Upload Docs
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: './doxygen/html/'
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        
+
       - name: Deploy To GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
