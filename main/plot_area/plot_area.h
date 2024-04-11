@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../gui/data_manager/data_manager.h"
+#include "../table_manager/table_manager.h"
 
 // @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
@@ -49,10 +50,8 @@ class PlotArea {
   void SetSettingsTables(QTableWidget* targets_info, QTableWidget* hills_info,
                          QTableWidget* tr_circles_info,
                          QTableWidget* tr_lines_info) {
-    targets_table_.reset(targets_info);
-    hills_table_.reset(hills_info);
-    tr_circles_table_.reset(tr_circles_info);
-    tr_lines_table_.reset(tr_lines_info);
+    t_manager_.SetSettingsTables(targets_info, hills_info, tr_circles_info,
+                                 tr_lines_info);
   }
 
   // @brief перерисовывает на полотне все объекты и обновляет данные
@@ -250,12 +249,8 @@ class PlotArea {
   std::unique_ptr<QLabel> tr_circles_label_{nullptr};
   std::unique_ptr<QLabel> tr_lines_label_{nullptr};
 
-  std::unique_ptr<QTableWidget> hills_table_{nullptr};
-  std::unique_ptr<QTableWidget> targets_table_{nullptr};
-  std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
-  std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
-
   gui::DataManager manager_;
+  TableManager t_manager_;
 
   // ~vars
 };

@@ -1,0 +1,43 @@
+#pragma once
+
+#include <QTableWidget>
+#include <memory>
+#include <vector>
+
+#include "../../gui/hill.h"
+#include "../../gui/target.h"
+#include "../../gui/trappy_circle.h"
+#include "../../gui/trappy_line.h"
+
+class TableManager {
+ public:
+  TableManager() = default;
+
+  /**
+   * @brief устанавливает значение всех таблиц с информацией
+   * @param hills_info: QTableWidget с информацией о hills
+   * @param targets_info: QTableWidget с информацией о hills
+   * @param tr_circles_info: QTableWidget с информацией о hills
+   * @param tr_lines_info: QTableWidget с информацией о hills
+   */
+  void SetSettingsTables(QTableWidget* targets_info, QTableWidget* hills_info,
+                         QTableWidget* tr_circles_info,
+                         QTableWidget* tr_lines_info) {
+    targets_table_.reset(targets_info);
+    hills_table_.reset(hills_info);
+    tr_circles_table_.reset(tr_circles_info);
+    tr_lines_table_.reset(tr_lines_info);
+  }
+
+  void UpdateTargetsTable(const std::vector<gui::Target>& targets);
+  void UpdateHillsTable(const std::vector<gui::Hill>& hills);
+  void UpdateTrappyLinesTable(const std::vector<gui::TrappyLine>& trappy_lines);
+  void UpdateTrappyCirclesTable(
+      const std::vector<gui::TrappyCircle>& trappy_circles);
+
+ private:
+  std::unique_ptr<QTableWidget> targets_table_{nullptr};
+  std::unique_ptr<QTableWidget> hills_table_{nullptr};
+  std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
+  std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
+};
