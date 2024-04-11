@@ -1,8 +1,8 @@
 #include <QApplication>
 
-#include "../Backend/adjacency_matrix.h"
-#include "../Backend/travelling_salesmans_problem.h"
-#include "../Backend/tspgraph.h"
+#include "../backend/littles_algorithm/adjacency_matrix.h"
+#include "../backend/littles_algorithm/travelling_salesmans_problem.h"
+#include "../backend/littles_algorithm/tspgraph.h"
 
 // #include "qcustomplot.h"
 
@@ -148,7 +148,7 @@ BOOST_AUTO_TEST_CASE(tsp_symm_obstacle_wise_10x10) {
        {26, inf, inf, 119, inf, 380, 477, inf, 369, 422},
        {492, inf, inf, inf, inf, 90, inf, 369, inf, 377},
        {62, inf, 446, 330, 406, 189, 379, 422, 377, inf}});
-  std::vector<std::size_t> path = {0, 2, 6, 4, 1, 3, 1, 0, 9, 8};
+  std::vector<std::size_t> path = {0, 2, 6, 4, 1, 3, 7, 0, 9, 8};
   std::size_t num_of_flyers = 2;
   CHECK_PATH(matrix, path, num_of_flyers);
 }

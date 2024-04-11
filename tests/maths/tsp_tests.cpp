@@ -1,8 +1,8 @@
 #include <QApplication>
 
-#include "../Backend/adjacency_matrix.h"
-#include "../Backend/travelling_salesmans_problem.h"
-#include "../Backend/tspgraph.h"
+#include "../backend/littles_algorithm/adjacency_matrix.h"
+#include "../backend/littles_algorithm/travelling_salesmans_problem.h"
+#include "../backend/littles_algorithm/tspgraph.h"
 
 // #include "qcustomplot.h"
 
