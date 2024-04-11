@@ -12,8 +12,10 @@ class GuiJsonFile {
   void Open(PlotArea& plot_area);
 
   QString GetFileName() { return file_->fileName(); }
+  QString GetUntitledFile() { return untitled_file; }
 
   void SetFile(QString file_name) { file_->setFileName(file_name); }
+  void ChangeUntitled(QString old_untitled);
 
   bool IsExistsFile() {
     return (file_->fileName().size() != 0 && file_->exists());
@@ -22,6 +24,7 @@ class GuiJsonFile {
 
  private:
   QFile* file_{new QFile};
+  QString untitled_file = "Untitled";
 
   QJsonObject LoadJson();
 };

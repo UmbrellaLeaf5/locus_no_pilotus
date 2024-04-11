@@ -100,15 +100,15 @@ void MainWindow::on_plot_MousePressed() {
 }
 
 void MainWindow::on_actionOpen_triggered() {
-  QString file_name = QFileDialog::getOpenFileName(this, tr("Open"), "json",
-                                                   tr("File (*.json)"));
+  QString file_name =
+      QFileDialog::getOpenFileName(this, tr("Open"), "", tr("File (*.json)"));
   json_file_.SetFile(file_name);
   json_file_.Open(area_);
 }
 
 void MainWindow::on_actionSave_as_triggered() {
-  QString file_name = QFileDialog::getSaveFileName(this, tr("Save as"), "json",
-                                                   tr("File (*.json)"));
+  QString file_name = QFileDialog::getSaveFileName(
+      this, tr("Save as"), json_file_.GetUntitledFile(), tr("File (*.json)"));
   json_file_.SetFile(file_name);
   json_file_.Save(area_);
 }

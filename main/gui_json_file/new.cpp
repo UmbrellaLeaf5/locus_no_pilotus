@@ -1,5 +1,20 @@
 #include "gui_json_file.h"
 
+void GuiJsonFile::ChangeUntitled(QString old_untitled) {
+  if (old_untitled == "Untitled")
+    untitled_file += " (2)";
+
+  else {
+    QString num = "";
+    for (size_t i = old_untitled.indexOf('(') + 1;
+         i < old_untitled.indexOf(')'); i++) {
+      num += old_untitled[i];
+    }
+    QString new_num = QString::number(num.toInt() + 1);
+    untitled_file = "Untitled (" + new_num + ")";
+  }
+}
+
 QJsonObject GuiJsonFile::LoadJson() {
   QString json_text = file_->readAll();
   QJsonDocument json_file = QJsonDocument::fromJson(json_text.toUtf8());
