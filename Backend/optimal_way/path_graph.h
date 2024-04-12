@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "circleobstacle.h"
+#include "circle_obstacle.h"
 
 namespace math {
 

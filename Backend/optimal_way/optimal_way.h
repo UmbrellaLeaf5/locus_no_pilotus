@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "circleobstacle.h"
+#include "circle_obstacle.h"
 
 namespace math {
 
@@ -29,6 +29,8 @@ class MinimumDistanceCalculator {
   void FillTangentsCircles();
 
   void FillTangentsPoints(Point& point);
+
+  void FillPathNodes();
 
   double FindOptimalWay(const Point& pnt1, const Point& pnt2);
 };

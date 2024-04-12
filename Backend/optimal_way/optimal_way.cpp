@@ -1,7 +1,7 @@
 #include "optimal_way.h"
 
 #include "helpers_functions.h"
-#include "pathgraph.h"
+#include "path_graph.h"
 
 namespace math {
 
@@ -68,11 +68,34 @@ void MinimumDistanceCalculator::FillTangentsPoints(Point& point) {
   }
 }
 
+void MinimumDistanceCalculator::FillPathNodes() {
+  std::vector<PathWayNode> graph_;
+  for (auto& obstacle : circles_) {
+    for (auto& point : obstacle.GetTangentPoints()) {
+      if (point.another_tangent_point) {
+        PathWayNode new_node{point};
+        new_node.circle_prt = std::make_unique<CircleObstacle>(obstacle);
+        for (auto& prev : graph_) {
+          if (prev.circle_prt && ((*prev.circle_prt) == obstacle)) {
+            ConnectTwoNodes(prev, new_node,
+                            DistanceBetweenPointsOnCircle(obstacle, prev.point,
+                                                          new_node.point));
+          } else if (prev.circle_prt &&
+                     (new_node.point == (*prev.point.another_tangent_point))) {
+            ConnectTwoNodes(prev, new_node,
+                            DistanceBetweenPoints(prev.point, new_node.point));
+          }
+        }
+        graph_.push_back(new_node);
+      }
+    }
+  }
+}
+
 double MinimumDistanceCalculator::FindOptimalWay(const Point& pnt1,
                                                  const Point& pnt2) {
   FillTangentsCircles();
   FillTangentsPoints(point1_);
   FillTangentsPoints(point2_);
-  PathGraph optimal_way{circles_, point1_, point2_};
 }
 }  // namespace math
