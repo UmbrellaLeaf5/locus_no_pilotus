@@ -7,7 +7,7 @@
 
 namespace math {
 
-// @brief решение задачи коммивояжера
+/// @brief решение задачи коммивояжера
 class TravellingSalesmansProblem {
  public:
   /**

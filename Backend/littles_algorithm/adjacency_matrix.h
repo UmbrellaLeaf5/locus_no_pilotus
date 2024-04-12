@@ -7,13 +7,13 @@ namespace math {
 
 #define inf std::numeric_limits<double>::infinity()
 
-// @brief структура для хранения двух минимумов строки/столбца
+/// @brief структура для хранения двух минимумов строки/столбца
 struct Minimums {
   double first;
   double second;
 };
 
-// @brief матрица смежности для алгоритма Литтла
+/// @brief матрица смежности для алгоритма Литтла
 class AdjacencyMatrix {
  public:
   /**
