@@ -14,7 +14,13 @@ class Target : public Drawable {
 
   Target(double x, double y) : data_(x, y) {}
   Target(lib::Point p) : data_(p) {}
-  Target(lib::Target data) : data_(data) {}
+  Target(const lib::Target& data) : data_(data) {}
+
+  Target(const Target&) = default;
+  Target(Target&&) = default;
+
+  Target& operator=(const Target&) = default;
+  Target& operator=(Target&&) = default;
 
   void SetPoint(lib::Point p) { data_.SetPoint(p); }
   void SetPoint(double x, double y) { data_.SetPoint(x, y); }

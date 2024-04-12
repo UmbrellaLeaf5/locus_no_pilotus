@@ -38,8 +38,14 @@ class Hill : public Drawable {
   Hill(std::vector<lib::Point> points, QColor color = QColor(50, 200, 50, 255))
       : data_(points), color_{color} {}
 
-  Hill(lib::Hill data, QColor color = QColor(50, 200, 50, 255))
+  Hill(const lib::Hill& data, QColor color = QColor(50, 200, 50, 255))
       : data_(data), color_{color} {}
+
+  Hill(const Hill&) = default;
+  Hill(Hill&&) = default;
+
+  Hill& operator=(const Hill&) = default;
+  Hill& operator=(Hill&&) = default;
 
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }

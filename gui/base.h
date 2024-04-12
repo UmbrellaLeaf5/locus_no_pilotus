@@ -12,6 +12,12 @@ class Drawable {
    * @param plot: указатель на соотв. полотно
    */
   virtual void Draw(QCustomPlot* plot) const = 0;
+
+  // Drawable(const Drawable&) = delete;
+  // IDK: нужно ли запрещать копирование и париться с vector<unique_ptr>,
+  // учитывая, что индексы должны быть уникальными?
+
+  Drawable() = default;
 };
 
 // @brief типы объектов по категориям

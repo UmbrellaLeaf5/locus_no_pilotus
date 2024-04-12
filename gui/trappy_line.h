@@ -17,7 +17,13 @@ class TrappyLine : public Drawable {
 
   TrappyLine(std::initializer_list<gui::Target> targets);
 
-  TrappyLine(lib::TrappyLine data) : data_(data){};
+  TrappyLine(const lib::TrappyLine& data) : data_(data){};
+
+  TrappyLine(const TrappyLine&) = default;
+  TrappyLine(TrappyLine&&) = default;
+
+  TrappyLine& operator=(const TrappyLine&) = default;
+  TrappyLine& operator=(TrappyLine&&) = default;
 
   void SetNewTargets(std::initializer_list<gui::Target> targets);
 

@@ -20,8 +20,15 @@ class TrappyCircle : public Drawable {
                QColor color = QColor(200, 50, 50, 255))
       : data_(center, radius), color_{color} {}
 
-  TrappyCircle(lib::TrappyCircle data, QColor color = QColor(200, 50, 50, 255))
+  TrappyCircle(const lib::TrappyCircle& data,
+               QColor color = QColor(200, 50, 50, 255))
       : data_(data), color_{color} {}
+
+  TrappyCircle(const TrappyCircle&) = default;
+  TrappyCircle(TrappyCircle&&) = default;
+
+  TrappyCircle& operator=(const TrappyCircle&) = default;
+  TrappyCircle& operator=(TrappyCircle&&) = default;
 
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }
