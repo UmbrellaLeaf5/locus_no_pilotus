@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(random_set) {
   }
 }
 
-// BOOST_AUTO_TEST_CASE(json_load, *utf::disabled()) {}
-// BOOST_AUTO_TEST_CASE(json_save, *utf::disabled()) {}
+BOOST_AUTO_TEST_CASE(json_load, *utf::disabled()) {}
+BOOST_AUTO_TEST_CASE(json_save, *utf::disabled()) {}
 
 BOOST_AUTO_TEST_SUITE_END()

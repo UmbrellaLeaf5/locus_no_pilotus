@@ -24,7 +24,7 @@ class Target : public Drawable {
 
   void Draw(QCustomPlot* plot) const override;
 
-  size_t GetPlottableIndex() { return graph_index_; }
+  size_t GetPlottableIndex() const { return graph_index_; }
   void SetGraphIndex(size_t index) { graph_index_ = index; }
 
  private:

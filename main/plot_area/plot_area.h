@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../gui/data_manager/data_manager.h"
+#include "../table_manager/table_manager.h"
 
 /// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
@@ -26,17 +27,31 @@ class PlotArea {
 
   /**
    * @brief устанавливает значение всех лейблов с информацией
-   * @param hills_info: лейбл с информацией о hills
    * @param targets_info: лейбл с информацией о targets
+   * @param hills_info: лейбл с информацией о hills
    * @param tr_circles_info: лейбл с информацией о trappy circles
    * @param tr_lines_info: лейбл с информацией о trappy lines
    */
-  void SetSettingsLabels(QLabel* hills_info, QLabel* targets_info,
+  void SetSettingsLabels(QLabel* targets_info, QLabel* hills_info,
                          QLabel* tr_circles_info, QLabel* tr_lines_info) {
-    hills_info_.reset(hills_info);
-    targets_info_.reset(targets_info);
-    tr_circles_info_.reset(tr_circles_info);
-    tr_lines_info_.reset(tr_lines_info);
+    targets_label_.reset(targets_info);
+    hills_label_.reset(hills_info);
+    tr_circles_label_.reset(tr_circles_info);
+    tr_lines_label_.reset(tr_lines_info);
+  }
+
+  /**
+   * @brief устанавливает значения всех таблиц с информацией
+   * @param hills_info: QTableWidget с информацией о hills
+   * @param targets_info: QTableWidget с информацией о hills
+   * @param tr_circles_info: QTableWidget с информацией о hills
+   * @param tr_lines_info: QTableWidget с информацией о hills
+   */
+  void SetSettingsTables(QTableWidget* targets_info, QTableWidget* hills_info,
+                         QTableWidget* tr_circles_info,
+                         QTableWidget* tr_lines_info) {
+    t_manager_.SetSettingsTables(targets_info, hills_info, tr_circles_info,
+                                 tr_lines_info);
   }
 
   /// @brief перерисовывает на полотне все объекты и обновляет данные
@@ -47,7 +62,7 @@ class PlotArea {
    * @param obj_type: тип объекта
    * @param index: индекс в его векторе
    */
-  void Remove(gui::ObjectType obj_type, size_t index);
+  void Remove(gui::GuiObjType obj_type, size_t index);
 
   // ----------------------   Target methods   ----------------------
 
@@ -218,20 +233,24 @@ class PlotArea {
   // ~methods
 
  private:
-  /// @brief обновляет данные в лейблах все объектов
-  void UpdateInfo();
+  // @brief обновляет данные в лейблах все объектов
+  void UpdateInfoLabels();
+
+  // @brief обновляет данные в таблицах всех объектов
+  void UpdateTables();
 
   // vars
 
   // i love unique_ptr's, i love logic schemes
   std::unique_ptr<QCustomPlot> plot_;
 
-  std::unique_ptr<QLabel> hills_info_{nullptr};
-  std::unique_ptr<QLabel> targets_info_{nullptr};
-  std::unique_ptr<QLabel> tr_circles_info_{nullptr};
-  std::unique_ptr<QLabel> tr_lines_info_{nullptr};
+  std::unique_ptr<QLabel> hills_label_{nullptr};
+  std::unique_ptr<QLabel> targets_label_{nullptr};
+  std::unique_ptr<QLabel> tr_circles_label_{nullptr};
+  std::unique_ptr<QLabel> tr_lines_label_{nullptr};
 
   gui::DataManager manager_;
+  TableManager t_manager_;
 
   // ~vars
 };

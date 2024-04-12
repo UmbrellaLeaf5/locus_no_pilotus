@@ -33,7 +33,7 @@ class TrappyCircle : public Drawable {
 
   void Draw(QCustomPlot* plot) const override;
 
-  size_t GetItemIndex() { return item_index_; }
+  size_t GetItemIndex() const { return item_index_; }
   void SetItemIndex(size_t index) { item_index_ = index; }
 
  private:
