@@ -47,6 +47,11 @@ void GuiJsonFile::Open(PlotArea& plot_area) {
   if (file_->open(QIODevice::ReadOnly | QFile::Text)) {
     QJsonObject root = LoadJson();
 
+    if (root.contains("Targets") + root.contains("Trappy_Circles") +
+            root.contains("Trappy_Lines") + root.contains("Hills") !=
+        4)
+      throw std::invalid_argument("");
+
     QJsonArray json_targets = root["Targets"].toArray();
     QJsonArray json_trappy_circles = root["Trappy_Circles"].toArray();
     QJsonArray json_trappy_lines = root["Trappy_Lines"].toArray();

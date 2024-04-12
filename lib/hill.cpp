@@ -28,10 +28,13 @@ QJsonObject Hill::Save(int id) const {
 }
 
 void Hill::Load(QJsonObject hill_obj) {
+  if (!hill_obj.contains("Vertices")) throw std::invalid_argument("");
   QJsonArray vertices_array = hill_obj.value("Vertices").toArray();
   for (size_t i = 0; i < vertices_array.size(); i++) {
     lib::Point vertice;
     QJsonObject v_obj = vertices_array[i].toObject();
+    if (v_obj.contains("X") + v_obj.contains("Y") != 2)
+      throw std::invalid_argument("");
     vertice.x = v_obj.value("X").toDouble();
     vertice.y = v_obj.value("Y").toDouble();
     vertices_.push_back(vertice);

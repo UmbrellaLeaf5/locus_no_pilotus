@@ -181,6 +181,7 @@ void MainWindow::on_actionNew_triggered() {
 // Кнопка "Open"
 void MainWindow::on_actionOpen_triggered() {
   bool is_closed = false;
+
   if (json_file_.IsExistsFile() && json_file_.IsChanged(area_))
     is_closed = OpenMessageWindow(FileType::UsualFile);
   else if (!json_file_.IsExistsFile() &&
@@ -191,10 +192,13 @@ void MainWindow::on_actionOpen_triggered() {
     QString file_name =
         QFileDialog::getOpenFileName(this, tr("Open"), "", tr("File (*.json)"));
     json_file_.SetFile(file_name);
-    json_file_.Open(area_);
+    try {
+      json_file_.Open(area_);
+    } catch (...) {
+      QMessageBox::critical(this, "Damaged file", "Invalid format file!");
+    }
   }
 }
-
 // Кнопка "Save"
 void MainWindow::on_actionSave_triggered() {
   if (!json_file_.IsExistsFile())
