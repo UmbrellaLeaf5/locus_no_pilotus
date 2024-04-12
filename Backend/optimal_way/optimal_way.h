@@ -19,6 +19,12 @@ class MinimumDistanceCalculator {
   std::vector<CircleObstacle> circles_;
   std::vector<double> ways_;
 
+  bool TangentGoesTroughOtherCircle(const LinearАunction& tangent,
+                                    int circle1_index, int circle2_index);
+
+  void AddTangent(const LinearАunction& tangent, CircleObstacle& circle1,
+                  CircleObstacle& circle2);
+
   // Заполняет вектор точек касательных для каждой окружности
   void FillTangentsCircles();
 

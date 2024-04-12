@@ -5,37 +5,42 @@
 
 namespace math {
 
+bool MinimumDistanceCalculator::TangentGoesTroughOtherCircle(
+    const LinearАunction& tangent, int circle1_index, int circle2_index) {
+  std::pair<Point, Point> tangent_points =
+      CrossPoints(tangent, circles_[circle1_index], circles_[circle2_index]);
+  for (int l = 0; l < circles_.size(); ++l)
+    if (l != circle1_index && l != circle2_index)
+      if (AreThereIntersections(circles_[l], tangent_points.first,
+                                tangent_points.second))
+        return true;
+  return false;
+}
+
+void MinimumDistanceCalculator::AddTangent(const LinearАunction& tangent,
+                                           CircleObstacle& circle1,
+                                           CircleObstacle& circle2) {
+  std::pair<Point, Point> tangent_points =
+      CrossPoints(tangent, circle1, circle2);
+  tangent_points.first.another_tangent_point =
+      std::make_shared<Point>(tangent_points.second);
+  tangent_points.second.another_tangent_point =
+      std::make_shared<Point>(tangent_points.first);
+  circle1.AddTangentLine(tangent);
+  circle1.AddTangentPoint(tangent_points.first);
+  circle2.AddTangentLine(tangent);
+  circle2.AddTangentPoint(tangent_points.second);
+}
+
 void MinimumDistanceCalculator::FillTangentsCircles() {
   for (int i = 0; i < circles_.size(); ++i) {
     for (int j = i + 1; j < circles_.size(); ++j) {
       std::vector<LinearАunction> tangents =
           TangentsBetweenCircles(circles_[i], circles_[j]);
-      for (int k = 0; k < tangents.size(); ++k) {
-        bool is_exist = true;
-        for (int l = 0; l < circles_.size(); ++l) {
-          if (l != i && l != j) {
-            std::pair<Point, Point> tangent_points =
-                CrossPoints(tangents[k], circles_[i], circles_[j]);
-            if (AreThereIntersections(circles_[l], tangent_points.first,
-                                      tangent_points.second)) {
-              is_exist = false;
-              break;
-            }
-          }
-        }
-        if (is_exist) {
-          std::pair<Point, Point> tangent_points =
-              CrossPoints(tangents[k], circles_[i], circles_[j]);
-          tangent_points.first.another_tangent_point =
-              std::make_shared<Point>(tangent_points.second);
-          tangent_points.second.another_tangent_point =
-              std::make_shared<Point>(tangent_points.first);
-          circles_[i].AddTangentLine(tangents[k]);
-          circles_[i].AddTangentPoint(tangent_points.first);
-          circles_[j].AddTangentLine(tangents[k]);
-          circles_[j].AddTangentPoint(tangent_points.second);
-        }
-      }
+
+      for (int k = 0; k < tangents.size(); ++k)
+        if (!TangentGoesTroughOtherCircle(tangents[k], i, j))
+          AddTangent(tangents[k], circles_[i], circles_[j]);
     }
   }
 }
