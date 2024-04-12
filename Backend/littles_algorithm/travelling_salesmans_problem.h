@@ -5,12 +5,21 @@
 #include "adjacency_matrix.h"
 #include "tspgraph.h"
 
-// Класс, решающий задачу коммивояжера
+// @brief решение задачи коммивояжера
 class TravellingSalesmansProblem {
  public:
+  /**
+   *  @brief инициализирует новый экземпляр TravellingSalesmansProblem
+   *  @param matrix: матрица смежности графа
+   */
   TravellingSalesmansProblem(AdjacencyMatrix& matrix);
 
-  // Для нескольких коммивояжеров
+  /**
+   *  @brief инициализирует новый экземпляр TravellingSalesmansProblem для
+   * нескольких коммивояжеров
+   *  @param matrix: матрица смежности графа
+   *  @param num_of_flyers: количество коммивояжеров
+   */
   TravellingSalesmansProblem(AdjacencyMatrix& matrix,
                              std::size_t num_of_flyers);
 
@@ -22,6 +31,7 @@ class TravellingSalesmansProblem {
  private:
   // Количество коммивояжеров
   std::size_t num_of_flyers_;
+
   // Вектор с указателями на вершины графа
   // Отсортирован в порядке возрастания нижней оценки
   std::vector<std::shared_ptr<TSPNode>> paths_stack_;
@@ -29,27 +39,47 @@ class TravellingSalesmansProblem {
   // Ребра получившегося маршрута
   std::vector<Edge> edge_path_;
 
-  // Возвращает количество коммивояжеров
-  std::size_t GetNumOfFlyers() const { return num_of_flyers_; }
-
   // Вспомогательные методы для работы с paths_stack_
-  // Заменяет вершину графа на её детей, без нарушения порядка
+  /**
+   * @brief заменяет вершину графа в path_stack_ на её детей,
+   * без нарушения порядка
+   */
   void ExpandStack();
 
-  // Удалить ребро из матрицы смежности
-  AdjacencyMatrix DeleteEdge(AdjacencyMatrix matrix, std::size_t start_num,
-                             std::size_t end_num);
+  /**
+   * @brief удалить ребро из матрицы смежности
+   * @param matrix: матрица смежности
+   * @param start_num: начало ребра
+   * @param end_num: конец ребра
+   * @return AdjacencyMatrix матрица с удалённым ребром
+   */
+  AdjacencyMatrix& DeleteEdge(AdjacencyMatrix& matrix, std::size_t start_num,
+                              std::size_t end_num);
 
-  // Находит место для вставки вершины
+  /**
+   * @brief находит место для вставки вершины для соблюдения порядка
+   * @param eval: нижняя оценка матрицы
+   * @return std::size_t индекс вставки вершины
+   */
   std::size_t FindIndex(double eval) const;
 
-  // Замыкает Гамильтонов цикл обхода
+  /**
+   * @brief замыкает Гамильтонов цикл обхода контрольных точек
+   * @param node: вершина графа поиска оптимального пути
+   */
   void CompleteEdgePath(std::shared_ptr<TSPNode> node);
 
-  // Перевод ребер, содержащихся в пути в
-  // последовательность обхода вершин
+  /**
+   * @brief перевод ребер, содержащихся в пути
+   * в последовательность обхода контрольных точек
+   * @return std::vector<std::size_t> последовательность
+   * обхода контрольных точек
+   */
   std::vector<std::size_t> ConvertToVertexPath();
 
-  // Возвращает порядок следования вершин в оптимальном маршруте
+  /**
+   * @brief просчитывает оптимальную маршрут
+   * @return std::vector<std::size_t> порядок следования вершин
+   */
   std::vector<std::size_t> CalculateTrajectory();
 };

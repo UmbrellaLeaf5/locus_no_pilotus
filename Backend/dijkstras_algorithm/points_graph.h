@@ -61,7 +61,7 @@ class Dijkstras_algorithm {
   // Возвращает последовательность точек для GUI
   // Get_Min_Path();
 
-  // private:
+ private:
   std::shared_ptr<PointNode> start_;
   std::shared_ptr<PointNode> end_;
   // Длина кратчайшего пути из start в end
