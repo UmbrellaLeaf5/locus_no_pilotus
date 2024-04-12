@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "circle_obstacle.h"
+#include "path_graph.h"
 
 namespace math {
 
@@ -17,7 +17,7 @@ class MinimumDistanceCalculator {
   Point point1_;
   Point point2_;
   std::vector<CircleObstacle> circles_;
-  std::vector<double> ways_;
+  std::vector<PathWayNode> graph_;
 
   bool TangentGoesTroughOtherCircle(const LinearАunction& tangent,
                                     int circle1_index, int circle2_index);
@@ -30,7 +30,9 @@ class MinimumDistanceCalculator {
 
   void FillTangentsPoints(Point& point);
 
-  void FillPathNodes();
+  void FillPathNodesOnCircles();
+
+  void FillPathNodesOnPoint(const Point& point);
 
   double FindOptimalWay(const Point& pnt1, const Point& pnt2);
 };
