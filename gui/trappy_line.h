@@ -10,7 +10,7 @@
 
 namespace gui {
 
-// @brief фигура линии опасного перелета
+/// @brief фигура линии опасного перелета
 class TrappyLine : public Drawable {
  public:
   TrappyLine() = default;
@@ -30,7 +30,7 @@ class TrappyLine : public Drawable {
 
   void Draw(QCustomPlot* plot) const override;
 
-  size_t GetPlottableIndex() { return graph_index_; }
+  size_t GetPlottableIndex() const { return graph_index_; }
   void SetGraphIndex(size_t index) { graph_index_ = index; }
 
  private:

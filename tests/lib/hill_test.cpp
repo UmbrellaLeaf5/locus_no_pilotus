@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE(simple_regular_construct) {
     Hill h(lib::Point(c.x, c.y), c.r, c.v_a);
     BOOST_TEST(std::abs(h.GetCenter().x - c.x) < 1.0E-7);  // приближенно равны
     BOOST_TEST(std::abs(h.GetCenter().y - c.y) < 1.0E-7);  // приближенно равны
-    BOOST_TEST(std::abs(h.GetRadius() - c.r) < 1.0E-7);
+    BOOST_TEST(std::abs(h.GetRadius() - c.r) < 1.0E-7);  // приближенно равны
     BOOST_TEST(h.GetPoints().size() == c.v_a);
   }
 
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_CASE(random_regular_construct) {
 
     BOOST_TEST(std::abs(h.GetCenter().x - x) < 1.0E-7);  // приближенно равны
     BOOST_TEST(std::abs(h.GetCenter().y - y) < 1.0E-7);  // приближенно равны
-    BOOST_TEST(std::abs(h.GetRadius() - r) < 1.0E-7);
+    BOOST_TEST(std::abs(h.GetRadius() - r) < 1.0E-7);  // приближенно равны
     BOOST_TEST(h.GetPoints().size() == v_a);
   }
 }
 
-// BOOST_AUTO_TEST_CASE(json_load, *utf::disabled()) {}
-// BOOST_AUTO_TEST_CASE(json_save, *utf::disabled()) {}
+BOOST_AUTO_TEST_CASE(json_load, *utf::disabled()) {}
+BOOST_AUTO_TEST_CASE(json_save, *utf::disabled()) {}
 
 BOOST_AUTO_TEST_SUITE_END()

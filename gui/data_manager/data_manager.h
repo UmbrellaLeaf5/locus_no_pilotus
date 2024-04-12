@@ -12,9 +12,6 @@
 
 namespace gui {
 
-// @brief типы объектов по категориям
-enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
-
 // @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
  public:
@@ -28,7 +25,7 @@ class DataManager {
    * @param index: индекс объекта в его векторе
    * @param plot: указатель на полотно
    */
-  void Draw(ObjectType obj_type, size_t index, QCustomPlot* plot);
+  void Draw(GuiObjType obj_type, size_t index, QCustomPlot* plot);
 
   /**
    * @brief удаляет объект из менеджера по индексу
@@ -36,6 +33,7 @@ class DataManager {
    * @param index: индекс объекта в его векторе
    */
   void Remove(ObjectType obj_type, size_t index);
+  
   void Clear();
 
   /**
@@ -43,7 +41,7 @@ class DataManager {
    * @param obj_type: тип объектов
    * @return QString: текст
    */
-  QString GetTexted(ObjectType obj_type);
+  QString GetTexted(GuiObjType obj_type);
 
   // ----------------------   Target methods   ----------------------
 
@@ -120,7 +118,7 @@ class DataManager {
   // for lib::TrappyCircle
   void Add(lib::TrappyCircle data) {
     tr_circles_.push_back(gui::TrappyCircle(data));
-  };
+  }
   void Add(std::initializer_list<lib::TrappyCircle>);
   void Add(std::vector<lib::TrappyCircle>);
 
@@ -153,9 +151,7 @@ class DataManager {
   void Set(std::vector<gui::TrappyLine>);
 
   // for lib::TrappyLine
-  void Add(lib::TrappyLine data) {
-    tr_lines_.push_back(gui::TrappyLine(data));
-  };
+  void Add(lib::TrappyLine data) { tr_lines_.push_back(gui::TrappyLine(data)); }
   void Add(std::initializer_list<lib::TrappyLine>);
   void Add(std::vector<lib::TrappyLine>);
 

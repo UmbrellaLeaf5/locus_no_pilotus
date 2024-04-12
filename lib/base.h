@@ -5,7 +5,7 @@
 
 namespace lib {
 
-// @brief объект, возможный к считыванию по .json файлу [абстрактный класс]
+/// @brief объект, возможный к считыванию по .json файлу [абстрактный класс]
 class JSONable {
  public:
   virtual QJsonObject Save(int id) const = 0;

@@ -7,37 +7,38 @@ void PlotArea::Redraw() {
   plot_->clearItems();
 
   for (size_t i = 0; i < manager_.GetTargets().size(); i++)
-    manager_.Draw(gui::ObjectType::Targets, i, plot_.get());
+    manager_.Draw(gui::GuiObjType::Targets, i, plot_.get());
 
   for (size_t i = 0; i < manager_.GetHills().size(); i++)
-    manager_.Draw(gui::ObjectType::Hills, i, plot_.get());
+    manager_.Draw(gui::GuiObjType::Hills, i, plot_.get());
 
   for (size_t i = 0; i < manager_.GetTrappyCircles().size(); i++)
-    manager_.Draw(gui::ObjectType::TrappyCircles, i, plot_.get());
+    manager_.Draw(gui::GuiObjType::TrappyCircles, i, plot_.get());
 
   for (size_t i = 0; i < manager_.GetTrappyLines().size(); i++)
-    manager_.Draw(gui::ObjectType::TrappyLines, i, plot_.get());
+    manager_.Draw(gui::GuiObjType::TrappyLines, i, plot_.get());
 
-  UpdateInfo();
+  // UpdateInfoLabels();
+  UpdateTables();
   plot_->replot();
 }
 
-void PlotArea::Remove(gui::ObjectType obj_type, size_t index) {
+void PlotArea::Remove(gui::GuiObjType obj_type, size_t index) {
   switch (obj_type) {
-    case gui::ObjectType::Targets: {
+    case gui::GuiObjType::Targets: {
       plot_->removePlottable(manager_.GetTargets()[index].GetPlottableIndex());
       break;
     }
-    case gui::ObjectType::Hills: {
+    case gui::GuiObjType::Hills: {
       plot_->removePlottable(manager_.GetHills()[index].GetPlottableIndex());
       break;
     }
-    case gui::ObjectType::TrappyLines: {
+    case gui::GuiObjType::TrappyLines: {
       plot_->removePlottable(
           manager_.GetTrappyLines()[index].GetPlottableIndex());
       break;
     }
-    case gui::ObjectType::TrappyCircles: {
+    case gui::GuiObjType::TrappyCircles: {
       plot_->removeItem(manager_.GetTrappyCircles()[index].GetItemIndex());
       break;
     }
@@ -52,12 +53,20 @@ void PlotArea::Clear() {
   Redraw();
 }
 
-void PlotArea::UpdateInfo() {
-  targets_info_->setText(manager_.GetTexted(gui::ObjectType::Targets));
+void PlotArea::UpdateInfoLabels() {
+  targets_label_->setText(manager_.GetTexted(gui::GuiObjType::Targets));
 
-  hills_info_->setText(manager_.GetTexted(gui::ObjectType::Hills));
+  hills_label_->setText(manager_.GetTexted(gui::GuiObjType::Hills));
 
-  tr_circles_info_->setText(manager_.GetTexted(gui::ObjectType::TrappyCircles));
+  tr_circles_label_->setText(
+      manager_.GetTexted(gui::GuiObjType::TrappyCircles));
 
-  tr_lines_info_->setText(manager_.GetTexted(gui::ObjectType::TrappyLines));
+  tr_lines_label_->setText(manager_.GetTexted(gui::GuiObjType::TrappyLines));
+}
+
+void PlotArea::UpdateTables() {
+  t_manager_.UpdateTable(manager_.GetTargets());
+  t_manager_.UpdateTable(manager_.GetHills());
+  t_manager_.UpdateTable(manager_.GetTrappyLines());
+  t_manager_.UpdateTable(manager_.GetTrappyCircles());
 }
