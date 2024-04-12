@@ -4,15 +4,12 @@
 #include <memory>
 #include <vector>
 
-#include "../../gui/hill.h"
-#include "../../gui/target.h"
-#include "../../gui/trappy_circle.h"
-#include "../../gui/trappy_line.h"
+#include "../../gui/data_manager/data_manager.h"
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TableManager {
  public:
-  TableManager() = default;
+  TableManager(gui::DataManager& manager) : manager_{manager} {}
 
   TableManager(QTableWidget* targets_info, QTableWidget* hills_info,
                QTableWidget* tr_circles_info, QTableWidget* tr_lines_info)
@@ -66,4 +63,6 @@ class TableManager {
   std::unique_ptr<QTableWidget> hills_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
+
+  gui::DataManager manager_;
 };
