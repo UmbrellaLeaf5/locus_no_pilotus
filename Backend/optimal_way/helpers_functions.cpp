@@ -13,6 +13,14 @@ double DistanceBetweenPoints(const Point& p1, const Point& p2) {
   return pow(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2), 0.5);
 }
 
+double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
+                                     const Point& p1, const Point& p2) {
+  double line = DistanceBetweenPoints(p1, p2);
+  double cos_alpha = (pow(line, 2) - 2 * pow(circle.GetRadius(), 2)) /
+                     (2 * circle.GetRadius());
+  return circle.GetRadius() * acos(cos_alpha);
+}
+
 std::pair<Point, Point> CrossPoints(const LinearАunction& tangent,
                                     const CircleObstacle& circle1,
                                     const CircleObstacle& circle2) {

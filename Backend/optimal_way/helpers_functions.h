@@ -1,8 +1,11 @@
 #pragma once
 
-#include "circleobstacle.h"
+#include "circle_obstacle.h"
 namespace math {
-double DistanceBetweenPoints(const Point& p1, const Point p2);
+double DistanceBetweenPoints(const Point& p1, const Point& p2);
+
+double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
+                                     const Point& p1, const Point& p2);
 
 LinearАunction MakeLinearАunction(const Point& point1, const Point& point2);
 
