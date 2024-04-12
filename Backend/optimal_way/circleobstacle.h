@@ -1,11 +1,13 @@
 #pragma once
 
+#include <cmath>
 #include <memory>
 #include <vector>
 
 #include "../lib/point.h"
 
 namespace math {
+constexpr double precision = 0.000001;
 
 // Структура хранит коэфиценты для прямой вида ax+by+c=0
 struct LinearАunction {
@@ -13,8 +15,9 @@ struct LinearАunction {
       : a_coef{a}, b_coef{b}, c_coef{c} {}
   double a_coef, b_coef, c_coef;
   bool operator==(const LinearАunction& other) {
-    return (a_coef == other.a_coef && b_coef == other.b_coef &&
-            c_coef == other.c_coef);
+    return (std::abs(a_coef - other.a_coef) < precision &&
+            std::abs(b_coef - other.b_coef) < precision &&
+            std::abs(c_coef - other.c_coef) < precision);
   }
 };
 
@@ -44,7 +47,12 @@ class CircleObstacle {
     tangent_points_.push_back(tangent_point);
   }
   bool operator==(const CircleObstacle& other) {
-    return (center_ == other.center_ && radius_ == other.radius_);
+    return (center_ == other.center_ &&
+            std::abs(radius_ - other.radius_) < precision);
+  }
+  bool operator!=(const CircleObstacle& other) {
+    return (center_ != other.center_ ||
+            std::abs(radius_ - other.radius_) >= precision);
   }
 
  private:
