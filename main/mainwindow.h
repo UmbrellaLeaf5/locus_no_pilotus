@@ -42,10 +42,10 @@ class MainWindow : public QMainWindow {
 
   void on_actionSave_as_triggered();
   void on_actionOpen_triggered();
-
   void on_actionSave_triggered();
-
   void on_actionNew_triggered();
+
+  void on_redrawPushButton_clicked();
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);

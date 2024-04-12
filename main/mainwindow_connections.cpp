@@ -139,3 +139,5 @@ void MainWindow::on_actionNew_triggered() {
     }
   }
 }
+
+void MainWindow::on_redrawPushButton_clicked() { area_.Redraw(); }
