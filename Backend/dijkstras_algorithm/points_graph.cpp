@@ -1,7 +1,5 @@
 #include "points_graph.h"
 
-#include <icecream.hpp>
-
 namespace math {
 
 void Dijkstras_algorithm::Calculate_Min_Path() {
