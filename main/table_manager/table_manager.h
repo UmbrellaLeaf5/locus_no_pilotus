@@ -7,7 +7,7 @@
 #include "../../gui/data_manager/data_manager.h"
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
-class TableManager {
+class TableManager : public QObject {
  public:
   TableManager(gui::DataManager& manager) : manager_{manager} {}
 
@@ -58,7 +58,27 @@ class TableManager {
    */
   void UpdateTable(const std::vector<gui::TrappyCircle>& trappy_circles);
 
+ private slots:
+  void TargetsItemChanged(int row, int column);
+  void HillsItemChanged(int row, int column);
+  void TrappyCirclesItemChanged(int row, int column);
+  void TrappyLinesChanged(int row, int column);
+
  private:
+  void ConnectSlotsAndSignal() {
+    QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::TargetsItemChanged);
+
+    QObject::connect(hills_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::HillsItemChanged);
+
+    QObject::connect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::TrappyCirclesItemChanged);
+
+    QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::TrappyLinesChanged);
+  }
+
   std::unique_ptr<QTableWidget> targets_table_{nullptr};
   std::unique_ptr<QTableWidget> hills_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
