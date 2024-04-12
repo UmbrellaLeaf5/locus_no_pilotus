@@ -7,7 +7,7 @@
 #include "../lib/point.h"
 
 namespace math {
-constexpr double precision = 0.000001;
+constexpr double precision = lib::precision;
 
 // Структура хранит коэфиценты для прямой вида ax+by+c=0
 struct LinearАunction {

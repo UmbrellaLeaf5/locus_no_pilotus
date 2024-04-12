@@ -1,6 +1,9 @@
 #pragma once
 
+#include <cmath>
+
 namespace lib {
+constexpr double precision = 0.000001;
 
 struct Point {
   double x;
@@ -28,7 +31,9 @@ struct Point {
 inline Point operator+(Point a, Point b) { return a += b; }
 inline Point operator-(Point a, Point b) { return a -= b; }
 
-inline bool operator==(Point a, Point b) { return a.x == b.x && a.y == b.y; }
+inline bool operator==(Point a, Point b) {
+  return std::abs(a.x - b.x) < precision && std::abs(a.y - b.y) < precision;
+}
 inline bool operator!=(Point a, Point b) { return !(a == b); }
 
 }  // namespace lib
