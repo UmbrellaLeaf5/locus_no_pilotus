@@ -1,11 +1,6 @@
 #pragma once
 
-#include <qcustomplot.h>
-
-#include <icecream.hpp>
-#include <initializer_list>
 #include <memory>
-#include <vector>
 
 #include "../../gui/data_manager/data_manager.h"
 #include "../table_manager/table_manager.h"

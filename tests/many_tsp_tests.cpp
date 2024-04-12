@@ -4,8 +4,6 @@
 #include "../Backend/travelling_salesmans_problem.h"
 #include "../Backend/tspgraph.h"
 
-// #include "qcustomplot.h"
-
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif

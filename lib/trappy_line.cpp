@@ -1,6 +1,37 @@
 #include "trappy_line.h"
 
+#include <stdexcept>
+
 namespace lib {
+
+TrappyLine::TrappyLine(std::initializer_list<Target> targets)
+    : targets_{targets} {
+  if (targets.size() < 2)
+    throw std::invalid_argument(
+        "trappy line should be line with at least 2 targets");
+}
+
+TrappyLine::TrappyLine(std::vector<Target> targets) : targets_{targets} {
+  if (targets.size() < 2)
+    throw std::invalid_argument(
+        "trappy line should be line with at least 2 targets");
+}
+
+void TrappyLine::SetNewTargets(std::initializer_list<Target> targets) {
+  if (targets.size() < 2)
+    throw std::invalid_argument(
+        "trappy line should be line with at least 2 targets");
+
+  targets_ = targets;
+}
+
+void TrappyLine::SetNewTargets(std::vector<Target> targets) {
+  if (targets.size() < 2)
+    throw std::invalid_argument(
+        "trappy line should be line with at least 2 targets");
+
+  targets_ = targets;
+}
 
 QJsonObject TrappyLine::Save(int id) const {
   QVariantMap trappy_line_map;

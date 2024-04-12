@@ -1,8 +1,6 @@
 #pragma once
 
 #include <QTableWidget>
-#include <memory>
-#include <vector>
 
 #include "../../gui/data_manager/data_manager.h"
 

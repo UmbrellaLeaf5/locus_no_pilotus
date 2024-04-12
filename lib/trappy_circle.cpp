@@ -1,5 +1,7 @@
 #include "trappy_circle.h"
 
+#include <stdexcept>
+
 namespace lib {
 
 TrappyCircle::TrappyCircle(Point center, double radius)

@@ -3,16 +3,10 @@
 namespace gui {
 
 TrappyLine::TrappyLine(std::initializer_list<gui::Target> targets) {
-  if (targets.size() < 2)
-    throw std::invalid_argument(
-        "trappy line should be line with at least 2 targets");
   UpdateData(targets);
 }
 
 void TrappyLine::SetNewTargets(std::initializer_list<gui::Target> targets) {
-  if (targets.size() < 2)
-    throw std::invalid_argument(
-        "trappy line should be line with at least 2 targets");
   UpdateData(targets);
 }
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdexcept>
-
 #include "base.h"
 #include "point.h"
 

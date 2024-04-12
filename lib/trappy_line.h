@@ -18,14 +18,14 @@ class TrappyLine : public JSONable {
    * (конструктор исключительно по КТ, только между ними может быть перелет)
    * @param targets: лист контрольных точек
    */
-  TrappyLine(std::initializer_list<Target> targets) : targets_{targets} {}
+  TrappyLine(std::initializer_list<Target> targets);
 
   /**
    * @brief инициализирует новый экземпляр Trappy Line
    * (конструктор исключительно по КТ, только между ними может быть перелет)
    * @param targets: вектор контрольных точек
    */
-  TrappyLine(std::vector<Target> targets) : targets_{targets} {}
+  TrappyLine(std::vector<Target> targets);
 
   TrappyLine(const TrappyLine&) = default;
   TrappyLine(TrappyLine&&) = default;
@@ -37,11 +37,9 @@ class TrappyLine : public JSONable {
   void Load(QJsonObject trappy_line_obj) override;
   bool IsChanged(QJsonObject trappy_line_obj) override;
 
-  void SetNewTargets(std::initializer_list<Target> targets) {
-    targets_ = targets;
-  }
+  void SetNewTargets(std::initializer_list<Target> targets);
 
-  void SetNewTargets(std::vector<Target> targets) { targets_ = targets; }
+  void SetNewTargets(std::vector<Target> targets);
 
   void AddTargets(std::initializer_list<Target> targets);
   void AddTargets(std::vector<Target> targets);

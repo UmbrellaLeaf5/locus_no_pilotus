@@ -1,7 +1,5 @@
 #include "add_trappy_circle_form.h"
 
-#include <QColorDialog>
-
 #include "ui_add_trappy_circle_form.h"
 
 AddTrappyCircleForm::AddTrappyCircleForm(QWidget* parent)

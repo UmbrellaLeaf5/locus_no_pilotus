@@ -1,7 +1,5 @@
 #include "target.h"
 
-#include <qcustomplot.h>
-
 void gui::Target::Draw(QCustomPlot* plot) const {
   // фигура представляет собой малую серую окружность (точку)
 

@@ -16,12 +16,15 @@ MainWindow::MainWindow(QWidget* parent)
           SLOT(on_plot_MousePressed()));
 
   area_.SetPlot(ui->plot);
+
   area_.SetSettingsLabels(ui->targetInfoLabel, ui->hillInfoLabel,
                           ui->trappyCircleInfoLabel, ui->trappyLineInfoLabel);
 
   area_.SetSettingsTables(ui->targetInfoTableWidget, ui->hillInfoTableWidget,
                           ui->trappyCircleInfoTableWidget,
                           ui->trappyLineInfoTableWidget);
+
+  ui->plotSettingsDockWidget->setVisible(false);
 
   {  // проверка функционала графических классов и менеджера
 
@@ -41,10 +44,8 @@ MainWindow::MainWindow(QWidget* parent)
 
     area_.Redraw();
 
-    area_.Remove(gui::GuiObjType::Targets, 0);
+    // area_.Remove(gui::GuiObjType::Targets, 0);
   }
-
-  ui->plotSettingsDockWidget->setVisible(false);
 }
 
 MainWindow::~MainWindow() { delete ui; }

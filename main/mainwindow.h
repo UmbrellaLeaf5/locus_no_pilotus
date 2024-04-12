@@ -2,13 +2,12 @@
 
 #include <QMainWindow>
 
-#include "./gui_json_file/gui_json_file.h"
 #include "add_objects_forms/add_hill_form.h"
 #include "add_objects_forms/add_target_form.h"
 #include "add_objects_forms/add_trappy_circle_form.h"
 #include "add_objects_forms/add_trappy_line_form.h"
+#include "gui_json_file/gui_json_file.h"
 #include "plot_area/plot_area.h"
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

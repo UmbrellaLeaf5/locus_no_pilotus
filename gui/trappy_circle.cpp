@@ -1,7 +1,5 @@
 #include "trappy_circle.h"
 
-#include <qcustomplot.h>
-
 void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
   // фигура представляет собой красный круг с полупрозрачной заливкой
   // (красный по умолчанию, однако цвет задаётся в аргументах конструктора)

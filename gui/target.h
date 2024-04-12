@@ -1,7 +1,5 @@
 #pragma once
 
-#include <qcustomplot.h>
-
 #include "../lib/target.h"
 #include "base.h"
 

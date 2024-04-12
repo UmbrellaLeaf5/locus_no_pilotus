@@ -1,10 +1,5 @@
 #pragma once
 
-#include <qcustomplot.h>
-
-#include <initializer_list>
-#include <vector>
-
 #include "../hill.h"
 #include "../target.h"
 #include "../trappy_circle.h"

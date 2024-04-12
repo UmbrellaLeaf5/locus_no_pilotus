@@ -1,7 +1,5 @@
 #pragma once
 
-#include <qcustomplot.h>
-
 #include "../lib/trappy_circle.h"
 #include "base.h"
 
@@ -46,7 +44,7 @@ class TrappyCircle : public Drawable {
  private:
   lib::TrappyCircle data_;
   QColor color_;
-  size_t item_index_;
+  size_t item_index_{ULLONG_MAX};
 };
 
 }  // namespace gui
