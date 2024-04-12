@@ -20,9 +20,8 @@ QJsonObject TrappyCircle::Save(int id) const {
 }
 
 void TrappyCircle::Load(QJsonObject trappy_circle_obj) {
-  if (trappy_circle_obj.contains("X") + trappy_circle_obj.contains("Y") +
-          trappy_circle_obj.contains("Radius") !=
-      3)
+  if (!(trappy_circle_obj.contains("X") && trappy_circle_obj.contains("Y") &&
+        trappy_circle_obj.contains("Radius")))
     throw std::invalid_argument("");
   double x = trappy_circle_obj.value("X").toDouble();
   double y = trappy_circle_obj.value("Y").toDouble();
