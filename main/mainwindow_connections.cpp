@@ -135,7 +135,30 @@ void MainWindow::on_actionNew_triggered() {
       case QMessageBox::Discard:
         break;
       case QMessageBox::Cancel:
+      case QMessageBox::Close:
+        return;  // Нужно для того, чтобы не сработал метод Clear
+        break;
+    }
+  } else if (!json_file_.IsExistsFile() &&
+             (area_.GetTargets().size() + area_.GetTrappyCircles().size() +
+              area_.GetTrappyLines().size() + area_.GetHills().size()) != 0) {
+    QString text = "Do you want save changes in file " +
+                   json_file_.GetUntitledFile() + '?';
+    int ret = QMessageBox::question(
+        this, "Are you sure?", text,
+        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    switch (ret) {
+      case QMessageBox::Save:
+        on_actionSave_as_triggered();
+        break;
+      case QMessageBox::Discard:
+        break;
+      case QMessageBox::Cancel:
+      case QMessageBox::Close:
+        return;  // То же самое
         break;
     }
   }
+  area_.Clear();
+  json_file_.Clear();
 }

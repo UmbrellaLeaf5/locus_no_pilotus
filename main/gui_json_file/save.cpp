@@ -4,8 +4,7 @@ void GuiJsonFile::Save(PlotArea& plot_area) {
   if (file_->fileName().indexOf("Untitled") != -1) {
     QString file_name = file_->fileName();
     QString old_untitled = "";
-    for (size_t i = file_name.indexOf("Untitled"); i < file_name.indexOf('.');
-         i++) {
+    for (size_t i = file_name.indexOf("Untitled"); i < file_name.size(); i++) {
       old_untitled += file_name[i];
     }
     ChangeUntitled(old_untitled);
