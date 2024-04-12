@@ -143,8 +143,6 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
       break;
     }
   }
-  area_.Clear();
-  json_file_.Clear();
   return false;
 }
 
@@ -173,6 +171,11 @@ void MainWindow::on_actionNew_triggered() {
            (area_.GetTargets().size() + area_.GetTrappyCircles().size() +
             area_.GetTrappyLines().size() + area_.GetHills().size()) != 0)
     is_closed = OpenMessageWindow(FileType::UntitledFile);
+
+  if (!is_closed) {
+    area_.Clear();
+    json_file_.Clear();
+  }
 }
 
 // Кнопка "Open"
