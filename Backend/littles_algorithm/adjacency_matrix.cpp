@@ -1,5 +1,7 @@
 #include "adjacency_matrix.h"
 
+namespace math {
+
 AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
     std::vector<std::vector<double>> nums) {
   AdjacencyMatrix m(nums);
@@ -170,3 +172,5 @@ void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
   }
   CalculateData();
 }
+
+}  // namespace math
