@@ -30,6 +30,14 @@ void TrappyLine::Load(QJsonObject trappy_line_obj) {
   SetNewTargets({{x1, y1}, {x2, y2}});
 }
 
+bool TrappyLine::IsChanged(QJsonObject trappy_line_obj) {
+  QJsonObject p1_obj = trappy_line_obj.value("P1").toObject();
+  QJsonObject p2_obj = trappy_line_obj.value("P2").toObject();
+  Point p1 = {p1_obj.value("X").toDouble(), p1_obj.value("Y").toDouble()};
+  Point p2 = {p2_obj.value("X").toDouble(), p2_obj.value("Y").toDouble()};
+  return p1 != targets_[0].GetPoint() || p2 != targets_[1].GetPoint();
+}
+
 void TrappyLine::AddTargets(std::initializer_list<lib::Target> targets) {
   for (const auto& target : targets) {
     targets_.push_back(target);

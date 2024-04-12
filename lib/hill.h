@@ -8,7 +8,7 @@
 
 namespace lib {
 
-// @brief рельеф с высотой
+/// @brief рельеф с высотой
 class Hill : public JSONable {
  public:
   Hill() = default;
@@ -41,6 +41,7 @@ class Hill : public JSONable {
 
   QJsonObject Save(int id) const override;
   void Load(QJsonObject hill_obj) override;
+  bool IsChanged(QJsonObject hill_obj) override;
 
   Point GetCenter() const;
   double GetRadius() const;

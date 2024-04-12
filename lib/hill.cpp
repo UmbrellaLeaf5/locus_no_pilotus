@@ -36,6 +36,15 @@ void Hill::Load(QJsonObject hill_obj) {
   }
 }
 
+bool Hill::IsChanged(QJsonObject hill_obj) {
+  for (size_t i = 1; i < hill_obj.size(); i++) {
+    QJsonObject json_p = hill_obj.value("P" + QString::number(i)).toObject();
+    lib::Point p = {json_p.value("X").toDouble(), json_p.value("Y").toDouble()};
+    if (p != vertices_[i - 1]) return true;
+  }
+  return false;
+}
+
 Hill::Hill(Point center, double radius, std::size_t vertices_amount) {
   if (vertices_amount == 0 || vertices_amount == 1)
     throw std::invalid_argument("hill cannot consist of " +

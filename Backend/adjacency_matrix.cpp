@@ -1,22 +1,17 @@
 #include "adjacency_matrix.h"
 
-#include <cfloat>
-
-AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums,
-                                 bool is_minor)
-    : matrix_{nums},
-      size_{nums.size() - is_minor},
-      min_numbers_(size_ + size_) {
-  if (!is_minor) {
-    matrix_.resize(size_ + 1);
-    matrix_[size_].resize(size_ + 1);
-    for (std::size_t i = 0; i < size_; ++i) {
-      matrix_[i].resize(size_ + 1);
-      matrix_[i][size_] = i;
-      matrix_[size_][i] = i;
-    }
+AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
+    std::vector<std::vector<double>> nums) {
+  AdjacencyMatrix m(nums);
+  m.matrix_.resize(m.size_ + 1);
+  m.matrix_[m.size_].resize(m.size_ + 1);
+  for (std::size_t i = 0; i < m.size_; ++i) {
+    m.matrix_[i].resize(m.size_ + 1);
+    m.matrix_[i][m.size_] = i;
+    m.matrix_[m.size_][i] = i;
   }
-  CalculateData();
+  m.CalculateData();
+  return m;
 }
 
 AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& m) {
@@ -38,10 +33,11 @@ void AdjacencyMatrix::SetMatrixValue(std::size_t i, std::size_t j, double num) {
 AdjacencyMatrix AdjacencyMatrix::Minor(std::size_t i, std::size_t j) {
   std::vector<std::vector<double>> minor_matrix = matrix_;
   minor_matrix.erase(minor_matrix.begin() + i);
-  for (std::size_t k = 0; k < size_ + 1; ++k) {
+  for (std::size_t k = 0; k < size_; ++k) {
     minor_matrix[k].erase(minor_matrix[k].begin() + j);
   }
-  AdjacencyMatrix minor(minor_matrix, true);
+  AdjacencyMatrix minor(minor_matrix);
+  minor.size_--;
   minor.CalculateData();
   return minor;
 }
@@ -52,10 +48,13 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
   return reducted;
 }
 
+AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
+    : matrix_{nums}, size_{nums.size()}, min_numbers_(size_ + size_) {}
+
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {
   Minimums result;
-  double first_min = FLT_MAX;
-  double second_min = FLT_MAX;
+  double first_min = inf;
+  double second_min = inf;
   switch (type) {
     case Mins::Rows: {
       for (std::size_t j = 0; j < size_; ++j) {
@@ -126,9 +125,10 @@ double AdjacencyMatrix::BottomLineEvaluation() {
   return mins_sum;
 }
 
-std::pair<std::size_t, std::size_t> AdjacencyMatrix::HighestPowerOfZero() const {
+std::pair<std::size_t, std::size_t> AdjacencyMatrix::HighestPowerOfZero()
+    const {
   std::size_t row = 0, col = 0;
-  double max = 0;
+  double max = -1;
   for (std::size_t i = 0; i < size_; ++i) {
     for (std::size_t j = 0; j < size_; ++j) {
       if (reducted_matrix_[i][j] == 0) {
@@ -148,4 +148,25 @@ void AdjacencyMatrix::CalculateData() {
   selected_value_ = HighestPowerOfZero();
   selected_edge_ = std::make_pair(matrix_[selected_value_.first][size_],
                                   matrix_[size_][selected_value_.second]);
+}
+void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
+  for (std::size_t i = 1; i < num_of_flyers; ++i) {
+    matrix_.insert(matrix_.begin() + size_, matrix_[0]);
+    for (std::size_t j = 0; j < size_ + 1; ++j) {
+      matrix_[j].insert(matrix_[j].begin() + size_, matrix_[j][0]);
+    }
+    matrix_[size_ + 1][size_] = size_;
+    matrix_[size_][size_ + 1] = size_;
+    matrix_[size_ + 1].push_back(0);
+    ++size_;
+    min_numbers_.resize(size_ + size_);
+  }
+  for (std::size_t i = 1; i < num_of_flyers; ++i) {
+    for (std::size_t j = 1; j < num_of_flyers; ++j) {
+      if (i != j) matrix_[size_ - i][size_ - j] = 0;
+    }
+    matrix_[0][size_ - i] = 0;
+    matrix_[size_ - i][0] = 0;
+  }
+  CalculateData();
 }

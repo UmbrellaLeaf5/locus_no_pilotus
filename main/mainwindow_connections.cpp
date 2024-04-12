@@ -112,3 +112,30 @@ void MainWindow::on_actionSave_as_triggered() {
   json_file_.SetFile(file_name);
   json_file_.Save(area_);
 }
+
+void MainWindow::on_actionSave_triggered() {
+  if (!json_file_.IsExistsFile())
+    on_actionSave_as_triggered();
+  else
+    json_file_.Save(area_);
+}
+
+void MainWindow::on_actionNew_triggered() {
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_)) {
+    QString text =
+        "Do you want save changes in file " + json_file_.GetFileName() + "?";
+    int ret = QMessageBox::question(
+        this, "Are you sure?", text,
+        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+
+    switch (ret) {
+      case QMessageBox::Save:
+        json_file_.Save(area_);
+        break;
+      case QMessageBox::Discard:
+        break;
+      case QMessageBox::Cancel:
+        break;
+    }
+  }
+}

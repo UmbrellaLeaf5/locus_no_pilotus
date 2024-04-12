@@ -45,22 +45,17 @@ std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr, PlotArea& plot_area) {
 
 void GuiJsonFile::Open(PlotArea& plot_area) {
   if (file_->open(QIODevice::ReadOnly | QFile::Text)) {
-    json_file_ = new QJsonDocument(
-        QJsonDocument::fromJson(QByteArray(file_->readAll())));
+    QJsonObject root = LoadJson();
 
-    QJsonObject root = json_file_->object();
+    QJsonArray json_targets = root["Targets"].toArray();
+    QJsonArray json_trappy_circles = root["Trappy_Circles"].toArray();
+    QJsonArray json_trappy_lines = root["Trappy_Lines"].toArray();
+    QJsonArray json_hills = root["Hills"].toArray();
 
-    QJsonValue json_targets = root.value("Targets");
-    QJsonValue json_trappy_circles = root.value("Trappy_Circles");
-    QJsonValue json_trappy_lines = root.value("Trappy_Lines");
-    QJsonValue json_hills = root.value("Hills");
-
-    plot_area.Set(GetTargetsFromFile(json_targets.toArray(), plot_area));
-    plot_area.Set(
-        GetTrappyCirclesFromFile(json_trappy_circles.toArray(), plot_area));
-    plot_area.Set(
-        GetTrappyLinesFromFile(json_trappy_lines.toArray(), plot_area));
-    plot_area.Set(GetHillsFromFile(json_hills.toArray(), plot_area));
+    plot_area.Set(GetTargetsFromFile(json_targets, plot_area));
+    plot_area.Set(GetTrappyCirclesFromFile(json_trappy_circles, plot_area));
+    plot_area.Set(GetTrappyLinesFromFile(json_trappy_lines, plot_area));
+    plot_area.Set(GetHillsFromFile(json_hills, plot_area));
 
     plot_area.Redraw();
     file_->close();

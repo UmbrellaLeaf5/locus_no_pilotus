@@ -79,3 +79,4 @@ compile_commands.json
 build
 .vscode
 qcustomplot
+doxygen

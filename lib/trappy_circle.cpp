@@ -27,4 +27,11 @@ void TrappyCircle::Load(QJsonObject trappy_circle_obj) {
   SetRadius(r);
 }
 
+bool TrappyCircle::IsChanged(QJsonObject trappy_circle_obj) {
+  Point c = {trappy_circle_obj.value("X").toDouble(),
+             trappy_circle_obj.value("Y").toDouble()};
+  double r = trappy_circle_obj.value("Radius").toDouble();
+  return c != center_ || r != radius_;
+}
+
 }  // namespace lib

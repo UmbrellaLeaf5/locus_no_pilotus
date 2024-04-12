@@ -8,7 +8,7 @@
 
 namespace lib {
 
-// @brief линия опасного перелета
+/// @brief линия опасного перелета
 class TrappyLine : public JSONable {
  public:
   TrappyLine() = default;
@@ -35,6 +35,7 @@ class TrappyLine : public JSONable {
 
   QJsonObject Save(int id) const override;
   void Load(QJsonObject trappy_line_obj) override;
+  bool IsChanged(QJsonObject trappy_line_obj) override;
 
   void SetNewTargets(std::initializer_list<Target> targets) {
     targets_ = targets;

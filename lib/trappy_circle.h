@@ -7,7 +7,7 @@
 
 namespace lib {
 
-// @brief опасная зона
+/// @brief опасная зона
 class TrappyCircle : public JSONable {
  public:
   TrappyCircle(Point center = {0, 0}, double radius = 0);
@@ -20,6 +20,7 @@ class TrappyCircle : public JSONable {
 
   QJsonObject Save(int id) const override;
   void Load(QJsonObject trappy_circle_obj) override;
+  bool IsChanged(QJsonObject trappy_circle_obj) override;
 
   Point GetCenter() const { return center_; }
   double GetRadius() const { return radius_; }
