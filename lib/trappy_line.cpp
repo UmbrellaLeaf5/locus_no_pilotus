@@ -21,10 +21,16 @@ QJsonObject TrappyLine::Save(int id) const {
 }
 
 void TrappyLine::Load(QJsonObject trappy_line_obj) {
+  if (!(trappy_line_obj.contains("P1") && trappy_line_obj.contains("P2")))
+    throw std::invalid_argument("");
+
   QJsonObject p1 = trappy_line_obj.value("P1").toObject();
+  if (!(p1.contains("X") && p1.contains("Y"))) throw std::invalid_argument("");
   double x1 = p1.value("X").toDouble();
   double y1 = p1.value("Y").toDouble();
+
   QJsonObject p2 = trappy_line_obj.value("P2").toObject();
+  if (!(p2.contains("X") && p2.contains("Y"))) throw std::invalid_argument("");
   double x2 = p2.value("X").toDouble();
   double y2 = p2.value("Y").toDouble();
   SetNewTargets({{x1, y1}, {x2, y2}});

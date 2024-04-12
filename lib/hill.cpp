@@ -13,25 +13,30 @@ Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
 
 QJsonObject Hill::Save(int id) const {
   QVariantMap hill_map;
-
   hill_map.insert("Id", id);
 
+  QJsonArray vertices_array;
   for (size_t i = 0; i < vertices_.size(); i++) {
-    QVariantMap p_map;
-    p_map.insert("X", vertices_[i].x);
-    p_map.insert("Y", vertices_[i].y);
-    hill_map.insert("P" + QString::number(i + 1), p_map);
+    QJsonObject v_obj;
+    v_obj.insert("X", vertices_[i].x);
+    v_obj.insert("Y", vertices_[i].y);
+    vertices_array.append(v_obj);
   }
+  hill_map.insert("Vertices", vertices_array);
 
   return QJsonObject::fromVariantMap(hill_map);
 }
 
 void Hill::Load(QJsonObject hill_obj) {
-  for (size_t i = 1; i < hill_obj.size(); i++) {
+  if (!hill_obj.contains("Vertices")) throw std::invalid_argument("");
+  QJsonArray vertices_array = hill_obj.value("Vertices").toArray();
+  for (size_t i = 0; i < vertices_array.size(); i++) {
     lib::Point vertice;
-    QJsonObject h_obj = hill_obj.value("P" + QString::number(i)).toObject();
-    vertice.x = h_obj.value("X").toDouble();
-    vertice.y = h_obj.value("Y").toDouble();
+    QJsonObject v_obj = vertices_array[i].toObject();
+    if (v_obj.contains("X") + v_obj.contains("Y") != 2)
+      throw std::invalid_argument("");
+    vertice.x = v_obj.value("X").toDouble();
+    vertice.y = v_obj.value("Y").toDouble();
     vertices_.push_back(vertice);
   }
 }

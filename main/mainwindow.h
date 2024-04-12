@@ -9,6 +9,7 @@
 #include "add_objects_forms/add_trappy_line_form.h"
 #include "plot_area/plot_area.h"
 
+enum class FileType { UntitledFile, UsualFile };
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +24,8 @@ class MainWindow : public QMainWindow {
  public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
+
+  void closeEvent(QCloseEvent* event) override;
 
  private slots:
   void on_pushButtonAddTarget_clicked();
@@ -58,4 +61,6 @@ class MainWindow : public QMainWindow {
   PlotArea area_;
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
+
+  bool OpenMessageWindow(FileType file_type);
 };
