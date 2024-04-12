@@ -9,7 +9,7 @@
 
 struct PointNode;
 
-// Ребро взвешенного графа
+// Путь в вершину
 struct Path {
   Path(std::shared_ptr<PointNode> point, double distance)
       : end_point{point}, length{distance} {}
@@ -24,27 +24,25 @@ struct Path {
 struct PointNode {
   PointNode() : is_useful{true} {}
 
-  PointNode(const PointNode& pn) {
-    edges = pn.edges;
-    is_useful = pn.is_useful;
-  }
-
-  PointNode operator=(const PointNode& pn) {
-    edges = pn.edges;
-    is_useful = pn.is_useful;
-    return *this;
-  }
-
-  void AddEdge(Path edge) {
-    edges.push_back(edge);
-    std::shared_ptr<Path> inv_edge =
-        std::make_shared<Path>(std::make_shared<PointNode>(*this), edge.length);
-    (*edge.end_point).edges.push_back(*inv_edge);
+  // Добавить ребро
+  void AddPath(Path path) {
+    paths.push_back(path);
+    std::shared_ptr<Path> inv_path =
+        std::make_shared<Path>(std::make_shared<PointNode>(*this), path.length);
+    (*path.end_point).paths.push_back(*inv_path);
   }
   // Ребра этой вершины
-  std::vector<Path> edges;
+  std::vector<Path> paths;
   // Нужно ли ветвиться от вершины
   bool is_useful;
+};
+
+// Ребро взвешенного графа
+struct Edge {
+  Edge(std::shared_ptr<PointNode> point_1, std::shared_ptr<PointNode> point_2,
+       double length) {
+    (*point_1).AddPath(Path(point_2, length));
+  }
 };
 
 class Dijkstras_algorithm {
