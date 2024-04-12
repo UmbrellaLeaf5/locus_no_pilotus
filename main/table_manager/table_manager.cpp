@@ -169,30 +169,30 @@ void TableManager::UpdateTable(
   tr_circles_table_->update();
 }
 
-void TableManager::TargetsItemChanged(int row, int column) {
-  // вывод никогда не происходит
-  // IDK: почему?
-  IC();
-  IC(row, column);
-}
+void TableManager::TargetsItemChanged(int row, int column) { IC(row, column); }
 
-void TableManager::HillsItemChanged(int row, int column) {
-  // вывод никогда не происходит
-  // IDK: почему?
-  IC();
-  IC(row, column);
-}
+void TableManager::HillsItemChanged(int row, int column) { IC(row, column); }
 
 void TableManager::TrappyCirclesItemChanged(int row, int column) {
-  // вывод никогда не происходит
-  // IDK: почему?
-  IC();
   IC(row, column);
 }
 
-void TableManager::TrappyLinesChanged(int row, int column) {
-  // вывод никогда не происходит
-  // IDK: почему?
-  IC();
+void TableManager::TrappyLinesItemChanged(int row, int column) {
   IC(row, column);
+}
+
+void TableManager::UpdateTablesConnections() {
+  {
+    QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::TargetsItemChanged);
+
+    QObject::connect(hills_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::HillsItemChanged);
+
+    QObject::connect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::TrappyCirclesItemChanged);
+
+    QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
+                     &TableManager::TrappyLinesItemChanged);
+  }
 }

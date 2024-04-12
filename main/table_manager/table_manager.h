@@ -16,7 +16,9 @@ class TableManager : public QObject {
       : targets_table_{targets_info},
         hills_table_{hills_info},
         tr_circles_table_{tr_circles_info},
-        tr_lines_table_{tr_lines_info} {}
+        tr_lines_table_{tr_lines_info} {
+    UpdateTablesConnections();
+  }
 
   /**
    * @brief устанавливает значения всех таблиц с информацией
@@ -32,6 +34,7 @@ class TableManager : public QObject {
     hills_table_.reset(hills_info);
     tr_circles_table_.reset(tr_circles_info);
     tr_lines_table_.reset(tr_lines_info);
+    UpdateTablesConnections();
   }
 
   /**
@@ -62,22 +65,10 @@ class TableManager : public QObject {
   void TargetsItemChanged(int row, int column);
   void HillsItemChanged(int row, int column);
   void TrappyCirclesItemChanged(int row, int column);
-  void TrappyLinesChanged(int row, int column);
+  void TrappyLinesItemChanged(int row, int column);
 
  private:
-  void ConnectSlotsAndSignal() {
-    QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::TargetsItemChanged);
-
-    QObject::connect(hills_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::HillsItemChanged);
-
-    QObject::connect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::TrappyCirclesItemChanged);
-
-    QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::TrappyLinesChanged);
-  }
+  void UpdateTablesConnections();
 
   std::unique_ptr<QTableWidget> targets_table_{nullptr};
   std::unique_ptr<QTableWidget> hills_table_{nullptr};
