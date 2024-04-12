@@ -10,8 +10,6 @@ class PlotArea {
  public:
   PlotArea() : manager_(), t_manager_(manager_) {}
 
-  PlotArea(QCustomPlot* plot) : manager_(), t_manager_(manager_), plot_(plot) {}
-
   // methods
 
   /**

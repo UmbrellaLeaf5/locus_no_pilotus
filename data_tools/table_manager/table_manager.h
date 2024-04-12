@@ -7,16 +7,12 @@
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TableManager : public QObject {
  public:
+  /**
+   * @brief инициализирует новый экземпляр Table Manager
+   * @param manager: ссылка на используемый DataManager
+   * (благодаря передаче по ссылке, может редактировать данные классов)
+   */
   TableManager(gui::DataManager& manager) : manager_{manager} {}
-
-  TableManager(QTableWidget* targets_info, QTableWidget* hills_info,
-               QTableWidget* tr_circles_info, QTableWidget* tr_lines_info)
-      : targets_table_{targets_info},
-        hills_table_{hills_info},
-        tr_circles_table_{tr_circles_info},
-        tr_lines_table_{tr_lines_info} {
-    UpdateTablesConnections();
-  }
 
   /**
    * @brief устанавливает значения всех таблиц с информацией
