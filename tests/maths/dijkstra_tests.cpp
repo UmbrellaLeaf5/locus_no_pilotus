@@ -12,6 +12,7 @@
 
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
+using namespace math;
 
 BOOST_AUTO_TEST_SUITE(tests)
 

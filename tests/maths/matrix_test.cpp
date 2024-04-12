@@ -10,6 +10,7 @@
 
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
+using namespace math;
 
 void CHECK_MATRIX(AdjacencyMatrix matrix, double asmt,
                   std::pair<int, int> edge) {

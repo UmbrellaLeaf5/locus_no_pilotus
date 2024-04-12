@@ -5,6 +5,8 @@
 #include "adjacency_matrix.h"
 #include "tspgraph.h"
 
+namespace math {
+
 // @brief решение задачи коммивояжера
 class TravellingSalesmansProblem {
  public:
@@ -83,3 +85,5 @@ class TravellingSalesmansProblem {
    */
   std::vector<std::size_t> CalculateTrajectory();
 };
+
+}  // namespace math

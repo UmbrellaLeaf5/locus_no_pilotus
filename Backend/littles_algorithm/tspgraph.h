@@ -7,6 +7,8 @@
 
 #include "adjacency_matrix.h"
 
+namespace math {
+
 // @brief ребро между двумя контрольными точками
 struct Edge {
   /**
@@ -52,3 +54,5 @@ struct TSPNode {
   std::vector<Edge> path;
   std::map<std::size_t, std::size_t> chains;
 };
+
+}  // namespace math

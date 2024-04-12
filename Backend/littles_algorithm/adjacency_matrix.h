@@ -3,6 +3,8 @@
 #include <limits>
 #include <vector>
 
+namespace math {
+
 #define inf std::numeric_limits<double>::infinity()
 
 // @brief структура для хранения двух минимумов строки/столбца
@@ -131,3 +133,5 @@ class AdjacencyMatrix {
    */
   std::pair<std::size_t, std::size_t> HighestPowerOfZero() const;
 };
+
+}  // namespace math

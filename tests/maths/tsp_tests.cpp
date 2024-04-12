@@ -13,6 +13,7 @@
 
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
+using namespace math;
 
 void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path) {
   TravellingSalesmansProblem tsp(matrix);

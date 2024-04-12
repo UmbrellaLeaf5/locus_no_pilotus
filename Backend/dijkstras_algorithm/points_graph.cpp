@@ -2,7 +2,9 @@
 
 #include <icecream.hpp>
 
-void Dijkstras_algorithm::Calculate_Min_Paths() {
+namespace math {
+
+void Dijkstras_algorithm::Calculate_Min_Path() {
   while (graphs_vertex_[end_] > min_length_) {
     std::shared_ptr<PointNode> min_len_key;
     for (auto& elem : graphs_vertex_)
@@ -28,3 +30,5 @@ void Dijkstras_algorithm::Calculate_Min_Paths() {
         min_length_ = elem.second;
   }
 }
+
+}  // namespace math
