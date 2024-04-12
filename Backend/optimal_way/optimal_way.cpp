@@ -73,7 +73,7 @@ void MinimumDistanceCalculator::FillPathNodes() {
   for (auto& obstacle : circles_) {
     for (auto& point : obstacle.GetTangentPoints()) {
       if (point.another_tangent_point) {
-        PathWayNode new_node{point};
+        PathWayNode new_node{point, graph_.size()};
         new_node.circle_prt = std::make_unique<CircleObstacle>(obstacle);
         for (auto& prev : graph_) {
           if (prev.circle_prt && ((*prev.circle_prt) == obstacle)) {
