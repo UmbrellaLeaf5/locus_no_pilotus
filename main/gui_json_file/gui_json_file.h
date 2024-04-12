@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./plot_area/plot_area.h"
+#include "../../data_tools/plot_area/plot_area.h"
 
 class GuiJsonFile {
  public:

@@ -36,6 +36,7 @@ add_subdirectory(gui)
 add_subdirectory(tests)
 add_subdirectory(main)
 add_subdirectory(backend)
+add_subdirectory(data_tools)
 
 # the programmer in VS Code is tired of constantly copying one dll file,
 # and the command QCUSTOMPLOT_USE_LIBRARY does not work for an unknown reason

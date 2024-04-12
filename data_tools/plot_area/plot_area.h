@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../../gui/data_manager/data_manager.h"
+#include "../data_manager/data_manager.h"
 #include "../table_manager/table_manager.h"
 
 /// @brief класс, упрощающий управление классами gui на QCustomPlot

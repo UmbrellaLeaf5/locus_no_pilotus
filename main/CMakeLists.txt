@@ -33,6 +33,7 @@ target_link_libraries(main PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION
 
 target_link_libraries(main PRIVATE lib)
 target_link_libraries(main PRIVATE gui)
+target_link_libraries(main PRIVATE data_tools)
 
 target_compile_definitions(main PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(main PUBLIC qcustomplot)

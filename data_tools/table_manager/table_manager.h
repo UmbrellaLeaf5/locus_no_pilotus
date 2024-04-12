@@ -2,7 +2,7 @@
 
 #include <QTableWidget>
 
-#include "../../gui/data_manager/data_manager.h"
+#include "../data_manager/data_manager.h"
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TableManager : public QObject {

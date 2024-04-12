@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../hill.h"
-#include "../target.h"
-#include "../trappy_circle.h"
-#include "../trappy_line.h"
+#include "../../gui/hill.h"
+#include "../../gui/target.h"
+#include "../../gui/trappy_circle.h"
+#include "../../gui/trappy_line.h"
 
 namespace gui {
 
