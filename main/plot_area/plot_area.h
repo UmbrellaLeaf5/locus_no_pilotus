@@ -233,10 +233,10 @@ class PlotArea {
   // ~methods
 
  private:
-  // @brief обновляет данные в лейблах все объектов
+  /// @brief обновляет данные в лейблах все объектов
   void UpdateInfoLabels();
 
-  // @brief обновляет данные в таблицах всех объектов
+  /// @brief обновляет данные в таблицах всех объектов
   void UpdateTables();
 
   // vars
