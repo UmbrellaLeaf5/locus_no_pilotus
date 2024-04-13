@@ -71,38 +71,38 @@ void MinimumDistanceCalculator::FillTangentsPoints(Point& point) {
 void MinimumDistanceCalculator::FillPathNodesOnCircles() {
   for (auto& obstacle : circles_) {
     for (auto& point : obstacle.GetTangentPoints()) {
-      PathWayNode new_node{point, graph_.size()};
+      PathWayNode new_node{point, graph_.nodes.size()};
       new_node.circle_prt = std::make_unique<CircleObstacle>(obstacle);
-      for (auto& prev : graph_) {
-        if (prev.circle_prt && ((*prev.circle_prt) == obstacle)) {
-          ConnectTwoNodes(prev, new_node,
-                          DistanceBetweenPointsOnCircle(obstacle, prev.point,
-                                                        new_node.point));
-        } else if (prev.circle_prt &&
-                   (new_node.point == (*prev.point.another_tangent_point))) {
-          ConnectTwoNodes(prev, new_node,
-                          DistanceBetweenPoints(prev.point, new_node.point));
+      for (auto& prev : graph_.nodes) {
+        if ((*prev).circle_prt && ((*(*prev).circle_prt) == obstacle)) {
+          graph_.AddEdge((*prev).number, new_node.number,
+                         DistanceBetweenPointsOnCircle(obstacle, (*prev).point,
+                                                       new_node.point));
+        } else if ((*prev).circle_prt &&
+                   (new_node.point == (*(*prev).point.another_tangent_point))) {
+          graph_.AddEdge((*prev).number, new_node.number,
+                         DistanceBetweenPoints((*prev).point, new_node.point));
         }
       }
-      graph_.push_back(new_node);
+      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
     }
   }
 }
 
 void MinimumDistanceCalculator::FillPathNodesOnPoint(const Point& point) {
-  PathWayNode new_node{point, graph_.size()};
-  for (auto& prev : graph_) {
-    if (prev.circle_prt) {
+  PathWayNode new_node{point, graph_.nodes.size()};
+  for (auto& prev : graph_.nodes) {
+    if ((*prev).circle_prt) {
       std::pair<Point, Point> tangent_points =
-          TangentPointsToCircle((*prev.circle_prt), point);
-      if (tangent_points.first == prev.point ||
-          tangent_points.second == prev.point) {
-        ConnectTwoNodes(prev, new_node,
-                        DistanceBetweenPoints(prev.point, new_node.point));
+          TangentPointsToCircle((*(*prev).circle_prt), point);
+      if (tangent_points.first == (*prev).point ||
+          tangent_points.second == (*prev).point) {
+        graph_.AddEdge((*prev).number, new_node.number,
+                       DistanceBetweenPoints((*prev).point, new_node.point));
       }
     }
   }
-  graph_.push_back(new_node);
+  graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
 }
 
 double MinimumDistanceCalculator::FindOptimalWay(const Point& pnt1,

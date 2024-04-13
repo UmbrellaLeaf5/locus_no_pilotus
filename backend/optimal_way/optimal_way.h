@@ -17,7 +17,7 @@ class MinimumDistanceCalculator {
   Point point1_;
   Point point2_;
   std::vector<CircleObstacle> circles_;
-  std::vector<PathWayNode> graph_;
+  PathWayGraph graph_;
 
   bool TangentGoesTroughOtherCircle(const LinearАunction& tangent,
                                     int circle1_index, int circle2_index);

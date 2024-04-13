@@ -53,3 +53,6 @@ add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} tests)
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(tests)
 endif()
+
+find_package(IcecreamCpp)
+include_directories(${IcecreamCpp_INCLUDE_DIRS})

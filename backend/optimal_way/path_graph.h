@@ -10,31 +10,42 @@ namespace math {
 
 #define inf std::numeric_limits<double>::infinity()
 
-struct Path;
-
 struct PathWayNode {
   PathWayNode(Point p, std::size_t n)
       : point{p}, number{n}, is_visited{false} {}
-  std::vector<Path> edges;
+  std::vector<std::shared_ptr<PathWayNode>> edges;
+  std::vector<double> edges_lens;
   std::shared_ptr<CircleObstacle> circle_prt = nullptr;
   Point point;
   std::size_t number;
   bool is_visited;
 };
 
-struct Path {
-  Path(std::shared_ptr<PathWayNode> node_ptr, double length)
-      : next{node_ptr}, length{length} {}
-  std::shared_ptr<PathWayNode> next;
-  double length;
+struct PathWayGraph {
+  std::vector<std::shared_ptr<PathWayNode>> nodes;
+
+  void AddNode(std::shared_ptr<PathWayNode> new_node) {
+    nodes.push_back(new_node);
+  }
+
+  void AddEdge(std::size_t node_1, std::size_t node_2, double length) {
+    std::shared_ptr<PathWayNode> node_ptr1, node_ptr2;
+
+    for (auto node : nodes) {
+      if (node->number == node_1)
+        node_ptr1 = node;
+      else if (node->number == node_2)
+        node_ptr2 = node;
+    }
+
+    node_ptr1->edges.push_back(node_ptr2);
+    node_ptr1->edges_lens.push_back(length);
+    node_ptr2->edges.push_back(node_ptr1);
+    node_ptr2->edges_lens.push_back(length);
+  }
 };
 
-void ConnectTwoNodes(PathWayNode& node1, PathWayNode& node2, double distance) {
-  node1.edges.push_back({std::make_shared<PathWayNode>(node2), distance});
-  node2.edges.push_back({std::make_shared<PathWayNode>(node1), distance});
-}
-
-// @brief алгоритм Дейкстры
+/// @brief алгоритм Дейкстры
 class Dijkstras_algorithm {
  public:
   /**
@@ -42,11 +53,13 @@ class Dijkstras_algorithm {
    * @param start: начальная точка
    * @param end: конечная точка
    */
-  Dijkstras_algorithm(std::vector<PathWayNode> nodes)
-      : path_nodes_{nodes},
-        first_point_{nodes.size() - 2},
-        second_point_{nodes.size() - 1},
+  Dijkstras_algorithm(PathWayGraph graph)
+      : path_nodes_{graph.nodes},
+        first_point_{graph.nodes.size() - 2},
+        second_point_{graph.nodes.size() - 1},
         min_length_{0} {
+    graphs_vertex_[first_point_] = 0;
+    graphs_vertex_[second_point_] = inf;
     Calculate_Min_Path();
   }
 
@@ -64,7 +77,7 @@ class Dijkstras_algorithm {
   std::size_t second_point_;
 
   // Все вершины графа
-  std::vector<PathWayNode> path_nodes_;
+  std::vector<std::shared_ptr<PathWayNode>> path_nodes_;
 
   // Длина кратчайшего пути из start_ в end_
   double min_length_;
