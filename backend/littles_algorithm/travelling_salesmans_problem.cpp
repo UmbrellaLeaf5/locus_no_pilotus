@@ -164,6 +164,7 @@ std::vector<std::size_t> TravellingSalesmansProblem::ConvertToVertexPath() {
 
 std::vector<std::size_t> TravellingSalesmansProblem::CalculateTrajectory() {
   while (paths_stack_[0]->matrix.GetSize() > 2) ExpandStack();
+  paths_len_ = paths_stack_[0]->evaluation;
   edge_path_ = paths_stack_[0]->path;
   return ConvertToVertexPath();
 }
