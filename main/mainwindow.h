@@ -60,7 +60,8 @@ class MainWindow : public QMainWindow {
   void AddHill(std::vector<lib::Point> points);
 
  private:
-  data_tools::PlotArea area_;
+  std::unique_ptr<data_tools::PlotArea> area_;
+  // std::unique_ptr<data_tools::DataManager> manager_;
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
 

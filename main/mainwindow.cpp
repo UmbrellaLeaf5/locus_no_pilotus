@@ -3,7 +3,9 @@
 #include "./ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      area_(new data_tools::PlotArea) {
   ui->setupUi(this);
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
@@ -11,10 +13,10 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
           SLOT(on_plot_MousePressed()));
 
-  area_.SetPlot(ui->plot);
+  area_->SetPlot(ui->plot);
 
-  area_.SetSettingsLabels(ui->targetInfoLabel, ui->hillInfoLabel,
-                          ui->trappyCircleInfoLabel, ui->trappyLineInfoLabel);
+  area_->SetSettingsLabels(ui->targetInfoLabel, ui->hillInfoLabel,
+                           ui->trappyCircleInfoLabel, ui->trappyLineInfoLabel);
 
   {  // проверка функционала графических классов и менеджера
 
@@ -22,26 +24,26 @@ MainWindow::MainWindow(QWidget* parent)
     gui::Target t_2(2, 1);
     gui::Target t_3(1, 1);
 
-    area_.Set({t_1, t_2, t_3});
+    area_->Set({t_1, t_2, t_3});
 
     gui::TrappyLine tr{t_1, t_2};
-    area_.Add(tr);
+    area_->Add(tr);
 
     gui::TrappyCircle trc({1, 2}, 0.5);
-    area_.Add(trc);
+    area_->Add(trc);
 
-    area_.Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
+    area_->Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
 
-    // area_.Remove(gui::ObjectType::Targets, 0);
+    // area_->Remove(gui::ObjectType::Targets, 0);
   }
 
   ui->plotSettingsDockWidget->setVisible(false);
 
-  area_.SetSettingsTables(ui->targetInfoTableWidget, ui->hillInfoTableWidget,
-                          ui->trappyCircleInfoTableWidget,
-                          ui->trappyLineInfoTableWidget);
+  area_->SetSettingsTables(ui->targetInfoTableWidget, ui->hillInfoTableWidget,
+                           ui->trappyCircleInfoTableWidget,
+                           ui->trappyLineInfoTableWidget);
 
-  area_.Redraw();
+  area_->Redraw();
 }
 
 MainWindow::~MainWindow() { delete ui; }

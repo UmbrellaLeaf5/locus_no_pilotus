@@ -30,7 +30,7 @@ QJsonObject GuiJsonFile::LoadJson() {
   return json_file.object();
 }
 
-bool GuiJsonFile::IsChanged(data_tools::PlotArea& plot_area) {
+bool GuiJsonFile::IsChanged(data_tools::PlotArea* plot_area) {
   file_->open(QIODevice::ReadOnly | QFile::Text);
   QJsonObject root = LoadJson();
 
@@ -39,36 +39,36 @@ bool GuiJsonFile::IsChanged(data_tools::PlotArea& plot_area) {
   QJsonArray json_trappy_lines = root["Trappy_Lines"].toArray();
   QJsonArray json_hills = root["Hills"].toArray();
 
-  if (plot_area.GetTargets().size() == json_targets.size() &&
-      plot_area.GetTrappyCircles().size() == json_trappy_circles.size() &&
-      plot_area.GetTrappyLines().size() == json_trappy_lines.size() &&
-      plot_area.GetHills().size() == json_hills.size()) {
-    for (size_t i = 0; i < plot_area.GetTargets().size(); i++) {
-      lib::Target t = plot_area.GetTargets()[i].GetData();
+  if (plot_area->GetTargets().size() == json_targets.size() &&
+      plot_area->GetTrappyCircles().size() == json_trappy_circles.size() &&
+      plot_area->GetTrappyLines().size() == json_trappy_lines.size() &&
+      plot_area->GetHills().size() == json_hills.size()) {
+    for (size_t i = 0; i < plot_area->GetTargets().size(); i++) {
+      lib::Target t = plot_area->GetTargets()[i].GetData();
       if (t.IsChanged(json_targets.at(i).toObject())) {
         file_->close();
         return true;
       }
     }
 
-    for (size_t i = 0; i < plot_area.GetTrappyCircles().size(); i++) {
-      lib::TrappyCircle tc = plot_area.GetTrappyCircles()[i].GetData();
+    for (size_t i = 0; i < plot_area->GetTrappyCircles().size(); i++) {
+      lib::TrappyCircle tc = plot_area->GetTrappyCircles()[i].GetData();
       if (tc.IsChanged(json_trappy_circles.at(i).toObject())) {
         file_->close();
         return true;
       }
     }
 
-    for (size_t i = 0; i < plot_area.GetTrappyLines().size(); i++) {
-      lib::TrappyLine tl = plot_area.GetTrappyLines()[i].GetData();
+    for (size_t i = 0; i < plot_area->GetTrappyLines().size(); i++) {
+      lib::TrappyLine tl = plot_area->GetTrappyLines()[i].GetData();
       if (tl.IsChanged(json_trappy_lines.at(i).toObject())) {
         file_->close();
         return true;
       }
     }
 
-    for (size_t i = 0; i < plot_area.GetHills().size(); i++) {
-      lib::Hill h = plot_area.GetHills()[i].GetData();
+    for (size_t i = 0; i < plot_area->GetHills().size(); i++) {
+      lib::Hill h = plot_area->GetHills()[i].GetData();
       if (h.IsChanged(json_hills.at(i).toObject())) {
         file_->close();
         return true;
