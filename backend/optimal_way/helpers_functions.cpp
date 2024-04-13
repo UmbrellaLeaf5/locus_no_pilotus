@@ -3,10 +3,10 @@
 #include <cmath>
 
 namespace math {
-LinearАunction MakeLinearАunction(const Point& point1, const Point& point2) {
+LinearFunction MakeLinearFunction(const Point& point1, const Point& point2) {
   double slope = (point2.y - point1.y) / (point2.x - point1.x);
   double b_coef = point1.y - slope * point1.x;
-  return LinearАunction{slope, -1, b_coef};
+  return LinearFunction{slope, -1, b_coef};
 }
 
 double DistanceBetweenPoints(const Point& p1, const Point& p2) {
@@ -21,7 +21,7 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
   return circle.GetRadius() * acos(cos_alpha);
 }
 
-std::pair<Point, Point> CrossPoints(const LinearАunction& tangent,
+std::pair<Point, Point> CrossPoints(const LinearFunction& tangent,
                                     const CircleObstacle& circle1,
                                     const CircleObstacle& circle2) {
   double a = tangent.a_coef;
@@ -64,9 +64,9 @@ std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& crcl,
                                  {x2_cross_pnt, y2_cross_pnt}};
 }
 
-std::vector<LinearАunction> TangentsBetweenCircles(
+std::vector<LinearFunction> TangentsBetweenCircles(
     const CircleObstacle& circle1, const CircleObstacle& circle2) {
-  std::vector<LinearАunction> tangents;
+  std::vector<LinearFunction> tangents;
   double x_1 = circle2.GetCenter().x;
   double y_1 = circle2.GetCenter().y;
   double r_1 = circle2.GetRadius();
@@ -82,7 +82,7 @@ std::vector<LinearАunction> TangentsBetweenCircles(
         (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
     double a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
     double c = r_0 - a * x_0 - b * y_0;
-    LinearАunction tangent{a, b, c};
+    LinearFunction tangent{a, b, c};
     return tangent;
   };
 

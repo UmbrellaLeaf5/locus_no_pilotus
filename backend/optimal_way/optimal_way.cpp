@@ -5,7 +5,7 @@
 namespace math {
 
 bool MinimumDistanceCalculator::TangentGoesTroughOtherCircle(
-    const LinearАunction& tangent, int circle1_index, int circle2_index) {
+    const LinearFunction& tangent, int circle1_index, int circle2_index) {
   std::pair<Point, Point> tangent_points =
       CrossPoints(tangent, circles_[circle1_index], circles_[circle2_index]);
   for (int l = 0; l < circles_.size(); ++l)
@@ -16,7 +16,7 @@ bool MinimumDistanceCalculator::TangentGoesTroughOtherCircle(
   return false;
 }
 
-void MinimumDistanceCalculator::AddTangent(const LinearАunction& tangent,
+void MinimumDistanceCalculator::AddTangent(const LinearFunction& tangent,
                                            CircleObstacle& circle1,
                                            CircleObstacle& circle2) {
   std::pair<Point, Point> tangent_points =
@@ -34,7 +34,7 @@ void MinimumDistanceCalculator::AddTangent(const LinearАunction& tangent,
 void MinimumDistanceCalculator::FillTangentsCircles() {
   for (int i = 0; i < circles_.size(); ++i) {
     for (int j = i + 1; j < circles_.size(); ++j) {
-      std::vector<LinearАunction> tangents =
+      std::vector<LinearFunction> tangents =
           TangentsBetweenCircles(circles_[i], circles_[j]);
 
       for (int k = 0; k < tangents.size(); ++k)
@@ -60,11 +60,11 @@ void MinimumDistanceCalculator::FillTangentsPoints(Point& point) {
     }
     if (is_exist_tangent1)
       point.tangents.push_back(
-          MakeLinearАunction(point, tangent_points_1.first));
+          MakeLinearFunction(point, tangent_points_1.first));
 
     if (is_exist_tangent2)
       point.tangents.push_back(
-          MakeLinearАunction(point, tangent_points_1.second));
+          MakeLinearFunction(point, tangent_points_1.second));
   }
 }
 

@@ -19,10 +19,10 @@ class MinimumDistanceCalculator {
   std::vector<CircleObstacle> circles_;
   PathWayGraph graph_;
 
-  bool TangentGoesTroughOtherCircle(const LinearАunction& tangent,
+  bool TangentGoesTroughOtherCircle(const LinearFunction& tangent,
                                     int circle1_index, int circle2_index);
 
-  void AddTangent(const LinearАunction& tangent, CircleObstacle& circle1,
+  void AddTangent(const LinearFunction& tangent, CircleObstacle& circle1,
                   CircleObstacle& circle2);
 
   // Заполняет вектор точек касательных для каждой окружности
