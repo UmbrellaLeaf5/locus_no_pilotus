@@ -1,38 +1,33 @@
 #include "path_graph.h"
 
-#include <icecream.hpp>
-
 namespace math {
 
 void Dijkstras_algorithm::Calculate_Min_Path() {
   while (graphs_vertex_[second_point_] > min_length_) {
-    IC(graphs_vertex_[second_point_]);
     std::shared_ptr<PathWayNode> min_len_key;
     for (auto& elem : graphs_vertex_)
-      if ((elem.second == min_length_) && (!path_nodes_[elem.first].is_visited))
-        min_len_key = std::make_shared<PathWayNode>(path_nodes_[elem.first]);
+      if ((elem.second == min_length_) &&
+          (!(*path_nodes_[elem.first]).is_visited))
+        min_len_key = path_nodes_[elem.first];
 
-    for (auto& elem : (*min_len_key).edges) {
-      IC(elem.length);
-      if ((graphs_vertex_.find((*elem.next).number) == graphs_vertex_.end()) ||
-          (elem.length + graphs_vertex_[(*min_len_key).number] <
-           graphs_vertex_[(*elem.next).number])) {
-        graphs_vertex_[(*elem.next).number] =
-            elem.length + graphs_vertex_[(*min_len_key).number];
-      } else
+    for (std::size_t i = 0; i < (*min_len_key).edges.size(); ++i)
+      if ((graphs_vertex_.find((*(*min_len_key).edges[i]).number) ==
+           graphs_vertex_.end()) ||
+          (graphs_vertex_[(*(*min_len_key).edges[i]).number] >
+           graphs_vertex_[(*min_len_key).number] +
+               (*min_len_key).edges_lens[i]))
+        graphs_vertex_[(*(*min_len_key).edges[i]).number] =
+            graphs_vertex_[(*min_len_key).number] +
+            (*min_len_key).edges_lens[i];
+      else
         continue;
-    }
     (*min_len_key).is_visited = true;
 
     min_length_ = inf;
-    for (auto& elem : graphs_vertex_) {
-      IC(elem.second);
+    for (auto& elem : graphs_vertex_)
       if ((elem.second < min_length_) &&
-          (!path_nodes_[elem.first].is_visited)) {
-        IC(elem.second);
+          (!(*path_nodes_[elem.first]).is_visited))
         min_length_ = elem.second;
-      }
-    }
   }
 }
 
