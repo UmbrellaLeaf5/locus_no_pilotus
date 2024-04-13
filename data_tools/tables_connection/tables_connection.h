@@ -5,14 +5,14 @@
 #include "../data_manager/data_manager.h"
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
-class TableManager : public QObject {
+class TablesConnection : public QObject {
  public:
   /**
    * @brief инициализирует новый экземпляр Table Manager
    * @param manager: ссылка на используемый DataManager
    * (благодаря передаче по ссылке, может редактировать данные классов)
    */
-  TableManager(gui::DataManager* manager) : manager_{manager} {}
+  TablesConnection(gui::DataManager* manager) : manager_{manager} {}
 
   /**
    * @brief устанавливает значения всех таблиц с информацией

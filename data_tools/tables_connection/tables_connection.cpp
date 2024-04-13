@@ -1,8 +1,8 @@
-#include "table_manager.h"
+#include "tables_connection.h"
 
 #include <icecream.hpp>
 
-void TableManager::UpdateTable(const std::vector<gui::Target>& targets) {
+void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
   // кол-во столбцов = кол-во к.т.
   targets_table_->setColumnCount(targets.size());
 
@@ -33,7 +33,7 @@ void TableManager::UpdateTable(const std::vector<gui::Target>& targets) {
   targets_table_->update();
 }
 
-void TableManager::UpdateTable(const std::vector<gui::Hill>& hills) {
+void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   // находим максимально возможное кол-во точек среди всех холмов
   size_t hills_max_points = hills[0].GetPoints().size();
   for (size_t i = 0; i < hills.size() - 1; i++) {
@@ -84,7 +84,7 @@ void TableManager::UpdateTable(const std::vector<gui::Hill>& hills) {
   hills_table_->update();
 }
 
-void TableManager::UpdateTable(
+void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
   // кол-во столбцов = кол-во опасных линий
   tr_lines_table_->setColumnCount(trappy_lines.size());
@@ -130,7 +130,7 @@ void TableManager::UpdateTable(
   tr_lines_table_->update();
 }
 
-void TableManager::UpdateTable(
+void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
   // кол-во столбцов = кол-во опасных зон
   tr_circles_table_->setColumnCount(trappy_circles.size());
@@ -169,7 +169,7 @@ void TableManager::UpdateTable(
   tr_circles_table_->update();
 }
 
-void TableManager::TargetsItemChanged(int row, int column) {
+void TablesConnection::TargetsItemChanged(int row, int column) {
   auto x_item = targets_table_->item(1, column);
   auto y_item = targets_table_->item(2, column);
 
@@ -181,24 +181,24 @@ void TableManager::TargetsItemChanged(int row, int column) {
   }
 }
 
-void TableManager::HillsItemChanged(int row, int column) {}
+void TablesConnection::HillsItemChanged(int row, int column) {}
 
-void TableManager::TrappyCirclesItemChanged(int row, int column) {}
+void TablesConnection::TrappyCirclesItemChanged(int row, int column) {}
 
-void TableManager::TrappyLinesItemChanged(int row, int column) {}
+void TablesConnection::TrappyLinesItemChanged(int row, int column) {}
 
-void TableManager::UpdateTablesConnections() {
+void TablesConnection::UpdateTablesConnections() {
   {
     QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::TargetsItemChanged);
+                     &TablesConnection::TargetsItemChanged);
 
     QObject::connect(hills_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::HillsItemChanged);
+                     &TablesConnection::HillsItemChanged);
 
     QObject::connect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::TrappyCirclesItemChanged);
+                     &TablesConnection::TrappyCirclesItemChanged);
 
     QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
-                     &TableManager::TrappyLinesItemChanged);
+                     &TablesConnection::TrappyLinesItemChanged);
   }
 }

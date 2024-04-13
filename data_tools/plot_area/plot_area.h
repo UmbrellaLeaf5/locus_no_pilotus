@@ -3,12 +3,12 @@
 #include <memory>
 
 #include "../data_manager/data_manager.h"
-#include "../table_manager/table_manager.h"
+#include "../tables_connection/tables_connection.h"
 
 /// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
  public:
-  PlotArea() : manager_(), t_manager_(&manager_) {}
+  PlotArea() : manager_(), t_connection_(&manager_) {}
 
   // methods
 
@@ -43,8 +43,8 @@ class PlotArea {
   void SetSettingsTables(QTableWidget* targets_info, QTableWidget* hills_info,
                          QTableWidget* tr_circles_info,
                          QTableWidget* tr_lines_info) {
-    t_manager_.SetSettingsTables(targets_info, hills_info, tr_circles_info,
-                                 tr_lines_info);
+    t_connection_.SetSettingsTables(targets_info, hills_info, tr_circles_info,
+                                    tr_lines_info);
   }
 
   /// @brief перерисовывает на полотне все объекты и обновляет данные
@@ -244,7 +244,7 @@ class PlotArea {
   std::unique_ptr<QLabel> tr_lines_label_{nullptr};
 
   gui::DataManager manager_;
-  TableManager t_manager_;
+  TablesConnection t_connection_;
 
   // ~vars
 };
