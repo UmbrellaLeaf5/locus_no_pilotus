@@ -13,12 +13,13 @@ namespace math {
 struct Path;
 
 struct PathWayNode {
-  PathWayNode(Point p, std::size_t n) : point{p}, is_useful{true} {}
+  PathWayNode(Point p, std::size_t n)
+      : point{p}, number{n}, is_visited{false} {}
   std::vector<Path> edges;
   std::shared_ptr<CircleObstacle> circle_prt = nullptr;
   Point point;
   std::size_t number;
-  bool is_useful;
+  bool is_visited;
 };
 
 struct Path {
@@ -72,7 +73,7 @@ class Dijkstras_algorithm {
   std::map<std::size_t, double> graphs_vertex_;
 
   /**
-   * @brief определяет длинукратчайшего пути из start_ в end_
+   * @brief определяет длину кратчайшего пути из start_ в end_
    */
   void Calculate_Min_Path();
 };
