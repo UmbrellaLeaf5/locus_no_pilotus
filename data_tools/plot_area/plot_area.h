@@ -8,7 +8,7 @@
 /// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
  public:
-  PlotArea() : manager_(), t_manager_(manager_) {}
+  PlotArea() : manager_(), t_manager_(&manager_) {}
 
   // methods
 

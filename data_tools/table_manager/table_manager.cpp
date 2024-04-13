@@ -169,17 +169,23 @@ void TableManager::UpdateTable(
   tr_circles_table_->update();
 }
 
-void TableManager::TargetsItemChanged(int row, int column) { IC(row, column); }
+void TableManager::TargetsItemChanged(int row, int column) {
+  auto x_item = targets_table_->item(1, column);
+  auto y_item = targets_table_->item(2, column);
 
-void TableManager::HillsItemChanged(int row, int column) { IC(row, column); }
-
-void TableManager::TrappyCirclesItemChanged(int row, int column) {
-  IC(row, column);
+  if (x_item != nullptr && y_item != nullptr) {
+    IC(column, manager_->GetTargets().size());
+    if (column < manager_->GetTargets().size())
+      manager_->GetTargets()[column].SetPoint(x_item->text().toDouble(),
+                                              y_item->text().toDouble());
+  }
 }
 
-void TableManager::TrappyLinesItemChanged(int row, int column) {
-  IC(row, column);
-}
+void TableManager::HillsItemChanged(int row, int column) {}
+
+void TableManager::TrappyCirclesItemChanged(int row, int column) {}
+
+void TableManager::TrappyLinesItemChanged(int row, int column) {}
 
 void TableManager::UpdateTablesConnections() {
   {

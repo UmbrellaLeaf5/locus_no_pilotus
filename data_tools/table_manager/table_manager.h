@@ -12,7 +12,7 @@ class TableManager : public QObject {
    * @param manager: ссылка на используемый DataManager
    * (благодаря передаче по ссылке, может редактировать данные классов)
    */
-  TableManager(gui::DataManager& manager) : manager_{manager} {}
+  TableManager(gui::DataManager* manager) : manager_{manager} {}
 
   /**
    * @brief устанавливает значения всех таблиц с информацией
@@ -69,5 +69,5 @@ class TableManager : public QObject {
   std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
 
-  gui::DataManager manager_;
+  std::unique_ptr<gui::DataManager> manager_;
 };

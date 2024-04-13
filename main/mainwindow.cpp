@@ -20,12 +20,6 @@ MainWindow::MainWindow(QWidget* parent)
   area_.SetSettingsLabels(ui->targetInfoLabel, ui->hillInfoLabel,
                           ui->trappyCircleInfoLabel, ui->trappyLineInfoLabel);
 
-  area_.SetSettingsTables(ui->targetInfoTableWidget, ui->hillInfoTableWidget,
-                          ui->trappyCircleInfoTableWidget,
-                          ui->trappyLineInfoTableWidget);
-
-  ui->plotSettingsDockWidget->setVisible(false);
-
   {  // проверка функционала графических классов и менеджера
 
     gui::Target t_1(3, 4);
@@ -42,10 +36,16 @@ MainWindow::MainWindow(QWidget* parent)
 
     area_.Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
 
-    area_.Redraw();
-
     // area_.Remove(gui::GuiObjType::Targets, 0);
   }
+
+  ui->plotSettingsDockWidget->setVisible(false);
+
+  area_.SetSettingsTables(ui->targetInfoTableWidget, ui->hillInfoTableWidget,
+                          ui->trappyCircleInfoTableWidget,
+                          ui->trappyLineInfoTableWidget);
+
+  area_.Redraw();
 }
 
 MainWindow::~MainWindow() { delete ui; }
