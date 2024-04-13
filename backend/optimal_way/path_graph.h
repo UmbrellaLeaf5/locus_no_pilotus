@@ -10,24 +10,46 @@ namespace math {
 
 #define inf std::numeric_limits<double>::infinity()
 
+/// @brief Вершина графа
 struct PathWayNode {
+  /**
+   * @brief PathWayNode
+   * @param p координаты
+   * @param n номер вершины
+   */
   PathWayNode(Point p, std::size_t n)
       : point{p}, number{n}, is_visited{false} {}
+
+  // Ребра данной вершины
   std::vector<std::shared_ptr<PathWayNode>> edges;
+
+  // Длины ребер
   std::vector<double> edges_lens;
+
   std::shared_ptr<CircleObstacle> circle_prt = nullptr;
+
+  // Координаты вершины
   Point point;
+
+  // Номер вершины
   std::size_t number;
+
+  // Была ли уже посещена вершина
+  // в алгоритме Дейкстры
   bool is_visited;
 };
 
+/// @brief Граф вершин между контрольными точками
 struct PathWayGraph {
+  // Вершины графа
   std::vector<std::shared_ptr<PathWayNode>> nodes;
 
+  // Добавить новую вершину
   void AddNode(std::shared_ptr<PathWayNode> new_node) {
     nodes.push_back(new_node);
   }
 
+  // Добавить новое ребро
   void AddEdge(std::size_t node_1, std::size_t node_2, double length) {
     std::shared_ptr<PathWayNode> node_ptr1, node_ptr2;
 
