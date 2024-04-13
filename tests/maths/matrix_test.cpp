@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <cfloat>
 
-#include "../Backend/adjacency_matrix.h"
+#include "../backend/littles_algorithm/adjacency_matrix.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
@@ -10,6 +10,7 @@
 
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
+using namespace math;
 
 void CHECK_MATRIX(AdjacencyMatrix matrix, double asmt,
                   std::pair<int, int> edge) {

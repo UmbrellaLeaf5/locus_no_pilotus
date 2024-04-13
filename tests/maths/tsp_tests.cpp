@@ -1,8 +1,8 @@
 #include <QApplication>
 
-#include "../Backend/adjacency_matrix.h"
-#include "../Backend/travelling_salesmans_problem.h"
-#include "../Backend/tspgraph.h"
+#include "../backend/littles_algorithm/adjacency_matrix.h"
+#include "../backend/littles_algorithm/travelling_salesmans_problem.h"
+#include "../backend/littles_algorithm/tspgraph.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
@@ -11,6 +11,7 @@
 
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
+using namespace math;
 
 void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path) {
   TravellingSalesmansProblem tsp(matrix);

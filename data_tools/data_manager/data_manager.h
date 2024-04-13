@@ -29,6 +29,8 @@ class DataManager {
    */
   void Remove(GuiObjType obj_type, size_t index);
 
+  void Clear();
+
   /**
    * @brief возвращает представление определенных типов объектов в виде текста
    * @param obj_type: тип объектов

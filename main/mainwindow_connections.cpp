@@ -13,32 +13,9 @@ void MainWindow::AddTarget(double x, double y) {
   area_.Redraw();
 }
 
-void MainWindow::on_pushButtonAddTarget_clicked() {
-  ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
-                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
-}
-
-void MainWindow::on_actionTarget_triggered() {
-  AddTargetForm* atf = new AddTargetForm;
-  atf->show();
-  connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
-}
-
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
   area_.Add(gui::TrappyCircle(x, y, radius));
   area_.Redraw();
-}
-
-void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
-  ui->plot->setCursor(QCursor(
-      QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
-}
-
-void MainWindow::on_actionTrappy_Circle_triggered() {
-  AddTrappyCircleForm* adf = new AddTrappyCircleForm;
-  adf->show();
-  connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
-          &MainWindow::AddTrappyCircle);
 }
 
 void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
@@ -56,9 +33,42 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   area_.Redraw();
 }
 
+void MainWindow::AddHill(std::vector<lib::Point> points) {
+  area_.Add(gui::Hill(points));
+  area_.Redraw();
+}
+
+void MainWindow::on_pushButtonAddTarget_clicked() {
+  ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
+                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+}
+
+void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
+  ui->plot->setCursor(QCursor(
+      QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+}
+
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+}
+
+void MainWindow::on_pushButtonAddHill_clicked() {
+  ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
+                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+}
+
+void MainWindow::on_actionTarget_triggered() {
+  AddTargetForm* atf = new AddTargetForm;
+  atf->show();
+  connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
+}
+
+void MainWindow::on_actionTrappy_Circle_triggered() {
+  AddTrappyCircleForm* adf = new AddTrappyCircleForm;
+  adf->show();
+  connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
+          &MainWindow::AddTrappyCircle);
 }
 
 void MainWindow::on_actionTrappy_Line_triggered() {
@@ -68,20 +78,10 @@ void MainWindow::on_actionTrappy_Line_triggered() {
           &MainWindow::AddTrappyLine);
 }
 
-void MainWindow::AddHill(std::vector<lib::Point> points) {
-  area_.Add(gui::Hill(points));
-  area_.Redraw();
-}
-
 void MainWindow::on_actionHill_triggered() {
   AddHillForm* adh = new AddHillForm;
   adh->show();
   connect(adh, &AddHillForm::AddHill, this, &MainWindow::AddHill);
-}
-
-void MainWindow::on_pushButtonAddHill_clicked() {
-  ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
-                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
 }
 
 void MainWindow::on_pushButtonEditObjects_clicked() {
@@ -99,20 +99,107 @@ void MainWindow::on_plot_MousePressed() {
   ui->plot->replot();
 }
 
+// Вызов окна, которое сообщает об изменениях в файле
+// и возвращает true, если окно было закрыто
+bool MainWindow::OpenMessageWindow(FileType file_type) {
+  switch (file_type) {
+    case FileType::UsualFile: {
+      QString text =
+          "Do you want save changes in file " + json_file_.GetFileName() + "?";
+      int ret = QMessageBox::question(
+          this, "Are you sure?", text,
+          QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+
+      switch (ret) {
+        case QMessageBox::Save:
+          json_file_.Save(area_);
+          break;
+        case QMessageBox::Discard:
+          break;
+        case QMessageBox::Cancel:
+        case QMessageBox::Close:
+          return true;
+          break;
+      }
+      break;
+    }
+    case FileType::UntitledFile: {
+      QString text = "Do you want save changes in file " +
+                     json_file_.GetUntitledFile() + '?';
+      int ret = QMessageBox::question(
+          this, "Are you sure?", text,
+          QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+      switch (ret) {
+        case QMessageBox::Save:
+          on_actionSave_as_triggered();
+          break;
+        case QMessageBox::Discard:
+          break;
+        case QMessageBox::Cancel:
+        case QMessageBox::Close:
+          return true;
+          break;
+      }
+      break;
+    }
+  }
+  return false;
+}
+
+// При закрытии приложения нужно проверить,
+// есть ли изменения в текущем файле
+void MainWindow::closeEvent(QCloseEvent* event) {
+  bool is_closed = false;
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_))
+    is_closed = OpenMessageWindow(FileType::UsualFile);
+  else if (!json_file_.IsExistsFile() &&
+           (area_.GetTargets().size() + area_.GetTrappyCircles().size() +
+            area_.GetTrappyLines().size() + area_.GetHills().size()) != 0)
+    is_closed = OpenMessageWindow(FileType::UntitledFile);
+  if (is_closed)
+    event->ignore();
+  else
+    event->accept();
+}
+
+// Кнопка "New"
+void MainWindow::on_actionNew_triggered() {
+  bool is_closed = false;
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_))
+    is_closed = OpenMessageWindow(FileType::UsualFile);
+  else if (!json_file_.IsExistsFile() &&
+           (area_.GetTargets().size() + area_.GetTrappyCircles().size() +
+            area_.GetTrappyLines().size() + area_.GetHills().size()) != 0)
+    is_closed = OpenMessageWindow(FileType::UntitledFile);
+
+  if (!is_closed) {
+    area_.Clear();
+    json_file_.Clear();
+  }
+}
+
+// Кнопка "Open"
 void MainWindow::on_actionOpen_triggered() {
-  QString file_name = QFileDialog::getOpenFileName(this, tr("Open"), "json",
-                                                   tr("File (*.json)"));
-  json_file_.SetFile(file_name);
-  json_file_.Open(area_);
-}
+  bool is_closed = false;
 
-void MainWindow::on_actionSave_as_triggered() {
-  QString file_name = QFileDialog::getSaveFileName(this, tr("Save as"), "json",
-                                                   tr("File (*.json)"));
-  json_file_.SetFile(file_name);
-  json_file_.Save(area_);
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_))
+    is_closed = OpenMessageWindow(FileType::UsualFile);
+  else if (!json_file_.IsExistsFile() &&
+           (area_.GetTargets().size() + area_.GetTrappyCircles().size() +
+            area_.GetTrappyLines().size() + area_.GetHills().size()) != 0)
+    is_closed = OpenMessageWindow(FileType::UntitledFile);
+  if (!is_closed) {
+    QString file_name =
+        QFileDialog::getOpenFileName(this, tr("Open"), "", tr("File (*.json)"));
+    json_file_.SetFile(file_name);
+    try {
+      json_file_.Open(area_);
+    } catch (...) {
+      QMessageBox::critical(this, "Damaged file", "Invalid format file!");
+    }
+  }
 }
-
+// Кнопка "Save"
 void MainWindow::on_actionSave_triggered() {
   if (!json_file_.IsExistsFile())
     on_actionSave_as_triggered();
@@ -120,24 +207,12 @@ void MainWindow::on_actionSave_triggered() {
     json_file_.Save(area_);
 }
 
-void MainWindow::on_actionNew_triggered() {
-  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_)) {
-    QString text =
-        "Do you want save changes in file " + json_file_.GetFileName() + "?";
-    int ret = QMessageBox::question(
-        this, "Are you sure?", text,
-        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-
-    switch (ret) {
-      case QMessageBox::Save:
-        json_file_.Save(area_);
-        break;
-      case QMessageBox::Discard:
-        break;
-      case QMessageBox::Cancel:
-        break;
-    }
-  }
+// Кнопка "Save as"
+void MainWindow::on_actionSave_as_triggered() {
+  QString file_name = QFileDialog::getSaveFileName(
+      this, tr("Save as"), json_file_.GetUntitledFile(), tr("File (*.json)"));
+  json_file_.SetFile(file_name);
+  json_file_.Save(area_);
 }
 
 void MainWindow::on_redrawPushButton_clicked() { area_.Redraw(); }

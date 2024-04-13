@@ -56,6 +56,7 @@ class PlotArea {
    * @param index: индекс в его векторе
    */
   void Remove(gui::GuiObjType obj_type, size_t index);
+  void Clear();
 
   // ----------------------   Target methods   ----------------------
 
