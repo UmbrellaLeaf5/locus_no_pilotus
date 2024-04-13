@@ -4,6 +4,19 @@
 
 namespace data_tools {
 
+void PlotArea::Setup(DataManager* manager, TablesConnection* t_connection) {
+  manager_.reset(manager);
+  t_connection_.reset(t_connection);
+}
+
+void PlotArea::SetSettingsTables(QTableWidget* targets_info,
+                                 QTableWidget* hills_info,
+                                 QTableWidget* tr_circles_info,
+                                 QTableWidget* tr_lines_info) {
+  t_connection_->SetSettingsTables(targets_info, hills_info, tr_circles_info,
+                                   tr_lines_info);
+}
+
 void PlotArea::Redraw() {
   plot_->clearPlottables();
   plot_->clearItems();

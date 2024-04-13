@@ -4,6 +4,11 @@
 
 namespace data_tools {
 
+void DataManager::Setup(PlotArea* area, TablesConnection* t_connection) {
+  area_.reset(area);
+  t_connection_.reset(t_connection);
+}
+
 void DataManager::Draw(gui::ObjectType obj_type, size_t index,
                        QCustomPlot* plot) {
   switch (obj_type) {

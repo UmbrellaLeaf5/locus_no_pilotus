@@ -4,6 +4,11 @@
 
 namespace data_tools {
 
+void TablesConnection::Setup(DataManager* manager, PlotArea* area) {
+  manager_.reset(manager);
+  area_.reset(area);
+}
+
 void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
   // кол-во столбцов = кол-во к.т.
   targets_table_->setColumnCount(targets.size());

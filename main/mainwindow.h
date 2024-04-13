@@ -61,7 +61,9 @@ class MainWindow : public QMainWindow {
 
  private:
   std::unique_ptr<data_tools::PlotArea> area_;
-  // std::unique_ptr<data_tools::DataManager> manager_;
+  std::unique_ptr<data_tools::DataManager> manager_;
+  std::unique_ptr<data_tools::TablesConnection> t_connection_;
+
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
 

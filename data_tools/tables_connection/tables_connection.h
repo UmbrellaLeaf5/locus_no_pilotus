@@ -3,18 +3,23 @@
 #include <QTableWidget>
 
 #include "data_tools/data_manager/data_manager.h"
+#include "data_tools/plot_area/plot_area.h"
+#include "gui/hill.h"
+#include "gui/target.h"
+#include "gui/trappy_circle.h"
+#include "gui/trappy_line.h"
 
 namespace data_tools {
+
+class PlotArea;
+class DataManager;
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TablesConnection : public QObject {
  public:
-  /**
-   * @brief инициализирует новый экземпляр Table Manager
-   * @param manager: ссылка на используемый DataManager
-   * (благодаря передаче по ссылке, может редактировать данные классов)
-   */
-  TablesConnection(DataManager* manager) : manager_{manager} {}
+  TablesConnection() = default;
+
+  void Setup(DataManager* manager, PlotArea* area);
 
   /**
    * @brief устанавливает значения всех таблиц с информацией
@@ -72,6 +77,7 @@ class TablesConnection : public QObject {
   std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
 
   std::unique_ptr<DataManager> manager_;
+  std::unique_ptr<PlotArea> area_;
 };
 
 }  // namespace data_tools

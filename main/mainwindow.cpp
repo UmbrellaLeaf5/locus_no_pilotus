@@ -5,13 +5,18 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      area_(new data_tools::PlotArea) {
+      area_(new data_tools::PlotArea),
+      manager_(new data_tools::DataManager),
+      t_connection_(new data_tools::TablesConnection) {
   ui->setupUi(this);
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
 
   connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
           SLOT(on_plot_MousePressed()));
+
+  area_->Setup(manager_.get(), t_connection_.get());
+  t_connection_->Setup(manager_.get(), area_.get());
 
   area_->SetPlot(ui->plot);
 
@@ -33,8 +38,6 @@ MainWindow::MainWindow(QWidget* parent)
     area_->Add(trc);
 
     area_->Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
-
-    // area_->Remove(gui::ObjectType::Targets, 0);
   }
 
   ui->plotSettingsDockWidget->setVisible(false);

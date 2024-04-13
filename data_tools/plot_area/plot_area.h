@@ -4,15 +4,24 @@
 
 #include "data_tools/data_manager/data_manager.h"
 #include "data_tools/tables_connection/tables_connection.h"
+#include "gui/hill.h"
+#include "gui/target.h"
+#include "gui/trappy_circle.h"
+#include "gui/trappy_line.h"
 
 namespace data_tools {
+
+class TablesConnection;
+class DataManager;
 
 /// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
  public:
-  PlotArea()
-      : manager_(new DataManager),
-        t_connection_(new TablesConnection(manager_.get())) {}
+  PlotArea() = default;
+
+  PlotArea(QCustomPlot* plot) : plot_{plot} {}
+
+  void Setup(DataManager* manager, TablesConnection* t_connection);
 
   // methods
 
@@ -46,10 +55,7 @@ class PlotArea {
    */
   void SetSettingsTables(QTableWidget* targets_info, QTableWidget* hills_info,
                          QTableWidget* tr_circles_info,
-                         QTableWidget* tr_lines_info) {
-    t_connection_->SetSettingsTables(targets_info, hills_info, tr_circles_info,
-                                     tr_lines_info);
-  }
+                         QTableWidget* tr_lines_info);
 
   /// @brief перерисовывает на полотне все объекты и обновляет данные
   void Redraw();
