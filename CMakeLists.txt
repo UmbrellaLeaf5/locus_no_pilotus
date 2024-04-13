@@ -21,6 +21,8 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Core PrintSupport REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Core PrintSupport REQUIRED)
 
 # ----------------------       Find Boost       ----------------------
+set(Boost_USE_STATIC_LIBS OFF)
+
 find_package(Boost REQUIRED COMPONENTS locale unit_test_framework)
 
 # ----------------------   Submodules folders   ----------------------
