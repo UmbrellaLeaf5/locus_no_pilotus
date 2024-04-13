@@ -2,6 +2,8 @@
 
 #include <icecream.hpp>
 
+namespace data_tools {
+
 void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
   // кол-во столбцов = кол-во к.т.
   targets_table_->setColumnCount(targets.size());
@@ -202,3 +204,5 @@ void TablesConnection::UpdateTablesConnections() {
                      &TablesConnection::TrappyLinesItemChanged);
   }
 }
+
+}  // namespace data_tools

@@ -7,9 +7,9 @@ class GuiJsonFile {
   GuiJsonFile() = default;
   GuiJsonFile(QFile* file) : file_{file} {};
 
-  void Save(PlotArea& plot_area);
+  void Save(data_tools::PlotArea& plot_area);
   void New();
-  void Open(PlotArea& plot_area);
+  void Open(data_tools::PlotArea& plot_area);
 
   QString GetFileName();
   QString GetUntitledFile() { return untitled_file_; }
@@ -21,7 +21,7 @@ class GuiJsonFile {
   bool IsExistsFile() {
     return (file_->fileName().size() != 0 && file_->exists());
   }
-  bool IsChanged(PlotArea& plot_area);
+  bool IsChanged(data_tools::PlotArea& plot_area);
 
  private:
   QFile* file_{new QFile};

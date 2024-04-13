@@ -5,6 +5,8 @@
 #include "../data_manager/data_manager.h"
 #include "../tables_connection/tables_connection.h"
 
+namespace data_tools {
+
 /// @brief класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
  public:
@@ -55,7 +57,7 @@ class PlotArea {
    * @param obj_type: тип объекта
    * @param index: индекс в его векторе
    */
-  void Remove(gui::GuiObjType obj_type, size_t index);
+  void Remove(gui::ObjectType obj_type, size_t index);
   void Clear();
 
   // ----------------------   Target methods   ----------------------
@@ -243,8 +245,10 @@ class PlotArea {
   std::unique_ptr<QLabel> tr_circles_label_{nullptr};
   std::unique_ptr<QLabel> tr_lines_label_{nullptr};
 
-  gui::DataManager manager_;
+  DataManager manager_;
   TablesConnection t_connection_;
 
   // ~vars
 };
+
+}  // namespace data_tools

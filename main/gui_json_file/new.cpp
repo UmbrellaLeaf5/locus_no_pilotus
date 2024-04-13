@@ -30,7 +30,7 @@ QJsonObject GuiJsonFile::LoadJson() {
   return json_file.object();
 }
 
-bool GuiJsonFile::IsChanged(PlotArea& plot_area) {
+bool GuiJsonFile::IsChanged(data_tools::PlotArea& plot_area) {
   file_->open(QIODevice::ReadOnly | QFile::Text);
   QJsonObject root = LoadJson();
 

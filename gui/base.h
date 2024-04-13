@@ -21,6 +21,6 @@ class Drawable {
 };
 
 // @brief типы объектов по категориям
-enum class GuiObjType { Targets, Hills, TrappyCircles, TrappyLines };
+enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
 
 }  // namespace gui

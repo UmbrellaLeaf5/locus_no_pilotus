@@ -2,29 +2,30 @@
 
 #include <icecream.hpp>
 
-namespace gui {
+namespace data_tools {
 
-void DataManager::Draw(GuiObjType obj_type, size_t index, QCustomPlot* plot) {
+void DataManager::Draw(gui::ObjectType obj_type, size_t index,
+                       QCustomPlot* plot) {
   switch (obj_type) {
-    case GuiObjType::Targets: {
+    case gui::ObjectType::Targets: {
       targets_[index].SetGraphIndex(plot->plottableCount());
       targets_[index].Draw(plot);
       break;
     }
 
-    case GuiObjType::Hills: {
+    case gui::ObjectType::Hills: {
       hills_[index].SetGraphIndex(plot->plottableCount());
       hills_[index].Draw(plot);
       break;
     }
 
-    case GuiObjType::TrappyCircles: {
+    case gui::ObjectType::TrappyCircles: {
       tr_circles_[index].SetItemIndex(plot->itemCount());
       tr_circles_[index].Draw(plot);
       break;
     }
 
-    case GuiObjType::TrappyLines: {
+    case gui::ObjectType::TrappyLines: {
       tr_lines_[index].SetGraphIndex(plot->plottableCount());
       tr_lines_[index].Draw(plot);
       break;
@@ -32,24 +33,24 @@ void DataManager::Draw(GuiObjType obj_type, size_t index, QCustomPlot* plot) {
   }
 }
 
-void DataManager::Remove(GuiObjType obj_type, size_t index) {
+void DataManager::Remove(gui::ObjectType obj_type, size_t index) {
   switch (obj_type) {
-    case GuiObjType::Targets: {
+    case gui::ObjectType::Targets: {
       targets_.erase(targets_.begin() + index);
       break;
     }
 
-    case GuiObjType::Hills: {
+    case gui::ObjectType::Hills: {
       hills_.erase(hills_.begin() + index);
       break;
     }
 
-    case GuiObjType::TrappyCircles: {
+    case gui::ObjectType::TrappyCircles: {
       tr_circles_.erase(tr_circles_.begin() + index);
       break;
     }
 
-    case GuiObjType::TrappyLines: {
+    case gui::ObjectType::TrappyLines: {
       tr_lines_.erase(tr_lines_.begin() + index);
       break;
     }
@@ -57,20 +58,20 @@ void DataManager::Remove(GuiObjType obj_type, size_t index) {
 }
 
 void DataManager::Clear() {
-  while (targets_.size() > 0) Remove(GuiObjType::Targets, 0);
+  while (targets_.size() > 0) Remove(gui::ObjectType::Targets, 0);
 
-  while (tr_circles_.size() > 0) Remove(GuiObjType::TrappyCircles, 0);
+  while (tr_circles_.size() > 0) Remove(gui::ObjectType::TrappyCircles, 0);
 
-  while (tr_lines_.size() > 0) Remove(GuiObjType::TrappyLines, 0);
+  while (tr_lines_.size() > 0) Remove(gui::ObjectType::TrappyLines, 0);
 
-  while (hills_.size() > 0) Remove(GuiObjType::Hills, 0);
+  while (hills_.size() > 0) Remove(gui::ObjectType::Hills, 0);
 }
 
-QString DataManager::GetTexted(GuiObjType obj_type) {
+QString DataManager::GetTexted(gui::ObjectType obj_type) {
   QString text;
 
   switch (obj_type) {
-    case GuiObjType::Targets: {
+    case gui::ObjectType::Targets: {
       text += "Targets on plot: \n";
       for (size_t i = 0; i < targets_.size(); i++) {
         auto target = targets_[i];
@@ -83,7 +84,7 @@ QString DataManager::GetTexted(GuiObjType obj_type) {
       break;
     }
 
-    case GuiObjType::Hills: {
+    case gui::ObjectType::Hills: {
       text += "Hills on plot: \n";
       for (size_t i = 0; i < hills_.size(); i++) {
         auto hill = hills_[i];
@@ -100,7 +101,7 @@ QString DataManager::GetTexted(GuiObjType obj_type) {
       break;
     }
 
-    case GuiObjType::TrappyCircles: {
+    case gui::ObjectType::TrappyCircles: {
       text += "Trappy circles on plot: \n";
       for (size_t i = 0; i < tr_circles_.size(); i++) {
         auto tr_circle = tr_circles_[i];
@@ -114,7 +115,7 @@ QString DataManager::GetTexted(GuiObjType obj_type) {
       break;
     }
 
-    case GuiObjType::TrappyLines: {
+    case gui::ObjectType::TrappyLines: {
       text += "Trappy lines on plot: \n";
       for (size_t i = 0; i < tr_lines_.size(); i++) {
         auto tr_line = tr_lines_[i];
@@ -277,4 +278,4 @@ void DataManager::Set(std::vector<lib::TrappyLine> tr_lines) {
     tr_lines_.push_back(gui::TrappyLine(tr_line));
 }
 
-}  // namespace gui
+}  // namespace data_tools

@@ -1,7 +1,7 @@
 #include "gui_json_file.h"
 
 std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
-                                            PlotArea& plot_area) {
+                                            data_tools::PlotArea& plot_area) {
   std::vector<lib::Target> targets;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Target t;
@@ -11,8 +11,8 @@ std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
   return targets;
 }
 
-std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(QJsonArray arr,
-                                                        PlotArea& plot_area) {
+std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
+    QJsonArray arr, data_tools::PlotArea& plot_area) {
   std::vector<lib::TrappyCircle> trappy_circles;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyCircle tc;
@@ -22,8 +22,8 @@ std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(QJsonArray arr,
   return trappy_circles;
 }
 
-std::vector<lib::TrappyLine> GetTrappyLinesFromFile(QJsonArray arr,
-                                                    PlotArea& plot_area) {
+std::vector<lib::TrappyLine> GetTrappyLinesFromFile(
+    QJsonArray arr, data_tools::PlotArea& plot_area) {
   std::vector<lib::TrappyLine> trappy_lines;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyLine tl;
@@ -33,7 +33,8 @@ std::vector<lib::TrappyLine> GetTrappyLinesFromFile(QJsonArray arr,
   return trappy_lines;
 }
 
-std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr, PlotArea& plot_area) {
+std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr,
+                                        data_tools::PlotArea& plot_area) {
   std::vector<lib::Hill> hills;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Hill h;
@@ -43,7 +44,7 @@ std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr, PlotArea& plot_area) {
   return hills;
 }
 
-void GuiJsonFile::Open(PlotArea& plot_area) {
+void GuiJsonFile::Open(data_tools::PlotArea& plot_area) {
   if (file_->open(QIODevice::ReadOnly | QFile::Text)) {
     QJsonObject root = LoadJson();
 

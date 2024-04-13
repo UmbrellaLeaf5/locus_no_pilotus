@@ -4,6 +4,8 @@
 
 #include "../data_manager/data_manager.h"
 
+namespace data_tools {
+
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TablesConnection : public QObject {
  public:
@@ -12,7 +14,7 @@ class TablesConnection : public QObject {
    * @param manager: ссылка на используемый DataManager
    * (благодаря передаче по ссылке, может редактировать данные классов)
    */
-  TablesConnection(gui::DataManager* manager) : manager_{manager} {}
+  TablesConnection(DataManager* manager) : manager_{manager} {}
 
   /**
    * @brief устанавливает значения всех таблиц с информацией
@@ -69,5 +71,7 @@ class TablesConnection : public QObject {
   std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
 
-  std::unique_ptr<gui::DataManager> manager_;
+  std::unique_ptr<DataManager> manager_;
 };
+
+}  // namespace data_tools

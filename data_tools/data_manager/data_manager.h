@@ -5,7 +5,7 @@
 #include "../../gui/trappy_circle.h"
 #include "../../gui/trappy_line.h"
 
-namespace gui {
+namespace data_tools {
 
 // @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
@@ -20,14 +20,14 @@ class DataManager {
    * @param index: индекс объекта в его векторе
    * @param plot: указатель на полотно
    */
-  void Draw(GuiObjType obj_type, size_t index, QCustomPlot* plot);
+  void Draw(gui::ObjectType obj_type, size_t index, QCustomPlot* plot);
 
   /**
    * @brief удаляет объект из менеджера по индексу
    * @param obj_type: тип объекта
    * @param index: индекс объекта в его векторе
    */
-  void Remove(GuiObjType obj_type, size_t index);
+  void Remove(gui::ObjectType obj_type, size_t index);
 
   void Clear();
 
@@ -36,7 +36,7 @@ class DataManager {
    * @param obj_type: тип объектов
    * @return QString: текст
    */
-  QString GetTexted(GuiObjType obj_type);
+  QString GetTexted(gui::ObjectType obj_type);
 
   // ----------------------   Target methods   ----------------------
 
@@ -177,4 +177,4 @@ class DataManager {
   std::vector<gui::TrappyLine> tr_lines_;
 };
 
-}  // namespace gui
+}  // namespace data_tools

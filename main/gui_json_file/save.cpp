@@ -1,6 +1,6 @@
 #include "gui_json_file.h"
 
-void GuiJsonFile::Save(PlotArea& plot_area) {
+void GuiJsonFile::Save(data_tools::PlotArea& plot_area) {
   if (file_->fileName().indexOf("Untitled") != -1) {
     QString file_name = file_->fileName();
     QString old_untitled = "";
