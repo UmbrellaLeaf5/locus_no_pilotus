@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../lib/target.h"
 #include "base.h"
+#include "lib/target.h"
+
 
 namespace gui {
 

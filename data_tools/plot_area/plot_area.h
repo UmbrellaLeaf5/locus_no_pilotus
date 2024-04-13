@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "../data_manager/data_manager.h"
-#include "../tables_connection/tables_connection.h"
+#include "data_tools/data_manager/data_manager.h"
+#include "data_tools/tables_connection/tables_connection.h"
 
 namespace data_tools {
 

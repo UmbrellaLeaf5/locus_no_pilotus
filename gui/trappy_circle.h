@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../lib/trappy_circle.h"
 #include "base.h"
+#include "lib/trappy_circle.h"
+
 
 namespace gui {
 

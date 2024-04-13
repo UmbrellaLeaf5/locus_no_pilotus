@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../lib/trappy_line.h"
+#include "lib/trappy_line.h"
 #include "target.h"
 
 namespace gui {

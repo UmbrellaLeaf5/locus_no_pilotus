@@ -2,10 +2,6 @@
 
 // здесь описаны все соединения кнопок со слотами
 
-#include "../gui/hill.h"
-#include "../gui/target.h"
-#include "../gui/trappy_circle.h"
-#include "../gui/trappy_line.h"
 #include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {

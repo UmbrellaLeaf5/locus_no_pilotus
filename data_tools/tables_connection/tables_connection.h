@@ -2,7 +2,7 @@
 
 #include <QTableWidget>
 
-#include "../data_manager/data_manager.h"
+#include "data_tools/data_manager/data_manager.h"
 
 namespace data_tools {
 

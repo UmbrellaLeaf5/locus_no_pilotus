@@ -2,11 +2,11 @@
 
 #include <QMainWindow>
 
-#include "../data_tools/plot_area/plot_area.h"
 #include "add_objects_forms/add_hill_form.h"
 #include "add_objects_forms/add_target_form.h"
 #include "add_objects_forms/add_trappy_circle_form.h"
 #include "add_objects_forms/add_trappy_line_form.h"
+#include "data_tools/plot_area/plot_area.h"
 #include "gui_json_file/gui_json_file.h"
 
 enum class FileType { UntitledFile, UsualFile };

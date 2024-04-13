@@ -5,6 +5,8 @@ project(main VERSION 0.1 LANGUAGES CXX)
 file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp" "*.ui"
   "${GUI_DIR}/*.h" "${GUI_DIR}/*.cpp" "${DATATOOLS_DIR}/*.h" "${DATATOOLS_DIR}/*.cpp")
 
+include_directories(${PROJECT_DIR})
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(main
     MANUAL_FINALIZATION
