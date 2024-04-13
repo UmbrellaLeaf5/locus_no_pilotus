@@ -1,3 +1,6 @@
 [submodule "icecream-cpp"]
 	path = icecream-cpp
 	url = https://github.com/renatoGarcia/icecream-cpp
+[submodule "qcustomplot"]
+	path = qcustomplot
+	url = https://github.com/legerch/QCustomPlot-library
