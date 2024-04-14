@@ -25,6 +25,9 @@ class TravellingSalesmansProblem {
   TravellingSalesmansProblem(AdjacencyMatrix& matrix,
                              std::size_t num_of_flyers);
 
+  // Возвращает длину оптимального маршрута
+  double GetTrajLength() const { return paths_len_; }
+
   // Возвращает оптимальный маршрут для данной задачи
   inline std::vector<std::size_t> GetTrajectory() {
     return CalculateTrajectory();
@@ -37,6 +40,9 @@ class TravellingSalesmansProblem {
   // Вектор с указателями на вершины графа
   // Отсортирован в порядке возрастания нижней оценки
   std::vector<std::shared_ptr<TSPNode>> paths_stack_;
+
+  // Длина получившегося маршрута
+  double paths_len_;
 
   // Ребра получившегося маршрута
   std::vector<Edge> edge_path_;

@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <algorithm>
 
 #include "../backend/littles_algorithm/adjacency_matrix.h"
 #include "../backend/littles_algorithm/travelling_salesmans_problem.h"
@@ -16,11 +17,21 @@ namespace utf = boost::unit_test;
 using namespace math;
 
 void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path) {
+  double len = 0;
+  for (std::size_t i = 0; i < path.size() - 1; ++i)
+    len += matrix.GetMatrixValue(path[i], path[i + 1]);
+  len += matrix.GetMatrixValue(path[path.size() - 1], 0);
+
   TravellingSalesmansProblem tsp(matrix);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
-  for (std::size_t i = 0; i < path.size(); ++i) {
-    BOOST_TEST(path[i] == traj[i]);
+  double traj_len = tsp.GetTrajLength();
+
+  for (std::size_t i = 0; i < traj.size(); ++i) {
+    bool is_found = (std::find(traj.begin(), traj.end(), i) != traj.end());
+    BOOST_TEST(is_found);
   }
+  BOOST_TEST(path.size() == traj.size());
+  BOOST_TEST(len == traj_len);
 }
 
 BOOST_AUTO_TEST_SUITE(tsp_random)

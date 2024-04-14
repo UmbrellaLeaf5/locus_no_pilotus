@@ -17,11 +17,27 @@ using namespace math;
 
 void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path,
                 std::size_t num_of_flyers) {
+  double len = 0;
+  for (std::size_t i = 0; i < path.size() - 1; ++i)
+    if (path[i] || path[i + 1])
+      len += matrix.GetMatrixValue(path[i], path[i + 1]);
+  if (path[path.size() - 1])
+    len += matrix.GetMatrixValue(path[path.size() - 1], 0);
+
   TravellingSalesmansProblem tsp(matrix, num_of_flyers);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
-  for (std::size_t i = 0; i < path.size(); ++i) {
-    BOOST_TEST(path[i] == traj[i]);
+  double traj_len = tsp.GetTrajLength();
+
+  for (std::size_t i = 0; i < traj.size() - num_of_flyers; ++i) {
+    bool is_found = (std::find(traj.begin(), traj.end(), i) != traj.end());
+    BOOST_TEST(is_found);
   }
+  std::size_t zero_count = 0;
+  for (std::size_t i = 0; i < traj.size(); ++i)
+    if (!traj[i]) ++zero_count;
+  BOOST_TEST(num_of_flyers == zero_count);
+  BOOST_TEST(path.size() == traj.size());
+  BOOST_TEST(len == traj_len);
 }
 
 BOOST_AUTO_TEST_SUITE(many_tsp_random)
@@ -119,7 +135,7 @@ BOOST_AUTO_TEST_CASE(many_tsp_symm_obstacle_wise_4x4) {
                                         {661, inf, 301, 887},
                                         {18, 301, inf, inf},
                                         {637, 887, inf, inf}});
-  std::vector<std::size_t> path = {0, 2, 1, 3};
+  std::vector<std::size_t> path = {0, 2, 1, 3, 0};
   std::size_t num_of_flyers = 2;
   CHECK_PATH(matrix, path, num_of_flyers);
 }
@@ -149,7 +165,7 @@ BOOST_AUTO_TEST_CASE(tsp_symm_obstacle_wise_10x10) {
        {26, inf, inf, 119, inf, 380, 477, inf, 369, 422},
        {492, inf, inf, inf, inf, 90, inf, 369, inf, 377},
        {62, inf, 446, 330, 406, 189, 379, 422, 377, inf}});
-  std::vector<std::size_t> path = {0, 2, 6, 4, 1, 3, 7, 0, 9, 8};
+  std::vector<std::size_t> path = {0, 2, 6, 4, 1, 3, 7, 0, 9, 8, 5};
   std::size_t num_of_flyers = 2;
   CHECK_PATH(matrix, path, num_of_flyers);
 }

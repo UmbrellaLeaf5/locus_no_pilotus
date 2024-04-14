@@ -1,7 +1,9 @@
 #include "travelling_salesmans_problem.h"
 
 #include <map>
+
 namespace math {
+
 TravellingSalesmansProblem::TravellingSalesmansProblem(AdjacencyMatrix& m) {
   paths_stack_.push_back(std::make_shared<TSPNode>(m));
   if (m.GetSize() == 2) CompleteEdgePath(paths_stack_[0]);
@@ -164,6 +166,7 @@ std::vector<std::size_t> TravellingSalesmansProblem::ConvertToVertexPath() {
 
 std::vector<std::size_t> TravellingSalesmansProblem::CalculateTrajectory() {
   while (paths_stack_[0]->matrix.GetSize() > 2) ExpandStack();
+  paths_len_ = paths_stack_[0]->evaluation;
   edge_path_ = paths_stack_[0]->path;
   return ConvertToVertexPath();
 }

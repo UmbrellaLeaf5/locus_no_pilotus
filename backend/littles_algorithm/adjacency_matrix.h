@@ -5,7 +5,7 @@
 
 namespace math {
 
-#define inf std::numeric_limits<double>::infinity()
+constexpr double inf = std::numeric_limits<double>::infinity();
 
 /// @brief структура для хранения двух минимумов строки/столбца
 struct Minimums {
