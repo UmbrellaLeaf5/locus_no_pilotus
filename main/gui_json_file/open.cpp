@@ -5,9 +5,10 @@ std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
   std::vector<lib::Target> targets;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Target t;
-    t.Load(arr.at(i).toObject());
+    t.Save(arr.at(i).toObject());
     targets.push_back(t);
   }
+
   return targets;
 }
 
@@ -16,9 +17,10 @@ std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
   std::vector<lib::TrappyCircle> trappy_circles;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyCircle tc;
-    tc.Load(arr.at(i).toObject());
+    tc.Save(arr.at(i).toObject());
     trappy_circles.push_back(tc);
   }
+
   return trappy_circles;
 }
 
@@ -27,9 +29,10 @@ std::vector<lib::TrappyLine> GetTrappyLinesFromFile(
   std::vector<lib::TrappyLine> trappy_lines;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyLine tl;
-    tl.Load(arr.at(i).toObject());
+    tl.Save(arr.at(i).toObject());
     trappy_lines.push_back(tl);
   }
+
   return trappy_lines;
 }
 
@@ -38,9 +41,10 @@ std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr,
   std::vector<lib::Hill> hills;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Hill h;
-    h.Load(arr.at(i).toObject());
+    h.Save(arr.at(i).toObject());
     hills.push_back(h);
   }
+
   return hills;
 }
 
@@ -48,9 +52,8 @@ void GuiJsonFile::Open(data_tools::DataManager* manager) {
   if (file_->open(QIODevice::ReadOnly | QFile::Text)) {
     QJsonObject root = LoadJson();
 
-    if (root.contains("Targets") + root.contains("Trappy_Circles") +
-            root.contains("Trappy_Lines") + root.contains("Hills") !=
-        4)
+    if (!(root.contains("Targets") && root.contains("Trappy_Circles") &&
+          root.contains("Trappy_Lines") && root.contains("Hills")))
       throw std::invalid_argument("");
 
     QJsonArray json_targets = root["Targets"].toArray();

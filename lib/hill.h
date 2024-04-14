@@ -39,9 +39,9 @@ class Hill : public JSONable {
   Hill& operator=(const Hill&) = default;
   Hill& operator=(Hill&&) = default;
 
-  QJsonObject Save(int id) const override;
-  void Load(QJsonObject hill_obj) override;
-  bool IsChanged(QJsonObject hill_obj) override;
+  QJsonObject Load(int id) const override;
+  void Save(const QJsonObject& hill_obj) override;
+  bool IsChanged(const QJsonObject& hill_obj) const override;
 
   Point GetCenter() const;
   double GetRadius() const;

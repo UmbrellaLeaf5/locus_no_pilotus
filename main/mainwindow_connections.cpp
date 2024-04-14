@@ -23,9 +23,9 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
 
   manager_->Add(t1);
   manager_->Add(t2);
-  area_->Redraw();
 
   manager_->Add(gui::TrappyLine({t1, t2}));
+
   area_->Redraw();
 }
 
@@ -97,7 +97,7 @@ void MainWindow::on_plot_MousePressed() {
 
 // Вызов окна, которое сообщает об изменениях в файле
 // и возвращает true, если окно было закрыто
-bool MainWindow::OpenMessageWindow(FileType file_type) {
+bool MainWindow::OpenMessageWindow(const FileType& file_type) {
   switch (file_type) {
     case FileType::UsualFile: {
       QString text =
@@ -110,8 +110,10 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
         case QMessageBox::Save:
           json_file_.Save(manager_.get());
           break;
+
         case QMessageBox::Discard:
           break;
+
         case QMessageBox::Cancel:
         case QMessageBox::Close:
           return true;
@@ -119,6 +121,7 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
       }
       break;
     }
+
     case FileType::UntitledFile: {
       QString text = "Do you want save changes in file " +
                      json_file_.GetUntitledFile() + '?';
@@ -129,8 +132,10 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
         case QMessageBox::Save:
           on_actionSave_as_triggered();
           break;
+
         case QMessageBox::Discard:
           break;
+
         case QMessageBox::Cancel:
         case QMessageBox::Close:
           return true;
@@ -146,13 +151,16 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
 // есть ли изменения в текущем файле
 void MainWindow::closeEvent(QCloseEvent* event) {
   bool is_closed = false;
+
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
     is_closed = OpenMessageWindow(FileType::UsualFile);
+
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
                                           manager_->GetHills().size()) != 0)
     is_closed = OpenMessageWindow(FileType::UntitledFile);
+
   if (is_closed)
     event->ignore();
   else
@@ -162,8 +170,10 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 // Кнопка "New"
 void MainWindow::on_actionNew_triggered() {
   bool is_closed = false;
+
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
     is_closed = OpenMessageWindow(FileType::UsualFile);
+
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
@@ -184,27 +194,33 @@ void MainWindow::on_actionOpen_triggered() {
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
     is_closed = OpenMessageWindow(FileType::UsualFile);
+
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
                                           manager_->GetHills().size()) != 0)
     is_closed = OpenMessageWindow(FileType::UntitledFile);
+
   if (!is_closed) {
     QString file_name =
         QFileDialog::getOpenFileName(this, tr("Open"), "", tr("File (*.json)"));
     json_file_.SetFile(file_name);
+
     try {
       json_file_.Open(manager_.get());
       area_->Redraw();
+
     } catch (...) {
       QMessageBox::critical(this, "Damaged file", "Invalid format file!");
     }
   }
 }
+
 // Кнопка "Save"
 void MainWindow::on_actionSave_triggered() {
   if (!json_file_.IsExistsFile())
     on_actionSave_as_triggered();
+
   else
     json_file_.Save(manager_.get());
 }
@@ -213,6 +229,7 @@ void MainWindow::on_actionSave_triggered() {
 void MainWindow::on_actionSave_as_triggered() {
   QString file_name = QFileDialog::getSaveFileName(
       this, tr("Save as"), json_file_.GetUntitledFile(), tr("File (*.json)"));
+
   json_file_.SetFile(file_name);
   json_file_.Save(manager_.get());
 }

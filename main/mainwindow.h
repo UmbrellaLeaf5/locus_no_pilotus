@@ -67,5 +67,5 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
 
-  bool OpenMessageWindow(FileType file_type);
+  bool OpenMessageWindow(const FileType& file_type);
 };

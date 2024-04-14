@@ -33,7 +33,7 @@ void TrappyLine::SetNewTargets(std::vector<Target> targets) {
   targets_ = targets;
 }
 
-QJsonObject TrappyLine::Save(int id) const {
+QJsonObject TrappyLine::Load(int id) const {
   QVariantMap trappy_line_map;
   QVariantMap p1_map;
   QVariantMap p2_map;
@@ -51,7 +51,7 @@ QJsonObject TrappyLine::Save(int id) const {
   return QJsonObject::fromVariantMap(trappy_line_map);
 }
 
-void TrappyLine::Load(QJsonObject trappy_line_obj) {
+void TrappyLine::Save(const QJsonObject& trappy_line_obj) {
   if (!(trappy_line_obj.contains("P1") && trappy_line_obj.contains("P2")))
     throw std::invalid_argument("");
 
@@ -67,7 +67,7 @@ void TrappyLine::Load(QJsonObject trappy_line_obj) {
   SetNewTargets({{x1, y1}, {x2, y2}});
 }
 
-bool TrappyLine::IsChanged(QJsonObject trappy_line_obj) {
+bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
   QJsonObject p1_obj = trappy_line_obj.value("P1").toObject();
   QJsonObject p2_obj = trappy_line_obj.value("P2").toObject();
   Point p1 = {p1_obj.value("X").toDouble(), p1_obj.value("Y").toDouble()};

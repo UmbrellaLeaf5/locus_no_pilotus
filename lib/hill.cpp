@@ -11,7 +11,7 @@ Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
     throw std::invalid_argument("hill cannot consist of one or zero points");
 }
 
-QJsonObject Hill::Save(int id) const {
+QJsonObject Hill::Load(int id) const {
   QVariantMap hill_map;
   hill_map.insert("Id", id);
 
@@ -27,7 +27,7 @@ QJsonObject Hill::Save(int id) const {
   return QJsonObject::fromVariantMap(hill_map);
 }
 
-void Hill::Load(QJsonObject hill_obj) {
+void Hill::Save(const QJsonObject& hill_obj) {
   if (!hill_obj.contains("Vertices")) throw std::invalid_argument("");
   QJsonArray vertices_array = hill_obj.value("Vertices").toArray();
   for (size_t i = 0; i < vertices_array.size(); i++) {
@@ -41,7 +41,7 @@ void Hill::Load(QJsonObject hill_obj) {
   }
 }
 
-bool Hill::IsChanged(QJsonObject hill_obj) {
+bool Hill::IsChanged(const QJsonObject& hill_obj) const {
   for (size_t i = 1; i < hill_obj.size(); i++) {
     QJsonObject json_p = hill_obj.value("P" + QString::number(i)).toObject();
     lib::Point p = {json_p.value("X").toDouble(), json_p.value("Y").toDouble()};

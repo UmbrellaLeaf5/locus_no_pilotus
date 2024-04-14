@@ -33,9 +33,9 @@ class TrappyLine : public JSONable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
-  QJsonObject Save(int id) const override;
-  void Load(QJsonObject trappy_line_obj) override;
-  bool IsChanged(QJsonObject trappy_line_obj) override;
+  QJsonObject Load(int id) const override;
+  void Save(const QJsonObject& trappy_line_obj) override;
+  bool IsChanged(const QJsonObject& trappy_line_obj) const override;
 
   void SetNewTargets(std::initializer_list<Target> targets);
 
