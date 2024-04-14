@@ -12,6 +12,13 @@ class DataManager {
  public:
   DataManager() = default;
 
+  /**
+   * @brief удаляет объект из менеджера по индексу
+   * @param obj_type: тип объекта
+   * @param index: индекс объекта в его векторе
+   */
+  void Remove(gui::ObjectType obj_type, size_t index);
+
   /// @brief очищает все вектора объектов
   void Clear();
 
