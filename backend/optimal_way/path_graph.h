@@ -88,8 +88,8 @@ class Dijkstras_algorithm {
   // Возвращает длину кратчайшего пути
   double Get_Min_Len() const { return min_length_; }
 
-  // Возвращает последовательность точек для GUI
-  // Get_Min_Path();
+  // Возвращает кратчайший путь
+  std::vector<std::size_t> Get_Min_Path() const { return min_path_; }
 
  private:
   // Номер первой точки
@@ -103,6 +103,9 @@ class Dijkstras_algorithm {
 
   // Длина кратчайшего пути из start_ в end_
   double min_length_;
+
+  // Кратчайший маршрут из start_ в end_
+  std::vector<std::size_t> min_path_;
 
   // Кратчайшие найденные растояния до рассматриваемых вершин
   std::map<std::size_t, double> graphs_vertex_;

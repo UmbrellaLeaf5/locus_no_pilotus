@@ -1,5 +1,7 @@
 #include "path_graph.h"
 
+#include <algorithm>
+
 namespace math {
 
 void Dijkstras_algorithm::Calculate_Min_Path() {
@@ -29,6 +31,21 @@ void Dijkstras_algorithm::Calculate_Min_Path() {
           (!(*path_nodes_[elem.first]).is_visited))
         min_length_ = elem.second;
   }
+
+  // Определение маршрута по длинам, сохранившимся в graphs_vertex_
+  std::size_t end = second_point_;
+  min_path_.push_back(end);
+  while (end != first_point_) {
+    for (std::size_t i = 0; i < (*path_nodes_[end]).edges.size(); ++i)
+      if (graphs_vertex_[(*path_nodes_[end]).number] ==
+          graphs_vertex_[(*(*path_nodes_[end]).edges[i]).number] +
+              (*path_nodes_[end]).edges_lens[i]) {
+        end = (*(*path_nodes_[end]).edges[i]).number;
+        min_path_.push_back(end);
+        break;
+      }
+  }
+  std::reverse(min_path_.begin(), min_path_.end());
 }
 
 }  // namespace math
