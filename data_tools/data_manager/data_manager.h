@@ -12,8 +12,6 @@ class DataManager {
  public:
   DataManager() = default;
 
-  // methods
-
   /**
    * @brief отрисовывает на полотне объект по индексу
    * @param obj_type: тип объекта
@@ -155,9 +153,8 @@ class DataManager {
     return tr_lines_;
   }
 
-  // ~methods
-
  private:
+  // TODO: переп. всё на указатели, чтобы исправить проблему c изменением копий
   std::vector<gui::Hill> hills_;
   std::vector<gui::Target> targets_;
   std::vector<gui::TrappyCircle> tr_circles_;

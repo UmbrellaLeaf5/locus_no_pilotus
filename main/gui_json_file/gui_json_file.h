@@ -2,6 +2,8 @@
 
 #include "data_tools/plot_area/plot_area.h"
 
+// TODO: исправить добавление TrappyLines вместо точек на Targets id
+
 class GuiJsonFile {
  public:
   GuiJsonFile() = default;

@@ -36,6 +36,8 @@ class TrappyLine : public JSONable {
     return std::make_pair(*targets_.first, *targets_.second);
   }
 
+  std::pair<Target*, Target*>& GetTargetsPtrs() { return targets_; }
+
  private:
   std::pair<Target*, Target*> targets_;
 };
