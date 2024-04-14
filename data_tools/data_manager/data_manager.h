@@ -12,14 +12,6 @@ class DataManager {
  public:
   DataManager() = default;
 
-  /**
-   * @brief отрисовывает на полотне объект по индексу
-   * @param obj_type: тип объекта
-   * @param index: индекс объекта в его векторе
-   * @param plot: указатель на полотно
-   */
-  void Draw(gui::ObjectType obj_type, size_t index, QCustomPlot* plot);
-
   /// @brief очищает все вектора объектов
   void Clear();
 
