@@ -4,10 +4,7 @@
 
 namespace data_tools {
 
-void PlotArea::Setup(DataManager* manager, TablesConnection* t_connection) {
-  manager_.reset(manager);
-  t_connection_.reset(t_connection);
-}
+void PlotArea::Setup(DataManager* manager) { manager_.reset(manager); }
 
 void PlotArea::Redraw() {
   plot_->clearPlottables();
@@ -25,7 +22,6 @@ void PlotArea::Redraw() {
   for (size_t i = 0; i < manager_->GetTrappyLines().size(); i++)
     manager_->Draw(gui::ObjectType::TrappyLines, i, plot_.get());
 
-  t_connection_->UpdateTables();
   plot_->replot();
 }
 

@@ -2,17 +2,9 @@
 
 #include <QTableWidget>
 
-#include "data_tools/data_manager/data_manager.h"
 #include "data_tools/plot_area/plot_area.h"
-#include "gui/hill.h"
-#include "gui/target.h"
-#include "gui/trappy_circle.h"
-#include "gui/trappy_line.h"
 
 namespace data_tools {
-
-class PlotArea;
-class DataManager;
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
 class TablesConnection : public QObject {

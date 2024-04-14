@@ -1,7 +1,5 @@
 #pragma once
 
-#include "data_tools/plot_area/plot_area.h"
-#include "data_tools/tables_connection/tables_connection.h"
 #include "gui/hill.h"
 #include "gui/target.h"
 #include "gui/trappy_circle.h"
@@ -9,15 +7,10 @@
 
 namespace data_tools {
 
-class PlotArea;
-class TablesConnection;
-
 // @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
  public:
   DataManager() = default;
-
-  void Setup(PlotArea* area, TablesConnection* t_connection);
 
   // methods
 
@@ -169,9 +162,6 @@ class DataManager {
   std::vector<gui::Target> targets_;
   std::vector<gui::TrappyCircle> tr_circles_;
   std::vector<gui::TrappyLine> tr_lines_;
-
-  std::unique_ptr<PlotArea> area_;
-  std::unique_ptr<TablesConnection> t_connection_;
 };
 
 }  // namespace data_tools

@@ -39,6 +39,8 @@ void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
       targets_table_->setItem(2, i, item);
     }
     targets_table_->update();
+  } else {
+    targets_table_->setColumnCount(0);
   }
 }
 
@@ -94,6 +96,8 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
       }
     }
     hills_table_->update();
+  } else {
+    hills_table_->setColumnCount(0);
   }
 }
 
@@ -143,6 +147,8 @@ void TablesConnection::UpdateTable(
       tr_lines_table_->setItem(4, i, item);
     }
     tr_lines_table_->update();
+  } else {
+    tr_lines_table_->setColumnCount(0);
   }
 }
 
@@ -185,6 +191,8 @@ void TablesConnection::UpdateTable(
       tr_circles_table_->setItem(3, i, item);
     }
     tr_circles_table_->update();
+  } else {
+    tr_circles_table_->setColumnCount(0);
   }
 }
 
@@ -204,13 +212,13 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
     manager_->GetTargets()[column].SetPoint(x_item->text().toDouble(),
                                             y_item->text().toDouble());
 
-    // area_->Redraw();
+    area_->Redraw();
   }
 }
 
 void TablesConnection::HillsItemChanged(int row, int column) {
   if (column < manager_->GetHills().size()) {
-    // area_->Redraw();
+    area_->Redraw();
   }
 }
 
@@ -225,13 +233,13 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
         {x_item->text().toDouble(), y_item->text().toDouble()});
     manager_->GetTrappyCircles()[column].SetRadius(r_item->text().toDouble());
 
-    // area_->Redraw();
+    area_->Redraw();
   }
 }
 
 void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   if (column < manager_->GetTrappyLines().size()) {
-    // area_->Redraw();
+    area_->Redraw();
   }
 }
 

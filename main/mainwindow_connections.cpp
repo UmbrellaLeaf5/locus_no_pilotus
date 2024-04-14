@@ -2,16 +2,20 @@
 
 // здесь описаны все соединения кнопок со слотами
 
+#include <icecream.hpp>
+
 #include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {
   manager_->Add(gui::Target(x, y));
   area_->Redraw();
+  t_connection_->UpdateTables();
 }
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
   manager_->Add(gui::TrappyCircle(x, y, radius));
   area_->Redraw();
+  t_connection_->UpdateTables();
 }
 
 void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
@@ -27,11 +31,13 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   manager_->Add(gui::TrappyLine(&t1, &t2));
 
   area_->Redraw();
+  t_connection_->UpdateTables();
 }
 
 void MainWindow::AddHill(std::vector<lib::Point> points) {
   manager_->Add(gui::Hill(points));
   area_->Redraw();
+  t_connection_->UpdateTables();
 }
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
@@ -144,6 +150,7 @@ bool MainWindow::OpenMessageWindow(const FileType& file_type) {
       break;
     }
   }
+
   return false;
 }
 
@@ -181,10 +188,12 @@ void MainWindow::on_actionNew_triggered() {
     is_closed = OpenMessageWindow(FileType::UntitledFile);
 
   if (!is_closed) {
+    IC();
     manager_->Clear();
     json_file_.Clear();
 
     area_->Redraw();
+    t_connection_->UpdateTables();
   }
 }
 
@@ -209,6 +218,7 @@ void MainWindow::on_actionOpen_triggered() {
     try {
       json_file_.Open(manager_.get());
       area_->Redraw();
+      t_connection_->UpdateTables();
 
     } catch (...) {
       QMessageBox::critical(this, "Damaged file", "Invalid format file!");
@@ -234,4 +244,7 @@ void MainWindow::on_actionSave_as_triggered() {
   json_file_.Save(manager_.get());
 }
 
-void MainWindow::on_redrawPushButton_clicked() { area_->Redraw(); }
+void MainWindow::on_redrawPushButton_clicked() {
+  area_->Redraw();
+  t_connection_->UpdateTables();
+}

@@ -17,9 +17,8 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
           SLOT(on_plot_MousePressed()));
 
-  area_->Setup(manager_.get(), t_connection_.get());
+  area_->Setup(manager_.get());
   t_connection_->Setup(manager_.get(), area_.get());
-  manager_->Setup(area_.get(), t_connection_.get());
 
   area_->SetPlot(ui->plot);
 
@@ -28,8 +27,6 @@ MainWindow::MainWindow(QWidget* parent)
   t_connection_->SetSettingsTables(
       ui->targetInfoTableWidget, ui->hillInfoTableWidget,
       ui->trappyCircleInfoTableWidget, ui->trappyLineInfoTableWidget);
-
-  area_->Redraw();
 }
 
 MainWindow::~MainWindow() { delete ui; }

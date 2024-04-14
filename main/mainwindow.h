@@ -6,7 +6,9 @@
 #include "add_objects_forms/add_target_form.h"
 #include "add_objects_forms/add_trappy_circle_form.h"
 #include "add_objects_forms/add_trappy_line_form.h"
+#include "data_tools/data_manager/data_manager.h"
 #include "data_tools/plot_area/plot_area.h"
+#include "data_tools/tables_connection/tables_connection.h"
 #include "gui_json_file/gui_json_file.h"
 
 enum class FileType { UntitledFile, UsualFile };
