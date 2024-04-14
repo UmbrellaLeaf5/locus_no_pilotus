@@ -50,12 +50,23 @@ class Hill : public Drawable {
 
   void Draw(QCustomPlot* plot) override;
 
+  /**
+   * @brief возвращает индекс на полотне [plottable]
+   * @return size_t: индекс
+   */
   size_t GetPlottableIndex() const { return plottable_index_; }
+
+  /**
+   * @brief возвращает значение указателя на полотне
+   * @return QCPGraph*: указатель
+   */
+  QCPCurve* GetCurvePtr() const { return curve_; }
 
  private:
   lib::Hill data_;
   QColor color_;
   size_t plottable_index_{ULLONG_MAX};
+  QCPCurve* curve_{nullptr};
 };
 
 }  // namespace gui

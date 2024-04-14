@@ -28,11 +28,22 @@ class Target : public Drawable {
 
   void Draw(QCustomPlot* plot) override;
 
+  /**
+   * @brief возвращает индекс на полотне [plottable]
+   * @return size_t: индекс
+   */
   size_t GetPlottableIndex() const { return plottable_index_; }
+
+  /**
+   * @brief возвращает значение указателя на полотне
+   * @return QCPGraph*: указатель
+   */
+  QCPGraph* GetGraphPtr() const { return graph_; }
 
  private:
   lib::Target data_;
   size_t plottable_index_{ULLONG_MAX};
+  QCPGraph* graph_{nullptr};
 };
 
 }  // namespace gui

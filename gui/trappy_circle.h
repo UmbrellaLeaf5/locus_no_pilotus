@@ -38,12 +38,23 @@ class TrappyCircle : public Drawable {
 
   void Draw(QCustomPlot* plot) override;
 
+  /**
+   * @brief возвращает индекс на полотне [item]
+   * @return size_t: индекс
+   */
   size_t GetItemIndex() const { return item_index_; }
+
+  /**
+   * @brief возвращает значение указателя на полотне
+   * @return QCPItemEllipse*: указатель
+   */
+  QCPItemEllipse* GetItemEllipsePtr() const { return ellipse_; }
 
  private:
   lib::TrappyCircle data_;
   QColor color_;
   size_t item_index_{ULLONG_MAX};
+  QCPItemEllipse* ellipse_{nullptr};
 };
 
 }  // namespace gui

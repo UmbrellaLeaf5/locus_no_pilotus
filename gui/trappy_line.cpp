@@ -14,20 +14,20 @@ void TrappyLine::Draw(QCustomPlot* plot) {
   // фигура представляет собой пунктирное красное соединение между
   // заданными контрольными точками (причем эти точки выделяются)
 
-  auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
+  graph_ = plot->addGraph(plot->xAxis, plot->yAxis);
 
   QPen pen;
   pen.setColor(QColor(200, 50, 50, 255));
   pen.setStyle(Qt::DashLine);
-  graph->setPen(pen);
+  graph_->setPen(pen);
 
-  graph->setLineStyle(QCPGraph::lsLine);
-  graph->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 8));
+  graph_->setLineStyle(QCPGraph::lsLine);
+  graph_->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 8));
 
   auto targets = data_.GetTargets();
 
   for (int i = 0; i < targets.size(); i++) {
-    graph->addData({targets[i].GetPoint().x}, {targets[i].GetPoint().y});
+    graph_->addData({targets[i].GetPoint().x}, {targets[i].GetPoint().y});
   }
 
   // индекс последнего созданного = кол-во всех - 1
