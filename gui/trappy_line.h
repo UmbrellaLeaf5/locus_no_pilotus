@@ -29,10 +29,9 @@ class TrappyLine : public Drawable {
   std::vector<lib::Target> GetTargets() const { return data_.GetTargets(); }
   lib::TrappyLine GetData() const { return data_; }
 
-  void Draw(QCustomPlot* plot) const override;
+  void Draw(QCustomPlot* plot) override;
 
-  size_t GetPlottableIndex() const { return graph_index_; }
-  void SetGraphIndex(size_t index) { graph_index_ = index; }
+  size_t GetPlottableIndex() const { return plottable_index_; }
 
  private:
   /**
@@ -48,7 +47,7 @@ class TrappyLine : public Drawable {
   void AddData(std::initializer_list<gui::Target> targets);
 
   lib::TrappyLine data_;
-  size_t graph_index_{ULLONG_MAX};
+  size_t plottable_index_{ULLONG_MAX};
 };
 
 }  // namespace gui

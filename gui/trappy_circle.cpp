@@ -1,6 +1,6 @@
 #include "trappy_circle.h"
 
-void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
+void gui::TrappyCircle::Draw(QCustomPlot* plot) {
   // фигура представляет собой красный круг с полупрозрачной заливкой
   // (красный по умолчанию, однако цвет задаётся в аргументах конструктора)
 
@@ -14,4 +14,7 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) const {
                               GetCenter().y + GetRadius());
   ellipse->bottomRight->setCoords(GetCenter().x + GetRadius(),
                                   GetCenter().y - GetRadius());
+
+  // индекс последнего созданного = кол-во всех - 1
+  item_index_ = plot->itemCount() - 1;
 }

@@ -3,7 +3,6 @@
 #include "base.h"
 #include "lib/trappy_circle.h"
 
-
 namespace gui {
 
 /// @brief фигура опасной зоны
@@ -37,10 +36,9 @@ class TrappyCircle : public Drawable {
   void SetCenter(const lib::Point& center) { data_.SetCenter(center); }
   void SetRadius(double radius) { data_.SetRadius(radius); }
 
-  void Draw(QCustomPlot* plot) const override;
+  void Draw(QCustomPlot* plot) override;
 
   size_t GetItemIndex() const { return item_index_; }
-  void SetItemIndex(size_t index) { item_index_ = index; }
 
  private:
   lib::TrappyCircle data_;

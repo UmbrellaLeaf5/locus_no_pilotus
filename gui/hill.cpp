@@ -1,6 +1,6 @@
 #include "hill.h"
 
-void gui::Hill::Draw(QCustomPlot* plot) const {
+void gui::Hill::Draw(QCustomPlot* plot) {
   // фигура представляет собой зеленый многоугольник с полупрозрачной заливкой
   // (зеленый по умолчанию, однако цвет задаётся в аргументах конструктора)
 
@@ -24,4 +24,7 @@ void gui::Hill::Draw(QCustomPlot* plot) const {
 
   // замыкаем, соединяя с первой точкой
   curve->addData({points[0].x}, {points[0].y});
+
+  // индекс последнего созданного = кол-во всех - 1
+  plottable_index_ = plot->plottableCount() - 1;
 }

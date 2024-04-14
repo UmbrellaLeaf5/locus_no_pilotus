@@ -13,25 +13,21 @@ void DataManager::Draw(gui::ObjectType obj_type, size_t index,
                        QCustomPlot* plot) {
   switch (obj_type) {
     case gui::ObjectType::Targets: {
-      targets_[index].SetGraphIndex(plot->plottableCount());
       targets_[index].Draw(plot);
       break;
     }
 
     case gui::ObjectType::Hills: {
-      hills_[index].SetGraphIndex(plot->plottableCount());
       hills_[index].Draw(plot);
       break;
     }
 
     case gui::ObjectType::TrappyCircles: {
-      tr_circles_[index].SetItemIndex(plot->itemCount());
       tr_circles_[index].Draw(plot);
       break;
     }
 
     case gui::ObjectType::TrappyLines: {
-      tr_lines_[index].SetGraphIndex(plot->plottableCount());
       tr_lines_[index].Draw(plot);
       break;
     }

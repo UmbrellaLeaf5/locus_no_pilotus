@@ -19,25 +19,11 @@ MainWindow::MainWindow(QWidget* parent)
 
   area_->Setup(manager_.get(), t_connection_.get());
   t_connection_->Setup(manager_.get(), area_.get());
+  manager_->Setup(area_.get(), t_connection_.get());
 
   area_->SetPlot(ui->plot);
 
-  {  // проверка функционала графических классов и менеджера
-
-    gui::Target t_1(3, 4);
-    gui::Target t_2(2, 1);
-    gui::Target t_3(1, 1);
-
-    manager_->Set({t_1, t_2, t_3});
-
-    gui::TrappyLine tr{t_1, t_2};
-    manager_->Add(tr);
-
-    gui::TrappyCircle trc({1, 2}, 0.5);
-    manager_->Add(trc);
-
-    manager_->Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
-  }
+  // нынче для проверки функционала файл открывают
 
   t_connection_->SetSettingsTables(
       ui->targetInfoTableWidget, ui->hillInfoTableWidget,

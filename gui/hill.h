@@ -3,7 +3,6 @@
 #include "base.h"
 #include "lib/hill.h"
 
-
 namespace gui {
 
 /// @brief фигура рельефа с высотой
@@ -49,15 +48,14 @@ class Hill : public Drawable {
 
   std::vector<lib::Point> GetPoints() const { return data_.GetPoints(); }
 
-  void Draw(QCustomPlot* plot) const override;
+  void Draw(QCustomPlot* plot) override;
 
-  size_t GetPlottableIndex() const { return graph_index_; }
-  void SetGraphIndex(size_t index) { graph_index_ = index; }
+  size_t GetPlottableIndex() const { return plottable_index_; }
 
  private:
   lib::Hill data_;
   QColor color_;
-  size_t graph_index_{ULLONG_MAX};
+  size_t plottable_index_{ULLONG_MAX};
 };
 
 }  // namespace gui

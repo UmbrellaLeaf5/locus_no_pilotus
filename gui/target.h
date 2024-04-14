@@ -3,7 +3,6 @@
 #include "base.h"
 #include "lib/target.h"
 
-
 namespace gui {
 
 /// @brief фигура контрольной точки
@@ -27,14 +26,13 @@ class Target : public Drawable {
   lib::Point GetPoint() const { return data_.GetPoint(); }
   lib::Target GetData() const { return data_; }
 
-  void Draw(QCustomPlot* plot) const override;
+  void Draw(QCustomPlot* plot) override;
 
-  size_t GetPlottableIndex() const { return graph_index_; }
-  void SetGraphIndex(size_t index) { graph_index_ = index; }
+  size_t GetPlottableIndex() const { return plottable_index_; }
 
  private:
   lib::Target data_;
-  size_t graph_index_{ULLONG_MAX};
+  size_t plottable_index_{ULLONG_MAX};
 };
 
 }  // namespace gui
