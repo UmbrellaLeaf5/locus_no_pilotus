@@ -13,7 +13,7 @@ namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
 using namespace lib;
 
-BOOST_AUTO_TEST_SUITE(lib_hill)
+BOOST_AUTO_TEST_SUITE(lib_hill, *utf::tolerance(1.0E-7))
 
 struct {
   double x, y, r;
@@ -25,9 +25,9 @@ struct {
 BOOST_AUTO_TEST_CASE(simple_regular_construct) {
   for (auto c : cases) {
     Hill h(lib::Point(c.x, c.y), c.r, c.v_a);
-    BOOST_TEST(std::abs(h.GetCenter().x - c.x) < 1.0E-7);  // приближенно равны
-    BOOST_TEST(std::abs(h.GetCenter().y - c.y) < 1.0E-7);  // приближенно равны
-    BOOST_TEST(std::abs(h.GetRadius() - c.r) < 1.0E-7);  // приближенно равны
+    BOOST_TEST(h.GetCenter().x == c.x);
+    BOOST_TEST(h.GetCenter().y == c.y);
+    BOOST_TEST(h.GetRadius() == c.r);
     BOOST_TEST(h.GetPoints().size() == c.v_a);
   }
 
@@ -50,9 +50,9 @@ BOOST_AUTO_TEST_CASE(random_regular_construct) {
 
     Hill h(lib::Point(x, y), r, v_a);
 
-    BOOST_TEST(std::abs(h.GetCenter().x - x) < 1.0E-7);  // приближенно равны
-    BOOST_TEST(std::abs(h.GetCenter().y - y) < 1.0E-7);  // приближенно равны
-    BOOST_TEST(std::abs(h.GetRadius() - r) < 1.0E-7);  // приближенно равны
+    BOOST_TEST(h.GetCenter().x == x);
+    BOOST_TEST(h.GetCenter().y == y);
+    BOOST_TEST(h.GetRadius() == r);
     BOOST_TEST(h.GetPoints().size() == v_a);
   }
 }
