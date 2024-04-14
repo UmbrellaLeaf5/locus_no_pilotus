@@ -43,7 +43,6 @@ add_subdirectory(${QCUSTOMPLOT_DIR}) # here adding qcustomplot subfolder
 
 # ----------------------    Our code folders    ----------------------
 add_subdirectory(lib)
-add_subdirectory(gui)
 add_subdirectory(tests)
 add_subdirectory(main)
 add_subdirectory(backend)

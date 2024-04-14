@@ -277,7 +277,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -329,7 +329,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <property name="minimumSize">
     <size>
      <width>175</width>
-     <height>117</height>
+     <height>130</height>
     </size>
    </property>
    <property name="baseSize">
@@ -379,7 +379,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     <property name="layoutDirection">
      <enum>Qt::RightToLeft</enum>
     </property>
-    <layout class="QHBoxLayout" name="plotSettingsDockHorizontalLayout">
+    <layout class="QVBoxLayout" name="plotSettingsDockVerticalLayout">
      <property name="spacing">
       <number>5</number>
      </property>
@@ -469,10 +469,13 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          <item>
           <widget class="QTableWidget" name="targetInfoTableWidget">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::AllEditTriggers</set>
            </property>
            <property name="rowCount">
             <number>3</number>
@@ -537,6 +540,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          </item>
          <item>
           <widget class="QTableWidget" name="hillInfoTableWidget">
+           <property name="editTriggers">
+            <set>QAbstractItemView::AllEditTriggers</set>
+           </property>
            <property name="rowCount">
             <number>1</number>
            </property>
@@ -590,6 +596,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          </item>
          <item>
           <widget class="QTableWidget" name="trappyCircleInfoTableWidget">
+           <property name="editTriggers">
+            <set>QAbstractItemView::AllEditTriggers</set>
+           </property>
            <property name="showGrid">
             <bool>true</bool>
            </property>
@@ -664,6 +673,9 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          </item>
          <item>
           <widget class="QTableWidget" name="trappyLineInfoTableWidget">
+           <property name="editTriggers">
+            <set>QAbstractItemView::AllEditTriggers</set>
+           </property>
            <property name="rowCount">
             <number>5</number>
            </property>

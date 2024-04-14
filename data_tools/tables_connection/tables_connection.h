@@ -1,25 +1,17 @@
 #pragma once
 
 #include <QTableWidget>
-#include <memory>
-#include <vector>
 
-#include "../../gui/hill.h"
-#include "../../gui/target.h"
-#include "../../gui/trappy_circle.h"
-#include "../../gui/trappy_line.h"
+#include "data_tools/plot_area/plot_area.h"
+
+namespace data_tools {
 
 /// @brief класс, упрощающий отображение классов gui в QTableWidget's
-class TableManager {
+class TablesConnection : public QObject {
  public:
-  TableManager() = default;
+  TablesConnection() = default;
 
-  TableManager(QTableWidget* targets_info, QTableWidget* hills_info,
-               QTableWidget* tr_circles_info, QTableWidget* tr_lines_info)
-      : targets_table_{targets_info},
-        hills_table_{hills_info},
-        tr_circles_table_{tr_circles_info},
-        tr_lines_table_{tr_lines_info} {}
+  void Setup(DataManager* manager, PlotArea* area);
 
   /**
    * @brief устанавливает значения всех таблиц с информацией
@@ -35,7 +27,11 @@ class TableManager {
     hills_table_.reset(hills_info);
     tr_circles_table_.reset(tr_circles_info);
     tr_lines_table_.reset(tr_lines_info);
+    UpdateTablesConnections();
   }
+
+  /// @brief обновляет данные в таблицах всех объектов
+  void UpdateTables();
 
   /**
    * @brief обновляет значения таблицы с Targets
@@ -61,9 +57,22 @@ class TableManager {
    */
   void UpdateTable(const std::vector<gui::TrappyCircle>& trappy_circles);
 
+ private slots:
+  void TargetsItemChanged(int row, int column);
+  void HillsItemChanged(int row, int column);
+  void TrappyCirclesItemChanged(int row, int column);
+  void TrappyLinesItemChanged(int row, int column);
+
  private:
+  void UpdateTablesConnections();
+
   std::unique_ptr<QTableWidget> targets_table_{nullptr};
   std::unique_ptr<QTableWidget> hills_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
+
+  std::unique_ptr<DataManager> manager_;
+  std::unique_ptr<PlotArea> area_;
 };
+
+}  // namespace data_tools

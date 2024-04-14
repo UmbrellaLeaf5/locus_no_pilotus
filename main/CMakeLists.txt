@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.20)
 
 project(main VERSION 0.1 LANGUAGES CXX)
 
-file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp" "*.ui")
+file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp" "*.ui"
+  "${GUI_DIR}/*.h" "${GUI_DIR}/*.cpp" "${DATATOOLS_DIR}/*.h" "${DATATOOLS_DIR}/*.cpp")
+
+include_directories(${PROJECT_DIR})
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(main
@@ -32,7 +35,6 @@ endif()
 target_link_libraries(main PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Core)
 
 target_link_libraries(main PRIVATE lib)
-target_link_libraries(main PRIVATE gui)
 
 target_compile_definitions(main PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(main PUBLIC qcustomplot)

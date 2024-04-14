@@ -11,10 +11,12 @@ class Drawable {
    * @brief привязывает (рисует) экземпляр класса на полотне
    * @param plot: указатель на соотв. полотно
    */
-  virtual void Draw(QCustomPlot* plot) const = 0;
+  virtual void Draw(QCustomPlot* plot) = 0;
+
+  Drawable() = default;
 };
 
 // @brief типы объектов по категориям
-enum class GuiObjType { Targets, Hills, TrappyCircles, TrappyLines };
+enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
 
 }  // namespace gui

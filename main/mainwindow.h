@@ -2,12 +2,14 @@
 
 #include <QMainWindow>
 
-#include "./gui_json_file/gui_json_file.h"
 #include "add_objects_forms/add_hill_form.h"
 #include "add_objects_forms/add_target_form.h"
 #include "add_objects_forms/add_trappy_circle_form.h"
 #include "add_objects_forms/add_trappy_line_form.h"
-#include "plot_area/plot_area.h"
+#include "data_tools/data_manager/data_manager.h"
+#include "data_tools/plot_area/plot_area.h"
+#include "data_tools/tables_connection/tables_connection.h"
+#include "gui_json_file/gui_json_file.h"
 
 enum class FileType { UntitledFile, UsualFile };
 
@@ -58,9 +60,12 @@ class MainWindow : public QMainWindow {
   void AddHill(std::vector<lib::Point> points);
 
  private:
-  PlotArea area_;
+  std::unique_ptr<data_tools::PlotArea> area_;
+  std::unique_ptr<data_tools::DataManager> manager_;
+  std::unique_ptr<data_tools::TablesConnection> t_connection_;
+
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
 
-  bool OpenMessageWindow(FileType file_type);
+  bool OpenMessageWindow(const FileType& file_type);
 };

@@ -1,9 +1,7 @@
 #pragma once
 
-#include <qcustomplot.h>
-
-#include "../lib/trappy_circle.h"
 #include "base.h"
+#include "lib/trappy_circle.h"
 
 namespace gui {
 
@@ -20,26 +18,44 @@ class TrappyCircle : public Drawable {
                QColor color = QColor(200, 50, 50, 255))
       : data_(center, radius), color_{color} {}
 
-  TrappyCircle(lib::TrappyCircle data, QColor color = QColor(200, 50, 50, 255))
+  TrappyCircle(const lib::TrappyCircle& data,
+               QColor color = QColor(200, 50, 50, 255))
       : data_(data), color_{color} {}
+
+  TrappyCircle(const TrappyCircle&) = default;
+  TrappyCircle(TrappyCircle&&) = default;
+
+  TrappyCircle& operator=(const TrappyCircle&) = default;
+  TrappyCircle& operator=(TrappyCircle&&) = default;
 
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }
   QColor GetColor() const { return color_; }
-  lib::TrappyCircle GetData() const { return data_; }
+  const lib::TrappyCircle& GetData() const { return data_; }
+  lib::TrappyCircle& GetData() { return data_; }
 
   void SetCenter(const lib::Point& center) { data_.SetCenter(center); }
   void SetRadius(double radius) { data_.SetRadius(radius); }
 
-  void Draw(QCustomPlot* plot) const override;
+  void Draw(QCustomPlot* plot) override;
 
+  /**
+   * @brief возвращает индекс на полотне [item]
+   * @return size_t: индекс
+   */
   size_t GetItemIndex() const { return item_index_; }
-  void SetItemIndex(size_t index) { item_index_ = index; }
+
+  /**
+   * @brief возвращает значение указателя на полотне
+   * @return QCPItemEllipse*: указатель
+   */
+  QCPItemEllipse* GetItemEllipsePtr() const { return ellipse_; }
 
  private:
   lib::TrappyCircle data_;
   QColor color_;
-  size_t item_index_;
+  size_t item_index_{ULLONG_MAX};
+  QCPItemEllipse* ellipse_{nullptr};
 };
 
 }  // namespace gui

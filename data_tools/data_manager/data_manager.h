@@ -1,47 +1,26 @@
 #pragma once
 
-#include <qcustomplot.h>
+#include "gui/hill.h"
+#include "gui/target.h"
+#include "gui/trappy_circle.h"
+#include "gui/trappy_line.h"
 
-#include <initializer_list>
-#include <vector>
-
-#include "../hill.h"
-#include "../target.h"
-#include "../trappy_circle.h"
-#include "../trappy_line.h"
-
-namespace gui {
+namespace data_tools {
 
 // @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
  public:
   DataManager() = default;
 
-  // methods
-
-  /**
-   * @brief отрисовывает на полотне объект по индексу
-   * @param obj_type: тип объекта
-   * @param index: индекс объекта в его векторе
-   * @param plot: указатель на полотно
-   */
-  void Draw(GuiObjType obj_type, size_t index, QCustomPlot* plot);
-
   /**
    * @brief удаляет объект из менеджера по индексу
    * @param obj_type: тип объекта
    * @param index: индекс объекта в его векторе
    */
-  void Remove(GuiObjType obj_type, size_t index);
+  void Remove(gui::ObjectType obj_type, size_t index);
 
+  /// @brief очищает все вектора объектов
   void Clear();
-
-  /**
-   * @brief возвращает представление определенных типов объектов в виде текста
-   * @param obj_type: тип объектов
-   * @return QString: текст
-   */
-  QString GetTexted(GuiObjType obj_type);
 
   // ----------------------   Target methods   ----------------------
 
@@ -173,13 +152,12 @@ class DataManager {
     return tr_lines_;
   }
 
-  // ~methods
-
  private:
+  // TODO: переп. всё на указатели, чтобы исправить проблему c изменением копий
   std::vector<gui::Hill> hills_;
   std::vector<gui::Target> targets_;
   std::vector<gui::TrappyCircle> tr_circles_;
   std::vector<gui::TrappyLine> tr_lines_;
 };
 
-}  // namespace gui
+}  // namespace data_tools

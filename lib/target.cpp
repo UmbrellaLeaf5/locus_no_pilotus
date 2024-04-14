@@ -2,7 +2,7 @@
 
 namespace lib {
 
-QJsonObject Target::Save(int id) const {
+QJsonObject Target::Load(int id) const {
   QVariantMap target_map;
 
   target_map.insert("Id", id);
@@ -12,7 +12,7 @@ QJsonObject Target::Save(int id) const {
   return QJsonObject::fromVariantMap(target_map);
 }
 
-void Target::Load(QJsonObject target_obj) {
+void Target::Save(const QJsonObject& target_obj) {
   if (!(target_obj.contains("X") && target_obj.contains("Y")))
     throw std::invalid_argument("");
   double x = target_obj.value("X").toDouble();
@@ -20,7 +20,7 @@ void Target::Load(QJsonObject target_obj) {
   SetPoint({x, y});
 }
 
-bool Target::IsChanged(QJsonObject target_obj) {
+bool Target::IsChanged(const QJsonObject& target_obj) const {
   Point p = {target_obj.value("X").toDouble(),
              target_obj.value("Y").toDouble()};
   return p != p_;

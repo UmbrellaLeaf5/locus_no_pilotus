@@ -1,12 +1,7 @@
 #pragma once
 
-#include <qcustomplot.h>
-
-#include <initializer_list>
-#include <vector>
-
-#include "../lib/hill.h"
 #include "base.h"
+#include "lib/hill.h"
 
 namespace gui {
 
@@ -38,24 +33,42 @@ class Hill : public Drawable {
   Hill(std::vector<lib::Point> points, QColor color = QColor(50, 200, 50, 255))
       : data_(points), color_{color} {}
 
-  Hill(lib::Hill data, QColor color = QColor(50, 200, 50, 255))
+  Hill(const lib::Hill& data, QColor color = QColor(50, 200, 50, 255))
       : data_(data), color_{color} {}
+
+  Hill(const Hill&) = default;
+  Hill(Hill&&) = default;
+
+  Hill& operator=(const Hill&) = default;
+  Hill& operator=(Hill&&) = default;
 
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }
-  lib::Hill GetData() const { return data_; }
 
-  std::vector<lib::Point> GetPoints() const { return data_.GetPoints(); }
+  const lib::Hill& GetData() const { return data_; }
+  lib::Hill& GetData() { return data_; }
 
-  void Draw(QCustomPlot* plot) const override;
+  const std::vector<lib::Point>& GetPoints() const { return data_.GetPoints(); }
 
-  size_t GetPlottableIndex() const { return graph_index_; }
-  void SetGraphIndex(size_t index) { graph_index_ = index; }
+  void Draw(QCustomPlot* plot) override;
+
+  /**
+   * @brief возвращает индекс на полотне [plottable]
+   * @return size_t: индекс
+   */
+  size_t GetPlottableIndex() const { return plottable_index_; }
+
+  /**
+   * @brief возвращает значение указателя на полотне
+   * @return QCPGraph*: указатель
+   */
+  QCPCurve* GetCurvePtr() const { return curve_; }
 
  private:
   lib::Hill data_;
   QColor color_;
-  size_t graph_index_{ULLONG_MAX};
+  size_t plottable_index_{ULLONG_MAX};
+  QCPCurve* curve_{nullptr};
 };
 
 }  // namespace gui

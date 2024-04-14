@@ -5,8 +5,6 @@
 #include "../backend/littles_algorithm/travelling_salesmans_problem.h"
 #include "../backend/littles_algorithm/tspgraph.h"
 
-// #include "qcustomplot.h"
-
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif
