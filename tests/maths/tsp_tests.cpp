@@ -16,8 +16,16 @@ namespace utf = boost::unit_test;
 using namespace math;
 
 void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path) {
+  double len = 0;
+  for (std::size_t i = 0; i < path.size() - 1; ++i)
+    len += matrix.GetMatrixValue(path[i], path[i + 1]);
+  len += matrix.GetMatrixValue(path[path.size() - 1], 0);
+
   TravellingSalesmansProblem tsp(matrix);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
+  double traj_len = tsp.GetTrajLength();
+  BOOST_TEST(path.size() == traj.size());
+  BOOST_TEST(len == traj_len);
   for (std::size_t i = 0; i < path.size(); ++i) {
     BOOST_TEST(path[i] == traj[i]);
   }
