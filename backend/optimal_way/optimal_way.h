@@ -34,6 +34,6 @@ class MinimumDistanceCalculator {
 
   void FillPathNodesOnPoint(const Point& point);
 
-  double FindOptimalWay(const Point& pnt1, const Point& pnt2);
+  std::vector<std::size_t> FindOptimalWay();
 };
 }  // namespace math
