@@ -24,7 +24,8 @@ class Target : public Drawable {
   void SetPoint(double x, double y) { data_.SetPoint(x, y); }
 
   lib::Point GetPoint() const { return data_.GetPoint(); }
-  lib::Target GetData() const { return data_; }
+  lib::Target& GetData() { return data_; }
+  const lib::Target& GetData() const { return data_; }
 
   void Draw(QCustomPlot* plot) override;
 

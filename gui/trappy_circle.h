@@ -31,7 +31,8 @@ class TrappyCircle : public Drawable {
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }
   QColor GetColor() const { return color_; }
-  lib::TrappyCircle GetData() const { return data_; }
+  const lib::TrappyCircle& GetData() const { return data_; }
+  lib::TrappyCircle& GetData() { return data_; }
 
   void SetCenter(const lib::Point& center) { data_.SetCenter(center); }
   void SetRadius(double radius) { data_.SetRadius(radius); }

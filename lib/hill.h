@@ -46,7 +46,8 @@ class Hill : public JSONable {
   Point GetCenter() const;
   double GetRadius() const;
 
-  std::vector<Point> GetPoints() const { return vertices_; }
+  const std::vector<Point>& GetPoints() const { return vertices_; }
+  std::vector<Point>& GetPoints() { return vertices_; }
 
  private:
   std::vector<Point> vertices_;

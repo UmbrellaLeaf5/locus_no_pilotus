@@ -119,25 +119,25 @@ void TablesConnection::UpdateTable(
       tr_lines_table_->setItem(0, i, item);
 
       item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets()[0].GetPoint().x));
+          QString::number(trappy_lines[i].GetTargets().first.GetPoint().x));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       tr_lines_table_->setItem(1, i, item);
 
       item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets()[0].GetPoint().y));
+          QString::number(trappy_lines[i].GetTargets().first.GetPoint().y));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       tr_lines_table_->setItem(2, i, item);
 
       item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets()[1].GetPoint().x));
+          QString::number(trappy_lines[i].GetTargets().second.GetPoint().x));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       tr_lines_table_->setItem(3, i, item);
 
       item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets()[1].GetPoint().y));
+          QString::number(trappy_lines[i].GetTargets().second.GetPoint().y));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       tr_lines_table_->setItem(4, i, item);

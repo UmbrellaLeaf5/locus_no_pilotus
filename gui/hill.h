@@ -44,9 +44,11 @@ class Hill : public Drawable {
 
   lib::Point GetCenter() const { return data_.GetCenter(); }
   double GetRadius() const { return data_.GetRadius(); }
-  lib::Hill GetData() const { return data_; }
 
-  std::vector<lib::Point> GetPoints() const { return data_.GetPoints(); }
+  const lib::Hill& GetData() const { return data_; }
+  lib::Hill& GetData() { return data_; }
+
+  const std::vector<lib::Point>& GetPoints() const { return data_.GetPoints(); }
 
   void Draw(QCustomPlot* plot) override;
 

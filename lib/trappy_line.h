@@ -13,19 +13,9 @@ class TrappyLine : public JSONable {
  public:
   TrappyLine() = default;
 
-  /**
-   * @brief инициализирует новый экземпляр Trappy Line
-   * (конструктор исключительно по КТ, только между ними может быть перелет)
-   * @param targets: лист контрольных точек
-   */
-  TrappyLine(std::initializer_list<Target> targets);
-
-  /**
-   * @brief инициализирует новый экземпляр Trappy Line
-   * (конструктор исключительно по КТ, только между ними может быть перелет)
-   * @param targets: вектор контрольных точек
-   */
-  TrappyLine(std::vector<Target> targets);
+  TrappyLine(Target* first_target, Target* second_target)
+      : targets_{std::make_pair(first_target, second_target)} {}
+  TrappyLine(std::pair<Target*, Target*> targets) : targets_{targets} {}
 
   TrappyLine(const TrappyLine&) = default;
   TrappyLine(TrappyLine&&) = default;
@@ -37,17 +27,17 @@ class TrappyLine : public JSONable {
   void Save(const QJsonObject& trappy_line_obj) override;
   bool IsChanged(const QJsonObject& trappy_line_obj) const override;
 
-  void SetNewTargets(std::initializer_list<Target> targets);
+  void SetTargets(Target* first_target, Target* second_target) {
+    targets_ = std::make_pair(first_target, second_target);
+  }
+  void SetTargets(std::pair<Target*, Target*> targets) { targets_ = targets; }
 
-  void SetNewTargets(std::vector<Target> targets);
-
-  void AddTargets(std::initializer_list<Target> targets);
-  void AddTargets(std::vector<Target> targets);
-
-  std::vector<Target> GetTargets() const { return targets_; }
+  std::pair<Target, Target> GetTargets() const {
+    return std::make_pair(*targets_.first, *targets_.second);
+  }
 
  private:
-  std::vector<Target> targets_;
+  std::pair<Target*, Target*> targets_;
 };
 
 }  // namespace lib

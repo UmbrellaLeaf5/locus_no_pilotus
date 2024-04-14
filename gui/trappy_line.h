@@ -10,9 +10,15 @@ class TrappyLine : public Drawable {
  public:
   TrappyLine() = default;
 
-  TrappyLine(std::initializer_list<gui::Target> targets);
+  TrappyLine(gui::Target* first_target, gui::Target* second_target) {
+    UpdateData(first_target, second_target);
+  }
 
-  TrappyLine(const lib::TrappyLine& data) : data_(data){};
+  TrappyLine(std::pair<gui::Target*, gui::Target*> targets) {
+    UpdateData(targets);
+  }
+
+  TrappyLine(const lib::TrappyLine& data) : data_(data) {}
 
   TrappyLine(const TrappyLine&) = default;
   TrappyLine(TrappyLine&&) = default;
@@ -20,14 +26,20 @@ class TrappyLine : public Drawable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
-  void SetNewTargets(std::initializer_list<gui::Target> targets);
-
-  void AddTargets(std::initializer_list<gui::Target> targets) {
-    AddData(targets);
+  void SetTargets(gui::Target* first_target, gui::Target* second_target) {
+    UpdateData(first_target, second_target);
   }
 
-  std::vector<lib::Target> GetTargets() const { return data_.GetTargets(); }
-  lib::TrappyLine GetData() const { return data_; }
+  void SetTargets(std::pair<gui::Target*, gui::Target*> targets) {
+    UpdateData(targets);
+  }
+
+  std::pair<lib::Target, lib::Target> GetTargets() const {
+    return data_.GetTargets();
+  }
+
+  const lib::TrappyLine& GetData() const { return data_; }
+  lib::TrappyLine& GetData() { return data_; }
 
   void Draw(QCustomPlot* plot) override;
 
@@ -43,22 +55,18 @@ class TrappyLine : public Drawable {
    */
   QCPGraph* GetGraphPtr() const { return graph_; }
 
- private:
-  /**
-   * @brief обновляет объекты в приватном поле lib::TrappyLine
-   * @param targets: объекты - контр. точки
-   */
-  void UpdateData(std::initializer_list<gui::Target> targets);
+  const std::pair<size_t, size_t>& GetTargetsPlottableIndexes() const {
+    return targets_ides_;
+  }
 
-  /**
-   * @brief добавляет объекты в приватное поле lib::TrappyLine
-   * @param targets: объекты - контр. точки
-   */
-  void AddData(std::initializer_list<gui::Target> targets);
+ private:
+  void UpdateData(gui::Target* first_target, gui::Target* second_target);
+  void UpdateData(std::pair<gui::Target*, gui::Target*> targets);
 
   lib::TrappyLine data_;
   size_t plottable_index_{ULLONG_MAX};
   QCPGraph* graph_{nullptr};
+  std::pair<size_t, size_t> targets_ides_;
 };
 
 }  // namespace gui

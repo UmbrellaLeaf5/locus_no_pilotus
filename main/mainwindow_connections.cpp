@@ -24,7 +24,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   manager_->Add(t1);
   manager_->Add(t2);
 
-  manager_->Add(gui::TrappyLine({t1, t2}));
+  manager_->Add(gui::TrappyLine(&t1, &t2));
 
   area_->Redraw();
 }

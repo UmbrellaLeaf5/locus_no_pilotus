@@ -2,14 +2,6 @@
 
 namespace gui {
 
-TrappyLine::TrappyLine(std::initializer_list<gui::Target> targets) {
-  UpdateData(targets);
-}
-
-void TrappyLine::SetNewTargets(std::initializer_list<gui::Target> targets) {
-  UpdateData(targets);
-}
-
 void TrappyLine::Draw(QCustomPlot* plot) {
   // фигура представляет собой пунктирное красное соединение между
   // заданными контрольными точками (причем эти точки выделяются)
@@ -26,28 +18,22 @@ void TrappyLine::Draw(QCustomPlot* plot) {
 
   auto targets = data_.GetTargets();
 
-  for (int i = 0; i < targets.size(); i++) {
-    graph_->addData({targets[i].GetPoint().x}, {targets[i].GetPoint().y});
-  }
+  graph_->addData({targets.first.GetPoint().x}, {targets.first.GetPoint().y});
+  graph_->addData({targets.second.GetPoint().x}, {targets.second.GetPoint().y});
 
   // индекс последнего созданного = кол-во всех - 1
   plottable_index_ = plot->plottableCount() - 1;
 }
 
-void TrappyLine::UpdateData(std::initializer_list<gui::Target> targets) {
-  std::vector<lib::Target> l_targets;
-  for (const auto& target : targets) {
-    l_targets.push_back(target.GetData());
-  }
-  data_ = lib::TrappyLine(l_targets);
+void TrappyLine::UpdateData(gui::Target* first_target,
+                            gui::Target* second_target) {
+  data_.SetTargets(&first_target->GetData(), &second_target->GetData());
+  targets_ides_ = std::make_pair(first_target->GetPlottableIndex(),
+                                 second_target->GetPlottableIndex());
 }
 
-void TrappyLine::AddData(std::initializer_list<gui::Target> targets) {
-  std::vector<lib::Target> l_targets = data_.GetTargets();
-  for (const auto& target : targets) {
-    l_targets.push_back(target.GetData());
-  }
-  data_ = lib::TrappyLine(l_targets);
+void TrappyLine::UpdateData(std::pair<gui::Target*, gui::Target*> targets) {
+  UpdateData(targets.first, targets.second);
 }
 
 }  // namespace gui

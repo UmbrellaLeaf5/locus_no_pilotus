@@ -11,7 +11,7 @@ class GuiJsonFile {
   void Open(data_tools::DataManager* plot_area);
 
   QString GetFileName() const;
-  QString GetUntitledFile() const { return untitled_file_; }
+  const QString& GetUntitledFile() const { return untitled_file_; }
 
   void SetFile(const QString& file_name) { file_->setFileName(file_name); }
   void ChangeUntitled(const QString& old_untitled);

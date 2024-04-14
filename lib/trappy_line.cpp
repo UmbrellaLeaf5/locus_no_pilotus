@@ -4,35 +4,6 @@
 
 namespace lib {
 
-TrappyLine::TrappyLine(std::initializer_list<Target> targets)
-    : targets_{targets} {
-  if (targets.size() < 2)
-    throw std::invalid_argument(
-        "trappy line should be line with at least 2 targets");
-}
-
-TrappyLine::TrappyLine(std::vector<Target> targets) : targets_{targets} {
-  if (targets.size() < 2)
-    throw std::invalid_argument(
-        "trappy line should be line with at least 2 targets");
-}
-
-void TrappyLine::SetNewTargets(std::initializer_list<Target> targets) {
-  if (targets.size() < 2)
-    throw std::invalid_argument(
-        "trappy line should be line with at least 2 targets");
-
-  targets_ = targets;
-}
-
-void TrappyLine::SetNewTargets(std::vector<Target> targets) {
-  if (targets.size() < 2)
-    throw std::invalid_argument(
-        "trappy line should be line with at least 2 targets");
-
-  targets_ = targets;
-}
-
 QJsonObject TrappyLine::Load(int id) const {
   QVariantMap trappy_line_map;
   QVariantMap p1_map;
@@ -40,10 +11,10 @@ QJsonObject TrappyLine::Load(int id) const {
 
   trappy_line_map.insert("Id", id);
 
-  p1_map.insert("X", targets_[0].GetPoint().x);
-  p1_map.insert("Y", targets_[0].GetPoint().y);
-  p2_map.insert("X", targets_[1].GetPoint().x);
-  p2_map.insert("Y", targets_[1].GetPoint().y);
+  p1_map.insert("X", targets_.first->GetPoint().x);
+  p1_map.insert("Y", targets_.first->GetPoint().y);
+  p2_map.insert("X", targets_.second->GetPoint().x);
+  p2_map.insert("Y", targets_.second->GetPoint().y);
 
   trappy_line_map.insert("P1", p1_map);
   trappy_line_map.insert("P2", p2_map);
@@ -64,7 +35,7 @@ void TrappyLine::Save(const QJsonObject& trappy_line_obj) {
   if (!(p2.contains("X") && p2.contains("Y"))) throw std::invalid_argument("");
   double x2 = p2.value("X").toDouble();
   double y2 = p2.value("Y").toDouble();
-  SetNewTargets({{x1, y1}, {x2, y2}});
+  SetTargets({new Target(x1, y1), new Target(x2, y2)});
 }
 
 bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
@@ -72,19 +43,7 @@ bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
   QJsonObject p2_obj = trappy_line_obj.value("P2").toObject();
   Point p1 = {p1_obj.value("X").toDouble(), p1_obj.value("Y").toDouble()};
   Point p2 = {p2_obj.value("X").toDouble(), p2_obj.value("Y").toDouble()};
-  return p1 != targets_[0].GetPoint() || p2 != targets_[1].GetPoint();
-}
-
-void TrappyLine::AddTargets(std::initializer_list<lib::Target> targets) {
-  for (const auto& target : targets) {
-    targets_.push_back(target);
-  }
-}
-
-void TrappyLine::AddTargets(std::vector<lib::Target> targets) {
-  for (const auto& target : targets) {
-    targets_.push_back(target);
-  }
+  return p1 != targets_.first->GetPoint() || p2 != targets_.second->GetPoint();
 }
 
 }  // namespace lib
