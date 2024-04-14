@@ -277,7 +277,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -329,7 +329,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <property name="minimumSize">
     <size>
      <width>175</width>
-     <height>117</height>
+     <height>130</height>
     </size>
    </property>
    <property name="baseSize">
@@ -395,22 +395,6 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <property name="bottomMargin">
       <number>5</number>
      </property>
-     <item>
-      <widget class="QPushButton" name="redrawPushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
-       </property>
-       <property name="text">
-        <string>Redraw</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <widget class="QScrollArea" name="guiObjectsScrollArea">
        <property name="baseSize">

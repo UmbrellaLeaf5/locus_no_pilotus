@@ -53,8 +53,6 @@ class MainWindow : public QMainWindow {
 
   void on_actionNew_triggered();
 
-  void on_redrawPushButton_clicked();
-
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);

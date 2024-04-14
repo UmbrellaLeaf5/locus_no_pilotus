@@ -36,6 +36,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
 
 void MainWindow::AddHill(std::vector<lib::Point> points) {
   manager_->Add(gui::Hill(points));
+
   area_->Redraw();
   t_connection_->UpdateTables();
 }
@@ -242,9 +243,4 @@ void MainWindow::on_actionSave_as_triggered() {
 
   json_file_.SetFile(file_name);
   json_file_.Save(manager_.get());
-}
-
-void MainWindow::on_redrawPushButton_clicked() {
-  area_->Redraw();
-  t_connection_->UpdateTables();
 }
