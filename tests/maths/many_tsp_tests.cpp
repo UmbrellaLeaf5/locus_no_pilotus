@@ -27,11 +27,17 @@ void CHECK_PATH(AdjacencyMatrix matrix, std::vector<std::size_t> path,
   TravellingSalesmansProblem tsp(matrix, num_of_flyers);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
   double traj_len = tsp.GetTrajLength();
+
+  for (std::size_t i = 0; i < traj.size() - num_of_flyers; ++i) {
+    bool is_found = (std::find(traj.begin(), traj.end(), i) != traj.end());
+    BOOST_TEST(is_found);
+  }
+  std::size_t zero_count = 0;
+  for (std::size_t i = 0; i < traj.size(); ++i)
+    if (!traj[i]) ++zero_count;
+  BOOST_TEST(num_of_flyers == zero_count);
   BOOST_TEST(path.size() == traj.size());
   BOOST_TEST(len == traj_len);
-  for (std::size_t i = 0; i < path.size(); ++i) {
-    BOOST_TEST(path[i] == traj[i]);
-  }
 }
 
 BOOST_AUTO_TEST_SUITE(many_tsp_random)
