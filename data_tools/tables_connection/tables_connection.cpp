@@ -199,13 +199,12 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
   auto x_item = targets_table_->item(1, column);
   auto y_item = targets_table_->item(2, column);
 
-  if (x_item != nullptr && y_item != nullptr) {
-    if (column < manager_->GetTargets().size()) {
-      manager_->GetTargets()[column].SetPoint(x_item->text().toDouble(),
-                                              y_item->text().toDouble());
+  if (x_item != nullptr && y_item != nullptr &&
+      column < manager_->GetTargets().size()) {
+    manager_->GetTargets()[column].SetPoint(x_item->text().toDouble(),
+                                            y_item->text().toDouble());
 
-      // area_->Redraw();
-    }
+    // area_->Redraw();
   }
 }
 
@@ -216,7 +215,16 @@ void TablesConnection::HillsItemChanged(int row, int column) {
 }
 
 void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
-  if (column < manager_->GetTrappyCircles().size()) {
+  auto x_item = tr_circles_table_->item(1, column);
+  auto y_item = tr_circles_table_->item(2, column);
+  auto r_item = tr_circles_table_->item(3, column);
+
+  if (x_item != nullptr && y_item != nullptr && r_item != nullptr &&
+      column < manager_->GetTrappyCircles().size()) {
+    manager_->GetTrappyCircles()[column].SetCenter(
+        {x_item->text().toDouble(), y_item->text().toDouble()});
+    manager_->GetTrappyCircles()[column].SetRadius(r_item->text().toDouble());
+
     // area_->Redraw();
   }
 }
