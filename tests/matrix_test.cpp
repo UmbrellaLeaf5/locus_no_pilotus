@@ -1,9 +1,6 @@
-#include <QApplication>
 #include <cfloat>
 
 #include "../Backend/adjacency_matrix.h"
-
-// #include "qcustomplot.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK

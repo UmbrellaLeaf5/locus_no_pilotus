@@ -1,10 +1,4 @@
-#include <QApplication>
-#include <cfloat>
-#include <icecream.hpp>
-
 #include "../backend/optimal_way/path_graph.h"
-
-// #include "qcustomplot.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
