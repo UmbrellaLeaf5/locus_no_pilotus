@@ -41,7 +41,7 @@ void CHECK_GRAPH(std::vector<TestEdge> edges, double ans) {
   BOOST_TEST(da.Get_Min_Len() == ans);
 }
 
-BOOST_AUTO_TEST_SUITE(tests)
+BOOST_AUTO_TEST_SUITE(dijkstras_tests)
 
 BOOST_AUTO_TEST_CASE(graph_) {
   std::vector<TestEdge> edges({{0, 5, 7},
