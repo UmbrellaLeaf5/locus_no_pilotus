@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget* parent)
       manager_(new data_tools::DataManager),
       t_connection_(new data_tools::TablesConnection) {
   ui->setupUi(this);
+  ui->plotSettingsDockWidget->setVisible(false);
+
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
 
@@ -20,31 +22,26 @@ MainWindow::MainWindow(QWidget* parent)
 
   area_->SetPlot(ui->plot);
 
-  area_->SetSettingsLabels(ui->targetInfoLabel, ui->hillInfoLabel,
-                           ui->trappyCircleInfoLabel, ui->trappyLineInfoLabel);
-
   {  // проверка функционала графических классов и менеджера
 
     gui::Target t_1(3, 4);
     gui::Target t_2(2, 1);
     gui::Target t_3(1, 1);
 
-    area_->Set({t_1, t_2, t_3});
+    manager_->Set({t_1, t_2, t_3});
 
     gui::TrappyLine tr{t_1, t_2};
-    area_->Add(tr);
+    manager_->Add(tr);
 
     gui::TrappyCircle trc({1, 2}, 0.5);
-    area_->Add(trc);
+    manager_->Add(trc);
 
-    area_->Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
+    manager_->Add(gui::Hill(lib::Point(1, 4), 0.5, 7));
   }
 
-  ui->plotSettingsDockWidget->setVisible(false);
-
-  area_->SetSettingsTables(ui->targetInfoTableWidget, ui->hillInfoTableWidget,
-                           ui->trappyCircleInfoTableWidget,
-                           ui->trappyLineInfoTableWidget);
+  t_connection_->SetSettingsTables(
+      ui->targetInfoTableWidget, ui->hillInfoTableWidget,
+      ui->trappyCircleInfoTableWidget, ui->trappyLineInfoTableWidget);
 
   area_->Redraw();
 }

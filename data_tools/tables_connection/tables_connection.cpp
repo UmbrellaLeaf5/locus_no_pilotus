@@ -176,6 +176,13 @@ void TablesConnection::UpdateTable(
   tr_circles_table_->update();
 }
 
+void TablesConnection::UpdateTables() {
+  UpdateTable(manager_->GetTargets());
+  UpdateTable(manager_->GetHills());
+  UpdateTable(manager_->GetTrappyLines());
+  UpdateTable(manager_->GetTrappyCircles());
+}
+
 void TablesConnection::TargetsItemChanged(int row, int column) {
   auto x_item = targets_table_->item(1, column);
   auto y_item = targets_table_->item(2, column);

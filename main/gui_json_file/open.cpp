@@ -1,7 +1,7 @@
 #include "gui_json_file.h"
 
 std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
-                                            data_tools::PlotArea* plot_area) {
+                                            data_tools::DataManager* manager) {
   std::vector<lib::Target> targets;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Target t;
@@ -12,7 +12,7 @@ std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
 }
 
 std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
-    QJsonArray arr, data_tools::PlotArea* plot_area) {
+    QJsonArray arr, data_tools::DataManager* manager) {
   std::vector<lib::TrappyCircle> trappy_circles;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyCircle tc;
@@ -23,7 +23,7 @@ std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
 }
 
 std::vector<lib::TrappyLine> GetTrappyLinesFromFile(
-    QJsonArray arr, data_tools::PlotArea* plot_area) {
+    QJsonArray arr, data_tools::DataManager* manager) {
   std::vector<lib::TrappyLine> trappy_lines;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyLine tl;
@@ -34,7 +34,7 @@ std::vector<lib::TrappyLine> GetTrappyLinesFromFile(
 }
 
 std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr,
-                                        data_tools::PlotArea* plot_area) {
+                                        data_tools::DataManager* manager) {
   std::vector<lib::Hill> hills;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Hill h;
@@ -44,7 +44,7 @@ std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr,
   return hills;
 }
 
-void GuiJsonFile::Open(data_tools::PlotArea* plot_area) {
+void GuiJsonFile::Open(data_tools::DataManager* manager) {
   if (file_->open(QIODevice::ReadOnly | QFile::Text)) {
     QJsonObject root = LoadJson();
 
@@ -58,12 +58,13 @@ void GuiJsonFile::Open(data_tools::PlotArea* plot_area) {
     QJsonArray json_trappy_lines = root["Trappy_Lines"].toArray();
     QJsonArray json_hills = root["Hills"].toArray();
 
-    plot_area->Set(GetTargetsFromFile(json_targets, plot_area));
-    plot_area->Set(GetTrappyCirclesFromFile(json_trappy_circles, plot_area));
-    plot_area->Set(GetTrappyLinesFromFile(json_trappy_lines, plot_area));
-    plot_area->Set(GetHillsFromFile(json_hills, plot_area));
+    manager->Set(GetTargetsFromFile(json_targets, manager));
+    manager->Set(GetTrappyCirclesFromFile(json_trappy_circles, manager));
+    manager->Set(GetTrappyLinesFromFile(json_trappy_lines, manager));
+    manager->Set(GetHillsFromFile(json_hills, manager));
 
-    plot_area->Redraw();
     file_->close();
+
+    // перерисовка произойдёт уже после
   }
 }

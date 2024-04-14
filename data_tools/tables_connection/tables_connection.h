@@ -38,6 +38,9 @@ class TablesConnection : public QObject {
     UpdateTablesConnections();
   }
 
+  /// @brief обновляет данные в таблицах всех объектов
+  void UpdateTables();
+
   /**
    * @brief обновляет значения таблицы с Targets
    * @param targets: вектор новых значений

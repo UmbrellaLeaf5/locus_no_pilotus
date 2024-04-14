@@ -5,12 +5,12 @@
 #include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {
-  area_->Add(gui::Target(x, y));
+  manager_->Add(gui::Target(x, y));
   area_->Redraw();
 }
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
-  area_->Add(gui::TrappyCircle(x, y, radius));
+  manager_->Add(gui::TrappyCircle(x, y, radius));
   area_->Redraw();
 }
 
@@ -21,16 +21,16 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   gui::Target t1(x1, y1);
   gui::Target t2(x2, y2);
 
-  area_->Add(t1);
-  area_->Add(t2);
+  manager_->Add(t1);
+  manager_->Add(t2);
   area_->Redraw();
 
-  area_->Add(gui::TrappyLine({t1, t2}));
+  manager_->Add(gui::TrappyLine({t1, t2}));
   area_->Redraw();
 }
 
 void MainWindow::AddHill(std::vector<lib::Point> points) {
-  area_->Add(gui::Hill(points));
+  manager_->Add(gui::Hill(points));
   area_->Redraw();
 }
 
@@ -108,7 +108,7 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
 
       switch (ret) {
         case QMessageBox::Save:
-          json_file_.Save(area_.get());
+          json_file_.Save(manager_.get());
           break;
         case QMessageBox::Discard:
           break;
@@ -146,11 +146,12 @@ bool MainWindow::OpenMessageWindow(FileType file_type) {
 // есть ли изменения в текущем файле
 void MainWindow::closeEvent(QCloseEvent* event) {
   bool is_closed = false;
-  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_.get()))
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
     is_closed = OpenMessageWindow(FileType::UsualFile);
-  else if (!json_file_.IsExistsFile() &&
-           (area_->GetTargets().size() + area_->GetTrappyCircles().size() +
-            area_->GetTrappyLines().size() + area_->GetHills().size()) != 0)
+  else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
+                                          manager_->GetTrappyCircles().size() +
+                                          manager_->GetTrappyLines().size() +
+                                          manager_->GetHills().size()) != 0)
     is_closed = OpenMessageWindow(FileType::UntitledFile);
   if (is_closed)
     event->ignore();
@@ -161,16 +162,19 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 // Кнопка "New"
 void MainWindow::on_actionNew_triggered() {
   bool is_closed = false;
-  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_.get()))
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
     is_closed = OpenMessageWindow(FileType::UsualFile);
-  else if (!json_file_.IsExistsFile() &&
-           (area_->GetTargets().size() + area_->GetTrappyCircles().size() +
-            area_->GetTrappyLines().size() + area_->GetHills().size()) != 0)
+  else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
+                                          manager_->GetTrappyCircles().size() +
+                                          manager_->GetTrappyLines().size() +
+                                          manager_->GetHills().size()) != 0)
     is_closed = OpenMessageWindow(FileType::UntitledFile);
 
   if (!is_closed) {
-    area_->Clear();
+    manager_->Clear();
     json_file_.Clear();
+
+    area_->Redraw();
   }
 }
 
@@ -178,18 +182,20 @@ void MainWindow::on_actionNew_triggered() {
 void MainWindow::on_actionOpen_triggered() {
   bool is_closed = false;
 
-  if (json_file_.IsExistsFile() && json_file_.IsChanged(area_.get()))
+  if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
     is_closed = OpenMessageWindow(FileType::UsualFile);
-  else if (!json_file_.IsExistsFile() &&
-           (area_->GetTargets().size() + area_->GetTrappyCircles().size() +
-            area_->GetTrappyLines().size() + area_->GetHills().size()) != 0)
+  else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
+                                          manager_->GetTrappyCircles().size() +
+                                          manager_->GetTrappyLines().size() +
+                                          manager_->GetHills().size()) != 0)
     is_closed = OpenMessageWindow(FileType::UntitledFile);
   if (!is_closed) {
     QString file_name =
         QFileDialog::getOpenFileName(this, tr("Open"), "", tr("File (*.json)"));
     json_file_.SetFile(file_name);
     try {
-      json_file_.Open(area_.get());
+      json_file_.Open(manager_.get());
+      area_->Redraw();
     } catch (...) {
       QMessageBox::critical(this, "Damaged file", "Invalid format file!");
     }
@@ -200,7 +206,7 @@ void MainWindow::on_actionSave_triggered() {
   if (!json_file_.IsExistsFile())
     on_actionSave_as_triggered();
   else
-    json_file_.Save(area_.get());
+    json_file_.Save(manager_.get());
 }
 
 // Кнопка "Save as"
@@ -208,7 +214,7 @@ void MainWindow::on_actionSave_as_triggered() {
   QString file_name = QFileDialog::getSaveFileName(
       this, tr("Save as"), json_file_.GetUntitledFile(), tr("File (*.json)"));
   json_file_.SetFile(file_name);
-  json_file_.Save(area_.get());
+  json_file_.Save(manager_.get());
 }
 
 void MainWindow::on_redrawPushButton_clicked() { area_->Redraw(); }
