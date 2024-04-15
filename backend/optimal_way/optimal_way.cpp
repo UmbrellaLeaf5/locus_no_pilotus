@@ -109,6 +109,9 @@ std::vector<std::size_t> MinimumDistanceCalculator::FindOptimalWay() {
   FillTangentsCircles();
   FillTangentsPoints(point1_);
   FillTangentsPoints(point2_);
+  FillPathNodesOnCircles();
+  FillPathNodesOnPoint(point1_);
+  FillPathNodesOnPoint(point2_);
   Dijkstras_algorithm da(graph_);
   return da.Get_Min_Path();
 }
