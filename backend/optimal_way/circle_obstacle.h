@@ -7,9 +7,10 @@
 #include "../lib/point.h"
 
 namespace math {
+
 constexpr double precision = lib::precision;
 
-// Структура хранит коэфиценты для прямой вида ax+by+c=0
+/// @brief прямая вида ax+by+c=0
 struct LinearFunction {
   LinearFunction(double a, double b, double c)
       : a_coef{a}, b_coef{b}, c_coef{c} {}
@@ -23,16 +24,25 @@ struct LinearFunction {
   }
 };
 
+/// @brief точка с геометрическими связями
 struct Point : public lib::Point {
   Point(double xx, double yy) : lib::Point{xx, yy} {}
 
+  // Касательные, проходящие через точку
   std::vector<LinearFunction> tangents;
 
+  // Вторая точка касательной
   std::shared_ptr<Point> another_tangent_point = nullptr;
 };
 
+/// @brief круговое препятствие
 class CircleObstacle {
  public:
+  /**
+   * @brief инициалирует экземпляр CircleObstacle
+   * @param center: центр круга
+   * @param radius: радиус круга
+   */
   CircleObstacle(Point center, double radius)
       : center_{center}, radius_{radius} {}
 
@@ -73,8 +83,10 @@ class CircleObstacle {
 
   double radius_;
 
+  // Касательные
   std::vector<LinearFunction> tangents_;
 
+  // Точки касания
   std::vector<Point> tangent_points_;
 };
 

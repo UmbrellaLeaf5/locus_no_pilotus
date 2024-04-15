@@ -4,12 +4,6 @@
 
 namespace math {
 
-LinearFunction MakeLinearFunction(const Point& point1, const Point& point2) {
-  double slope = (point2.y - point1.y) / (point2.x - point1.x);
-  double b_coef = point1.y - slope * point1.x;
-  return LinearFunction{slope, -1, b_coef};
-}
-
 double DistanceBetweenPoints(const Point& p1, const Point& p2) {
   return pow(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2), 0.5);
 }
@@ -22,9 +16,15 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
   return circle.GetRadius() * acos(cos_alpha);
 }
 
-std::pair<Point, Point> CrossPoints(const LinearFunction& tangent,
-                                    const CircleObstacle& circle1,
-                                    const CircleObstacle& circle2) {
+LinearFunction MakeLinearFunction(const Point& point1, const Point& point2) {
+  double slope = (point2.y - point1.y) / (point2.x - point1.x);
+  double b_coef = point1.y - slope * point1.x;
+  return LinearFunction{slope, -1, b_coef};
+}
+
+std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
+                                      const CircleObstacle& circle1,
+                                      const CircleObstacle& circle2) {
   double a = tangent.a_coef;
   double b = tangent.b_coef;
   double c = tangent.c_coef;
