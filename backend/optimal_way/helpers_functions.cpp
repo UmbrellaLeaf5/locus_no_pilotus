@@ -3,6 +3,7 @@
 #include <cmath>
 
 namespace math {
+
 LinearFunction MakeLinearFunction(const Point& point1, const Point& point2) {
   double slope = (point2.y - point1.y) / (point2.x - point1.x);
   double b_coef = point1.y - slope * point1.x;
@@ -117,4 +118,5 @@ bool AreThereIntersections(const CircleObstacle& crcl, const Point& point1,
       return false;
   }
 }
+
 }  // namespace math

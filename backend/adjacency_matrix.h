@@ -62,16 +62,22 @@ class AdjacencyMatrix {
  private:
   // Размер матрицы
   std::size_t size_;
+
   // Матрица
   std::vector<std::vector<double>> matrix_;
+
   // Редуцированная версия матрицы
   std::vector<std::vector<double>> reducted_matrix_;
+
   // Минимальный элемент в каждой строке и в каждом столбце
   std::vector<double> min_numbers_;
+
   // Оценка пути для данной матрицы
   double evaluation_ = 0;
+
   // Ребро, которое выбирается для следующего шага в алгоритме Литтла
   std::pair<std::size_t, std::size_t> selected_edge_;
+
   // Значение матрицы, которое выбирается для следующего шага в алгоритме
   // Литтла
   std::pair<std::size_t, std::size_t> selected_value_;

@@ -2,6 +2,7 @@
 
 #include "circle_obstacle.h"
 namespace math {
+
 double DistanceBetweenPoints(const Point& p1, const Point& p2);
 
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
@@ -9,7 +10,7 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
 
 LinearFunction MakeLinearFunction(const Point& point1, const Point& point2);
 
-// Точки касания прямой к окружснотям
+// Точки касания прямой к окружностям
 std::pair<Point, Point> CrossPoints(const LinearFunction& tangent,
                                     const CircleObstacle& circle1,
                                     const CircleObstacle& circle2);
