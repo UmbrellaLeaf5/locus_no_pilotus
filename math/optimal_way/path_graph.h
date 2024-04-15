@@ -67,11 +67,11 @@ struct PathWayGraph {
   }
 };
 
-/// @brief алгоритм Дейкстры
+/// @brief Реализация алгоритма Дейкстры
 class Dijkstras_algorithm {
  public:
   /**
-   * @brief инициализирует новый экземпляр Dijkstras_algorithm
+   * @brief Инициализирует новый экземпляр Dijkstras_algorithm
    * @param start: начальная точка
    * @param end: конечная точка
    */
@@ -107,11 +107,11 @@ class Dijkstras_algorithm {
   // Кратчайший маршрут из start_ в end_
   std::vector<std::size_t> min_path_;
 
-  // Кратчайшие найденные растояния до рассматриваемых вершин
+  // Кратчайшие найденные расстояния до рассматриваемых вершин
   std::map<std::size_t, double> graphs_vertex_;
 
   /**
-   * @brief определяет длину кратчайшего пути из start_ в end_
+   * @brief Определяет длину кратчайшего пути из start_ в end_
    */
   void Calculate_Min_Path();
 };

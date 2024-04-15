@@ -5,7 +5,7 @@
 
 namespace gui {
 
-/// @brief фигура контрольной точки
+/// @brief Фигура контрольной точки
 class Target : public Drawable {
  public:
   Target() = default;
@@ -30,13 +30,13 @@ class Target : public Drawable {
   void Draw(QCustomPlot* plot) override;
 
   /**
-   * @brief возвращает индекс на полотне [plottable]
+   * @brief Возвращает индекс на полотне [plottable]
    * @return size_t: индекс
    */
   size_t GetPlottableIndex() const { return plottable_index_; }
 
   /**
-   * @brief возвращает значение указателя на полотне
+   * @brief Возвращает значение указателя на полотне
    * @return QCPGraph*: указатель
    */
   QCPGraph* GetGraphPtr() const { return graph_; }

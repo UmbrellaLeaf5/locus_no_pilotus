@@ -4,11 +4,11 @@
 
 namespace gui {
 
-/// @brief некоторая возможная к рисованию фигура [абстрактный класс]
+/// @brief Некоторая возможная к рисованию фигура [абстрактный класс]
 class Drawable {
  public:
   /**
-   * @brief привязывает (рисует) экземпляр класса на полотне
+   * @brief Привязывает (рисует) экземпляр класса на полотне
    * @param plot: указатель на соотв. полотно
    */
   virtual void Draw(QCustomPlot* plot) = 0;
@@ -16,7 +16,7 @@ class Drawable {
   Drawable() = default;
 };
 
-// @brief типы объектов по категориям
+// @brief Типы объектов по категориям
 enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
 
 }  // namespace gui

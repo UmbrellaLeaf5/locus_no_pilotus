@@ -13,8 +13,8 @@ namespace Ui {
 class AddHillForm;
 }
 
-/// @brief структура из двух QLineEdit, относящихся к вводу координаты точки
-// (чтобы не использовать std::pair<std::unique_ptr<QLineEdit>, ... >)
+/// @brief Структура из двух QLineEdit, относящихся к вводу координаты точки
+/// (чтобы не использовать std::pair<std::unique_ptr<QLineEdit>, ... >)
 struct PointLineEdits {
   PointLineEdits() = default;
   PointLineEdits(QLineEdit* abscissa, QLineEdit* ordinate)
@@ -41,7 +41,7 @@ class AddHillForm : public QDialog {
 
  private:
   /**
-   * @brief добавляет определенное количество новых полей ввода на форму
+   * @brief Добавляет определенное количество новых полей ввода на форму
    * @param amount: кол-ло новых полей ввода точки
    */
   void AddNewInputFields(size_t amount = 1);

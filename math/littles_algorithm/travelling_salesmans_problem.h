@@ -7,17 +7,17 @@
 
 namespace math {
 
-/// @brief решение задачи коммивояжера
+/// @brief Решение задачи коммивояжера
 class TravellingSalesmansProblem {
  public:
   /**
-   *  @brief инициализирует новый экземпляр TravellingSalesmansProblem
+   *  @brief Инициализирует новый экземпляр TravellingSalesmansProblem
    *  @param matrix: матрица смежности графа
    */
   TravellingSalesmansProblem(AdjacencyMatrix& matrix);
 
   /**
-   *  @brief инициализирует новый экземпляр TravellingSalesmansProblem для
+   *  @brief Инициализирует новый экземпляр TravellingSalesmansProblem для
    * нескольких коммивояжеров
    *  @param matrix: матрица смежности графа
    *  @param num_of_flyers: количество коммивояжеров
@@ -49,13 +49,13 @@ class TravellingSalesmansProblem {
 
   // Вспомогательные методы для работы с paths_stack_
   /**
-   * @brief заменяет вершину графа в path_stack_ на её детей,
+   * @brief Заменяет вершину графа в path_stack_ на её детей,
    * без нарушения порядка
    */
   void ExpandStack();
 
   /**
-   * @brief удалить ребро из матрицы смежности
+   * @brief Удаляет ребро из матрицы смежности
    * @param matrix: матрица смежности
    * @param start_num: начало ребра
    * @param end_num: конец ребра
@@ -65,20 +65,20 @@ class TravellingSalesmansProblem {
                               std::size_t end_num);
 
   /**
-   * @brief находит место для вставки вершины для соблюдения порядка
+   * @brief Находит место для вставки вершины для соблюдения порядка
    * @param eval: нижняя оценка матрицы
    * @return std::size_t индекс вставки вершины
    */
   std::size_t FindIndex(double eval) const;
 
   /**
-   * @brief замыкает Гамильтонов цикл обхода контрольных точек
+   * @brief Замыкает Гамильтонов цикл обхода контрольных точек
    * @param node: вершина графа поиска оптимального пути
    */
   void CompleteEdgePath(std::shared_ptr<TSPNode> node);
 
   /**
-   * @brief перевод ребер, содержащихся в пути
+   * @brief Переводит ребра, содержащихся в пути
    * в последовательность обхода контрольных точек
    * @return std::vector<std::size_t> последовательность
    * обхода контрольных точек
@@ -86,7 +86,7 @@ class TravellingSalesmansProblem {
   std::vector<std::size_t> ConvertToVertexPath();
 
   /**
-   * @brief просчитывает оптимальную маршрут
+   * @brief Просчитывает оптимальную маршрут
    * @return std::vector<std::size_t> порядок следования вершин
    */
   std::vector<std::size_t> CalculateTrajectory();

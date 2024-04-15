@@ -6,7 +6,7 @@
 
 namespace data_tools {
 
-/// @brief класс, упрощающий отображение классов gui в QTableWidget's
+/// @brief Класс, упрощающий отображение классов gui в QTableWidget's
 class TablesConnection : public QObject {
  public:
   TablesConnection() = default;
@@ -14,7 +14,7 @@ class TablesConnection : public QObject {
   void Setup(DataManager* manager, PlotArea* area);
 
   /**
-   * @brief устанавливает значения всех таблиц с информацией
+   * @brief Устанавливает значения всех таблиц с информацией
    * @param hills_info: QTableWidget с информацией о hills
    * @param targets_info: QTableWidget с информацией о hills
    * @param tr_circles_info: QTableWidget с информацией о hills
@@ -30,29 +30,29 @@ class TablesConnection : public QObject {
     UpdateTablesConnections();
   }
 
-  /// @brief обновляет данные в таблицах всех объектов
+  /// @brief Обновляет данные в таблицах всех объектов
   void UpdateTables();
 
   /**
-   * @brief обновляет значения таблицы с Targets
+   * @brief Обновляет значения таблицы с Targets
    * @param targets: вектор новых значений
    */
   void UpdateTable(const std::vector<gui::Target>& targets);
 
   /**
-   * @brief обновляет значения таблицы с Hills
+   * @brief Обновляет значения таблицы с Hills
    * @param hills: вектор новых значений
    */
   void UpdateTable(const std::vector<gui::Hill>& hills);
 
   /**
-   * @brief обновляет значения таблицы с TrappyLines
+   * @brief Обновляет значения таблицы с TrappyLines
    * @param trappy_lines: вектор новых значений
    */
   void UpdateTable(const std::vector<gui::TrappyLine>& trappy_lines);
 
   /**
-   * @brief обновляет значения таблицы с TrappyCircles
+   * @brief Обновляет значения таблицы с TrappyCircles
    * @param trappy_circles: вектор новых значений
    */
   void UpdateTable(const std::vector<gui::TrappyCircle>& trappy_circles);

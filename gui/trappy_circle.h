@@ -5,7 +5,7 @@
 
 namespace gui {
 
-/// @brief фигура опасной зоны
+/// @brief Фигура опасной зоны
 class TrappyCircle : public Drawable {
  public:
   TrappyCircle() = default;
@@ -40,13 +40,13 @@ class TrappyCircle : public Drawable {
   void Draw(QCustomPlot* plot) override;
 
   /**
-   * @brief возвращает индекс на полотне [item]
+   * @brief Возвращает индекс на полотне [item]
    * @return size_t: индекс
    */
   size_t GetItemIndex() const { return item_index_; }
 
   /**
-   * @brief возвращает значение указателя на полотне
+   * @brief Возвращает значение указателя на полотне
    * @return QCPItemEllipse*: указатель
    */
   QCPItemEllipse* GetItemEllipsePtr() const { return ellipse_; }

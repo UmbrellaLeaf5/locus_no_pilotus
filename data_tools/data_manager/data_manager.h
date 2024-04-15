@@ -7,19 +7,19 @@
 
 namespace data_tools {
 
-// @brief класс, хранящий gui объекты и связывающий их с QCustomPlot
+/// @brief Класс, хранящий gui объекты и связывающий их с QCustomPlot
 class DataManager {
  public:
   DataManager() = default;
 
   /**
-   * @brief удаляет объект из менеджера по индексу
+   * @brief Удаляет объект из менеджера по индексу
    * @param obj_type: тип объекта
    * @param index: индекс объекта в его векторе
    */
   void Remove(gui::ObjectType obj_type, size_t index);
 
-  /// @brief очищает все вектора объектов
+  /// @brief Очищает все вектора объектов
   void Clear();
 
   // ----------------------   Target methods   ----------------------
@@ -41,14 +41,14 @@ class DataManager {
   void Set(std::vector<lib::Target>);
 
   /**
-   * @brief возвращает значение Targets
+   * @brief Возвращает значение Targets
    * (позволяет менять объекты, т.к. ссылка не const)
    * @return std::vector<gui::Target>&: ссылки на объекты К.Т.
    */
   std::vector<gui::Target>& GetTargets() { return targets_; }
 
   /**
-   * @brief возвращает значение Targets
+   * @brief Возвращает значение Targets
    * @return const std::vector<gui::Target>&: ссылки на объекты К.Т.
    */
   const std::vector<gui::Target>& GetTargets() const { return targets_; }
@@ -72,14 +72,14 @@ class DataManager {
   void Set(std::vector<lib::Hill>);
 
   /**
-   * @brief возвращает значение Hills
+   * @brief Возвращает значение Hills
    * (позволяет менять объекты, т.к. ссылка не const)
    * @return std::vector<gui::Hill>&: ссылки на объекты рельефа
    */
   std::vector<gui::Hill>& GetHills() { return hills_; }
 
   /**
-   * @brief возвращает значение Hills
+   * @brief Возвращает значение Hills
    * @return const std::vector<gui::Hill>&: const ссылки на объекты рельефа
    */
   const std::vector<gui::Hill>& GetHills() const { return hills_; }
@@ -105,14 +105,14 @@ class DataManager {
   void Set(std::vector<lib::TrappyCircle>);
 
   /**
-   * @brief возвращает значение Trappy Circles
+   * @brief Возвращает значение Trappy Circles
    * (позволяет менять объекты, т.к. ссылка не const)
    * @return std::vector<gui::TrappyCircle>&: ссылки на объекты опасной зоны
    */
   std::vector<gui::TrappyCircle>& GetTrappyCircles() { return tr_circles_; }
 
   /**
-   * @brief возвращает значение Trappy Circles
+   * @brief Возвращает значение Trappy Circles
    * @return const std::vector<gui::TrappyCircle>&: объекты опасной зоны
    */
   const std::vector<gui::TrappyCircle>& GetTrappyCircles() const {
@@ -138,14 +138,14 @@ class DataManager {
   void Set(std::vector<lib::TrappyLine>);
 
   /**
-   * @brief возвращает значение Trappy Lines
+   * @brief Возвращает значение Trappy Lines
    * (позволяет менять объекты, т.к. ссылка не const)
    * @return std::vector<gui::TrappyLine>&: ссылки на объекты оп. перелета
    */
   std::vector<gui::TrappyLine>& GetTrappyLines() { return tr_lines_; }
 
   /**
-   * @brief возвращает значение Trappy Lines
+   * @brief Возвращает значение Trappy Lines
    * @return const std::vector<gui::TrappyLine>&: ссылки на объекты оп. перелета
    */
   const std::vector<gui::TrappyLine>& GetTrappyLines() const {

@@ -5,13 +5,13 @@
 
 namespace gui {
 
-/// @brief фигура рельефа с высотой
+/// @brief Фигура рельефа с высотой
 class Hill : public Drawable {
  public:
   Hill() = default;
 
   /**
-   * @brief инициализирует новый экземпляр Hill
+   * @brief Инициализирует новый экземпляр Hill
    * @param center: центр описанной окружности
    * @param radius: радиус опис. окр.
    * @param vertices_amount: кол-во вершин
@@ -22,7 +22,7 @@ class Hill : public Drawable {
       : data_(center, radius, vertices_amount), color_{color} {}
 
   /**
-   * @brief инициализирует новый экземпляр Hill
+   * @brief Инициализирует новый экземпляр Hill
    * @param points: список точек
    * @param color: цвет
    */
@@ -53,13 +53,13 @@ class Hill : public Drawable {
   void Draw(QCustomPlot* plot) override;
 
   /**
-   * @brief возвращает индекс на полотне [plottable]
+   * @brief Возвращает индекс на полотне [plottable]
    * @return size_t: индекс
    */
   size_t GetPlottableIndex() const { return plottable_index_; }
 
   /**
-   * @brief возвращает значение указателя на полотне
+   * @brief Возвращает значение указателя на полотне
    * @return QCPGraph*: указатель
    */
   QCPCurve* GetCurvePtr() const { return curve_; }

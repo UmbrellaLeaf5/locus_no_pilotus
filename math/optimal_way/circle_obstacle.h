@@ -10,7 +10,7 @@ namespace math {
 
 constexpr double precision = lib::precision;
 
-/// @brief прямая вида ax+by+c=0
+/// @brief Прямая вида ax+by+c=0
 struct LinearFunction {
   LinearFunction(double a, double b, double c)
       : a_coef{a}, b_coef{b}, c_coef{c} {}
@@ -30,7 +30,7 @@ struct LinearFunction {
   }
 };
 
-/// @brief точка с геометрическими связями
+/// @brief Точка с геометрическими связями
 struct Point : public lib::Point {
   Point(double xx, double yy) : lib::Point{xx, yy} {}
 
@@ -41,11 +41,11 @@ struct Point : public lib::Point {
   std::shared_ptr<lib::Point> another_tangent_point = nullptr;
 };
 
-/// @brief круговое препятствие
+/// @brief Круговое препятствие
 class CircleObstacle {
  public:
   /**
-   * @brief инициалирует экземпляр CircleObstacle
+   * @brief Инициализирует экземпляр CircleObstacle
    * @param center: центр круга
    * @param radius: радиус круга
    */

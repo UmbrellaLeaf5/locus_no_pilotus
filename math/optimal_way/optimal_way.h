@@ -6,11 +6,11 @@
 
 namespace math {
 
-/// @brief функтор, находящий кратчайший путь между точками
+/// @brief Функтор, находящий кратчайший путь между точками
 class MinimumDistanceCalculator {
  public:
   /**
-   * @brief находит кратчайший путь между точками
+   * @brief Находит кратчайший путь между точками
    * @param p1: точка 1
    * @param p2: точка 2
    * @param v: круговые препятствия
@@ -29,14 +29,14 @@ class MinimumDistanceCalculator {
 
   std::vector<CircleObstacle> circles_;
 
-  // Граф для алгоритма Дейстры
+  // Граф для алгоритма Дейкстры
   PathWayGraph graph_;
 
   // Оптимальный путь
   std::vector<std::size_t> optimal_way_;
 
   /**
-   * @brief проверяет, пересекат ли общая касательная двух кругов другой круг
+   * @brief Проверяет, пересекает ли общая касательная двух кругов другой круг
    * @param tangent: общая касательная
    * @param circle1_index: номер круга 1
    * @param circle2_index: номер круга 2
@@ -46,7 +46,7 @@ class MinimumDistanceCalculator {
                                     int circle1_index, int circle2_index);
 
   /**
-   * @brief добавляет информацию об общей касательной двух кругов
+   * @brief Добавляет информацию об общей касательной двух кругов
    * @param tangent: общая касательная
    * @param circle1: круг 1
    * @param circle2: круг 2
@@ -54,7 +54,7 @@ class MinimumDistanceCalculator {
   void AddTangent(const LinearFunction& tangent, CircleObstacle& circle1,
                   CircleObstacle& circle2);
 
-  // Добавляет информацию о всех общих касательных всех окржностей
+  // Добавляет информацию о всех общих касательных всех окружностей
   void AddCommonTangents();
 
   // Добавляет информацию о всех касательных из контрольных точек
