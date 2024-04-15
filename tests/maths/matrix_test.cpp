@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <cfloat>
 
-#include "../backend/littles_algorithm/adjacency_matrix.h"
+#include "../math/littles_algorithm/adjacency_matrix.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK

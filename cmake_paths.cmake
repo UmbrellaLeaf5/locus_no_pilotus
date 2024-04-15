@@ -7,3 +7,4 @@ cmake_path(SET PROJECT_DIR "${CMAKE_SOURCE_DIR}")
 
 cmake_path(SET GUI_DIR "${CMAKE_SOURCE_DIR}/gui")
 cmake_path(SET DATATOOLS_DIR "${CMAKE_SOURCE_DIR}/data_tools")
+cmake_path(SET MATH_DIR "${CMAKE_SOURCE_DIR}/math")

@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.20)
 
 project(lib VERSION 0.1 LANGUAGES CXX)
 
-file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp")
+file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp"
+  "${MATH_DIR}/*.h" "${MATH_DIR}/*.cpp")
 
 add_library(lib STATIC ${PROJECT_SOURCES})
 

@@ -1,4 +1,4 @@
-#include "../backend/optimal_way/path_graph.h"
+#include "../math/optimal_way/path_graph.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
