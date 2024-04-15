@@ -9,10 +9,16 @@ namespace math {
 class MinimumDistanceCalculator {
  public:
   MinimumDistanceCalculator(Point p1, Point p2)
-      : point1_{p1}, point2_{p2}, circles_(0) {}
+      : point1_{p1}, point2_{p2}, circles_(0) {
+    FindOptimalWay();
+  }
 
   MinimumDistanceCalculator(Point p1, Point p2, std::vector<CircleObstacle> v)
-      : point1_{p1}, point2_{p2}, circles_{v} {}
+      : point1_{p1}, point2_{p2}, circles_{v} {
+    FindOptimalWay();
+  }
+
+  std::vector<std::size_t> GetOptimalWay() { return optimal_way_; }
 
  private:
   Point point1_;
@@ -22,6 +28,8 @@ class MinimumDistanceCalculator {
   std::vector<CircleObstacle> circles_;
 
   PathWayGraph graph_;
+
+  std::vector<std::size_t> optimal_way_;
 
   bool TangentGoesTroughOtherCircle(const LinearFunction& tangent,
                                     int circle1_index, int circle2_index);
@@ -38,7 +46,7 @@ class MinimumDistanceCalculator {
 
   void FillPathNodesOnPoint(const Point& point);
 
-  std::vector<std::size_t> FindOptimalWay();
+  void FindOptimalWay();
 };
 
 }  // namespace math

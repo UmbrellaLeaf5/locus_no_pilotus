@@ -105,7 +105,7 @@ void MinimumDistanceCalculator::FillPathNodesOnPoint(const Point& point) {
   graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
 }
 
-std::vector<std::size_t> MinimumDistanceCalculator::FindOptimalWay() {
+void MinimumDistanceCalculator::FindOptimalWay() {
   FillTangentsCircles();
   FillTangentsPoints(point1_);
   FillTangentsPoints(point2_);
@@ -113,7 +113,7 @@ std::vector<std::size_t> MinimumDistanceCalculator::FindOptimalWay() {
   FillPathNodesOnPoint(point1_);
   FillPathNodesOnPoint(point2_);
   Dijkstras_algorithm da(graph_);
-  return da.Get_Min_Path();
+  optimal_way_ = da.Get_Min_Path();
 }
 
 }  // namespace math
