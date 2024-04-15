@@ -105,10 +105,10 @@ bool AreThereIntersections(const CircleObstacle& crcl, const Point& point1,
   if (discriminant <= 0)
     return false;
   else {
-    float x_1 =
+    double x_1 =
         (-(slope * b_coef - center.x - slope * center.y) + sqrt(discriminant)) /
         (1 + pow(slope, 2));
-    float x_2 =
+    double x_2 =
         (-(slope * b_coef - center.x - slope * center.y) - sqrt(discriminant)) /
         (1 + pow(slope, 2));
     if ((std::min(point1.x, point2.x) <= x_1 <= std::max(point1.x, point2.x)) ||
