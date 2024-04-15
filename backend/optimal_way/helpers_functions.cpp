@@ -46,7 +46,8 @@ std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& crcl,
   Point center = crcl.GetCenter();
   double radius = crcl.GetRadius();
   double discriminant = pow((center.x - pnt.x) * (center.y - pnt.y), 2) -
-                        (pow(radius, 2) - pow(pnt.x - center.x, 2));
+                        (pow(radius, 2) - pow(pnt.x - center.x, 2)) *
+                            (pow(radius, 2) - pow(pnt.y - center.y, 2));
   double slope_1 =
       (-(center.x - pnt.x) * (center.y - pnt.y) + sqrt(discriminant)) /
       (pow(radius, 2) - pow(pnt.x - center.x, 2));
