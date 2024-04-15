@@ -9,8 +9,6 @@ double DistanceBetweenPoints(const Point& p1, const Point& p2);
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
                                      const Point& p1, const Point& p2);
 
-LinearFunction MakeLinearFunction(const Point& point1, const Point& point2);
-
 /**
  * @brief находит точки касания кругов с их общей касательной
  * @param tangent: касательная

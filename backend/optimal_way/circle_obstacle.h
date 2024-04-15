@@ -15,6 +15,12 @@ struct LinearFunction {
   LinearFunction(double a, double b, double c)
       : a_coef{a}, b_coef{b}, c_coef{c} {}
 
+  LinearFunction(const lib::Point& point1, const lib::Point& point2) {
+    a_coef = (point2.y - point1.y) / (point2.x - point1.x);
+    b_coef = -1;
+    c_coef = point1.y - a_coef * point1.x;
+  }
+
   double a_coef, b_coef, c_coef;
 
   bool operator==(const LinearFunction& other) {
@@ -32,7 +38,7 @@ struct Point : public lib::Point {
   std::vector<LinearFunction> tangents;
 
   // Вторая точка касательной
-  std::shared_ptr<Point> another_tangent_point = nullptr;
+  std::shared_ptr<lib::Point> another_tangent_point = nullptr;
 };
 
 /// @brief круговое препятствие

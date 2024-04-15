@@ -61,12 +61,11 @@ void MinimumDistanceCalculator::AddControlPointTangents() {
         }
       }
       if (is_exist_tangent1)
-        point.tangents.push_back(
-            MakeLinearFunction(point, tangent_points_1.first));
+        point.tangents.push_back(LinearFunction(point, tangent_points_1.first));
 
       if (is_exist_tangent2)
         point.tangents.push_back(
-            MakeLinearFunction(point, tangent_points_1.second));
+            LinearFunction(point, tangent_points_1.second));
     }
 }
 

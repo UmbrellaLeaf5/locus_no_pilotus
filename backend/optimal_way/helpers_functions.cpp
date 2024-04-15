@@ -16,12 +16,6 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
   return circle.GetRadius() * acos(cos_alpha);
 }
 
-LinearFunction MakeLinearFunction(const Point& point1, const Point& point2) {
-  double slope = (point2.y - point1.y) / (point2.x - point1.x);
-  double b_coef = point1.y - slope * point1.x;
-  return LinearFunction{slope, -1, b_coef};
-}
-
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle1,
                                       const CircleObstacle& circle2) {
@@ -84,8 +78,7 @@ std::vector<LinearFunction> TangentsBetweenCircles(
         (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
     double a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
     double c = r_0 - a * x_0 - b * y_0;
-    LinearFunction tangent{a, b, c};
-    return tangent;
+    return LinearFunction(a, b, c);
   };
 
   for (auto n1 : {-1, 1})
