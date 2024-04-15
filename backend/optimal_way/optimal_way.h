@@ -8,11 +8,6 @@ namespace math {
 
 class MinimumDistanceCalculator {
  public:
-  MinimumDistanceCalculator(Point p1, Point p2)
-      : point1_{p1}, point2_{p2}, circles_(0) {
-    FindOptimalWay();
-  }
-
   MinimumDistanceCalculator(Point p1, Point p2, std::vector<CircleObstacle> v)
       : point1_{p1}, point2_{p2}, circles_{v} {
     FindOptimalWay();
