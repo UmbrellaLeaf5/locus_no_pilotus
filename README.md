@@ -2,7 +2,7 @@
 
 **Project of four first grade students (for engineering practical work in the second semester) in Qt C++**
 
-## <u>**Contents**</u>
+## **Contents**
   * [Documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html "documentation generated with doxygen")
  * [Installation and configuring](#installation-and-configuring "with using MSYS")
  * [Authors](#authors "the best guys")
@@ -13,7 +13,7 @@
 1) Install **[MSYS2](https://www.msys2.org/)** to any convenient folder as compiler setup
 > *P.S. of course you can try install all the libs and packages used in repo manually, but our team got pain and tears trying to install Boost on MINGW in this way, so we recommend to install MSYS (besides, it is an excellent tool for compiling any other C++ and etc. projects)*
 
-2) Open <u>MSYS2 MSYS</u> console, copy the command below and paste it with *Shift+Ins* to download all the packages used in our project
+2) Open ```MSYS2 MSYS``` console, copy the command below and paste it with ```Shift+Ins``` to download all the packages used in our project
 ```
   pacman -S mingw-w64-x86_64-gcc
   pacman -S mingw-w64-x86_64-gdb
@@ -56,27 +56,27 @@
 
 3) Install **[Git Bash](https://gitforwindows.org/)** to any convenient folder (if you haven't get it yet) 
 
-4) Open <u>Git Bash</u> and use command like ``` cd C:/CodeFolder ``` to go to the folder where you usually save the code
+4) Open ```Git Bash``` and use command like ```cd C:/CodeFolder``` to go to the folder where you usually save the code
 
 5) Clone our repo with including submodules to such folder
 ``` 
   git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus 
 ```
 
-6) Open the MSYS bin folder in path like ***C:\YourPathToMsys\msys64\mingw64\bin***, than find and start ``` qtcreator.exe ```
+6) Open the MSYS bin folder in path like ```C:\YourPathToMsys\msys64\mingw64\bin``` than find and start ```qtcreator.exe```
 
 7) In folder with our project clone find ***CMakeLists.txt*** and open it with QtCreator
 
 8) Set the compiler that allow *CMake* configuration in the kits list
 
 8) To use the full working version: *Build* the project, than use ***Tools > Build > Run CMake*** to reconfigure and fix error with including QCustomPlot
-> *P.S. because of using QCustomPlot as GitHib submodule with repo author's solution to include QCustomPlot files to extra <u>lib</u> folder, we have problem with Qt autogen files (was fixed by using regex in extra cmake_scripts and the need to reconfigure the project after building)*
+> *P.S. because of using QCustomPlot as GitHib submodule with repo author's solution to include QCustomPlot files to extra *lib* folder, we have problem with Qt autogen files (was fixed by using regex in extra cmake_scripts and the need to reconfigure the project after building)*
 
 #### On Linux system
 
 *Coming soon...*
 
-> <u>Much respect and help for this installation method to [George Sukhanov](https://github.com/TheFueRr "our colleague with an equally interesting project on processing experimental data")!</u>
+> Much respect and help for this installation method to [George Sukhanov](https://github.com/TheFueRr "our colleague with an equally interesting project on processing experimental data")!
 
 
 ### Authors
