@@ -59,7 +59,9 @@
 4) Open <u>Git Bash</u> and use command like ``` cd C:/CodeFolder ``` to go to the folder where you usually save the code
 
 5) Clone our repo with including submodules to such folder
-``` git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus ```
+``` 
+  git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus 
+```
 
 6) Open the MSYS bin folder in path like ***C:\YourPathToMsys\msys64\mingw64\bin***, than find and start ``` qtcreator.exe ```
 
