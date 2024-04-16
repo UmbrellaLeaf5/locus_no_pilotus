@@ -7,17 +7,17 @@ namespace math {
 
 constexpr double inf = std::numeric_limits<double>::infinity();
 
-/// @brief структура для хранения двух минимумов строки/столбца
+/// @brief Структура для хранения двух минимумов строки/столбца
 struct Minimums {
   double first;
   double second;
 };
 
-/// @brief матрица смежности для алгоритма Литтла
+/// @brief Матрица смежности для алгоритма Литтла
 class AdjacencyMatrix {
  public:
   /**
-   * @brief создает новый экземпляр AdjacencyMatrix с
+   * @brief Создает новый экземпляр AdjacencyMatrix с
    * добавлением строки и столбца номеров точек
    * @param nums: матрица смежности графа
    * @return экземпляр AdjacencyMatrix по данной матрице смежности
@@ -30,7 +30,7 @@ class AdjacencyMatrix {
   AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
 
   /**
-   * @brief изменение элемента матрицы
+   * @brief Меняет элемент матрицы
    * @param i: номер строки элемента
    * @param j: номер столбца элемента
    * @param num: новое значение элемента
@@ -61,7 +61,7 @@ class AdjacencyMatrix {
   }
 
   /**
-   * @brief создает минор матрицы
+   * @brief Создает минор матрицы
    * @param i: номер удаляемой строки
    * @param j: номер удаляемого столбца
    * @return AdjacencyMatrix минор матрицы
@@ -69,7 +69,7 @@ class AdjacencyMatrix {
   AdjacencyMatrix Minor(std::size_t i, std::size_t j);
 
   /**
-   * @brief создает редуцированную матрицы
+   * @brief Создает редуцированную матрицы
    * @return AdjacencyMatrix редуцированная матрица
    */
   AdjacencyMatrix Reducted();
@@ -78,7 +78,7 @@ class AdjacencyMatrix {
   void CalculateData();
 
   /**
-   * @brief расширяет матрицу для нескольких коммивояжеров
+   * @brief Расширяет матрицу для нескольких коммивояжеров
    * @param num_of_flyers: количество коммивояжеров
    */
   void ExtendTo(std::size_t num_of_flyers);
@@ -102,19 +102,18 @@ class AdjacencyMatrix {
   // Ребро, которое выбирается для следующего шага в алгоритме Литтла
   std::pair<std::size_t, std::size_t> selected_edge_;
 
-  // Значение матрицы, которое выбирается для следующего шага в алгоритме
-  // Литтла
+  // Знач. матрицы, которое выбирается для следующего шага в алгоритме Литтла
   std::pair<std::size_t, std::size_t> selected_value_;
 
   /**
-   * @brief создает новый экземпляр AdjacencyMatrix
+   * @brief Создает новый экземпляр AdjacencyMatrix
    * @param nums: матрица смежности графа
    * @return экземпляр AdjacencyMatrix по данной матрице смежности
    */
   AdjacencyMatrix(std::vector<std::vector<double>> nums);
 
   /**
-   * @brief находит 2 минимума в строке или столбце
+   * @brief Находит 2 минимума в строке или столбце
    * @param type: тип поиска минимума(в строке или в столбце)
    * @param index: номер строки/столбца
    * @return Minimums 2 найденных минимума
@@ -122,13 +121,13 @@ class AdjacencyMatrix {
   Minimums FindTwoMinimums(Mins type, std::size_t index) const;
 
   /**
-   * @brief находит нижнюю оценку для матрицы
+   * @brief Находит нижнюю оценку для матрицы
    * @return double нижняя оценку матрицы
    */
   double BottomLineEvaluation();
 
   /**
-   * @brief находит позицию нуля с наибольшей степенью
+   * @brief Находит позицию нуля с наибольшей степенью
    * @return позицию нуля с наибольшей степенью
    */
   std::pair<std::size_t, std::size_t> HighestPowerOfZero() const;

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+# language: CMake
 
 project(tests VERSION 0.1 LANGUAGES CXX)
 
@@ -34,7 +34,6 @@ endif()
 target_link_libraries(tests PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
 
 target_link_libraries(tests PRIVATE lib)
-target_link_libraries(tests PRIVATE backend)
 
 target_link_libraries(tests PRIVATE ${Boost_LIBRARIES})
 

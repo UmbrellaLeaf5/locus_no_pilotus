@@ -6,7 +6,7 @@
 
 namespace data_tools {
 
-/// @brief класс, упрощающий управление классами gui на QCustomPlot
+/// @brief Класс, упрощающий управление классами gui на QCustomPlot
 class PlotArea {
  public:
   PlotArea() = default;
@@ -16,12 +16,12 @@ class PlotArea {
   void Setup(DataManager* manager);
 
   /**
-   * @brief устанавливает значение plot
+   * @brief Устанавливает значение plot
    * @param plot: указатель на полотно
    */
   void SetPlot(QCustomPlot* plot) { plot_.reset(plot); }
 
-  /// @brief перерисовывает на полотне все объекты и обновляет данные
+  /// @brief Перерисовывает на полотне все объекты и обновляет данные
   void Redraw();
 
  private:

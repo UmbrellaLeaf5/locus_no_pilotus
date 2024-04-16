@@ -35,10 +35,10 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   return std::pair{point1, point2};
 }
 
-std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& crcl,
+std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
                                               const Point& pnt) {
-  Point center = crcl.GetCenter();
-  double radius = crcl.GetRadius();
+  Point center = cr_obst.GetCenter();
+  double radius = cr_obst.GetRadius();
   double discriminant = pow((center.x - pnt.x) * (center.y - pnt.y), 2) -
                         (pow(radius, 2) - pow(pnt.x - center.x, 2)) *
                             (pow(radius, 2) - pow(pnt.y - center.y, 2));
@@ -86,12 +86,12 @@ std::vector<LinearFunction> TangentsBetweenCircles(
   return tangents;
 }
 
-bool AreThereIntersections(const CircleObstacle& crcl, const Point& point1,
+bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
                            const Point& point2) {
   double slope = (point2.y - point1.y) / (point2.x - point1.x);
   double b_coef = point1.y - slope * point1.x;
-  Point center = crcl.GetCenter();
-  double radius = crcl.GetRadius();
+  Point center = cr_obst.GetCenter();
+  double radius = cr_obst.GetRadius();
   double discriminant = (pow(slope * b_coef - center.x - slope * center.y, 2)) +
                         (pow(radius, 2) - pow(center.x, 2) - pow(b_coef, 2) -
                          pow(center.y, 2) + 2 * b_coef * center.y) *

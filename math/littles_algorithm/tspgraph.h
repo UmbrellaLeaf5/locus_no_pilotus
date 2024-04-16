@@ -9,10 +9,10 @@
 
 namespace math {
 
-/// @brief ребро между двумя контрольными точками
+/// @brief Ребро между двумя контрольными точками
 struct Edge {
   /**
-   * @brief создает новый экземпляр Edge
+   * @brief Создает новый экземпляр Edge
    * @param edge: упорядоченная пара точек
    */
   Edge(std::pair<std::size_t, std::size_t> edge)
@@ -21,10 +21,10 @@ struct Edge {
   std::size_t end_num;
 };
 
-/// @brief вершина дерева с соответствующей матрицей смежности
+/// @brief Вершина дерева с соответствующей матрицей смежности
 struct TSPNode {
   /**
-   * @brief создает новый экземпляр TSPNode
+   * @brief Создает новый экземпляр TSPNode
    * @param m: матрица смежности
    * @param prev_node: родитель вершины
    * @param new_edge: новое ребро маршрута

@@ -8,7 +8,7 @@
 
 namespace lib {
 
-/// @brief линия опасного перелета
+/// @brief Линия опасного перелета
 class TrappyLine : public JSONable {
  public:
   TrappyLine() = default;

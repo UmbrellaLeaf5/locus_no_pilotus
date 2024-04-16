@@ -1,3 +1,5 @@
+# language: CMake
+
 # ----------------------     Project setup      ----------------------
 cmake_minimum_required(VERSION 3.20)
 
@@ -45,7 +47,6 @@ add_subdirectory(${QCUSTOMPLOT_DIR}) # here adding qcustomplot subfolder
 add_subdirectory(lib)
 add_subdirectory(tests)
 add_subdirectory(main)
-add_subdirectory(backend)
 
 # --------------------------------------------------------------------
 

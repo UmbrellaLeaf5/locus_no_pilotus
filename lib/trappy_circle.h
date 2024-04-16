@@ -5,7 +5,7 @@
 
 namespace lib {
 
-/// @brief опасная зона
+/// @brief Опасная зона
 class TrappyCircle : public JSONable {
  public:
   TrappyCircle(Point center = {0, 0}, double radius = 0);

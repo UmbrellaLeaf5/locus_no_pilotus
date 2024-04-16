@@ -1,3 +1,5 @@
+# language: CMake
+
 function(load_qcustomplot_dll START_DIR)
   if(EXISTS "${START_DIR}/.vscode")
     file(GLOB_RECURSE QCUSTOMPLOTDLLFILES "${CMAKE_BINARY_DIR}/libqcustomplot.dll")
