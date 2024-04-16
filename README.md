@@ -77,8 +77,8 @@
 > <u>Much respect and help for this installation method to [George Sukhanov](https://github.com/TheFueRr "our colleague with an equally interesting project on processing experimental data")!</u>
 
 
-### <center>Authors</center>
-**<center>[Romanov Fedor](https://github.com/Romanov-Fedor "math greatest gigachad (Desmos proger)")
-[Rybalkin Ilya](https://github.com/Stargazer2005 "traveling salesman problem and Dijkstra algos enjoyer")
-[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, gui forms and cursors hero")
-[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy")</center>**
+### Authors
+**[Romanov Fedor](https://github.com/Romanov-Fedor "math greatest gigachad (Desmos proger)")**
+**[Rybalkin Ilya](https://github.com/Stargazer2005 "traveling salesman problem and Dijkstra algos enjoyer")**
+**[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, gui forms and cursors hero")**
+**[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy")**
