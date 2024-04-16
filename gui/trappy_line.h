@@ -59,8 +59,9 @@ class TrappyLine : public Drawable {
     return targets_indexes_;
   }
 
-  const std::pair<QCPGraph*, QCPGraph*>& GetTargetsGraphPtrs() const {
-    return targets_graphs_;
+  std::pair<QCPGraph*, QCPGraph*> GetTargetsGraphPtrs() const {
+    return std::make_pair(targets_graphs_.first.get(),
+                          targets_graphs_.second.get());
   }
 
  private:
@@ -72,7 +73,8 @@ class TrappyLine : public Drawable {
   QCPGraph* graph_{nullptr};
 
   std::pair<size_t, size_t> targets_indexes_;
-  std::pair<QCPGraph*, QCPGraph*> targets_graphs_;
+  std::pair<std::shared_ptr<QCPGraph>, std::shared_ptr<QCPGraph>>
+      targets_graphs_;
 };
 
 }  // namespace gui
