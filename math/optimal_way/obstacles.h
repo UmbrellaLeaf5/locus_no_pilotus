@@ -64,10 +64,6 @@ class CircleObstacle {
 
   std::vector<Point> GetTangentPoints() { return tangent_points_; }
 
-  void SetCenter(const Point& center) { center_ = center; }
-
-  void SetRadius(double r) { radius_ = r; }
-
   void AddTangentLine(const LinearFunction& tangent) {
     tangents_.push_back(tangent);
   }
