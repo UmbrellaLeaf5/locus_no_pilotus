@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "../lib/point.h"
+#include "lib/point.h"
 
 namespace math {
 

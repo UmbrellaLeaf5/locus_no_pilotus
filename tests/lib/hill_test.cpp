@@ -1,4 +1,4 @@
-#include "../lib/hill.h"
+#include "lib/hill.h"
 
 #include <QApplication>
 #include <cmath>

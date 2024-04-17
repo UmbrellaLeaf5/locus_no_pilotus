@@ -1,4 +1,4 @@
-#include "../lib/trappy_circle.h"
+#include "lib/trappy_circle.h"
 
 #include <QApplication>
 #include <random>

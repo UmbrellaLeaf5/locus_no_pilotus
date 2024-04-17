@@ -1,4 +1,4 @@
-#include "../lib/target.h"
+#include "lib/target.h"
 
 #include <QApplication>
 #include <random>
