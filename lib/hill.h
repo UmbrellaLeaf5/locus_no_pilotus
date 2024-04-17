@@ -8,7 +8,7 @@
 
 namespace lib {
 
-/// @brief рельеф с высотой
+/// @brief Рельеф с высотой
 class Hill : public JSONable {
  public:
   Hill() = default;
