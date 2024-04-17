@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "circle_obstacle.h"
+#include "obstacles.h"
 
 namespace math {
 

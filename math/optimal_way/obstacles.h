@@ -32,6 +32,8 @@ struct LinearFunction {
 
 /// @brief Точка с геометрическими связями
 struct Point : public lib::Point {
+  Point() = default;
+
   Point(double xx, double yy) : lib::Point{xx, yy} {}
 
   // Касательные, проходящие через точку
