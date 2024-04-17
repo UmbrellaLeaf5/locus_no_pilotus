@@ -7,13 +7,13 @@
 #include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {
-  manager_->Add(gui::Target(x, y));
+  manager_->Add(new gui::Target(x, y));
   area_->Redraw();
   t_connection_->UpdateTables();
 }
 
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
-  manager_->Add(gui::TrappyCircle(x, y, radius));
+  manager_->Add(new gui::TrappyCircle(x, y, radius));
   area_->Redraw();
   t_connection_->UpdateTables();
 }
@@ -21,21 +21,19 @@ void MainWindow::AddTrappyCircle(double x, double y, double radius) {
 void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   // на данный момент просто добавляем новые
   // точки при создании новой линии опасного перелета
+  manager_->Add(new gui::Target(x1, y1));
+  manager_->Add(new gui::Target(x2, y2));
 
-  gui::Target t1(x1, y1);
-  gui::Target t2(x2, y2);
-
-  manager_->Add(t1);
-  manager_->Add(t2);
-
-  manager_->Add(gui::TrappyLine(&t1, &t2));
+  manager_->Add(new gui::TrappyLine(
+      manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 2],
+      manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 1]));
 
   area_->Redraw();
   t_connection_->UpdateTables();
 }
 
 void MainWindow::AddHill(std::vector<lib::Point> points) {
-  manager_->Add(gui::Hill(points));
+  manager_->Add(new gui::Hill(points));
 
   area_->Redraw();
   t_connection_->UpdateTables();

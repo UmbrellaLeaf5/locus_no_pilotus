@@ -209,8 +209,8 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
 
   if (x_item != nullptr && y_item != nullptr &&
       column < manager_->GetTargets().size()) {
-    manager_->GetTargets()[column].SetPoint(x_item->text().toDouble(),
-                                            y_item->text().toDouble());
+    manager_->GetTargetsPtrs()[column]->SetPoint(x_item->text().toDouble(),
+                                                 y_item->text().toDouble());
 
     area_->Redraw();
   }
@@ -229,9 +229,10 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
 
   if (x_item != nullptr && y_item != nullptr && r_item != nullptr &&
       column < manager_->GetTrappyCircles().size()) {
-    manager_->GetTrappyCircles()[column].SetCenter(
+    manager_->GetTrappyCirclesPtrs()[column]->SetCenter(
         {x_item->text().toDouble(), y_item->text().toDouble()});
-    manager_->GetTrappyCircles()[column].SetRadius(r_item->text().toDouble());
+    manager_->GetTrappyCirclesPtrs()[column]->SetRadius(
+        r_item->text().toDouble());
 
     area_->Redraw();
   }
