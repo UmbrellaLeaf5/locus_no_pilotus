@@ -1,4 +1,4 @@
-#include "../lib/point.h"
+#include "lib/point.h"
 
 #include <QApplication>
 #include <random>

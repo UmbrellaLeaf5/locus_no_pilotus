@@ -1,9 +1,9 @@
 #include <QApplication>
 #include <algorithm>
 
-#include "../math/littles_algorithm/adjacency_matrix.h"
-#include "../math/littles_algorithm/travelling_salesmans_problem.h"
-#include "../math/littles_algorithm/tspgraph.h"
+#include "math/littles_algorithm/adjacency_matrix.h"
+#include "math/littles_algorithm/travelling_salesmans_problem.h"
+#include "math/littles_algorithm/tspgraph.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
