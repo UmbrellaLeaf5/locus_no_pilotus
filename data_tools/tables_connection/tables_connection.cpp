@@ -38,6 +38,7 @@ void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
                      Qt::ItemIsEnabled);
       targets_table_->setItem(2, i, item);
     }
+
     targets_table_->update();
   } else {
     targets_table_->setColumnCount(0);
@@ -95,6 +96,7 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
         hills_table_->setItem(j + 1, i, item);
       }
     }
+
     hills_table_->update();
   } else {
     hills_table_->setColumnCount(0);
@@ -116,36 +118,36 @@ void TablesConnection::UpdateTable(
           i,
           item);  // номер линии = индекс + 1
 
-      // в строки добавляем индекс на полотне и координаты двух точек
+      // в строки добавляем индекс на полотне
       item = new QTableWidgetItem(
           QString::number(trappy_lines[i].GetPlottableIndex()));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
       tr_lines_table_->setItem(0, i, item);
 
-      item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets().first.GetPoint().x));
+      // нахождение номеров двух привязанных к.т. в векторе менеджера
+      size_t t_1_n;
+      size_t t_2_n;
+
+      for (size_t j = 0; j < manager_->GetTargetsPtrs().size(); j++) {
+        auto target_ptr = manager_->GetTargetsPtrs()[j];
+
+        if (target_ptr == trappy_lines[i].GetTargetsPtrs().first)
+          t_1_n = j + 1;  // номер  = индекс + 1
+        if (target_ptr == trappy_lines[i].GetTargetsPtrs().second)
+          t_2_n = j + 1;  // номер  = индекс + 1
+      }
+
+      item = new QTableWidgetItem(QString::number(t_1_n));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       tr_lines_table_->setItem(1, i, item);
 
-      item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets().first.GetPoint().y));
+      item = new QTableWidgetItem(QString::number(t_2_n));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       tr_lines_table_->setItem(2, i, item);
-
-      item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets().second.GetPoint().x));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_lines_table_->setItem(3, i, item);
-
-      item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetTargets().second.GetPoint().y));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_lines_table_->setItem(4, i, item);
     }
+
     tr_lines_table_->update();
   } else {
     tr_lines_table_->setColumnCount(0);
@@ -190,6 +192,7 @@ void TablesConnection::UpdateTable(
                      Qt::ItemIsEnabled);
       tr_circles_table_->setItem(3, i, item);
     }
+
     tr_circles_table_->update();
   } else {
     tr_circles_table_->setColumnCount(0);
