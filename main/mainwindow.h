@@ -46,11 +46,10 @@ class MainWindow : public QMainWindow {
 
   void on_actionBeautify_triggered();
 
-  void on_actionSave_as_triggered();
+  bool on_actionSave_as_triggered();
+  bool on_actionSave_triggered();
+
   void on_actionOpen_triggered();
-
-  void on_actionSave_triggered();
-
   void on_actionNew_triggered();
 
  public slots:

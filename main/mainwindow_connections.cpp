@@ -2,8 +2,6 @@
 
 // здесь описаны все соединения кнопок со слотами
 
-#include <icecream.hpp>
-
 #include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {
@@ -103,51 +101,26 @@ void MainWindow::on_plot_MousePressed() {
 // Вызов окна, которое сообщает об изменениях в файле
 // и возвращает true, если окно было закрыто
 bool MainWindow::OpenMessageWindow(const FileType& file_type) {
-  switch (file_type) {
-    case FileType::UsualFile: {
-      QString text =
-          "Do you want save changes in file " + json_file_.GetFileName() + "?";
-      int ret = QMessageBox::question(
-          this, "Are you sure?", text,
-          QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+  QString text =
+      "Do you want save changes in file " + json_file_.GetFileName() + "?";
+  int ret = QMessageBox::question(
+      this, "Are you sure?", text,
+      QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
 
-      switch (ret) {
-        case QMessageBox::Save:
-          json_file_.Save(manager_.get());
-          break;
-
-        case QMessageBox::Discard:
-          break;
-
-        case QMessageBox::Cancel:
-        case QMessageBox::Close:
-          return true;
-          break;
-      }
+  switch (ret) {
+    case QMessageBox::Save: {
+      bool is_closed = on_actionSave_triggered();
+      if (is_closed) return true;
       break;
     }
 
-    case FileType::UntitledFile: {
-      QString text = "Do you want save changes in file " +
-                     json_file_.GetUntitledFile() + '?';
-      int ret = QMessageBox::question(
-          this, "Are you sure?", text,
-          QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-      switch (ret) {
-        case QMessageBox::Save:
-          on_actionSave_as_triggered();
-          break;
-
-        case QMessageBox::Discard:
-          break;
-
-        case QMessageBox::Cancel:
-        case QMessageBox::Close:
-          return true;
-          break;
-      }
+    case QMessageBox::Discard:
       break;
-    }
+
+    case QMessageBox::Cancel:
+    case QMessageBox::Close:
+      return true;
+      break;
   }
 
   return false;
@@ -164,8 +137,9 @@ void MainWindow::closeEvent(QCloseEvent* event) {
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
-                                          manager_->GetHills().size()) != 0)
+                                          manager_->GetHills().size()) != 0) {
     is_closed = OpenMessageWindow(FileType::UntitledFile);
+  }
 
   if (is_closed)
     event->ignore();
@@ -187,10 +161,8 @@ void MainWindow::on_actionNew_triggered() {
     is_closed = OpenMessageWindow(FileType::UntitledFile);
 
   if (!is_closed) {
-    IC();
     manager_->Clear();
-    json_file_.Clear();
-
+    json_file_.SetUntitledFile();
     area_->Redraw();
     t_connection_->UpdateTables();
   }
@@ -210,35 +182,47 @@ void MainWindow::on_actionOpen_triggered() {
     is_closed = OpenMessageWindow(FileType::UntitledFile);
 
   if (!is_closed) {
-    QString file_name =
-        QFileDialog::getOpenFileName(this, tr("Open"), "", tr("File (*.json)"));
-    json_file_.SetFile(file_name);
+    QString file_name = QFileDialog::getOpenFileName(
+        this, tr("Open"), json_file_.GetParentPath(), tr("File (*.json)"));
 
-    try {
-      json_file_.Open(manager_.get());
-      area_->Redraw();
-      t_connection_->UpdateTables();
+    if (!file_name.isEmpty()) {
+      QString old_filename = json_file_.GetFileName();
 
-    } catch (...) {
-      QMessageBox::critical(this, "Damaged file", "Invalid format file!");
+      try {
+        json_file_.SetFile(file_name);
+        manager_->Clear();
+        json_file_.Open(manager_.get());
+        area_->Redraw();
+        t_connection_->UpdateTables();
+      } catch (...) {
+        QMessageBox::critical(this, "Damaged file", "Invalid format file!");
+        json_file_.SetFile(old_filename);
+      }
     }
   }
 }
 
 // Кнопка "Save"
-void MainWindow::on_actionSave_triggered() {
+// возвращает, было ли закрыто окно сохранения файла
+bool MainWindow::on_actionSave_triggered() {
   if (!json_file_.IsExistsFile())
-    on_actionSave_as_triggered();
-
-  else
+    return on_actionSave_as_triggered();
+  else {
     json_file_.Save(manager_.get());
+    return false;
+  }
 }
 
 // Кнопка "Save as"
-void MainWindow::on_actionSave_as_triggered() {
+// возвращает, было ли закрыто окно сохранения файла
+bool MainWindow::on_actionSave_as_triggered() {
   QString file_name = QFileDialog::getSaveFileName(
-      this, tr("Save as"), json_file_.GetUntitledFile(), tr("File (*.json)"));
+      this, tr("Save as"), json_file_.GetRelativePath(), tr("File (*.json)"));
 
-  json_file_.SetFile(file_name);
-  json_file_.Save(manager_.get());
+  if (!file_name.isEmpty()) {
+    json_file_.SetFile(file_name);
+    json_file_.Save(manager_.get());
+    return false;
+  }
+  return true;
 }
