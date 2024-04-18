@@ -34,10 +34,6 @@ class TrappyLine : public Drawable {
     UpdateData(targets);
   }
 
-  std::pair<lib::Target, lib::Target> GetTargets() const {
-    return data_.GetTargets();
-  }
-
   const lib::TrappyLine& GetData() const { return data_; }
   lib::TrappyLine& GetData() { return data_; }
 
@@ -55,13 +51,14 @@ class TrappyLine : public Drawable {
    */
   QCPGraph* GetGraphPtr() const { return graph_; }
 
-  const std::pair<size_t, size_t>& GetTargetsPlottableIndexes() const {
-    return targets_indexes_;
+  std::pair<gui::Target, gui::Target> GetTargets() const {
+    return std::make_pair(*targets_.first, *targets_.second);
   }
 
-  std::pair<QCPGraph*, QCPGraph*> GetTargetsGraphPtrs() const {
-    return std::make_pair(targets_graphs_.first.get(),
-                          targets_graphs_.second.get());
+  std::pair<gui::Target*, gui::Target*> GetTargetsPtrs() { return targets_; }
+
+  const std::pair<gui::Target*, gui::Target*>& GetTargetsPtrs() const {
+    return targets_;
   }
 
  private:
@@ -72,9 +69,9 @@ class TrappyLine : public Drawable {
   size_t plottable_index_{ULLONG_MAX};
   QCPGraph* graph_{nullptr};
 
-  std::pair<size_t, size_t> targets_indexes_;
-  std::pair<std::shared_ptr<QCPGraph>, std::shared_ptr<QCPGraph>>
-      targets_graphs_;
+  // самый простой способ иметь доступ из TrappyLine к привязанным к.т.
+  // здесь нет смысла использовать умные указатели, так как мы не создаём новых
+  std::pair<gui::Target*, gui::Target*> targets_;
 };
 
 }  // namespace gui

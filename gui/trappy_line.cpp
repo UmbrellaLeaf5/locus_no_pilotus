@@ -28,10 +28,9 @@ void TrappyLine::Draw(QCustomPlot* plot) {
 void TrappyLine::UpdateData(gui::Target* first_target,
                             gui::Target* second_target) {
   data_.SetTargets(&first_target->GetData(), &second_target->GetData());
-  targets_indexes_ = std::make_pair(first_target->GetPlottableIndex(),
-                                    second_target->GetPlottableIndex());
-  targets_graphs_.first.reset(first_target->GetGraphPtr());
-  targets_graphs_.second.reset(second_target->GetGraphPtr());
+
+  targets_.first = first_target;
+  targets_.second = second_target;
 }
 
 void TrappyLine::UpdateData(std::pair<gui::Target*, gui::Target*> targets) {
