@@ -220,7 +220,31 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
 }
 
 void TablesConnection::HillsItemChanged(int row, int column) {
-  if (column < manager_->GetHills().size()) {
+  auto x_item = hills_table_->item(row, column);
+  auto y_item = hills_table_->item(row, column);
+
+  size_t p_index{ULLONG_MAX};
+
+  // здесь важно понимать, что из-за айдишника нумерация сдвинута
+  // поэтому X на нечетных, а Y на четных
+  if (row % 2 == 0) {
+    // если попали в Y, то предыдущий X (той же точки)
+    x_item = hills_table_->item(row - 1, column);
+    p_index = row / 2 - 1;
+  } else {
+    // если попали в X, то следующий Y (той же точки)
+    y_item = hills_table_->item(row + 1, column);
+    p_index = (row - 1) / 2;
+  }
+
+  if (x_item != nullptr && y_item != nullptr &&
+      column < manager_->GetHills().size() &&
+      p_index < manager_->GetHills()[column].GetPoints().size()) {
+    manager_->GetHillsPtrs()[column]->GetPoints()[p_index].x =
+        x_item->text().toDouble();
+    manager_->GetHillsPtrs()[column]->GetPoints()[p_index].y =
+        y_item->text().toDouble();
+
     area_->Redraw();
   }
 }
