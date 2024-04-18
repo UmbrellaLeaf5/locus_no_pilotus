@@ -275,11 +275,14 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
     auto t_1_index = t_1_item->text().toDouble() - 1;
     auto t_2_index = t_2_item->text().toDouble() - 1;
 
-    manager_->GetTrappyLinesPtrs()[column]->SetTargets(
-        manager_->GetTargetsPtrs()[t_1_index],
-        manager_->GetTargetsPtrs()[t_2_index]);
+    if (t_1_index < manager_->GetTargets().size() &&
+        t_2_index < manager_->GetTargets().size()) {
+      manager_->GetTrappyLinesPtrs()[column]->SetTargets(
+          manager_->GetTargetsPtrs()[t_1_index],
+          manager_->GetTargetsPtrs()[t_2_index]);
 
-    area_->Redraw();
+      area_->Redraw();
+    }
   }
 }
 
