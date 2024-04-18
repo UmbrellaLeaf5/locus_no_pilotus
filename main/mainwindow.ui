@@ -698,12 +698,12 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
            </row>
            <row>
             <property name="text">
-             <string>t_n_1</string>
+             <string>t_1 №</string>
             </property>
            </row>
            <row>
             <property name="text">
-             <string>t_n_2</string>
+             <string>t_2 №</string>
             </property>
            </row>
           </widget>
