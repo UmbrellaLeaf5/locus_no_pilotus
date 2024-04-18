@@ -266,7 +266,19 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
 }
 
 void TablesConnection::TrappyLinesItemChanged(int row, int column) {
-  if (column < manager_->GetTrappyLines().size()) {
+  auto t_1_item = tr_lines_table_->item(1, column);
+  auto t_2_item = tr_lines_table_->item(2, column);
+
+  if (t_1_item != nullptr && t_2_item != nullptr &&
+      column < manager_->GetTrappyLines().size()) {
+    // мы в клетках таблицы храним номера, так что для индекса нужно вычесть 1
+    auto t_1_index = t_1_item->text().toDouble() - 1;
+    auto t_2_index = t_2_item->text().toDouble() - 1;
+
+    manager_->GetTrappyLinesPtrs()[column]->SetTargets(
+        manager_->GetTargetsPtrs()[t_1_index],
+        manager_->GetTargetsPtrs()[t_2_index]);
+
     area_->Redraw();
   }
 }
