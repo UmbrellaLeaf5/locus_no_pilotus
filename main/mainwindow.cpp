@@ -27,6 +27,10 @@ MainWindow::MainWindow(QWidget* parent)
   t_connection_->SetSettingsTables(
       ui->targetInfoTableWidget, ui->hillInfoTableWidget,
       ui->trappyCircleInfoTableWidget, ui->trappyLineInfoTableWidget);
+
+  // Нужно для того, чтобы при открытии приложения менялось имя "Untitled"
+  // файла, так как может быть такое, что пользователь уже создавал такие файлы
+  json_file_.SetUntitledFile();
 }
 
 MainWindow::~MainWindow() { delete ui; }

@@ -1,30 +1,20 @@
 #include "gui_json_file.h"
 
-void GuiJsonFile::ChangeUntitled(const QString& old_untitled) {
-  if (old_untitled == "Untitled.json")
-    untitled_file_ = "Untitled (2).json";
+void GuiJsonFile::SetUntitledFile() {
+  std::filesystem::path path;
+  if (file_->filesystemFileName().has_parent_path())
+    path = file_->filesystemFileName().parent_path();
+  else
+    path = std::filesystem::current_path();
+  file_->setFileName(path / "Untitled.json");
 
-  else {
-    QString num = "";
-    for (size_t i = old_untitled.indexOf('(') + 1;
-         i < old_untitled.indexOf(')'); i++) {
-      num += old_untitled[i];
-    }
-
-    QString new_num = QString::number(num.toInt() + 1);
-    untitled_file_ = "Untitled (" + new_num + ").json";
+  int num = 2;
+  while (file_->exists()) {
+    std::string untitled_filename =
+        "Untitled (" + std::to_string(num) + ").json";
+    file_->setFileName(path / untitled_filename);
+    num++;
   }
-}
-
-QString GuiJsonFile::GetFileName() const {
-  QString file_name = file_->fileName();
-  QString new_file_name = "";
-
-  for (size_t i = file_name.lastIndexOf('/') + 1; i < file_name.size(); i++) {
-    new_file_name += file_name[i];
-  }
-
-  return new_file_name;
 }
 
 QJsonObject GuiJsonFile::LoadJson() const {
