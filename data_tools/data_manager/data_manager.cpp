@@ -55,22 +55,22 @@ void DataManager::Add(std::vector<lib::Target> new_targets) {
 
 void DataManager::Set(std::initializer_list<gui::Target*> targets) {
   targets_.clear();
-  for (const auto& target : targets) Add(target);
+  Add(targets);
 }
 
 void DataManager::Set(std::initializer_list<lib::Target> targets) {
   targets_.clear();
-  for (const auto& target : targets) Add(target);
+  Add(targets);
 }
 
 void DataManager::Set(std::vector<gui::Target*> targets) {
   targets_.clear();
-  for (const auto& target : targets) Add(target);
+  Add(targets);
 }
 
 void DataManager::Set(std::vector<lib::Target> targets) {
   targets_.clear();
-  for (const auto& target : targets) Add(target);
+  Add(targets);
 }
 
 std::vector<gui::Target*> DataManager::GetTargetsPtrs() {
@@ -111,22 +111,22 @@ void DataManager::Add(std::vector<lib::Hill> new_hills) {
 
 void DataManager::Set(std::initializer_list<gui::Hill*> hills) {
   hills_.clear();
-  for (const auto& hill : hills) Add(hill);
+  Add(hills);
 }
 
 void DataManager::Set(std::initializer_list<lib::Hill> hills) {
   hills_.clear();
-  for (const auto& hill : hills) Add(hill);
+  Add(hills);
 }
 
 void DataManager::Set(std::vector<gui::Hill*> hills) {
   hills_.clear();
-  for (const auto& hill : hills) Add(hill);
+  Add(hills);
 }
 
 void DataManager::Set(std::vector<lib::Hill> hills) {
   hills_.clear();
-  for (const auto& hill : hills) Add(hill);
+  Add(hills);
 }
 
 std::vector<gui::Hill*> DataManager::GetHillsPtrs() {
@@ -168,22 +168,22 @@ void DataManager::Add(std::vector<lib::TrappyCircle> new_tr_circles) {
 
 void DataManager::Set(std::initializer_list<gui::TrappyCircle*> tr_circles) {
   tr_circles_.clear();
-  for (const auto& tr_circle : tr_circles) Add(tr_circle);
+  Add(tr_circles);
 }
 
 void DataManager::Set(std::initializer_list<lib::TrappyCircle> tr_circles) {
   tr_circles_.clear();
-  for (const auto& tr_circle : tr_circles) Add(tr_circle);
+  Add(tr_circles);
 }
 
 void DataManager::Set(std::vector<gui::TrappyCircle*> tr_circles) {
   tr_circles_.clear();
-  for (const auto& tr_circle : tr_circles) Add(tr_circle);
+  Add(tr_circles);
 }
 
 void DataManager::Set(std::vector<lib::TrappyCircle> tr_circles) {
   tr_circles_.clear();
-  for (const auto& tr_circle : tr_circles) Add(tr_circle);
+  Add(tr_circles);
 }
 
 std::vector<gui::TrappyCircle*> DataManager::GetTrappyCirclesPtrs() {
@@ -224,22 +224,22 @@ void DataManager::Add(std::vector<lib::TrappyLine> new_tr_lines) {
 
 void DataManager::Set(std::initializer_list<gui::TrappyLine*> tr_lines) {
   tr_lines_.clear();
-  for (const auto& tr_line : tr_lines) Add(tr_line);
+  Add(tr_lines);
 }
 
 void DataManager::Set(std::initializer_list<lib::TrappyLine> tr_lines) {
   tr_lines_.clear();
-  for (const auto& tr_line : tr_lines) Add(tr_line);
+  Add(tr_lines);
 }
 
 void DataManager::Set(std::vector<gui::TrappyLine*> tr_lines) {
   tr_lines_.clear();
-  for (const auto& tr_line : tr_lines) Add(tr_line);
+  Add(tr_lines);
 }
 
 void DataManager::Set(std::vector<lib::TrappyLine> tr_lines) {
   tr_lines_.clear();
-  for (const auto& tr_line : tr_lines) Add(tr_line);
+  Add(tr_lines);
 }
 
 std::vector<gui::TrappyLine*> DataManager::GetTrappyLinesPtrs() {
