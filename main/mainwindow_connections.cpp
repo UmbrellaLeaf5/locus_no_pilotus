@@ -100,7 +100,7 @@ void MainWindow::on_plot_MousePressed() {
 
 // Вызов окна, которое сообщает об изменениях в файле
 // и возвращает true, если окно было закрыто
-bool MainWindow::OpenMessageWindow(const FileType& file_type) {
+bool MainWindow::OpenMessageWindow() {
   QString text =
       "Do you want save changes in file " + json_file_.GetFileName() + "?";
   int ret = QMessageBox::question(
@@ -132,13 +132,13 @@ void MainWindow::closeEvent(QCloseEvent* event) {
   bool is_closed = false;
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
-    is_closed = OpenMessageWindow(FileType::UsualFile);
+    is_closed = OpenMessageWindow();
 
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
                                           manager_->GetHills().size()) != 0) {
-    is_closed = OpenMessageWindow(FileType::UntitledFile);
+    is_closed = OpenMessageWindow();
   }
 
   if (is_closed)
@@ -152,13 +152,13 @@ void MainWindow::on_actionNew_triggered() {
   bool is_closed = false;
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
-    is_closed = OpenMessageWindow(FileType::UsualFile);
+    is_closed = OpenMessageWindow();
 
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
                                           manager_->GetHills().size()) != 0)
-    is_closed = OpenMessageWindow(FileType::UntitledFile);
+    is_closed = OpenMessageWindow();
 
   if (!is_closed) {
     manager_->Clear();
@@ -173,13 +173,13 @@ void MainWindow::on_actionOpen_triggered() {
   bool is_closed = false;
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
-    is_closed = OpenMessageWindow(FileType::UsualFile);
+    is_closed = OpenMessageWindow();
 
   else if (!json_file_.IsExistsFile() && (manager_->GetTargets().size() +
                                           manager_->GetTrappyCircles().size() +
                                           manager_->GetTrappyLines().size() +
                                           manager_->GetHills().size()) != 0)
-    is_closed = OpenMessageWindow(FileType::UntitledFile);
+    is_closed = OpenMessageWindow();
 
   if (!is_closed) {
     QString file_name = QFileDialog::getOpenFileName(
