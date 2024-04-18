@@ -113,4 +113,17 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
   }
 }
 
+bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
+                           const Point& pnt2) {
+  LinearFunction line(pnt1, pnt2);
+  std::vector<Point> vertexes = poly_obst.GetVertexes();
+  for (size_t i = 0; i < vertexes.size() - 1; ++i)
+    if ((line.a_coef * vertexes[i].x + line.b_coef * vertex[i].y +
+         line.c_coef) *
+            (line.a_coef * vertexes[i + 1].x + line.b_coef * vertex[i + 1].y +
+             line.c_coef) <
+        0)
+      return true;
+  return false;
+}
 }  // namespace math
