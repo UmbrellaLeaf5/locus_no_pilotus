@@ -40,21 +40,25 @@ void MainWindow::AddHill(std::vector<lib::Point> points) {
 void MainWindow::on_pushButtonAddTarget_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+  cursor_ = CursorType::TargetCursor;
 }
 
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   ui->plot->setCursor(QCursor(
       QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+  cursor_ = CursorType::TrCircleCursor;
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+  cursor_ = CursorType::TrLineCursor;
 }
 
 void MainWindow::on_pushButtonAddHill_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+  cursor_ = CursorType::HillCursor;
 }
 
 void MainWindow::on_actionTarget_triggered() {
@@ -93,9 +97,20 @@ void MainWindow::on_actionBeautify_triggered() {
   ui->plot->replot();
 }
 
-void MainWindow::on_plot_MousePressed() {
+void MainWindow::mousePress(QMouseEvent* mouse_event) {
+  double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
+  double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+
+  switch (cursor_) {
+    case CursorType::TargetCursor: {
+      AddTarget(x, y);
+      break;
+    }
+    default:
+      break;
+  }
+  cursor_ = CursorType::DefaultCursor;
   ui->plot->setCursor(Qt::CrossCursor);
-  ui->plot->replot();
 }
 
 // Вызов окна, которое сообщает об изменениях в файле

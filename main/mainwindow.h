@@ -11,6 +11,14 @@
 #include "data_tools/tables_connection/tables_connection.h"
 #include "gui_json_file/gui_json_file.h"
 
+enum class CursorType {
+  TargetCursor,
+  TrCircleCursor,
+  TrLineCursor,
+  HillCursor,
+  DefaultCursor
+};
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -25,8 +33,6 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
-  void closeEvent(QCloseEvent* event) override;
-
  private slots:
   void on_pushButtonAddTarget_clicked();
   void on_pushButtonAddTrappyCircle_clicked();
@@ -40,8 +46,6 @@ class MainWindow : public QMainWindow {
   void on_actionTrappy_Line_triggered();
   void on_actionHill_triggered();
 
-  void on_plot_MousePressed();
-
   void on_actionBeautify_triggered();
 
   bool on_actionSave_as_triggered();
@@ -49,6 +53,9 @@ class MainWindow : public QMainWindow {
 
   void on_actionOpen_triggered();
   void on_actionNew_triggered();
+
+  void mousePress(QMouseEvent* mouse_event);
+  void closeEvent(QCloseEvent* event) override;
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
@@ -63,6 +70,7 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
+  CursorType cursor_ = CursorType::DefaultCursor;
 
   bool OpenMessageWindow();
 };
