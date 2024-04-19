@@ -4,11 +4,9 @@
 #include <memory>
 #include <vector>
 
-#include "circle_obstacle.h"
+#include "obstacles.h"
 
 namespace math {
-
-constexpr double inf = std::numeric_limits<double>::infinity();
 
 /// @brief Вершина графа
 struct PathWayNode {
