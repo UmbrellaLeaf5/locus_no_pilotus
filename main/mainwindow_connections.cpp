@@ -109,7 +109,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
       AddTrappyCircle(x, y, 0);
       connect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
               SLOT(SetRadiusFromPlot(QMouseEvent*)));
-      connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+      connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
               SLOT(mousePressSetRadius(QMouseEvent*)));
       break;
     }
@@ -142,7 +142,7 @@ void MainWindow::SetRadiusFromPlot(QMouseEvent* mouse_event) {
 void MainWindow::mousePressSetRadius(QMouseEvent* mouse_event) {
   disconnect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
              SLOT(SetRadiusFromPlot(QMouseEvent*)));
-  disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+  disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
              SLOT(mousePressSetRadius(QMouseEvent*)));
 }
 
