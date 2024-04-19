@@ -105,6 +105,15 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& pnt1,
                            const Point& pnt2);
 
 /**
+ * @brief  Проверяет, пересекает ли прямая многоугольник
+ * @param poly_obst: многоугольник
+ * @param line: прямая
+ * @return результат проверки
+ */
+bool AreThereIntersections(const PolygonObstacle& poly_obst,
+                           const LinearFunction& line);
+
+/**
  * @brief Проверяет, пересекает ли отрезок,
  * проведенный через две точки, многоугольник
  * @param poly_obst: многоугольник
