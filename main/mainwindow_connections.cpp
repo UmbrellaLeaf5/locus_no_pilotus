@@ -1,8 +1,7 @@
+#include <cmath>
+
 #include "mainwindow.h"
-
 // здесь описаны все соединения кнопок со слотами
-
-#include "./ui_mainwindow.h"
 
 void MainWindow::AddTarget(double x, double y) {
   manager_->Add(new gui::Target(x, y));
@@ -97,7 +96,7 @@ void MainWindow::on_actionBeautify_triggered() {
   ui->plot->replot();
 }
 
-void MainWindow::mousePress(QMouseEvent* mouse_event) {
+void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
   double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
 
@@ -106,11 +105,45 @@ void MainWindow::mousePress(QMouseEvent* mouse_event) {
       AddTarget(x, y);
       break;
     }
+    case CursorType::TrCircleCursor: {
+      AddTrappyCircle(x, y, 0);
+      connect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
+              SLOT(SetRadiusFromPlot(QMouseEvent*)));
+      connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+              SLOT(mousePressSetRadius(QMouseEvent*)));
+      break;
+    }
     default:
       break;
   }
   cursor_ = CursorType::DefaultCursor;
   ui->plot->setCursor(Qt::CrossCursor);
+}
+
+void MainWindow::SetRadiusFromPlot(QMouseEvent* mouse_event) {
+  size_t s = manager_->GetTrappyCircles().size();
+
+  // Расстояние от центра до курсора (по оси x)
+  double x = abs(ui->plot->xAxis->pixelToCoord(mouse_event->pos().x()) -
+                 manager_->GetTrappyCircles()[s - 1].GetCenter().x);
+
+  // Расстояние от центра до курсора (по оси y)
+  double y = abs(ui->plot->yAxis->pixelToCoord(mouse_event->pos().y()) -
+                 manager_->GetTrappyCircles()[s - 1].GetCenter().y);
+
+  // Значение радиуса
+  double r = pow(pow(x, 2) + pow(y, 2), 0.5);
+
+  manager_->GetTrappyCirclesPtrs()[s - 1]->SetRadius(r);
+  area_->Redraw();
+  t_connection_->UpdateTables();
+}
+
+void MainWindow::mousePressSetRadius(QMouseEvent* mouse_event) {
+  disconnect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
+             SLOT(SetRadiusFromPlot(QMouseEvent*)));
+  disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+             SLOT(mousePressSetRadius(QMouseEvent*)));
 }
 
 // Вызов окна, которое сообщает об изменениях в файле

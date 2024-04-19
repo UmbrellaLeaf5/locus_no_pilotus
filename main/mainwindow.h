@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 
+#include "./ui_mainwindow.h"
 #include "add_objects_forms/add_hill_form.h"
 #include "add_objects_forms/add_target_form.h"
 #include "add_objects_forms/add_trappy_circle_form.h"
@@ -54,7 +55,9 @@ class MainWindow : public QMainWindow {
   void on_actionOpen_triggered();
   void on_actionNew_triggered();
 
-  void mousePress(QMouseEvent* mouse_event);
+  void mousePressObjectsButton(QMouseEvent* mouse_event);
+  void mousePressSetRadius(QMouseEvent* mouse_event);
+  void SetRadiusFromPlot(QMouseEvent* mouse_event);
   void closeEvent(QCloseEvent* event) override;
 
  public slots:

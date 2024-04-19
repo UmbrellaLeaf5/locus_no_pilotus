@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 
-#include "./ui_mainwindow.h"
-
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
@@ -14,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent)
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
   connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
-          SLOT(mousePress(QMouseEvent*)));
+          SLOT(mousePressObjectsButton(QMouseEvent*)));
 
   area_->Setup(manager_.get());
   t_connection_->Setup(manager_.get(), area_.get());
