@@ -7,6 +7,8 @@ void TablesConnection::Setup(DataManager* manager, PlotArea* area) {
   area_.reset(area);
 }
 
+// MARK: U.T. by Targets
+
 void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
   if (!targets.empty()) {
     // кол-во столбцов = кол-во к.т.
@@ -42,6 +44,8 @@ void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
     targets_table_->setColumnCount(0);
   }
 }
+
+// MARK: U.T. by Hills
 
 void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   if (!hills.empty()) {
@@ -101,6 +105,8 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   }
 }
 
+// MARK: U.T. by Tr. Lines
+
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
   if (!trappy_lines.empty()) {
@@ -151,6 +157,8 @@ void TablesConnection::UpdateTable(
     tr_lines_table_->setColumnCount(0);
   }
 }
+
+// MARK: U.T. by Tr. Circles
 
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
@@ -204,6 +212,8 @@ void TablesConnection::UpdateTables() {
   UpdateTable(manager_->GetTrappyCircles());
 }
 
+// MARK: Targets Item C.
+
 void TablesConnection::TargetsItemChanged(int row, int column) {
   auto x_item = targets_table_->item(1, column);
   auto y_item = targets_table_->item(2, column);
@@ -216,6 +226,8 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
     area_->Redraw();
   }
 }
+
+// MARK: Hills Item C.
 
 void TablesConnection::HillsItemChanged(int row, int column) {
   auto x_item = hills_table_->item(row, column);
@@ -247,6 +259,8 @@ void TablesConnection::HillsItemChanged(int row, int column) {
   }
 }
 
+// MARK: Tr. Circles Item C.
+
 void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
   auto x_item = tr_circles_table_->item(1, column);
   auto y_item = tr_circles_table_->item(2, column);
@@ -262,6 +276,8 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
     area_->Redraw();
   }
 }
+
+// MARK: Tr. Lines Item C.
 
 void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   auto t_1_item = tr_lines_table_->item(1, column);
@@ -283,6 +299,8 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
     }
   }
 }
+
+// MARK: Remove Items
 
 void TablesConnection::RemoveTargetItem() {
   manager_->Remove(gui::ObjectType::Targets, selected_column_);
@@ -307,6 +325,8 @@ void TablesConnection::RemoveTrappyLineItem() {
   UpdateTable(manager_->GetTrappyLines());
   area_->Redraw();
 }
+
+// MARK: Update Connections
 
 void TablesConnection::UpdateTablesConnections() {
   {

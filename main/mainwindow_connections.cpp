@@ -4,6 +4,8 @@
 
 #include "./ui_mainwindow.h"
 
+// MARK: Add functions
+
 void MainWindow::AddTarget(double x, double y) {
   manager_->Add(new gui::Target(x, y));
   area_->Redraw();
@@ -37,6 +39,8 @@ void MainWindow::AddHill(std::vector<lib::Point> points) {
   t_connection_->UpdateTables();
 }
 
+// MARK: Cursors buttons
+
 void MainWindow::on_pushButtonAddTarget_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -56,6 +60,8 @@ void MainWindow::on_pushButtonAddHill_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
 }
+
+// MARK: Actions trig.
 
 void MainWindow::on_actionTarget_triggered() {
   AddTargetForm* atf = new AddTargetForm;
@@ -83,6 +89,8 @@ void MainWindow::on_actionHill_triggered() {
   connect(adh, &AddHillForm::AddHill, this, &MainWindow::AddHill);
 }
 
+// MARK: Extra connections
+
 void MainWindow::on_pushButtonEditObjects_clicked() {
   ui->plotSettingsDockWidget->setVisible(true);
   on_actionBeautify_triggered();
@@ -97,6 +105,8 @@ void MainWindow::on_plot_MousePressed() {
   ui->plot->setCursor(Qt::CrossCursor);
   ui->plot->replot();
 }
+
+// MARK: Json connections
 
 // Вызов окна, которое сообщает об изменениях в файле
 // и возвращает true, если окно было закрыто
@@ -226,6 +236,8 @@ bool MainWindow::on_actionSave_as_triggered() {
   }
   return true;
 }
+
+// MARK: From table
 
 void MainWindow::on_targetAddFromTablePushButton_clicked() {
   on_actionTarget_triggered();
