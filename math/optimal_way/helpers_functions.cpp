@@ -60,6 +60,50 @@ std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
                                  {x2_cross_pnt, y2_cross_pnt}};
 }
 
+std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
+                                            const Point& point) {
+  Point center = poly_obst.GetCenter();
+  std::vector<Point> vertexes = poly_obst.GetVertexes();
+  Point tang_pnt_1 = vertexes[0];
+  double cos_a_1 = 1;
+  Point tang_pnt_2;
+  double cos_a_2 = 1;
+  double dist_to_cnt = DistanceBetweenPoints(center, point);
+  LinearFunction line(center, point);
+  for (const auto& vertex : vertexes)
+    if ((line.a_coef * vertex.x + line.b_coef * vertex.y + line.c_coef) *
+            (line.a_coef * vertexes[0].x + line.b_coef * vertexes[0].y +
+             line.c_coef) <
+        0) {
+      tang_pnt_2 = vertex;
+      break;
+    }
+  for (const auto& vertex : vertexes) {
+    double dist_to_vrtx = DistanceBetweenPoints(vertex, point);
+    double dist_cnt_vrtx = DistanceBetweenPoints(center, vertex);
+    double new_cos_a =
+        (pow(dist_to_vrtx, 2) + pow(dist_to_cnt, 2) - pow(dist_cnt_vrtx, 2)) /
+        (2 * dist_to_vrtx * dist_to_cnt);
+    if (((line.a_coef * vertex.x + line.b_coef * vertex.y + line.c_coef) *
+             (line.a_coef * tang_pnt_1.x + line.b_coef * tang_pnt_1.y +
+              line.c_coef) >
+         0) &&
+        (new_cos_a < cos_a_1)) {
+      tang_pnt_1 = vertex;
+      cos_a_1 = new_cos_a;
+    } else if (((line.a_coef * vertex.x + line.b_coef * vertex.y +
+                 line.c_coef) *
+                    (line.a_coef * tang_pnt_2.x + line.b_coef * tang_pnt_2.y +
+                     line.c_coef) >
+                0) &&
+               (new_cos_a < cos_a_2)) {
+      tang_pnt_2 = vertex;
+      cos_a_2 = new_cos_a;
+    }
+  }
+  return std::make_pair(tang_pnt_1, tang_pnt_2);
+}
+
 std::vector<LinearFunction> TangentsBetweenCircles(
     const CircleObstacle& circle1, const CircleObstacle& circle2) {
   std::vector<LinearFunction> tangents;
@@ -118,9 +162,9 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
   LinearFunction line(pnt1, pnt2);
   std::vector<Point> vertexes = poly_obst.GetVertexes();
   for (size_t i = 0; i < vertexes.size() - 1; ++i)
-    if ((line.a_coef * vertexes[i].x + line.b_coef * vertex[i].y +
+    if ((line.a_coef * vertexes[i].x + line.b_coef * vertexes[i].y +
          line.c_coef) *
-            (line.a_coef * vertexes[i + 1].x + line.b_coef * vertex[i + 1].y +
+            (line.a_coef * vertexes[i + 1].x + line.b_coef * vertexes[i + 1].y +
              line.c_coef) <
         0)
       return true;

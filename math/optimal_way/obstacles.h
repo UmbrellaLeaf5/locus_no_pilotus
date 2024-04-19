@@ -113,7 +113,7 @@ class PolygonObstacle {
 
   Point GetCenter() const { return center_; }
 
-  std::vector<Point> GetVertexes() { return vertexes_; }
+  std::vector<Point> GetVertexes() const { return vertexes_; }
 
   std::vector<LinearFunction> GetTangentLines() { return tangents_; }
 
