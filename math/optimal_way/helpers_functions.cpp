@@ -61,6 +61,25 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   return std::make_pair(point1, point2);
 }
 
+std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
+                                      const PolygonObstacle& polygon1,
+                                      const PolygonObstacle& polygon2) {
+  std::pair<Point, Point> tang_pnts;
+  std::vector<Point> vertexes1 = polygon1.GetVertexes();
+  for (auto& vertex : vertexes1)
+    if (tangent.a_coef * vertex.x + tangent.b_coef * vertex.y +
+            tangent.c_coef <=
+        precision)
+      tang_pnts.first = vertex;
+
+  for (auto& vertex : vertexes2)
+    if (tangent.a_coef * vertex.x + tangent.b_coef * vertex.y +
+            tangent.c_coef <=
+        precision)
+      tang_pnts.second = vertex;
+  return tang_pnts;
+}
+
 std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
                                               const Point& pnt) {
   Point center = cr_obst.GetCenter();
