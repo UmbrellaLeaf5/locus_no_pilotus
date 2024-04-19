@@ -30,9 +30,9 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   double point1_y = a / b * point1_x - c / b;
   double point2_x = (-((a / b) * (c / b + y_1) - x_1)) / (1 + pow(a / b, 2));
   double point2_y = a / b * point2_x - c / b;
-  Point point1{point1_x, point1_y};
-  Point point2{point2_x, point2_y};
-  return std::pair{point1, point2};
+  Point point1(point1_x, point1_y);
+  Point point2(point2_x, point2_y);
+  return std::make_pair(point1, point2);
 }
 
 std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
@@ -50,14 +50,14 @@ std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
       (pow(radius, 2) - pow(pnt.x - center.x, 2));
   double b1_coef = pnt.y - slope_1 * pnt.x;
   double b2_coef = pnt.y - slope_2 * pnt.x;
-  double x1_cross_pnt = (-(slope_1 * b1_coef - center.x - slope_1 * center.y)) /
-                        (1 + pow(slope_1, 2));
-  double x2_cross_pnt = (-(slope_2 * b2_coef - center.x - slope_2 * center.y)) /
-                        (1 + pow(slope_2, 2));
-  double y1_cross_pnt = slope_1 * x1_cross_pnt + b1_coef;
-  double y2_cross_pnt = slope_2 * x2_cross_pnt + b2_coef;
-  return std::pair<Point, Point>{{x1_cross_pnt, y1_cross_pnt},
-                                 {x2_cross_pnt, y2_cross_pnt}};
+  double x1_tang_pnt = (-(slope_1 * b1_coef - center.x - slope_1 * center.y)) /
+                       (1 + pow(slope_1, 2));
+  double x2_tang_pnt = (-(slope_2 * b2_coef - center.x - slope_2 * center.y)) /
+                       (1 + pow(slope_2, 2));
+  double y1_tang_pnt = slope_1 * x1_tang_pnt + b1_coef;
+  double y2_tang_pnt = slope_2 * x2_tang_pnt + b2_coef;
+  return std::make_pair(Point(x1_tang_pnt, y1_tang_pnt),
+                        Point(x2_tang_pnt, y2_tang_pnt));
 }
 
 std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
@@ -65,9 +65,9 @@ std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
   Point center = poly_obst.GetCenter();
   std::vector<Point> vertexes = poly_obst.GetVertexes();
   Point tang_pnt_1 = vertexes[0];
-  double cos_a_1 = 1;
+  double cos_alpha_1 = 1;
   Point tang_pnt_2;
-  double cos_a_2 = 1;
+  double cos_alpha_2 = 1;
   double dist_to_cnt = DistanceBetweenPoints(center, point);
   LinearFunction line(center, point);
   for (const auto& vertex : vertexes)
@@ -81,24 +81,24 @@ std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
   for (const auto& vertex : vertexes) {
     double dist_to_vrtx = DistanceBetweenPoints(vertex, point);
     double dist_cnt_vrtx = DistanceBetweenPoints(center, vertex);
-    double new_cos_a =
+    double new_cos_alpha =
         (pow(dist_to_vrtx, 2) + pow(dist_to_cnt, 2) - pow(dist_cnt_vrtx, 2)) /
         (2 * dist_to_vrtx * dist_to_cnt);
     if (((line.a_coef * vertex.x + line.b_coef * vertex.y + line.c_coef) *
              (line.a_coef * tang_pnt_1.x + line.b_coef * tang_pnt_1.y +
               line.c_coef) >
          0) &&
-        (new_cos_a < cos_a_1)) {
+        (new_cos_alpha < cos_alpha_1)) {
       tang_pnt_1 = vertex;
-      cos_a_1 = new_cos_a;
+      cos_alpha_1 = new_cos_alpha;
     } else if (((line.a_coef * vertex.x + line.b_coef * vertex.y +
                  line.c_coef) *
                     (line.a_coef * tang_pnt_2.x + line.b_coef * tang_pnt_2.y +
                      line.c_coef) >
                 0) &&
-               (new_cos_a < cos_a_2)) {
+               (new_cos_alpha < cos_alpha_2)) {
       tang_pnt_2 = vertex;
-      cos_a_2 = new_cos_a;
+      cos_alpha_2 = new_cos_alpha;
     }
   }
   return std::make_pair(tang_pnt_1, tang_pnt_2);
@@ -170,4 +170,5 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
       return true;
   return false;
 }
+
 }  // namespace math
