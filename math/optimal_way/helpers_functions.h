@@ -11,6 +11,7 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
 
 double DistanceBetweenPointsOnPolygon(const PolygonObstacle& polygon,
                                       const Point& p1, const Point& p2);
+
 /**
  * @brief Находит точки касания кругов с их общей касательной
  * @param tangent: касательная
@@ -32,6 +33,18 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const PolygonObstacle& polygon1,
                                       const PolygonObstacle& polygon2);
+
+/**
+ * @brief Находит точки касания многоугольника и окружности с их общей
+ * касательной
+ * @param tangent: касательная
+ * @param polygon: многоугольник
+ * @param circle: круг
+ * @return точки касательной
+ */
+std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
+                                      const PolygonObstacle& polygon,
+                                      const CircleObstacle& circle);
 
 /**
  * @brief Находит точки касания кругов c касательной,
