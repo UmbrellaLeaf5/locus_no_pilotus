@@ -1,7 +1,5 @@
 #include "tables_connection.h"
 
-#include <icecream.hpp>
-
 namespace data_tools {
 
 void TablesConnection::Setup(DataManager* manager, PlotArea* area) {
@@ -286,6 +284,14 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   }
 }
 
+void TablesConnection::RemoveTargetItem() { IC(); }
+
+void TablesConnection::RemoveHillItem() { IC(); }
+
+void TablesConnection::RemoveTrappyCircleItem() { IC(); }
+
+void TablesConnection::RemoveTrappyLineItem() { IC(); }
+
 void TablesConnection::UpdateTablesConnections() {
   {
     QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
@@ -300,6 +306,47 @@ void TablesConnection::UpdateTablesConnections() {
     QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
                      &TablesConnection::TrappyLinesItemChanged);
   }
+}
+
+void TablesConnection::UpdateRemoveButtonConnections() {
+  // активируем кнопки при выборе любой клетки
+  QObject::connect(targets_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveTargetButton);
+
+  QObject::connect(hills_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveHillButton);
+
+  QObject::connect(tr_lines_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveTrappyLineButton);
+
+  QObject::connect(tr_circles_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveTrappyCircleButton);
+
+  // деактивируем кнопки, если была нажата другая клетка
+  QObject::connect(targets_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveTargetButton);
+
+  QObject::connect(hills_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveHillButton);
+
+  QObject::connect(tr_lines_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveTrappyLineButton);
+
+  QObject::connect(tr_circles_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveTrappyCircleButton);
+
+  // привязываем сами функции к сигналам
+  QObject::connect(targets_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveTargetItem);
+
+  QObject::connect(hills_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveHillItem);
+
+  QObject::connect(tr_circles_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveTrappyCircleItem);
+
+  QObject::connect(tr_lines_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveTrappyLineItem);
 }
 
 }  // namespace data_tools

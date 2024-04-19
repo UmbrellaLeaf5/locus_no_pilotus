@@ -22,11 +22,13 @@ MainWindow::MainWindow(QWidget* parent)
 
   area_->SetPlot(ui->plot);
 
-  // нынче для проверки функционала файл открывают
-
   t_connection_->SetSettingsTables(
       ui->targetInfoTableWidget, ui->hillInfoTableWidget,
       ui->trappyCircleInfoTableWidget, ui->trappyLineInfoTableWidget);
+
+  t_connection_->SetRemoveButtons(
+      ui->targetRemovePushButton, ui->hillRemovePushButton,
+      ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
   // Нужно для того, чтобы при открытии приложения менялось имя "Untitled"
   // файла, так как может быть такое, что пользователь уже создавал такие файлы
