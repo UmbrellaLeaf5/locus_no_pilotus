@@ -68,14 +68,14 @@ struct PathWayGraph {
 };
 
 /// @brief Реализация алгоритма Дейкстры
-class Dijkstras_algorithm {
+class DijkstrasAlgorithm {
  public:
   /**
    * @brief Инициализирует новый экземпляр Dijkstras_algorithm
    * @param start: начальная точка
    * @param end: конечная точка
    */
-  Dijkstras_algorithm(PathWayGraph graph)
+  DijkstrasAlgorithm(PathWayGraph graph)
       : path_nodes_{graph.nodes},
         first_point_{graph.nodes.size() - 2},
         second_point_{graph.nodes.size() - 1},
