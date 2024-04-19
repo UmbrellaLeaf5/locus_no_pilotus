@@ -96,6 +96,13 @@ void MainWindow::on_actionBeautify_triggered() {
   ui->plot->replot();
 }
 
+void MainWindow::mousePressDiscard(QMouseEvent* mouse_event) {
+  if (mouse_event->button() == Qt::RightButton) {
+    cursor_ = CursorType::DefaultCursor;
+    ui->plot->setCursor(Qt::CrossCursor);
+  }
+}
+
 void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
   double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
@@ -108,9 +115,11 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
     case CursorType::TrCircleCursor: {
       AddTrappyCircle(x, y, 0);
       connect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
-              SLOT(SetRadiusFromPlot(QMouseEvent*)));
+              SLOT(mouseMoveSetRadiusFromPlot(QMouseEvent*)));
       connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-              SLOT(mousePressSetRadius(QMouseEvent*)));
+              SLOT(mousePressDisconnectTrappyCircle(QMouseEvent*)));
+      connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+              SLOT(mousePressDiscardTrappyCircle(QMouseEvent*)));
       break;
     }
     default:
@@ -120,7 +129,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   ui->plot->setCursor(Qt::CrossCursor);
 }
 
-void MainWindow::SetRadiusFromPlot(QMouseEvent* mouse_event) {
+void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
   size_t s = manager_->GetTrappyCircles().size();
 
   // Расстояние от центра до курсора (по оси x)
@@ -139,11 +148,26 @@ void MainWindow::SetRadiusFromPlot(QMouseEvent* mouse_event) {
   t_connection_->UpdateTables();
 }
 
-void MainWindow::mousePressSetRadius(QMouseEvent* mouse_event) {
+void MainWindow::mousePressDisconnectTrappyCircle(QMouseEvent* mouse_event) {
   disconnect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
-             SLOT(SetRadiusFromPlot(QMouseEvent*)));
+             SLOT(mouseMoveSetRadiusFromPlot(QMouseEvent*)));
   disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-             SLOT(mousePressSetRadius(QMouseEvent*)));
+             SLOT(mousePressDisconnectTrappyCircle(QMouseEvent*)));
+  disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+             SLOT(mousePressDiscardTrappyCircle(QMouseEvent*)));
+}
+
+void MainWindow::mousePressDiscardTrappyCircle(QMouseEvent* mouse_event) {
+  if (mouse_event->button() == Qt::RightButton) {
+    size_t last = manager_->GetTrappyCircles().size() - 1;
+    manager_->Remove(gui::ObjectType::TrappyCircles, last);
+
+    mousePressDisconnectTrappyCircle(mouse_event);
+    mousePressDiscard(mouse_event);
+
+    area_->Redraw();
+    t_connection_->UpdateTables();
+  }
 }
 
 // Вызов окна, которое сообщает об изменениях в файле
