@@ -11,6 +11,7 @@ double DistanceBetweenPoints(const Point& p1, const Point& p2) {
 
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
                                      const Point& p1, const Point& p2) {
+  if (p1 == p2) return 0;
   double line = DistanceBetweenPoints(p1, p2);
   double cos_alpha = (2 * pow(circle.GetRadius(), 2) - pow(line, 2)) /
                      (2 * pow(circle.GetRadius(), 2));
