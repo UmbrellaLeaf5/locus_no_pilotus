@@ -72,6 +72,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
         precision)
       tang_pnts.first = vertex;
 
+  std::vector<Point> vertexes2 = polygon1.GetVertexes();
   for (auto& vertex : vertexes2)
     if (tangent.a_coef * vertex.x + tangent.b_coef * vertex.y +
             tangent.c_coef <=
@@ -91,8 +92,9 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
         precision)
       tang_pnts.first = vertex;
 
-  std::pair<Point, Point> cr_points = TangentPointsToCircle(circle, tang.first);
-  for (auto& point : cr_points)
+  std::pair<Point, Point> cr_points =
+      TangentPointsToCircle(circle, tang_pnts.first);
+  for (auto& point : {cr_points.first, cr_points.second})
     if (tangent.a_coef * point.x + tangent.b_coef * point.y + tangent.c_coef <=
         precision)
       tang_pnts.second = point;
