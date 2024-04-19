@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QTableWidget>
-#include <icecream.hpp>
 
 #include "data_tools/plot_area/plot_area.h"
 
@@ -89,25 +88,25 @@ class TablesConnection : public QObject {
 
   void EnableRemoveTargetButton(int row, int column) {
     Q_UNUSED(row);
-    Q_UNUSED(column);
+    selected_column_ = column;
     targets_remove_button_->setEnabled(true);
   }
 
   void EnableRemoveHillButton(int row, int column) {
     Q_UNUSED(row);
-    Q_UNUSED(column);
+    selected_column_ = column;
     hills_remove_button_->setEnabled(true);
   }
 
   void EnableRemoveTrappyCircleButton(int row, int column) {
     Q_UNUSED(row);
-    Q_UNUSED(column);
+    selected_column_ = column;
     tr_circles_remove_button_->setEnabled(true);
   }
 
   void EnableRemoveTrappyLineButton(int row, int column) {
     Q_UNUSED(row);
-    Q_UNUSED(column);
+    selected_column_ = column;
     tr_lines_remove_button_->setEnabled(true);
   }
 

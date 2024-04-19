@@ -284,13 +284,29 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   }
 }
 
-void TablesConnection::RemoveTargetItem() { IC(); }
+void TablesConnection::RemoveTargetItem() {
+  manager_->Remove(gui::ObjectType::Targets, selected_column_);
+  UpdateTable(manager_->GetTargets());
+  area_->Redraw();
+}
 
-void TablesConnection::RemoveHillItem() { IC(); }
+void TablesConnection::RemoveHillItem() {
+  manager_->Remove(gui::ObjectType::Hills, selected_column_);
+  UpdateTable(manager_->GetHills());
+  area_->Redraw();
+}
 
-void TablesConnection::RemoveTrappyCircleItem() { IC(); }
+void TablesConnection::RemoveTrappyCircleItem() {
+  manager_->Remove(gui::ObjectType::TrappyCircles, selected_column_);
+  UpdateTable(manager_->GetTrappyCircles());
+  area_->Redraw();
+}
 
-void TablesConnection::RemoveTrappyLineItem() { IC(); }
+void TablesConnection::RemoveTrappyLineItem() {
+  manager_->Remove(gui::ObjectType::TrappyLines, selected_column_);
+  UpdateTable(manager_->GetTrappyLines());
+  area_->Redraw();
+}
 
 void TablesConnection::UpdateTablesConnections() {
   {
@@ -322,7 +338,7 @@ void TablesConnection::UpdateRemoveButtonConnections() {
   QObject::connect(tr_circles_table_.get(), &QTableWidget::cellClicked, this,
                    &TablesConnection::EnableRemoveTrappyCircleButton);
 
-  // деактивируем кнопки, если была нажата другая клетка
+  // деактивируем кнопки, если выбор изменился
   QObject::connect(targets_table_.get(), &QTableWidget::itemSelectionChanged,
                    this, &TablesConnection::DisableRemoveTargetButton);
 
