@@ -204,10 +204,26 @@ std::vector<LinearFunction> TangentsBetweenPolys(
     std::pair<Point, Point> tang_pnts = TangentPointsToPoly(polygon2, vertex);
     if (!AreThereIntersections(polygon1,
                                LinearFunction(vertex, tang_pnts.first)))
-      tangets.push_back(LinearFunction(vertex, tang_pnts.first));
+      tangents.push_back(LinearFunction(vertex, tang_pnts.first));
     if (!AreThereIntersections(polygon1,
                                LinearFunction(vertex, tang_pnts.second)))
-      tangets.push_back(LinearFunction(vertex, tang_pnts.second));
+      tangents.push_back(LinearFunction(vertex, tang_pnts.second));
+  }
+  return tangents;
+}
+
+std::vector<LinearFunction> TangentsBetweenPolyAndCircle(
+    const PolygonObstacle& polygon, const CircleObstacle& circle) {
+  std::vector<LinearFunction> tangents;
+  std::vector<Point> vertexes = polygon.GetVertexes();
+  for (auto& vertex : vertexes) {
+    std::pair<Point, Point> tang_pnts = TangentPointsToCircle(circle, vertex);
+    if (!AreThereIntersections(polygon,
+                               LinearFunction(vertex, tang_pnts.first)))
+      tangents.push_back(LinearFunction(vertex, tang_pnts.first));
+    if (!AreThereIntersections(polygon,
+                               LinearFunction(vertex, tang_pnts.second)))
+      tangents.push_back(LinearFunction(vertex, tang_pnts.second));
   }
   return tangents;
 }
