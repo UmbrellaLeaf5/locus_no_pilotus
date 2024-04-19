@@ -38,7 +38,10 @@ class TrappyLine : public JSONable {
 
   std::pair<Target*, Target*>& GetTargetsPtrs() { return targets_; }
 
+  const std::pair<Target*, Target*>& GetTargetsPtrs() const { return targets_; }
+
  private:
+  // здесь нет смысла использовать умные указатели, так как мы не создаём новых
   std::pair<Target*, Target*> targets_;
 };
 

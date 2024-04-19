@@ -677,7 +677,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
             <set>QAbstractItemView::AllEditTriggers</set>
            </property>
            <property name="rowCount">
-            <number>5</number>
+            <number>3</number>
            </property>
            <attribute name="horizontalHeaderMinimumSectionSize">
             <number>25</number>
@@ -698,22 +698,12 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
            </row>
            <row>
             <property name="text">
-             <string>X_1</string>
+             <string>t_1 №</string>
             </property>
            </row>
            <row>
             <property name="text">
-             <string>Y_1</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>X_2</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>Y_2</string>
+             <string>t_2 №</string>
             </property>
            </row>
           </widget>

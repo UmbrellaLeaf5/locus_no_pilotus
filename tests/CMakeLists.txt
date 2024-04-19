@@ -6,6 +6,8 @@ set(CMAKE_CXX_FLAGS "-DTEST_PLOTS")
 
 file(GLOB_RECURSE PROJECT_SOURCES "*.h" "*.cpp" "*.ui")
 
+include_directories(${PROJECT_DIR})
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
   qt_add_executable(tests
     MANUAL_FINALIZATION

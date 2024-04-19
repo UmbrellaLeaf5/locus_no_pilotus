@@ -11,8 +11,6 @@
 #include "data_tools/tables_connection/tables_connection.h"
 #include "gui_json_file/gui_json_file.h"
 
-enum class FileType { UntitledFile, UsualFile };
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -46,11 +44,10 @@ class MainWindow : public QMainWindow {
 
   void on_actionBeautify_triggered();
 
-  void on_actionSave_as_triggered();
+  bool on_actionSave_as_triggered();
+  bool on_actionSave_triggered();
+
   void on_actionOpen_triggered();
-
-  void on_actionSave_triggered();
-
   void on_actionNew_triggered();
 
  public slots:
@@ -67,5 +64,5 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
 
-  bool OpenMessageWindow(const FileType& file_type);
+  bool OpenMessageWindow();
 };

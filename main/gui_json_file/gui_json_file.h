@@ -12,22 +12,27 @@ class GuiJsonFile {
   void Save(data_tools::DataManager* plot_area);
   void Open(data_tools::DataManager* plot_area);
 
-  QString GetFileName() const;
-  const QString& GetUntitledFile() const { return untitled_file_; }
-
-  void SetFile(const QString& file_name) { file_->setFileName(file_name); }
-  void ChangeUntitled(const QString& old_untitled);
-  void Clear() { file_->setFileName(""); }
-
-  bool IsExistsFile() const {
-    return (file_->fileName().size() != 0 && file_->exists());
+  QString GetFileName() const {
+    return QString::fromStdString(
+        file_->filesystemFileName().filename().string());
+  }
+  QString GetParentPath() const {
+    return QString::fromStdString(
+        file_->filesystemFileName().parent_path().string());
+  }
+  QString GetRelativePath() const {
+    return QString::fromStdString(
+        file_->filesystemFileName().relative_path().string());
   }
 
+  void SetFile(const QString& file_name) { file_->setFileName(file_name); }
+  void SetUntitledFile();
+
+  bool IsExistsFile() const { return file_->exists(); }
   bool IsChanged(data_tools::DataManager* plot_area) const;
 
  private:
   QFile* file_{new QFile};
-  QString untitled_file_ = "Untitled.json";
 
   QJsonObject LoadJson() const;
 };
