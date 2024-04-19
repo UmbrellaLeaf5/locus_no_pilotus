@@ -196,6 +196,22 @@ std::vector<LinearFunction> TangentsBetweenCircles(
   return tangents;
 }
 
+std::vector<LinearFunction> TangentsBetweenPolys(
+    const PolygonObstacle& polygon1, const PolygonObstacle& polygon2) {
+  std::vector<LinearFunction> tangents;
+  std::vector<Point> vertexes = polygon1.GetVertexes();
+  for (auto& vertex : vertexes) {
+    std::pair<Point, Point> tang_pnts = TangentPointsToPoly(polygon2, vertex);
+    if (!AreThereIntersections(polygon1,
+                               LinearFunction(vertex, tang_pnts.first)))
+      tangets.push_back(LinearFunction(vertex, tang_pnts.first));
+    if (!AreThereIntersections(polygon1,
+                               LinearFunction(vertex, tang_pnts.second)))
+      tangets.push_back(LinearFunction(vertex, tang_pnts.second));
+  }
+  return tangents;
+}
+
 bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
                            const Point& point2) {
   double slope = (point2.y - point1.y) / (point2.x - point1.x);
