@@ -417,7 +417,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>150</width>
+          <width>300</width>
           <height>1000</height>
          </rect>
         </property>
@@ -438,275 +438,432 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
           <number>5</number>
          </property>
          <item>
-          <widget class="QLabel" name="targetInfoLabel">
+          <layout class="QGridLayout" name="targetTableGridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="targetInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+               <italic>false</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Targets on plot:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTableWidget" name="targetInfoTableWidget">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::AllEditTriggers</set>
+             </property>
+             <property name="rowCount">
+              <number>3</number>
+             </property>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>75</number>
+             </attribute>
+             <attribute name="verticalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>25</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>id</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>X</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>Y</string>
+              </property>
+             </row>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="targetRemovePushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+             </property>
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="br_line_1">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <italic>false</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Targets on plot:</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTableWidget" name="targetInfoTableWidget">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="editTriggers">
-            <set>QAbstractItemView::AllEditTriggers</set>
-           </property>
-           <property name="rowCount">
-            <number>3</number>
-           </property>
-           <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>75</number>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>id</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>X</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>Y</string>
-            </property>
-           </row>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="hillInfoLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <italic>false</italic>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Hills on plot:</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTableWidget" name="hillInfoTableWidget">
-           <property name="editTriggers">
-            <set>QAbstractItemView::AllEditTriggers</set>
-           </property>
-           <property name="rowCount">
+           <property name="lineWidth">
             <number>1</number>
            </property>
-           <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>75</number>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>id</string>
-            </property>
-           </row>
+           <property name="midLineWidth">
+            <number>2</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="trappyCircleInfoLabel">
+          <layout class="QGridLayout" name="hillTableGridLayout">
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="hillInfoTableWidget">
+             <property name="editTriggers">
+              <set>QAbstractItemView::AllEditTriggers</set>
+             </property>
+             <property name="rowCount">
+              <number>1</number>
+             </property>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>75</number>
+             </attribute>
+             <attribute name="verticalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>25</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>id</string>
+              </property>
+             </row>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="hillInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+               <italic>false</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Hills on plot:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="hillRemovePushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+             </property>
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="br_line_2">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
+           <property name="lineWidth">
+            <number>1</number>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <italic>false</italic>
-             <bold>true</bold>
-            </font>
+           <property name="midLineWidth">
+            <number>2</number>
            </property>
-           <property name="text">
-            <string>Trappy Circles on plot:</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QTableWidget" name="trappyCircleInfoTableWidget">
-           <property name="editTriggers">
-            <set>QAbstractItemView::AllEditTriggers</set>
-           </property>
-           <property name="showGrid">
-            <bool>true</bool>
-           </property>
-           <property name="sortingEnabled">
-            <bool>false</bool>
-           </property>
-           <property name="rowCount">
-            <number>4</number>
-           </property>
-           <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>75</number>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>id</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>X</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>Y</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>R</string>
-            </property>
-           </row>
-          </widget>
+          <layout class="QGridLayout" name="trappyCircleGridLayout">
+           <item row="1" column="1">
+            <widget class="QPushButton" name="trappyCircleRemovePushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+             </property>
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="trappyCircleInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+               <italic>false</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Trappy Circles on plot:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="trappyCircleInfoTableWidget">
+             <property name="editTriggers">
+              <set>QAbstractItemView::AllEditTriggers</set>
+             </property>
+             <property name="showGrid">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>false</bool>
+             </property>
+             <property name="rowCount">
+              <number>4</number>
+             </property>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>75</number>
+             </attribute>
+             <attribute name="verticalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>25</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>id</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>X</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>Y</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>R</string>
+              </property>
+             </row>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QLabel" name="trappyLineInfoLabel">
+          <widget class="Line" name="br_line_3">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
+           <property name="lineWidth">
+            <number>1</number>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <italic>false</italic>
-             <bold>true</bold>
-            </font>
+           <property name="midLineWidth">
+            <number>2</number>
            </property>
-           <property name="text">
-            <string>Trappy Lines on plot:</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QTableWidget" name="trappyLineInfoTableWidget">
-           <property name="editTriggers">
-            <set>QAbstractItemView::AllEditTriggers</set>
-           </property>
-           <property name="rowCount">
-            <number>3</number>
-           </property>
-           <attribute name="horizontalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>75</number>
-           </attribute>
-           <attribute name="verticalHeaderMinimumSectionSize">
-            <number>25</number>
-           </attribute>
-           <attribute name="verticalHeaderDefaultSectionSize">
-            <number>25</number>
-           </attribute>
-           <row>
-            <property name="text">
-             <string>id</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>t_1 №</string>
-            </property>
-           </row>
-           <row>
-            <property name="text">
-             <string>t_2 №</string>
-            </property>
-           </row>
-          </widget>
+          <layout class="QGridLayout" name="trappyLineGridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="trappyLineInfoLabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+               <italic>false</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Trappy Lines on plot:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="trappyLineRemovePushButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+             </property>
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QTableWidget" name="trappyLineInfoTableWidget">
+             <property name="editTriggers">
+              <set>QAbstractItemView::AllEditTriggers</set>
+             </property>
+             <property name="rowCount">
+              <number>3</number>
+             </property>
+             <attribute name="horizontalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>75</number>
+             </attribute>
+             <attribute name="verticalHeaderMinimumSectionSize">
+              <number>25</number>
+             </attribute>
+             <attribute name="verticalHeaderDefaultSectionSize">
+              <number>25</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>id</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>t_1 №</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>t_2 №</string>
+              </property>
+             </row>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -836,22 +993,5 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>actionNew</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>update()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>300</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
