@@ -8,8 +8,6 @@
 
 namespace math {
 
-constexpr double inf = std::numeric_limits<double>::infinity();
-
 /// @brief Вершина графа
 struct PathWayNode {
   /**

@@ -10,6 +10,8 @@ namespace math {
 
 constexpr double precision = lib::precision;
 
+constexpr double inf = std::numeric_limits<double>::infinity();
+
 /// @brief Прямая вида ax+by+c=0
 struct LinearFunction {
   LinearFunction(double a, double b, double c)

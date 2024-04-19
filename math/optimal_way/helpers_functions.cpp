@@ -1,5 +1,6 @@
 #include "helpers_functions.h"
 
+#include <algorithm>
 #include <cmath>
 
 namespace math {
@@ -14,6 +15,31 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
   double cos_alpha = (pow(line, 2) - 2 * pow(circle.GetRadius(), 2)) /
                      (2 * circle.GetRadius());
   return circle.GetRadius() * acos(cos_alpha);
+}
+
+double DistanceBetweenPointsOnPolygon(const PolygonObstacle& polygon,
+                                      const Point& p1, const Point& p2) {
+  if (!AreThereIntersections(polygon, p1, p2))
+    return DistanceBetweenPoints(p1, p2);
+  std::vector<Point> vertexes = polygon.GetVertexes();
+  std::size_t index1 = std::distance(
+      vertexes.begin(), std::find(vertexes.begin(), vertexes.end(), p1));
+  std::size_t index2 = std::distance(
+      vertexes.begin(), std::find(vertexes.begin(), vertexes.end(), p2));
+  std::vector<double> distances(vertexes.size());
+  for (auto& elem : distances) elem = inf;
+  distances[index1] = 0;
+  while (index1 != index2) {
+    for (std::size_t i = 0; i < distances.size(); ++i)
+      if (!AreThereIntersections(polygon, vertexes[index1], vertexes[i], ))
+        dist = std::min(distances[i],
+                        DistanceBetweenPoints(vertexes[index1], vertexes[i]) +
+                            distances[index1]);
+    index1 = std::distance(
+        distances.begin(),
+        std::find(distances.begin(), distances.end(), std::min(distances)));
+  }
+  return distances[index2];
 }
 
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
@@ -161,7 +187,7 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
                            const Point& pnt2) {
   LinearFunction line(pnt1, pnt2);
   std::vector<Point> vertexes = poly_obst.GetVertexes();
-  for (size_t i = 0; i < vertexes.size() - 1; ++i)
+  for (std::size_t i = 0; i < vertexes.size() - 1; ++i)
     if ((line.a_coef * vertexes[i].x + line.b_coef * vertexes[i].y +
          line.c_coef) *
             (line.a_coef * vertexes[i + 1].x + line.b_coef * vertexes[i + 1].y +
