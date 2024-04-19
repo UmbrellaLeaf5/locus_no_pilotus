@@ -31,13 +31,13 @@ double DistanceBetweenPointsOnPolygon(const PolygonObstacle& polygon,
   distances[index1] = 0;
   while (index1 != index2) {
     for (std::size_t i = 0; i < distances.size(); ++i)
-      if (!AreThereIntersections(polygon, vertexes[index1], vertexes[i], ))
-        dist = std::min(distances[i],
-                        DistanceBetweenPoints(vertexes[index1], vertexes[i]) +
-                            distances[index1]);
-    index1 = std::distance(
-        distances.begin(),
-        std::find(distances.begin(), distances.end(), std::min(distances)));
+      if (!AreThereIntersections(polygon, vertexes[index1], vertexes[i]))
+        distances[i] = std::min(
+            distances[i], DistanceBetweenPoints(vertexes[index1], vertexes[i]) +
+                              distances[index1]);
+    index1 =
+        std::distance(distances.begin(),
+                      std::min_element(distances.begin(), distances.end()));
   }
   return distances[index2];
 }
