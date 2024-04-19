@@ -226,3 +226,19 @@ bool MainWindow::on_actionSave_as_triggered() {
   }
   return true;
 }
+
+void MainWindow::on_targetAddFromTablePushButton_clicked() {
+  on_actionTarget_triggered();
+}
+
+void MainWindow::on_hillAddFromTablePushButton_clicked() {
+  on_actionHill_triggered();
+}
+
+void MainWindow::on_trappyCircleAddFromTablePushButton_clicked() {
+  on_actionTrappy_Circle_triggered();
+}
+
+void MainWindow::on_trappyLineAddFromTablePushButton_clicked() {
+  on_actionTrappy_Line_triggered();
+}
