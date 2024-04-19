@@ -14,7 +14,8 @@ double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
   double line = DistanceBetweenPoints(p1, p2);
   double cos_alpha = (2 * pow(circle.GetRadius(), 2) - pow(line, 2)) /
                      (2 * pow(circle.GetRadius(), 2));
-  return circle.GetRadius() * acos(cos_alpha);
+  return std::abs(cos_alpha) < 1 ? circle.GetRadius() * acos(cos_alpha)
+                                 : circle.GetRadius() * M_PI;
 }
 
 double DistanceBetweenPointsOnPolygon(const PolygonObstacle& polygon,
