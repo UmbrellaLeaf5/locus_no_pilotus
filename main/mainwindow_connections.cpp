@@ -12,8 +12,6 @@ gui::ObjectType MainWindow::GetObjType(CursorType cursor_type) {
       return gui::ObjectType::TrappyLines;
     case CursorType::HillCursor:
       return gui::ObjectType::Hills;
-    default:
-      return gui::ObjectType::Targets;
   }
 }
 
@@ -55,39 +53,39 @@ void MainWindow::AddHill(std::vector<lib::Point> points) {
 // MARK: Cursors buttons
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
-  if (cursor_ != CursorType::DefaultCursor)
-    DisconnectObject(GetObjType(cursor_));
+  DeleteLastAddedObject();
 
   ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TargetCursor;
+  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
-  if (cursor_ != CursorType::DefaultCursor)
-    DisconnectObject(GetObjType(cursor_));
+  DeleteLastAddedObject();
 
   ui->plot->setCursor(QCursor(
       QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrCircleCursor;
+  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
-  if (cursor_ != CursorType::DefaultCursor)
-    DisconnectObject(GetObjType(cursor_));
+  DeleteLastAddedObject();
 
   ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrLineCursor;
+  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::on_pushButtonAddHill_clicked() {
-  if (cursor_ != CursorType::DefaultCursor)
-    DisconnectObject(GetObjType(cursor_));
+  DeleteLastAddedObject();
 
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::HillCursor;
+  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 // MARK: Actions trig.

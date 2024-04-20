@@ -30,6 +30,34 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
   cursor_ = CursorType::DefaultCursor;
 }
 
+void MainWindow::DeleteLastAddedObject() {
+  if (cursor_ != CursorType::DefaultCursor) {
+    DisconnectObject(GetObjType(cursor_));
+    switch (what_obj_addition_) {
+      case WhatObjectAddition::Nothing:
+      case WhatObjectAddition::Target:
+        break;
+      case WhatObjectAddition::TrCircle: {
+        size_t last = manager_->GetTrappyCircles().size() - 1;
+        manager_->Remove(gui::ObjectType::TrappyCircles, last);
+        break;
+      }
+      case WhatObjectAddition::TrLine: {
+        size_t last = manager_->GetTrappyLines().size() - 1;
+        manager_->Remove(gui::ObjectType::TrappyLines, last);
+        break;
+      }
+      case WhatObjectAddition::Hill: {
+        size_t last = manager_->GetHills().size() - 1;
+        manager_->Remove(gui::ObjectType::Hills, last);
+        break;
+      }
+    }
+    area_->Redraw();
+    t_connection_->UpdateTables();
+  }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent* key_event) {
   if (key_event->key() == Qt::Key_Escape) {
     switch (cursor_) {
@@ -52,33 +80,11 @@ void MainWindow::keyPressEvent(QKeyEvent* key_event) {
 
     // Проверка на то, что пользователь уже начал создавать объект,
     // поэтому при нажатии Esc мы должны удалять последний добавленный объект
-    switch (what_obj_addition_) {
-      case WhatObjectAddition::Nothing:
-      case WhatObjectAddition::Target:
-        break;
-      case WhatObjectAddition::TrCircle: {
-        size_t last = manager_->GetTrappyCircles().size() - 1;
-        manager_->Remove(gui::ObjectType::TrappyCircles, last);
-        break;
-      }
-      case WhatObjectAddition::TrLine: {
-        size_t last = manager_->GetTrappyLines().size() - 1;
-        manager_->Remove(gui::ObjectType::TrappyLines, last);
-        break;
-      }
-      case WhatObjectAddition::Hill: {
-        size_t last = manager_->GetHills().size() - 1;
-        manager_->Remove(gui::ObjectType::Hills, last);
-        break;
-      }
-    }
+    DeleteLastAddedObject();
 
     cursor_ = CursorType::DefaultCursor;
     what_obj_addition_ = WhatObjectAddition::Nothing;
     ui->plot->setCursor(Qt::CrossCursor);
-
-    area_->Redraw();
-    t_connection_->UpdateTables();
   }
 }
 
@@ -186,12 +192,26 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
 }
 
 void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
-  double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
-  double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+  // Позиция курсора в пикселях
+  int x_pixels = mouse_event->pos().x();
+  int y_pixels = mouse_event->pos().y();
+
+  // // Позиция курсора в координатах
+  double x = ui->plot->xAxis->pixelToCoord(x_pixels);
+  double y = ui->plot->yAxis->pixelToCoord(y_pixels);
+
   size_t last = manager_->GetHills().size() - 1;
 
-  if (abs(manager_->GetHills()[last].GetPoints()[0].x - x) < 0.1 &&
-      abs(manager_->GetHills()[last].GetPoints()[0].y - y) < 0.1) {
+  // Позиция начальной точки в пикселях
+  int x2_pixels = ui->plot->xAxis->coordToPixel(
+      manager_->GetHills()[last].GetPoints()[0].x);
+  int y2_pixels = ui->plot->yAxis->coordToPixel(
+      manager_->GetHills()[last].GetPoints()[0].y);
+
+  // Проверка на то, что расстояние от курсора до начальной точки меньше 10
+  // пикселей Если это так, то мы считаем, что он завершил создание Hill
+  if (pow(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2), 0.5) <
+      10) {
     DisconnectObject(gui::ObjectType::Hills);
 
     what_obj_addition_ = WhatObjectAddition::Nothing;

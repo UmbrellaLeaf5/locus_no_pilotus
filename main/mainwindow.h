@@ -98,4 +98,5 @@ class MainWindow : public QMainWindow {
 
   bool OpenMessageWindow();
   gui::ObjectType GetObjType(CursorType cursor_type);
+  void DeleteLastAddedObject();
 };
