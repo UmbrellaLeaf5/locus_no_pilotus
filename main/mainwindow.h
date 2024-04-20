@@ -50,6 +50,11 @@ class MainWindow : public QMainWindow {
   void on_actionOpen_triggered();
   void on_actionNew_triggered();
 
+  void on_targetAddFromTablePushButton_clicked();
+  void on_hillAddFromTablePushButton_clicked();
+  void on_trappyCircleAddFromTablePushButton_clicked();
+  void on_trappyLineAddFromTablePushButton_clicked();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
