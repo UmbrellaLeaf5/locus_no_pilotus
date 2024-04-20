@@ -31,60 +31,37 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
 }
 
 void MainWindow::DeleteLastAddedObject() {
-  if (cursor_ != CursorType::DefaultCursor) {
-    DisconnectObject(GetObjType(cursor_));
-    switch (what_obj_addition_) {
-      case WhatObjectAddition::Nothing:
-      case WhatObjectAddition::Target:
-        break;
-      case WhatObjectAddition::TrCircle: {
-        size_t last = manager_->GetTrappyCircles().size() - 1;
-        manager_->Remove(gui::ObjectType::TrappyCircles, last);
-        break;
-      }
-      case WhatObjectAddition::TrLine: {
-        size_t last = manager_->GetTrappyLines().size() - 1;
-        manager_->Remove(gui::ObjectType::TrappyLines, last);
-        break;
-      }
-      case WhatObjectAddition::Hill: {
-        size_t last = manager_->GetHills().size() - 1;
-        manager_->Remove(gui::ObjectType::Hills, last);
-        break;
-      }
+  DisconnectObject(GetObjType());
+  switch (what_obj_addition_) {
+    case WhatObjectAddition::TrCircle: {
+      size_t last = manager_->GetTrappyCircles().size() - 1;
+      manager_->Remove(gui::ObjectType::TrappyCircles, last);
+      break;
     }
-    area_->Redraw();
-    t_connection_->UpdateTables();
+    case WhatObjectAddition::TrLine: {
+      size_t last = manager_->GetTrappyLines().size() - 1;
+      manager_->Remove(gui::ObjectType::TrappyLines, last);
+      break;
+    }
+    case WhatObjectAddition::Hill: {
+      size_t last = manager_->GetHills().size() - 1;
+      manager_->Remove(gui::ObjectType::Hills, last);
+      break;
+    }
+    default:
+      break;
   }
+  area_->Redraw();
+  t_connection_->UpdateTables();
+
+  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* key_event) {
   if (key_event->key() == Qt::Key_Escape) {
-    switch (cursor_) {
-      case CursorType::DefaultCursor:
-      case CursorType::TargetCursor:
-        break;
-      case CursorType::TrCircleCursor: {
-        DisconnectObject(gui::ObjectType::TrappyCircles);
-        break;
-      }
-      case CursorType::TrLineCursor: {
-        DisconnectObject(gui::ObjectType::TrappyLines);
-        break;
-      }
-      case CursorType::HillCursor: {
-        DisconnectObject(gui::ObjectType::Hills);
-        break;
-      }
-    }
-
     // Проверка на то, что пользователь уже начал создавать объект,
     // поэтому при нажатии Esc мы должны удалять последний добавленный объект
     DeleteLastAddedObject();
-
-    cursor_ = CursorType::DefaultCursor;
-    what_obj_addition_ = WhatObjectAddition::Nothing;
-    ui->plot->setCursor(Qt::CrossCursor);
   }
 }
 
@@ -151,6 +128,11 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   t_connection_->UpdateTables();
 }
 
+void MainWindow::mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
+  DisconnectObject(gui::ObjectType::TrappyCircles);
+  what_obj_addition_ = WhatObjectAddition::Nothing;
+}
+
 void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
   size_t last = manager_->GetTrappyCircles().size() - 1;
 
@@ -180,8 +162,8 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
           manager_->GetTrappyLinesPtrs()[last]->SetSecondTarget(t_ptr);
 
           DisconnectObject(gui::ObjectType::TrappyLines);
-
           what_obj_addition_ = WhatObjectAddition::Nothing;
+
           area_->Redraw();
           t_connection_->UpdateTables();
           break;
@@ -209,11 +191,10 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
       manager_->GetHills()[last].GetPoints()[0].y);
 
   // Проверка на то, что расстояние от курсора до начальной точки меньше 10
-  // пикселей Если это так, то мы считаем, что он завершил создание Hill
+  // пикселей. Если это так, то мы считаем, что он завершил создание Hill
   if (pow(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2), 0.5) <
       10) {
     DisconnectObject(gui::ObjectType::Hills);
-
     what_obj_addition_ = WhatObjectAddition::Nothing;
   } else
     manager_->GetHillsPtrs()[last]->AddVertice({x, y});

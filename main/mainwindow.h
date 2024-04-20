@@ -57,10 +57,7 @@ class MainWindow : public QMainWindow {
   // Слоты для TrappyCircle
   void on_pushButtonAddTrappyCircle_clicked();
   void on_actionTrappy_Circle_triggered();
-  void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
-    DisconnectObject(gui::ObjectType::TrappyCircles);
-    what_obj_addition_ = WhatObjectAddition::Nothing;
-  }
+  void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
   // Слот для  TrappyLine
@@ -97,6 +94,6 @@ class MainWindow : public QMainWindow {
   WhatObjectAddition what_obj_addition_ = WhatObjectAddition::Nothing;
 
   bool OpenMessageWindow();
-  gui::ObjectType GetObjType(CursorType cursor_type);
+  gui::ObjectType GetObjType();
   void DeleteLastAddedObject();
 };

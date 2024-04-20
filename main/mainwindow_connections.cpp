@@ -1,17 +1,16 @@
 #include "mainwindow.h"
 // здесь описаны все соединения кнопок со слотами
 
-gui::ObjectType MainWindow::GetObjType(CursorType cursor_type) {
-  switch (cursor_type) {
-    case CursorType::TargetCursor:
-    case CursorType::DefaultCursor:
-      return gui::ObjectType::Targets;
+gui::ObjectType MainWindow::GetObjType() {
+  switch (cursor_) {
     case CursorType::TrCircleCursor:
       return gui::ObjectType::TrappyCircles;
     case CursorType::TrLineCursor:
       return gui::ObjectType::TrappyLines;
     case CursorType::HillCursor:
       return gui::ObjectType::Hills;
+    default:
+      return gui::ObjectType::Targets;
   }
 }
 
@@ -58,7 +57,6 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TargetCursor;
-  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
@@ -67,7 +65,6 @@ void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   ui->plot->setCursor(QCursor(
       QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrCircleCursor;
-  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
@@ -76,7 +73,6 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrLineCursor;
-  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 void MainWindow::on_pushButtonAddHill_clicked() {
@@ -85,7 +81,6 @@ void MainWindow::on_pushButtonAddHill_clicked() {
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::HillCursor;
-  what_obj_addition_ = WhatObjectAddition::Nothing;
 }
 
 // MARK: Actions trig.
