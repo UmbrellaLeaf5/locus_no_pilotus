@@ -49,6 +49,8 @@ class Hill : public JSONable {
   const std::vector<Point>& GetPoints() const { return vertices_; }
   std::vector<Point>& GetPoints() { return vertices_; }
 
+  void AddVertice(Point vertice) { vertices_.push_back(vertice); }
+
  private:
   std::vector<Point> vertices_;
 };
