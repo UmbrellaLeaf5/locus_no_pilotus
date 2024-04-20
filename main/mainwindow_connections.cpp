@@ -110,6 +110,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   switch (cursor_) {
     case CursorType::TargetCursor: {
       manager_->Add(new gui::Target(x, y));
+
       ui->plot->setCursor(Qt::CrossCursor);
       cursor_ = CursorType::DefaultCursor;
       break;
@@ -118,12 +119,14 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
       manager_->Add(new gui::TrappyCircle({x, y}, 0));
       disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
                  SLOT(mousePressObjectsButton(QMouseEvent*)));
+
       connect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
               SLOT(mouseMoveSetRadiusFromPlot(QMouseEvent*)));
       connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
               SLOT(mousePressSetRadiusFromPlot(QMouseEvent*)));
       connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
               SLOT(mousePressDiscardTrappyCircle(QMouseEvent*)));
+
       ui->plot->setCursor(Qt::ClosedHandCursor);
       break;
     }
@@ -137,11 +140,24 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         }
         disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
                    SLOT(mousePressObjectsButton(QMouseEvent*)));
+
         connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
                 SLOT(mousePressSelectSecondTarget(QMouseEvent*)));
         connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
                 SLOT(mousePressDiscardTrappyLine(QMouseEvent*)));
       }
+      break;
+    }
+    case CursorType::HillCursor: {
+      manager_->Add(new gui::Hill{{x, y}, {x, y}});
+
+      disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+                 SLOT(mousePressObjectsButton(QMouseEvent*)));
+
+      connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+              SLOT(mousePressAddVertice(QMouseEvent*)));
+      connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+              SLOT(mousePressDiscardHill(QMouseEvent*)));
       break;
     }
     default:
@@ -234,6 +250,45 @@ void MainWindow::mousePressDiscardTrappyLine(QMouseEvent* mouse_event) {
     manager_->Remove(gui::ObjectType::TrappyLines, last);
 
     DisconnectTrappyLine();
+    area_->Redraw();
+    t_connection_->UpdateTables();
+  }
+}
+
+void MainWindow::DisconnectHill() {
+  disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+             SLOT(mousePressAddVertice(QMouseEvent*)));
+  disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+             SLOT(mousePressDiscardHill(QMouseEvent*)));
+
+  connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+          SLOT(mousePressObjectsButton(QMouseEvent*)));
+
+  ui->plot->setCursor(Qt::CrossCursor);
+  cursor_ = CursorType::DefaultCursor;
+}
+
+void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
+  double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
+  double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+  size_t last = manager_->GetHills().size() - 1;
+
+  if (abs(manager_->GetHills()[last].GetPoints()[0].x - x) < 0.1 &&
+      abs(manager_->GetHills()[last].GetPoints()[0].y - y) < 0.1) {
+    DisconnectHill();
+  } else
+    manager_->GetHillsPtrs()[last]->AddVertice({x, y});
+
+  area_->Redraw();
+  t_connection_->UpdateTables();
+}
+
+void MainWindow::mousePressDiscardHill(QMouseEvent* mouse_event) {
+  if (mouse_event->button() == Qt::RightButton) {
+    size_t last = manager_->GetHills().size() - 1;
+    manager_->Remove(gui::ObjectType::Hills, last);
+
+    DisconnectHill();
     area_->Redraw();
     t_connection_->UpdateTables();
   }

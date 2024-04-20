@@ -73,6 +73,9 @@ class MainWindow : public QMainWindow {
   void mousePressDiscardTrappyLine(QMouseEvent* mouse_event);
 
   // Слоты для Hill
+  void DisconnectHill();
+  void mousePressAddVertice(QMouseEvent* mouse_event);
+  void mousePressDiscardHill(QMouseEvent* mouse_event);
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
