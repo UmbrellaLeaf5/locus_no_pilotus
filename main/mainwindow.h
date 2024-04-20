@@ -60,11 +60,17 @@ class MainWindow : public QMainWindow {
   void closeEvent(QCloseEvent* event) override;
 
   // Слоты для TrappyCircle
-  void mousePressDisconnectTrappyCircle(QMouseEvent* mouse_event);
+  void DisconnectTrappyCircle();
+  void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
+    DisconnectTrappyCircle();
+  }
   void mousePressDiscardTrappyCircle(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
   // Слоты для  TrappyLine
+  void DisconnectTrappyLine();
+  void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
+  void mousePressDiscardTrappyLine(QMouseEvent* mouse_event);
 
   // Слоты для Hill
 

@@ -109,52 +109,80 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
   switch (cursor_) {
     case CursorType::TargetCursor: {
-      AddTarget(x, y);
+      manager_->Add(new gui::Target(x, y));
+      ui->plot->setCursor(Qt::CrossCursor);
+      cursor_ = CursorType::DefaultCursor;
       break;
     }
     case CursorType::TrCircleCursor: {
-      AddTrappyCircle(x, y, 0);
+      manager_->Add(new gui::TrappyCircle({x, y}, 0));
+      disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+                 SLOT(mousePressObjectsButton(QMouseEvent*)));
       connect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
               SLOT(mouseMoveSetRadiusFromPlot(QMouseEvent*)));
       connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-              SLOT(mousePressDisconnectTrappyCircle(QMouseEvent*)));
+              SLOT(mousePressSetRadiusFromPlot(QMouseEvent*)));
       connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
               SLOT(mousePressDiscardTrappyCircle(QMouseEvent*)));
+      ui->plot->setCursor(Qt::ClosedHandCursor);
+      break;
+    }
+    case CursorType::TrLineCursor: {
+      if (!ui->plot->selectedGraphs().empty()) {
+        for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
+          if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
+            manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
+            break;
+          }
+        }
+        disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+                   SLOT(mousePressObjectsButton(QMouseEvent*)));
+        connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+                SLOT(mousePressSelectSecondTarget(QMouseEvent*)));
+        connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+                SLOT(mousePressDiscardTrappyLine(QMouseEvent*)));
+      }
       break;
     }
     default:
       break;
   }
-  cursor_ = CursorType::DefaultCursor;
-  ui->plot->setCursor(Qt::CrossCursor);
-}
-
-void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
-  size_t s = manager_->GetTrappyCircles().size();
-
-  // Расстояние от центра до курсора (по оси x)
-  double x = abs(ui->plot->xAxis->pixelToCoord(mouse_event->pos().x()) -
-                 manager_->GetTrappyCircles()[s - 1].GetCenter().x);
-
-  // Расстояние от центра до курсора (по оси y)
-  double y = abs(ui->plot->yAxis->pixelToCoord(mouse_event->pos().y()) -
-                 manager_->GetTrappyCircles()[s - 1].GetCenter().y);
-
-  // Значение радиуса
-  double r = pow(pow(x, 2) + pow(y, 2), 0.5);
-
-  manager_->GetTrappyCirclesPtrs()[s - 1]->SetRadius(r);
   area_->Redraw();
   t_connection_->UpdateTables();
 }
 
-void MainWindow::mousePressDisconnectTrappyCircle(QMouseEvent* mouse_event) {
+void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
+  size_t last = manager_->GetTrappyCircles().size() - 1;
+
+  // Расстояние от центра до курсора (по оси x)
+  double x = abs(ui->plot->xAxis->pixelToCoord(mouse_event->pos().x()) -
+                 manager_->GetTrappyCircles()[last].GetCenter().x);
+
+  // Расстояние от центра до курсора (по оси y)
+  double y = abs(ui->plot->yAxis->pixelToCoord(mouse_event->pos().y()) -
+                 manager_->GetTrappyCircles()[last].GetCenter().y);
+
+  // Значение радиуса
+  double r = pow(pow(x, 2) + pow(y, 2), 0.5);
+
+  manager_->GetTrappyCirclesPtrs()[last]->SetRadius(r);
+  area_->Redraw();
+  t_connection_->UpdateTables();
+}
+
+void MainWindow::DisconnectTrappyCircle() {
   disconnect(ui->plot, SIGNAL(mouseMove(QMouseEvent*)), this,
              SLOT(mouseMoveSetRadiusFromPlot(QMouseEvent*)));
   disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-             SLOT(mousePressDisconnectTrappyCircle(QMouseEvent*)));
+             SLOT(mousePressSetRadiusFromPlot(QMouseEvent*)));
   disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
              SLOT(mousePressDiscardTrappyCircle(QMouseEvent*)));
+
+  connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+          SLOT(mousePressObjectsButton(QMouseEvent*)));
+
+  ui->plot->setCursor(Qt::CrossCursor);
+  cursor_ = CursorType::DefaultCursor;
 }
 
 void MainWindow::mousePressDiscardTrappyCircle(QMouseEvent* mouse_event) {
@@ -162,9 +190,50 @@ void MainWindow::mousePressDiscardTrappyCircle(QMouseEvent* mouse_event) {
     size_t last = manager_->GetTrappyCircles().size() - 1;
     manager_->Remove(gui::ObjectType::TrappyCircles, last);
 
-    mousePressDisconnectTrappyCircle(mouse_event);
-    mousePressDiscard(mouse_event);
+    DisconnectTrappyCircle();
+    area_->Redraw();
+    t_connection_->UpdateTables();
+  }
+}
 
+void MainWindow::DisconnectTrappyLine() {
+  disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+             SLOT(mousePressSelectSecondTarget(QMouseEvent*)));
+  disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
+             SLOT(mousePressDiscardTrappyLine(QMouseEvent*)));
+
+  connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+          SLOT(mousePressObjectsButton(QMouseEvent*)));
+
+  ui->plot->setCursor(Qt::CrossCursor);
+  cursor_ = CursorType::DefaultCursor;
+}
+
+void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
+  if (!ui->plot->selectedGraphs().empty()) {
+    for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
+      if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
+        size_t last = manager_->GetTrappyLines().size() - 1;
+        if (manager_->GetTrappyLinesPtrs()[last]->GetTargetsPtrs().second !=
+            t_ptr) {
+          manager_->GetTrappyLinesPtrs()[last]->SetSecondTarget(t_ptr);
+
+          DisconnectTrappyLine();
+          area_->Redraw();
+          t_connection_->UpdateTables();
+          break;
+        }
+      }
+    }
+  }
+}
+
+void MainWindow::mousePressDiscardTrappyLine(QMouseEvent* mouse_event) {
+  if (mouse_event->button() == Qt::RightButton) {
+    size_t last = manager_->GetTrappyLines().size() - 1;
+    manager_->Remove(gui::ObjectType::TrappyLines, last);
+
+    DisconnectTrappyLine();
     area_->Redraw();
     t_connection_->UpdateTables();
   }

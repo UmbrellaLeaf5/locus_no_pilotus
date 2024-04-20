@@ -26,6 +26,14 @@ class TrappyLine : public Drawable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
+  void SetFirstTarget(gui::Target* target) {
+    SetTargets(target, targets_.second);
+  }
+
+  void SetSecondTarget(gui::Target* target) {
+    SetTargets(targets_.first, target);
+  }
+
   void SetTargets(gui::Target* first_target, gui::Target* second_target) {
     UpdateData(first_target, second_target);
   }
