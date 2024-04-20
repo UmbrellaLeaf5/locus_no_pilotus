@@ -84,6 +84,11 @@
            <family>Segoe UI</family>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+         </property>
          <property name="text">
           <string>Create</string>
          </property>
@@ -96,6 +101,11 @@
            <family>Segoe UI</family>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+         </property>
          <property name="text">
           <string>Clear all</string>
          </property>
@@ -103,6 +113,11 @@
        </item>
        <item>
         <widget class="QPushButton" name="newPushButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+         </property>
          <property name="text">
           <string>New point</string>
          </property>

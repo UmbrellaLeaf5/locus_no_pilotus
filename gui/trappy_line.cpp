@@ -18,8 +18,8 @@ void TrappyLine::Draw(QCustomPlot* plot) {
 
   auto targets = data_.GetTargets();
 
-  graph_->addData({targets.first.GetPoint().x}, {targets.first.GetPoint().y});
-  graph_->addData({targets.second.GetPoint().x}, {targets.second.GetPoint().y});
+  graph_->addData(targets.first.GetPoint().x, targets.first.GetPoint().y);
+  graph_->addData(targets.second.GetPoint().x, targets.second.GetPoint().y);
 
   // индекс последнего созданного = кол-во всех - 1
   plottable_index_ = plot->plottableCount() - 1;

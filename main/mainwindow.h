@@ -55,6 +55,7 @@ class MainWindow : public QMainWindow {
   void on_actionOpen_triggered();
   void on_actionNew_triggered();
 
+
   void mousePressObjectsButton(QMouseEvent* mouse_event);
   void DisconnectObject(gui::ObjectType obj_type);
   void mousePressDiscard(QMouseEvent* mouse_event);
@@ -74,6 +75,11 @@ class MainWindow : public QMainWindow {
   // Слоты для Hill
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDiscardHill(QMouseEvent* mouse_event);
+
+  void on_targetAddFromTablePushButton_clicked();
+  void on_hillAddFromTablePushButton_clicked();
+  void on_trappyCircleAddFromTablePushButton_clicked();
+  void on_trappyLineAddFromTablePushButton_clicked();
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);

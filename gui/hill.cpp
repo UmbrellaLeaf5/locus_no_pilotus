@@ -19,11 +19,11 @@ void gui::Hill::Draw(QCustomPlot* plot) {
   auto points = data_.GetPoints();
 
   for (int i = 0; i < points.size(); i++) {
-    curve_->addData({points[i].x}, {points[i].y});
+    curve_->addData(points[i].x, points[i].y);
   }
 
   // замыкаем, соединяя с первой точкой
-  curve_->addData({points[0].x}, {points[0].y});
+  curve_->addData(points[0].x, points[0].y);
 
   // индекс последнего созданного = кол-во всех - 1
   plottable_index_ = plot->plottableCount() - 1;

@@ -31,7 +31,7 @@ void CHECK_GRAPH(std::vector<TestEdge> edges, double ans) {
 
   for (auto& edge : edges) graph.AddEdge(edge.node_1, edge.node_2, edge.length);
 
-  Dijkstras_algorithm da(graph);
+  DijkstrasAlgorithm da(graph);
   BOOST_TEST(da.Get_Min_Len() == ans);
 }
 

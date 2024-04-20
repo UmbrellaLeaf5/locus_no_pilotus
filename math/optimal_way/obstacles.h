@@ -10,6 +10,8 @@ namespace math {
 
 constexpr double precision = lib::precision;
 
+constexpr double inf = std::numeric_limits<double>::infinity();
+
 /// @brief Прямая вида ax+by+c=0
 struct LinearFunction {
   LinearFunction(double a, double b, double c)
@@ -32,6 +34,8 @@ struct LinearFunction {
 
 /// @brief Точка с геометрическими связями
 struct Point : public lib::Point {
+  Point() = default;
+
   Point(double xx, double yy) : lib::Point{xx, yy} {}
 
   // Касательные, проходящие через точку
@@ -62,10 +66,6 @@ class CircleObstacle {
 
   std::vector<Point> GetTangentPoints() { return tangent_points_; }
 
-  void SetCenter(const Point& center) { center_ = center; }
-
-  void SetRadius(double r) { radius_ = r; }
-
   void AddTangentLine(const LinearFunction& tangent) {
     tangents_.push_back(tangent);
   }
@@ -88,6 +88,61 @@ class CircleObstacle {
   Point center_;
 
   double radius_;
+
+  // Касательные
+  std::vector<LinearFunction> tangents_;
+
+  // Точки касания
+  std::vector<Point> tangent_points_;
+};
+
+/// @brief Многоугольное препятствие
+class PolygonObstacle {
+ public:
+  /**
+   * @brief Инициализирует экзепляр PolygonObstacle
+   * @param vertexes: вершины многоугольника
+   */
+  PolygonObstacle(std::vector<Point> vertexes) : vertexes_{vertexes} {
+    center_ = Point(0, 0);
+    for (auto& elem : vertexes_) {
+      center_.x += elem.x;
+      center_.y += elem.y;
+    }
+    center_.x /= vertexes_.size();
+    center_.y /= vertexes_.size();
+  }
+
+  Point GetCenter() const { return center_; }
+
+  std::vector<Point> GetVertexes() const { return vertexes_; }
+
+  std::vector<LinearFunction> GetTangentLines() { return tangents_; }
+
+  std::vector<Point> GetTangentPoints() { return tangent_points_; }
+
+  void AddTangentLine(const LinearFunction& tangent) {
+    tangents_.push_back(tangent);
+  }
+
+  void AddTangentPoint(const Point& tangent_point) {
+    tangent_points_.push_back(tangent_point);
+  }
+
+  bool operator==(const PolygonObstacle& other) {
+    return vertexes_ == other.vertexes_;
+  }
+
+  bool operator!=(const PolygonObstacle& other) {
+    return vertexes_ != other.vertexes_;
+  }
+
+ private:
+  // Геометричекий центр вершин
+  Point center_;
+
+  // Вершины
+  std::vector<Point> vertexes_;
 
   // Касательные
   std::vector<LinearFunction> tangents_;

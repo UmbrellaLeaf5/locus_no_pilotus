@@ -113,7 +113,7 @@ void MinimumDistanceCalculator::FindOptimalWay() {
   AddControlPointTangents();
   AddGraphTangentPoints();
   AddGraphControlPoints();
-  Dijkstras_algorithm da(graph_);
+  DijkstrasAlgorithm da(graph_);
   optimal_way_ = da.Get_Min_Path();
 }
 

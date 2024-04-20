@@ -30,6 +30,24 @@ class TablesConnection : public QObject {
     UpdateTablesConnections();
   }
 
+  /**
+   * @brief устанавливает значение всех кнопок для удаления объектов
+   * @param targets_remove_button
+   * @param hills_remove_button
+   * @param tr_circles_remove_button
+   * @param tr_lines_remove_button
+   */
+  void SetRemoveButtons(QPushButton* targets_remove_button,
+                        QPushButton* hills_remove_button,
+                        QPushButton* tr_circles_remove_button,
+                        QPushButton* tr_lines_remove_button) {
+    targets_remove_button_.reset(targets_remove_button);
+    hills_remove_button_.reset(hills_remove_button);
+    tr_circles_remove_button_.reset(tr_circles_remove_button);
+    tr_lines_remove_button_.reset(tr_lines_remove_button);
+    UpdateRemoveButtonConnections();
+  }
+
   /// @brief Обновляет данные в таблицах всех объектов
   void UpdateTables();
 
@@ -63,13 +81,63 @@ class TablesConnection : public QObject {
   void TrappyCirclesItemChanged(int row, int column);
   void TrappyLinesItemChanged(int row, int column);
 
+  void RemoveTargetItem();
+  void RemoveHillItem();
+  void RemoveTrappyCircleItem();
+  void RemoveTrappyLineItem();
+
+  void EnableRemoveTargetButton(int row, int column) {
+    Q_UNUSED(row);
+    selected_column_ = column;
+    targets_remove_button_->setEnabled(true);
+  }
+
+  void EnableRemoveHillButton(int row, int column) {
+    Q_UNUSED(row);
+    selected_column_ = column;
+    hills_remove_button_->setEnabled(true);
+  }
+
+  void EnableRemoveTrappyCircleButton(int row, int column) {
+    Q_UNUSED(row);
+    selected_column_ = column;
+    tr_circles_remove_button_->setEnabled(true);
+  }
+
+  void EnableRemoveTrappyLineButton(int row, int column) {
+    Q_UNUSED(row);
+    selected_column_ = column;
+    tr_lines_remove_button_->setEnabled(true);
+  }
+
+  void DisableRemoveTargetButton() {
+    targets_remove_button_->setEnabled(false);
+  }
+
+  void DisableRemoveHillButton() { hills_remove_button_->setEnabled(false); }
+
+  void DisableRemoveTrappyCircleButton() {
+    tr_circles_remove_button_->setEnabled(false);
+  }
+
+  void DisableRemoveTrappyLineButton() {
+    tr_lines_remove_button_->setEnabled(false);
+  }
+
  private:
+  int selected_column_{INT_MAX};
   void UpdateTablesConnections();
+  void UpdateRemoveButtonConnections();
 
   std::unique_ptr<QTableWidget> targets_table_{nullptr};
   std::unique_ptr<QTableWidget> hills_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_circles_table_{nullptr};
   std::unique_ptr<QTableWidget> tr_lines_table_{nullptr};
+
+  std::unique_ptr<QPushButton> targets_remove_button_{nullptr};
+  std::unique_ptr<QPushButton> hills_remove_button_{nullptr};
+  std::unique_ptr<QPushButton> tr_circles_remove_button_{nullptr};
+  std::unique_ptr<QPushButton> tr_lines_remove_button_{nullptr};
 
   std::unique_ptr<DataManager> manager_;
   std::unique_ptr<PlotArea> area_;

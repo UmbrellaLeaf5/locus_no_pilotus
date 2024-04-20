@@ -1,13 +1,13 @@
 #include "tables_connection.h"
 
-#include <icecream.hpp>
-
 namespace data_tools {
 
 void TablesConnection::Setup(DataManager* manager, PlotArea* area) {
   manager_.reset(manager);
   area_.reset(area);
 }
+
+// MARK: U.T. by Targets
 
 void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
   if (!targets.empty()) {
@@ -44,6 +44,8 @@ void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
     targets_table_->setColumnCount(0);
   }
 }
+
+// MARK: U.T. by Hills
 
 void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   if (!hills.empty()) {
@@ -103,6 +105,8 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   }
 }
 
+// MARK: U.T. by Tr. Lines
+
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
   if (!trappy_lines.empty()) {
@@ -153,6 +157,8 @@ void TablesConnection::UpdateTable(
     tr_lines_table_->setColumnCount(0);
   }
 }
+
+// MARK: U.T. by Tr. Circles
 
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
@@ -206,6 +212,8 @@ void TablesConnection::UpdateTables() {
   UpdateTable(manager_->GetTrappyCircles());
 }
 
+// MARK: Targets Item C.
+
 void TablesConnection::TargetsItemChanged(int row, int column) {
   auto x_item = targets_table_->item(1, column);
   auto y_item = targets_table_->item(2, column);
@@ -218,6 +226,8 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
     area_->Redraw();
   }
 }
+
+// MARK: Hills Item C.
 
 void TablesConnection::HillsItemChanged(int row, int column) {
   auto x_item = hills_table_->item(row, column);
@@ -249,6 +259,8 @@ void TablesConnection::HillsItemChanged(int row, int column) {
   }
 }
 
+// MARK: Tr. Circles Item C.
+
 void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
   auto x_item = tr_circles_table_->item(1, column);
   auto y_item = tr_circles_table_->item(2, column);
@@ -264,6 +276,8 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
     area_->Redraw();
   }
 }
+
+// MARK: Tr. Lines Item C.
 
 void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   auto t_1_item = tr_lines_table_->item(1, column);
@@ -286,6 +300,34 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   }
 }
 
+// MARK: Remove Items
+
+void TablesConnection::RemoveTargetItem() {
+  manager_->Remove(gui::ObjectType::Targets, selected_column_);
+  UpdateTable(manager_->GetTargets());
+  area_->Redraw();
+}
+
+void TablesConnection::RemoveHillItem() {
+  manager_->Remove(gui::ObjectType::Hills, selected_column_);
+  UpdateTable(manager_->GetHills());
+  area_->Redraw();
+}
+
+void TablesConnection::RemoveTrappyCircleItem() {
+  manager_->Remove(gui::ObjectType::TrappyCircles, selected_column_);
+  UpdateTable(manager_->GetTrappyCircles());
+  area_->Redraw();
+}
+
+void TablesConnection::RemoveTrappyLineItem() {
+  manager_->Remove(gui::ObjectType::TrappyLines, selected_column_);
+  UpdateTable(manager_->GetTrappyLines());
+  area_->Redraw();
+}
+
+// MARK: Update Connections
+
 void TablesConnection::UpdateTablesConnections() {
   {
     QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
@@ -300,6 +342,47 @@ void TablesConnection::UpdateTablesConnections() {
     QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
                      &TablesConnection::TrappyLinesItemChanged);
   }
+}
+
+void TablesConnection::UpdateRemoveButtonConnections() {
+  // активируем кнопки при выборе любой клетки
+  QObject::connect(targets_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveTargetButton);
+
+  QObject::connect(hills_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveHillButton);
+
+  QObject::connect(tr_lines_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveTrappyLineButton);
+
+  QObject::connect(tr_circles_table_.get(), &QTableWidget::cellClicked, this,
+                   &TablesConnection::EnableRemoveTrappyCircleButton);
+
+  // деактивируем кнопки, если выбор изменился
+  QObject::connect(targets_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveTargetButton);
+
+  QObject::connect(hills_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveHillButton);
+
+  QObject::connect(tr_lines_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveTrappyLineButton);
+
+  QObject::connect(tr_circles_table_.get(), &QTableWidget::itemSelectionChanged,
+                   this, &TablesConnection::DisableRemoveTrappyCircleButton);
+
+  // привязываем сами функции к сигналам
+  QObject::connect(targets_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveTargetItem);
+
+  QObject::connect(hills_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveHillItem);
+
+  QObject::connect(tr_circles_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveTrappyCircleItem);
+
+  QObject::connect(tr_lines_remove_button_.get(), &QPushButton::clicked, this,
+                   &TablesConnection::RemoveTrappyLineItem);
 }
 
 }  // namespace data_tools

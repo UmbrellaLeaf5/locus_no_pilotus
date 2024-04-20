@@ -17,6 +17,8 @@ gui::ObjectType MainWindow::GetObjType(CursorType cursor_type) {
   }
 }
 
+// MARK: Add functions
+
 void MainWindow::AddTarget(double x, double y) {
   manager_->Add(new gui::Target(x, y));
   area_->Redraw();
@@ -49,6 +51,8 @@ void MainWindow::AddHill(std::vector<lib::Point> points) {
   area_->Redraw();
   t_connection_->UpdateTables();
 }
+
+// MARK: Cursors buttons
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
   if (cursor_ != CursorType::DefaultCursor)
@@ -86,6 +90,8 @@ void MainWindow::on_pushButtonAddHill_clicked() {
   cursor_ = CursorType::HillCursor;
 }
 
+// MARK: Actions trig.
+
 void MainWindow::on_actionTarget_triggered() {
   AddTargetForm* atf = new AddTargetForm;
   atf->show();
@@ -111,6 +117,8 @@ void MainWindow::on_actionHill_triggered() {
   adh->show();
   connect(adh, &AddHillForm::AddHill, this, &MainWindow::AddHill);
 }
+
+// MARK: Extra connections
 
 void MainWindow::on_pushButtonEditObjects_clicked() {
   ui->plotSettingsDockWidget->setVisible(true);
@@ -313,6 +321,8 @@ void MainWindow::mousePressDiscardHill(QMouseEvent* mouse_event) {
   }
 }
 
+// MARK: Json connections
+
 // Вызов окна, которое сообщает об изменениях в файле
 // и возвращает true, если окно было закрыто
 bool MainWindow::OpenMessageWindow() {
@@ -440,4 +450,22 @@ bool MainWindow::on_actionSave_as_triggered() {
     return false;
   }
   return true;
+}
+
+// MARK: From table
+
+void MainWindow::on_targetAddFromTablePushButton_clicked() {
+  on_actionTarget_triggered();
+}
+
+void MainWindow::on_hillAddFromTablePushButton_clicked() {
+  on_actionHill_triggered();
+}
+
+void MainWindow::on_trappyCircleAddFromTablePushButton_clicked() {
+  on_actionTrappy_Circle_triggered();
+}
+
+void MainWindow::on_trappyLineAddFromTablePushButton_clicked() {
+  on_actionTrappy_Line_triggered();
 }
