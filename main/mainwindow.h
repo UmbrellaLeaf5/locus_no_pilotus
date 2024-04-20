@@ -91,4 +91,5 @@ class MainWindow : public QMainWindow {
   CursorType cursor_ = CursorType::DefaultCursor;
 
   bool OpenMessageWindow();
+  gui::ObjectType GetObjType(CursorType cursor_type);
 };

@@ -3,6 +3,20 @@
 #include "mainwindow.h"
 // здесь описаны все соединения кнопок со слотами
 
+gui::ObjectType MainWindow::GetObjType(CursorType cursor_type) {
+  switch (cursor_type) {
+    case CursorType::TargetCursor:
+    case CursorType::DefaultCursor:
+      return gui::ObjectType::Targets;
+    case CursorType::TrCircleCursor:
+      return gui::ObjectType::TrappyCircles;
+    case CursorType::TrLineCursor:
+      return gui::ObjectType::TrappyLines;
+    case CursorType::HillCursor:
+      return gui::ObjectType::Hills;
+  }
+}
+
 void MainWindow::AddTarget(double x, double y) {
   manager_->Add(new gui::Target(x, y));
   area_->Redraw();
@@ -37,24 +51,36 @@ void MainWindow::AddHill(std::vector<lib::Point> points) {
 }
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
+  if (cursor_ != CursorType::DefaultCursor)
+    DisconnectObject(GetObjType(cursor_));
+
   ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TargetCursor;
 }
 
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
+  if (cursor_ != CursorType::DefaultCursor)
+    DisconnectObject(GetObjType(cursor_));
+
   ui->plot->setCursor(QCursor(
       QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrCircleCursor;
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
+  if (cursor_ != CursorType::DefaultCursor)
+    DisconnectObject(GetObjType(cursor_));
+
   ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrLineCursor;
 }
 
 void MainWindow::on_pushButtonAddHill_clicked() {
+  if (cursor_ != CursorType::DefaultCursor)
+    DisconnectObject(GetObjType(cursor_));
+
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::HillCursor;
