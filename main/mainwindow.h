@@ -56,24 +56,22 @@ class MainWindow : public QMainWindow {
   void on_actionNew_triggered();
 
   void mousePressObjectsButton(QMouseEvent* mouse_event);
+  void DisconnectObject(gui::ObjectType obj_type);
   void mousePressDiscard(QMouseEvent* mouse_event);
   void closeEvent(QCloseEvent* event) override;
 
   // Слоты для TrappyCircle
-  void DisconnectTrappyCircle();
   void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
-    DisconnectTrappyCircle();
+    DisconnectObject(gui::ObjectType::TrappyCircles);
   }
   void mousePressDiscardTrappyCircle(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
   // Слоты для  TrappyLine
-  void DisconnectTrappyLine();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
   void mousePressDiscardTrappyLine(QMouseEvent* mouse_event);
 
   // Слоты для Hill
-  void DisconnectHill();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDiscardHill(QMouseEvent* mouse_event);
 
