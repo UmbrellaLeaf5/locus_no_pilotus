@@ -32,6 +32,9 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
   cursor_ = CursorType::DefaultCursor;
 }
 
+// Функция, которая удаляет последний добавленный объект с помощью кнопок слева,
+// причем его добавление не закончилось. Она должна вызывается везде, где
+// происходит взаимодействие пользователя с кнопками класса "MainWindow"
 void MainWindow::DeleteLastAddedObject() {
   DisconnectObject(GetObjType());
   switch (what_obj_addition_) {
@@ -204,7 +207,8 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     // Проверка на то, что расстояние от курсора до начальной точки меньше 10
     // пикселей. Если это так, то мы считаем, что он завершил создание Hill
     if (pow(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2), 0.5) <
-        10) {
+            10 &&
+        manager_->GetHills()[last].GetPoints().size() > 2) {
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
     } else if (manager_->GetHills()[last].GetPoints()[0] ==

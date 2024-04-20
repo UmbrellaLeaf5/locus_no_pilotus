@@ -86,12 +86,16 @@ void MainWindow::on_pushButtonAddHill_clicked() {
 // MARK: Actions trig.
 
 void MainWindow::on_actionTarget_triggered() {
+  DeleteLastAddedObject();
+
   AddTargetForm* atf = new AddTargetForm;
   atf->show();
   connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
 }
 
 void MainWindow::on_actionTrappy_Circle_triggered() {
+  DeleteLastAddedObject();
+
   AddTrappyCircleForm* adf = new AddTrappyCircleForm;
   adf->show();
   connect(adf, &AddTrappyCircleForm::AddTrappyCircle, this,
@@ -99,6 +103,8 @@ void MainWindow::on_actionTrappy_Circle_triggered() {
 }
 
 void MainWindow::on_actionTrappy_Line_triggered() {
+  DeleteLastAddedObject();
+
   AddTrappyLineForm* adl = new AddTrappyLineForm;
   adl->show();
   connect(adl, &AddTrappyLineForm::AddTrappyLine, this,
@@ -106,6 +112,8 @@ void MainWindow::on_actionTrappy_Line_triggered() {
 }
 
 void MainWindow::on_actionHill_triggered() {
+  DeleteLastAddedObject();
+
   AddHillForm* adh = new AddHillForm;
   adh->show();
   connect(adh, &AddHillForm::AddHill, this, &MainWindow::AddHill);
@@ -114,6 +122,8 @@ void MainWindow::on_actionHill_triggered() {
 // MARK: Extra connections
 
 void MainWindow::on_pushButtonEditObjects_clicked() {
+  DeleteLastAddedObject();
+
   ui->plotSettingsDockWidget->setVisible(true);
   on_actionBeautify_triggered();
 }
@@ -156,6 +166,8 @@ bool MainWindow::OpenMessageWindow() {
 // При закрытии приложения нужно проверить,
 // есть ли изменения в текущем файле
 void MainWindow::closeEvent(QCloseEvent* event) {
+  DeleteLastAddedObject();
+
   bool is_closed = false;
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
@@ -176,6 +188,8 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 // Кнопка "New"
 void MainWindow::on_actionNew_triggered() {
+  DeleteLastAddedObject();
+
   bool is_closed = false;
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
@@ -197,6 +211,8 @@ void MainWindow::on_actionNew_triggered() {
 
 // Кнопка "Open"
 void MainWindow::on_actionOpen_triggered() {
+  DeleteLastAddedObject();
+
   bool is_closed = false;
 
   if (json_file_.IsExistsFile() && json_file_.IsChanged(manager_.get()))
@@ -232,6 +248,8 @@ void MainWindow::on_actionOpen_triggered() {
 // Кнопка "Save"
 // возвращает, было ли закрыто окно сохранения файла
 bool MainWindow::on_actionSave_triggered() {
+  DeleteLastAddedObject();
+
   if (!json_file_.IsExistsFile())
     return on_actionSave_as_triggered();
   else {
@@ -243,6 +261,8 @@ bool MainWindow::on_actionSave_triggered() {
 // Кнопка "Save as"
 // возвращает, было ли закрыто окно сохранения файла
 bool MainWindow::on_actionSave_as_triggered() {
+  DeleteLastAddedObject();
+
   QString file_name = QFileDialog::getSaveFileName(
       this, tr("Save as"), json_file_.GetRelativePath(), tr("File (*.json)"));
 
