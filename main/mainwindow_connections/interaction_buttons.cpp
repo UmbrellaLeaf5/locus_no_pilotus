@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "mainwindow.h"
+#include "main/mainwindow.h"
 
 void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
   switch (obj_type) {

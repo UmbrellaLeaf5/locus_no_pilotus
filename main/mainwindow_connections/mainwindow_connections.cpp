@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "main/mainwindow.h"
 // здесь описаны все соединения кнопок со слотами
 
 gui::ObjectType MainWindow::GetObjType() {
