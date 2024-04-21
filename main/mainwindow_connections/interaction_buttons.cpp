@@ -108,20 +108,20 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
       }
 
       case CursorType::TrLineCursor: {
-        if (!ui->plot->selectedGraphs().empty()) {
-          for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
-            if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
-              manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
-              break;
-            }
+        if (ui->plot->selectedGraphs().empty()) return;
+
+        for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
+          if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
+            manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
+            disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+                       SLOT(mousePressObjectsButton(QMouseEvent*)));
+
+            connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
+                    SLOT(mousePressSelectSecondTarget(QMouseEvent*)));
+
+            what_obj_addition_ = WhatObjectAddition::TrLine;
+            break;
           }
-          disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-                     SLOT(mousePressObjectsButton(QMouseEvent*)));
-
-          connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-                  SLOT(mousePressSelectSecondTarget(QMouseEvent*)));
-
-          what_obj_addition_ = WhatObjectAddition::TrLine;
         }
         break;
       }
