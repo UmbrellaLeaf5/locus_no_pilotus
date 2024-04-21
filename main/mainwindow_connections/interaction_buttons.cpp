@@ -11,20 +11,24 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
                  SLOT(mousePressSetRadiusFromPlot(QMouseEvent*)));
       break;
     }
+
     case gui::ObjectType::TrappyLines: {
       disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
                  SLOT(mousePressSelectSecondTarget(QMouseEvent*)));
       break;
     }
+
     case gui::ObjectType::Hills: {
       disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
                  SLOT(mousePressAddVertice(QMouseEvent*)));
       disconnect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
                  SLOT(mousePressDeleteLastVertice(QMouseEvent*)));
     }
+
     default:
       break;
   }
+
   connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
           SLOT(mousePressObjectsButton(QMouseEvent*)));
 
@@ -43,19 +47,23 @@ void MainWindow::DeleteLastAddedObject() {
       manager_->Remove(gui::ObjectType::TrappyCircles, last);
       break;
     }
+
     case WhatObjectAddition::TrLine: {
       size_t last = manager_->GetTrappyLines().size() - 1;
       manager_->Remove(gui::ObjectType::TrappyLines, last);
       break;
     }
+
     case WhatObjectAddition::Hill: {
       size_t last = manager_->GetHills().size() - 1;
       manager_->Remove(gui::ObjectType::Hills, last);
       break;
     }
+
     default:
       break;
   }
+
   area_->Redraw();
   t_connection_->UpdateTables();
 
@@ -83,6 +91,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         cursor_ = CursorType::DefaultCursor;
         break;
       }
+
       case CursorType::TrCircleCursor: {
         manager_->Add(new gui::TrappyCircle({x, y}, 0));
         disconnect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
@@ -97,6 +106,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         what_obj_addition_ = WhatObjectAddition::TrCircle;
         break;
       }
+
       case CursorType::TrLineCursor: {
         if (!ui->plot->selectedGraphs().empty()) {
           for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
@@ -115,6 +125,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         }
         break;
       }
+
       case CursorType::HillCursor: {
         manager_->Add(new gui::Hill{{x, y}, {x, y}});
 
@@ -129,9 +140,11 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         what_obj_addition_ = WhatObjectAddition::Hill;
         break;
       }
+
       default:
         break;
     }
+
     area_->Redraw();
     t_connection_->UpdateTables();
   }
@@ -164,24 +177,26 @@ void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
 }
 
 void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
-  if (mouse_event->button() == Qt::LeftButton) {
-    if (!ui->plot->selectedGraphs().empty()) {
-      for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
-        if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
-          size_t last = manager_->GetTrappyLines().size() - 1;
-          if (manager_->GetTrappyLinesPtrs()[last]->GetTargetsPtrs().second !=
-              t_ptr) {
-            manager_->GetTrappyLinesPtrs()[last]->SetSecondTarget(t_ptr);
+  if (mouse_event->button() != Qt::LeftButton) return;
+  if (ui->plot->selectedGraphs().empty()) return;
 
-            DisconnectObject(gui::ObjectType::TrappyLines);
-            what_obj_addition_ = WhatObjectAddition::Nothing;
+  for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
+    if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
+      size_t last = manager_->GetTrappyLines().size() - 1;
 
-            area_->Redraw();
-            t_connection_->UpdateTables();
-            break;
-          }
-        }
-      }
+      // если это та же точка - пропускаем
+      if (manager_->GetTrappyLinesPtrs()[last]->GetTargetsPtrs().second ==
+          t_ptr)
+        continue;
+
+      manager_->GetTrappyLinesPtrs()[last]->SetSecondTarget(t_ptr);
+
+      DisconnectObject(gui::ObjectType::TrappyLines);
+      what_obj_addition_ = WhatObjectAddition::Nothing;
+
+      area_->Redraw();
+      t_connection_->UpdateTables();
+      break;
     }
   }
 }
@@ -211,11 +226,13 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
         manager_->GetHills()[last].GetPoints().size() > 2) {
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
+
     } else if (manager_->GetHills()[last].GetPoints()[0] ==
                manager_->GetHills()[last].GetPoints()[1]) {
       size_t last_p = manager_->GetHills()[last].GetPoints().size() - 1;
       manager_->GetHillsPtrs()[last]->GetPoints()[last_p].x = x;
       manager_->GetHillsPtrs()[last]->GetPoints()[last_p].y = y;
+
     } else
       manager_->GetHillsPtrs()[last]->AddVertice({x, y});
 
@@ -230,11 +247,13 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
     size_t vertices_size = manager_->GetHills()[last].GetPoints().size();
     if (vertices_size > 2)
       manager_->GetHillsPtrs()[last]->GetPoints().pop_back();
+
     else {
       if (manager_->GetHills()[last].GetPoints()[0] !=
           manager_->GetHills()[last].GetPoints()[1]) {
         manager_->GetHillsPtrs()[last]->GetPoints()[1] =
             manager_->GetHills()[last].GetPoints()[0];
+
       } else
         DeleteLastAddedObject();
     }
