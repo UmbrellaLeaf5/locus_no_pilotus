@@ -14,8 +14,6 @@ MainWindow::MainWindow(QWidget* parent)
 
   connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
           SLOT(mousePressObjectsButton(QMouseEvent*)));
-  connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
-          SLOT(mousePressDiscard(QMouseEvent*)));
 
   area_->Setup(manager_.get());
   t_connection_->Setup(manager_.get(), area_.get());

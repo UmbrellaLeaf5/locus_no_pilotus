@@ -20,6 +20,8 @@ enum class CursorType {
   DefaultCursor
 };
 
+enum class WhatObjectAddition { Nothing, Target, TrCircle, TrLine, Hill };
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -35,51 +37,46 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
-  void on_pushButtonAddTarget_clicked();
-  void on_pushButtonAddTrappyCircle_clicked();
-  void on_pushButtonAddTrappyLine_clicked();
-  void on_pushButtonAddHill_clicked();
-
-  void on_pushButtonEditObjects_clicked();
-
-  void on_actionTarget_triggered();
-  void on_actionTrappy_Circle_triggered();
-  void on_actionTrappy_Line_triggered();
-  void on_actionHill_triggered();
-
   void on_actionBeautify_triggered();
 
+  // Слоты для Target
+  void on_pushButtonAddTarget_clicked();
+  void on_actionTarget_triggered();
+
+  // Слоты для файлов
   bool on_actionSave_as_triggered();
   bool on_actionSave_triggered();
-
   void on_actionOpen_triggered();
   void on_actionNew_triggered();
 
-
   void mousePressObjectsButton(QMouseEvent* mouse_event);
   void DisconnectObject(gui::ObjectType obj_type);
-  void mousePressDiscard(QMouseEvent* mouse_event);
   void closeEvent(QCloseEvent* event) override;
+  void keyPressEvent(QKeyEvent* key_event) override;
 
   // Слоты для TrappyCircle
-  void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
-    DisconnectObject(gui::ObjectType::TrappyCircles);
-  }
-  void mousePressDiscardTrappyCircle(QMouseEvent* mouse_event);
+  void on_pushButtonAddTrappyCircle_clicked();
+  void on_actionTrappy_Circle_triggered();
+  void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
-  // Слоты для  TrappyLine
+  // Слот для  TrappyLine
+  void on_pushButtonAddTrappyLine_clicked();
+  void on_actionTrappy_Line_triggered();
+  void on_actionHill_triggered();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
-  void mousePressDiscardTrappyLine(QMouseEvent* mouse_event);
 
-  // Слоты для Hill
+  // Слотs для Hill
+  void on_pushButtonAddHill_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
-  void mousePressDiscardHill(QMouseEvent* mouse_event);
+  void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
 
+  // Слоты для Settings
   void on_targetAddFromTablePushButton_clicked();
   void on_hillAddFromTablePushButton_clicked();
   void on_trappyCircleAddFromTablePushButton_clicked();
   void on_trappyLineAddFromTablePushButton_clicked();
+  void on_pushButtonEditObjects_clicked();
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
@@ -95,7 +92,9 @@ class MainWindow : public QMainWindow {
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
   CursorType cursor_ = CursorType::DefaultCursor;
+  WhatObjectAddition what_obj_addition_ = WhatObjectAddition::Nothing;
 
   bool OpenMessageWindow();
-  gui::ObjectType GetObjType(CursorType cursor_type);
+  gui::ObjectType GetObjType();
+  void DeleteLastAddedObject();
 };
