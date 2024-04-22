@@ -13,6 +13,22 @@ namespace utf = boost::unit_test;
 using namespace math;
 constexpr double test_precision = 0.00001;
 
+void CHECK_DISTANCES(const PolygonObstacle& poly,
+                     const std::vector<double>& dist) {
+  std::vector<Point> vertexes = poly.GetVertexes();
+  std::size_t n = poly.GetVertexes().size();
+  std::size_t count = 0;
+  BOOST_TEST(dist.size() == n * (n - 1) / 2);
+  for (std::size_t i = 0; i < n - 1; ++i)
+    for (std::size_t j = i + 1; j < n; ++j) {
+      BOOST_TEST(
+          DistanceBetweenPointsOnPolygon(poly, vertexes[i], vertexes[j]) -
+              dist[count] <
+          test_precision);
+      ++count;
+    }
+}
+
 BOOST_AUTO_TEST_SUITE(distance_between_points)
 
 BOOST_AUTO_TEST_CASE(points_on_vertical_line_1) {
@@ -130,6 +146,46 @@ BOOST_AUTO_TEST_CASE(zero_distance) {
   Point point2{14.7, -1.48};
   CircleObstacle circle{{-6.157260, 4.806428}, 21.784085};
   BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) == 0);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(distance_between_points_on_polygon)
+
+BOOST_AUTO_TEST_CASE(line) {
+  PolygonObstacle poly({{0, 30}, {24, 10}});
+  std::vector<double> dist{31.240998};
+  CHECK_DISTANCES(poly, dist);
+}
+
+BOOST_AUTO_TEST_CASE(triangle) {
+  PolygonObstacle poly({{0, 0}, {4, 4}, {6, -2}});
+  std::vector<double> dist{5.656854, 6.324555, 6.324555};
+  CHECK_DISTANCES(poly, dist);
+}
+
+BOOST_AUTO_TEST_CASE(quadrangle) {
+  PolygonObstacle poly({{-4, 0}, {0, 10}, {8, 0}, {4, -6}});
+  std::vector<double> dist{10.770329, 17.211102, 10,
+                           12.806248, 20.017351, 7.211102};
+  CHECK_DISTANCES(poly, dist);
+}
+
+BOOST_AUTO_TEST_CASE(pentagon) {
+  PolygonObstacle poly({{-5, 0}, {0, -10}, {20, 0}, {15, 15}, {0, 15}});
+  std::vector<double> dist{11.180339, 33.541019, 30.811388, 15.811388,
+                           22.360679, 38.172068, 26.991728, 15.811388,
+                           30.811388, 15};
+  CHECK_DISTANCES(poly, dist);
+}
+
+BOOST_AUTO_TEST_CASE(hexagon) {
+  PolygonObstacle poly(
+      {{43, 58}, {48, 57}, {51, 58}, {52, 60}, {47, 63}, {43, 60}});
+  std::vector<double> dist{5.099019, 8.261297,  10.497365, 7,         2,
+                           3.162277, 5.398345,  11.229297, 7.099019,  2.236067,
+                           8.067019, 10.261297, 5.830951,  10.830951, 5};
+  CHECK_DISTANCES(poly, dist);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
