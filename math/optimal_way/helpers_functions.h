@@ -24,20 +24,31 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle2);
 
 /**
- * @brief Находит точки касания многоугольника и дургогог препятствия с их общей
+ * @brief Находит точки касания двух многугольников с их общей
+ * касательной
+ * @param tangent: касательная
+ * @param polygon1: многоугольник 1
+ * @param polygon2: многоугольник 2
+ * @return точки касательной
+ */
+std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
+                                      const PolygonObstacle& polygon1,
+                                      const PolygonObstacle& polygon2);
+
+/**
+ * @brief Находит точки касания многоугольника и круга с их общей
  * касательной
  * @param tangent: касательная
  * @param polygon: многоугольник
- * @param obstacle: препятствие
+ * @param circle: круг
  * @return точки касательной
  */
-template <typename T>
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const PolygonObstacle& polygon,
-                                      const T& obstacle);
+                                      const CircleObstacle& circle);
 
 /**
- * @brief Находит точки касания кругов c касательной,
+ * @brief Находит точки касания круга c касательной,
  * проведенной из контрольной точки
  * @param cr_obst: круг
  * @param point: контрольная точка
@@ -47,7 +58,7 @@ std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
                                       const Point& point);
 
 /**
- * @brief Находит точки касания многоугольников c касательной,
+ * @brief Находит точки касания многоугольника c касательной,
  * проведенной из контрольной точки
  * @param poly_obst: многоугольник
  * @param point: контрольная точка
@@ -66,22 +77,15 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
                                             const CircleObstacle& circle2);
 
 /**
- * @brief Находит уравнения общих касательных двух многоугольников
- * @param polygon1: многоугольник 1
- * @param polygon2: многоугольник 2
+ * @brief Находит уравнения общих касательных многоугольника и другого
+ * препятствия
+ * @param polygon: многоугольник
+ * @param obstacle: препятствие
  * @return уравнения касательных
  */
-std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon1,
-                                            const PolygonObstacle& polygon2);
-
-/**
- * @brief Находит уравнения общих касательных двух многоугольников
- * @param polygon1: многоугольник 1
- * @param polygon2: многоугольник 2
- * @return уравнения касательных
- */
+template <typename T>
 std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
-                                            const CircleObstacle& circle);
+                                            const T& obstacle);
 
 /**
  * @brief Проверяет, пересекает ли отрезок,
@@ -93,15 +97,6 @@ std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
  */
 bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& pnt1,
                            const Point& pnt2);
-
-/**
- * @brief  Проверяет, пересекает ли прямая многоугольник
- * @param poly_obst: многоугольник
- * @param line: прямая
- * @return результат проверки
- */
-bool AreThereIntersections(const PolygonObstacle& poly_obst,
-                           const LinearFunction& line);
 
 /**
  * @brief Проверяет, пересекает ли отрезок,

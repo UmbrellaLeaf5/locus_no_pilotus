@@ -108,20 +108,20 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
 }
 
 std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
-                                      const Point& pnt) {
+                                      const Point& point) {
   Point center = cr_obst.GetCenter();
   double radius = cr_obst.GetRadius();
-  double discriminant = pow((center.x - pnt.x) * (center.y - pnt.y), 2) -
-                        (pow(radius, 2) - pow(pnt.x - center.x, 2)) *
-                            (pow(radius, 2) - pow(pnt.y - center.y, 2));
+  double discriminant = pow((center.x - point.x) * (center.y - point.y), 2) -
+                        (pow(radius, 2) - pow(point.x - center.x, 2)) *
+                            (pow(radius, 2) - pow(point.y - center.y, 2));
   double slope_1 =
-      (-(center.x - pnt.x) * (center.y - pnt.y) + sqrt(discriminant)) /
-      (pow(radius, 2) - pow(pnt.x - center.x, 2));
+      (-(center.x - point.x) * (center.y - point.y) + sqrt(discriminant)) /
+      (pow(radius, 2) - pow(point.x - center.x, 2));
   double slope_2 =
-      (-(center.x - pnt.x) * (center.y - pnt.y) - sqrt(discriminant)) /
-      (pow(radius, 2) - pow(pnt.x - center.x, 2));
-  double b1_coef = pnt.y - slope_1 * pnt.x;
-  double b2_coef = pnt.y - slope_2 * pnt.x;
+      (-(center.x - point.x) * (center.y - point.y) - sqrt(discriminant)) /
+      (pow(radius, 2) - pow(point.x - center.x, 2));
+  double b1_coef = point.y - slope_1 * point.x;
+  double b2_coef = point.y - slope_2 * point.x;
   double x1_tang_pnt = (-(slope_1 * b1_coef - center.x - slope_1 * center.y)) /
                        (1 + pow(slope_1, 2));
   double x2_tang_pnt = (-(slope_2 * b2_coef - center.x - slope_2 * center.y)) /
