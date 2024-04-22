@@ -99,8 +99,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
         precision)
       tang_pnts.first = vertex;
 
-  std::pair<Point, Point> cr_points =
-      TangentPointsToCircle(circle, tang_pnts.first);
+  std::pair<Point, Point> cr_points = TangentPoints(circle, tang_pnts.first);
   for (auto& point : {cr_points.first, cr_points.second})
     if (tangent.a_coef * point.x + tangent.b_coef * point.y + tangent.c_coef <=
         precision)
@@ -108,8 +107,8 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   return tang_pnts;
 }
 
-std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
-                                              const Point& pnt) {
+std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
+                                      const Point& pnt) {
   Point center = cr_obst.GetCenter();
   double radius = cr_obst.GetRadius();
   double discriminant = pow((center.x - pnt.x) * (center.y - pnt.y), 2) -
@@ -133,8 +132,8 @@ std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
                         Point(x2_tang_pnt, y2_tang_pnt));
 }
 
-std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
-                                            const Point& point) {
+std::pair<Point, Point> TangentPoints(const PolygonObstacle& poly_obst,
+                                      const Point& point) {
   Point center = poly_obst.GetCenter();
   std::vector<Point> vertexes = poly_obst.GetVertexes();
   Point tang_pnt_1 = vertexes[0];
@@ -177,8 +176,8 @@ std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
   return std::make_pair(tang_pnt_1, tang_pnt_2);
 }
 
-std::vector<LinearFunction> TangentsBetweenCircles(
-    const CircleObstacle& circle1, const CircleObstacle& circle2) {
+std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
+                                            const CircleObstacle& circle2) {
   std::vector<LinearFunction> tangents;
   double x_1 = circle2.GetCenter().x;
   double y_1 = circle2.GetCenter().y;
@@ -203,26 +202,13 @@ std::vector<LinearFunction> TangentsBetweenCircles(
   return tangents;
 }
 
-std::vector<LinearFunction> TangentsBetweenPolys(
-    const PolygonObstacle& polygon1, const PolygonObstacle& polygon2) {
-  std::vector<LinearFunction> tangents;
-  std::vector<Point> vertexes = polygon1.GetVertexes();
-  for (auto& vertex : vertexes) {
-    std::pair<Point, Point> tang_pnts = TangentPointsToPoly(polygon2, vertex);
-    if (!AreThereIntersections(polygon1, vertex, tang_pnts.first))
-      tangents.push_back(LinearFunction(vertex, tang_pnts.first));
-    if (!AreThereIntersections(polygon1, vertex, tang_pnts.second))
-      tangents.push_back(LinearFunction(vertex, tang_pnts.second));
-  }
-  return tangents;
-}
-
-std::vector<LinearFunction> TangentsBetweenPolyAndCircle(
-    const PolygonObstacle& polygon, const CircleObstacle& circle) {
+template <typename T>
+std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
+                                            const T& obstacle) {
   std::vector<LinearFunction> tangents;
   std::vector<Point> vertexes = polygon.GetVertexes();
   for (auto& vertex : vertexes) {
-    std::pair<Point, Point> tang_pnts = TangentPointsToCircle(circle, vertex);
+    std::pair<Point, Point> tang_pnts = TangentPoints(obstacle, vertex);
     if (!AreThereIntersections(polygon, vertex, tang_pnts.first))
       tangents.push_back(LinearFunction(vertex, tang_pnts.first));
     if (!AreThereIntersections(polygon, vertex, tang_pnts.second))

@@ -35,7 +35,7 @@ void MinimumDistanceCalculator::AddCommonTangents() {
   for (int i = 0; i < circles_.size(); ++i) {
     for (int j = i + 1; j < circles_.size(); ++j) {
       std::vector<LinearFunction> tangents =
-          TangentsBetweenCircles(circles_[i], circles_[j]);
+          TangentsBetween(circles_[i], circles_[j]);
 
       for (int k = 0; k < tangents.size(); ++k)
         if (!TangentGoesTroughOtherCircle(tangents[k], i, j))
@@ -48,7 +48,7 @@ void MinimumDistanceCalculator::AddControlPointTangents() {
   for (auto point : {point1_, point2_})
     for (int i = 0; i < circles_.size(); ++i) {
       std::pair<Point, Point> tangent_points_1 =
-          TangentPointsToCircle(circles_[i], point);
+          TangentPoints(circles_[i], point);
       bool is_exist_tangent1 = true;
       bool is_exist_tangent2 = true;
       for (int j = 0; j < circles_.size(); ++j) {
@@ -96,7 +96,7 @@ void MinimumDistanceCalculator::AddGraphControlPoints() {
     for (auto& prev : graph_.nodes) {
       if ((*prev).circle_prt) {
         std::pair<Point, Point> tangent_points =
-            TangentPointsToCircle((*(*prev).circle_prt), point);
+            TangentPoints((*(*prev).circle_prt), point);
         if (tangent_points.first == (*prev).point ||
             tangent_points.second == (*prev).point) {
           graph_.AddEdge((*prev).number, new_node.number,
