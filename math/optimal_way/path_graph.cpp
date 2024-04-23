@@ -9,21 +9,19 @@ void DijkstrasAlgorithm::Calculate_Min_Path() {
     std::shared_ptr<PathWayNode> min_len_key;
     for (auto& elem : graphs_vertex_)
       if ((elem.second == min_length_) &&
-          (!(*path_nodes_[elem.first]).is_visited))
+          (!path_nodes_[elem.first]->is_visited))
         min_len_key = path_nodes_[elem.first];
 
-    for (std::size_t i = 0; i < (*min_len_key).edges.size(); ++i)
-      if ((graphs_vertex_.find((*(*min_len_key).edges[i]).number) ==
+    for (std::size_t i = 0; i < min_len_key->edges.size(); ++i)
+      if ((graphs_vertex_.find(min_len_key->edges[i]->number) ==
            graphs_vertex_.end()) ||
-          (graphs_vertex_[(*(*min_len_key).edges[i]).number] >
-           graphs_vertex_[(*min_len_key).number] +
-               (*min_len_key).edges_lens[i]))
-        graphs_vertex_[(*(*min_len_key).edges[i]).number] =
-            graphs_vertex_[(*min_len_key).number] +
-            (*min_len_key).edges_lens[i];
+          (graphs_vertex_[min_len_key->edges[i]->number] >
+           graphs_vertex_[min_len_key->number] + min_len_key->edges_lens[i]))
+        graphs_vertex_[min_len_key->edges[i]->number] =
+            graphs_vertex_[min_len_key->number] + min_len_key->edges_lens[i];
       else
         continue;
-    (*min_len_key).is_visited = true;
+    min_len_key->is_visited = true;
 
     min_length_ = inf;
     for (auto& elem : graphs_vertex_)
@@ -36,11 +34,11 @@ void DijkstrasAlgorithm::Calculate_Min_Path() {
   std::size_t end = second_point_;
   min_path_.push_back(end);
   while (end != first_point_) {
-    for (std::size_t i = 0; i < (*path_nodes_[end]).edges.size(); ++i)
-      if (graphs_vertex_[(*path_nodes_[end]).number] ==
-          graphs_vertex_[(*(*path_nodes_[end]).edges[i]).number] +
-              (*path_nodes_[end]).edges_lens[i]) {
-        end = (*(*path_nodes_[end]).edges[i]).number;
+    for (std::size_t i = 0; i < path_nodes_[end]->edges.size(); ++i)
+      if (graphs_vertex_[path_nodes_[end]->number] ==
+          graphs_vertex_[path_nodes_[end]->edges[i]->number] +
+              path_nodes_[end]->edges_lens[i]) {
+        end = path_nodes_[end]->edges[i]->number;
         min_path_.push_back(end);
         break;
       }
