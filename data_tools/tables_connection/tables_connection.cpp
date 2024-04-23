@@ -10,197 +10,198 @@ void TablesConnection::Setup(DataManager* manager, PlotArea* area) {
 // MARK: U.T. by Targets
 
 void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
-  if (!targets.empty()) {
-    // кол-во столбцов = кол-во к.т.
-    targets_table_->setColumnCount(targets.size());
-
-    for (size_t i = 0; i < targets.size(); i++) {
-      // устанавливаем столбик с номером объекта
-      auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      item->setTextAlignment(Qt::AlignCenter);
-      targets_table_->setHorizontalHeaderItem(i,
-                                              item);  // номер к.т. = индекс + 1
-
-      // в строки добавляем индекс на полотне и координаты
-      item = new QTableWidgetItem(QString::number(targets[i].GetIndexOnPlot()));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      targets_table_->setItem(0, i, item);
-
-      item = new QTableWidgetItem(QString::number(targets[i].GetPoint().x));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      targets_table_->setItem(1, i, item);
-
-      item = new QTableWidgetItem(QString::number(targets[i].GetPoint().y));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      targets_table_->setItem(2, i, item);
-    }
-
-    targets_table_->update();
-  } else {
+  if (targets.empty()) {
     targets_table_->setColumnCount(0);
+    return;
   }
+
+  // кол-во столбцов = кол-во к.т.
+  targets_table_->setColumnCount(targets.size());
+
+  for (size_t i = 0; i < targets.size(); i++) {
+    // устанавливаем столбик с номером объекта
+    auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    item->setTextAlignment(Qt::AlignCenter);
+    targets_table_->setHorizontalHeaderItem(i,
+                                            item);  // номер к.т. = индекс + 1
+
+    // в строки добавляем индекс на полотне и координаты
+    item = new QTableWidgetItem(QString::number(targets[i].GetIndexOnPlot()));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    targets_table_->setItem(0, i, item);
+
+    item = new QTableWidgetItem(QString::number(targets[i].GetPoint().x));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    targets_table_->setItem(1, i, item);
+
+    item = new QTableWidgetItem(QString::number(targets[i].GetPoint().y));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    targets_table_->setItem(2, i, item);
+  }
+
+  targets_table_->update();
 }
 
 // MARK: U.T. by Hills
 
 void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
-  if (!hills.empty()) {
-    // находим максимально возможное кол-во точек среди всех холмов
-    size_t hills_max_points = hills[0].GetPoints().size();
-    for (size_t i = 0; i < hills.size() - 1; i++) {
-      hills_max_points = std::max(hills[i].GetPoints().size(),
-                                  hills[i + 1].GetPoints().size());
-    }
-
-    // кол-во столбцов = кол-во рельефов
-    hills_table_->setColumnCount(hills.size());
-
-    // кол-во строк = максимальное число точек * 2 (т.к. x и y) и индекс
-    hills_table_->setRowCount(hills_max_points * 2 + 1);
-
-    for (size_t i = 0; i < hills.size(); i++) {
-      // устанавливаем столбик с номером объекта
-      auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      item->setTextAlignment(Qt::AlignCenter);
-      hills_table_->setHorizontalHeaderItem(
-          i,
-          item);  // номер рельефа = индекс + 1
-
-      // в строки добавляем индекс на полотне и координаты всех точек
-      item = new QTableWidgetItem(QString::number(hills[i].GetIndexOnPlot()));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      hills_table_->setItem(0, i, item);
-
-      for (size_t j = 1; j < hills[i].GetPoints().size() * 2; j += 2) {
-        // названия строк с координатами
-        hills_table_->setVerticalHeaderItem(
-            j, new QTableWidgetItem("X_" + QString::number(j / 2 + 1)));
-        hills_table_->setVerticalHeaderItem(
-            j + 1, new QTableWidgetItem("Y_" + QString::number(j / 2 + 1)));
-
-        // сами координаты
-        item = new QTableWidgetItem(
-            QString::number(hills[i].GetPoints()[(j - 1) / 2].x));
-        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                       Qt::ItemIsEnabled);
-        hills_table_->setItem(j, i, item);
-
-        item = new QTableWidgetItem(
-            QString::number(hills[i].GetPoints()[(j - 1) / 2].y));
-        item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                       Qt::ItemIsEnabled);
-        hills_table_->setItem(j + 1, i, item);
-      }
-    }
-
-    hills_table_->update();
-  } else {
+  if (hills.empty()) {
     hills_table_->setColumnCount(0);
+    return;
   }
+
+  // находим максимально возможное кол-во точек среди всех холмов
+  size_t hills_max_points = hills[0].GetPoints().size();
+  for (size_t i = 0; i < hills.size() - 1; i++) {
+    hills_max_points =
+        std::max(hills[i].GetPoints().size(), hills[i + 1].GetPoints().size());
+  }
+
+  // кол-во столбцов = кол-во рельефов
+  hills_table_->setColumnCount(hills.size());
+
+  // кол-во строк = максимальное число точек * 2 (т.к. x и y) и индекс
+  hills_table_->setRowCount(hills_max_points * 2 + 1);
+
+  for (size_t i = 0; i < hills.size(); i++) {
+    // устанавливаем столбик с номером объекта
+    auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    item->setTextAlignment(Qt::AlignCenter);
+    hills_table_->setHorizontalHeaderItem(i,
+                                          item);  // номер рельефа = индекс + 1
+
+    // в строки добавляем индекс на полотне и координаты всех точек
+    item = new QTableWidgetItem(QString::number(hills[i].GetIndexOnPlot()));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    hills_table_->setItem(0, i, item);
+
+    for (size_t j = 1; j < hills[i].GetPoints().size() * 2; j += 2) {
+      // названия строк с координатами
+      hills_table_->setVerticalHeaderItem(
+          j, new QTableWidgetItem("X_" + QString::number(j / 2 + 1)));
+      hills_table_->setVerticalHeaderItem(
+          j + 1, new QTableWidgetItem("Y_" + QString::number(j / 2 + 1)));
+
+      // сами координаты
+      item = new QTableWidgetItem(
+          QString::number(hills[i].GetPoints()[(j - 1) / 2].x));
+      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                     Qt::ItemIsEnabled);
+      hills_table_->setItem(j, i, item);
+
+      item = new QTableWidgetItem(
+          QString::number(hills[i].GetPoints()[(j - 1) / 2].y));
+      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                     Qt::ItemIsEnabled);
+      hills_table_->setItem(j + 1, i, item);
+    }
+  }
+
+  hills_table_->update();
 }
 
 // MARK: U.T. by Tr. Lines
 
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
-  if (!trappy_lines.empty()) {
-    // кол-во столбцов = кол-во опасных линий
-    tr_lines_table_->setColumnCount(trappy_lines.size());
+  if (trappy_lines.empty()) {
+    tr_lines_table_->setColumnCount(0);
+    return;
+  }
 
-    for (size_t i = 0; i < trappy_lines.size(); i++) {
-      // устанавливаем столбик с номером объекта
-      auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      item->setTextAlignment(Qt::AlignCenter);
-      tr_lines_table_->setHorizontalHeaderItem(
-          i,
-          item);  // номер линии = индекс + 1
+  // кол-во столбцов = кол-во опасных линий
+  tr_lines_table_->setColumnCount(trappy_lines.size());
 
-      // в строки добавляем индекс на полотне
-      item = new QTableWidgetItem(
-          QString::number(trappy_lines[i].GetIndexOnPlot()));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      tr_lines_table_->setItem(0, i, item);
+  for (size_t i = 0; i < trappy_lines.size(); i++) {
+    // устанавливаем столбик с номером объекта
+    auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    item->setTextAlignment(Qt::AlignCenter);
+    tr_lines_table_->setHorizontalHeaderItem(i,
+                                             item);  // номер линии = индекс + 1
 
-      // нахождение номеров двух привязанных к.т. в векторе менеджера
-      size_t t_1_n;
-      size_t t_2_n;
+    // в строки добавляем индекс на полотне
+    item =
+        new QTableWidgetItem(QString::number(trappy_lines[i].GetIndexOnPlot()));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    tr_lines_table_->setItem(0, i, item);
 
-      for (size_t j = 0; j < manager_->GetTargetsPtrs().size(); j++) {
-        auto target_ptr = manager_->GetTargetsPtrs()[j];
+    // нахождение номеров двух привязанных к.т. в векторе менеджера
+    size_t t_1_n;
+    size_t t_2_n;
 
-        if (target_ptr == trappy_lines[i].GetTargetsPtrs().first)
-          t_1_n = j + 1;  // номер  = индекс + 1
-        if (target_ptr == trappy_lines[i].GetTargetsPtrs().second)
-          t_2_n = j + 1;  // номер  = индекс + 1
-      }
+    for (size_t j = 0; j < manager_->GetTargets().size(); j++) {
+      auto target_ptr = manager_->GetTargetsPtrs()[j];
 
-      item = new QTableWidgetItem(QString::number(t_1_n));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_lines_table_->setItem(1, i, item);
-
-      item = new QTableWidgetItem(QString::number(t_2_n));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_lines_table_->setItem(2, i, item);
+      if (target_ptr == trappy_lines[i].GetTargetsPtrs().first)
+        t_1_n = j + 1;  // номер  = индекс + 1
+      if (target_ptr == trappy_lines[i].GetTargetsPtrs().second)
+        t_2_n = j + 1;  // номер  = индекс + 1
     }
 
-    tr_lines_table_->update();
-  } else {
-    tr_lines_table_->setColumnCount(0);
+    item = new QTableWidgetItem(QString::number(t_1_n));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    tr_lines_table_->setItem(1, i, item);
+
+    item = new QTableWidgetItem(QString::number(t_2_n));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    tr_lines_table_->setItem(2, i, item);
   }
+
+  tr_lines_table_->update();
 }
 
 // MARK: U.T. by Tr. Circles
 
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
-  if (!trappy_circles.empty()) {
-    // кол-во столбцов = кол-во опасных зон
-    tr_circles_table_->setColumnCount(trappy_circles.size());
-
-    for (size_t i = 0; i < trappy_circles.size(); i++) {
-      // устанавливаем столбик с номером объекта
-      auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      item->setTextAlignment(Qt::AlignCenter);
-      tr_circles_table_->setHorizontalHeaderItem(
-          i, item);  // номер зоны = индекс + 1
-
-      // в строки добавляем индекс на полотне, координаты точки и радиус
-      item = new QTableWidgetItem(
-          QString::number(trappy_circles[i].GetIndexOnPlot()));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-      tr_circles_table_->setItem(0, i, item);
-
-      item = new QTableWidgetItem(
-          QString::number(trappy_circles[i].GetCenter().x));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_circles_table_->setItem(1, i, item);
-
-      item = new QTableWidgetItem(
-          QString::number(trappy_circles[i].GetCenter().y));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_circles_table_->setItem(2, i, item);
-
-      item =
-          new QTableWidgetItem(QString::number(trappy_circles[i].GetRadius()));
-      item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
-                     Qt::ItemIsEnabled);
-      tr_circles_table_->setItem(3, i, item);
-    }
-
-    tr_circles_table_->update();
-  } else {
+  if (trappy_circles.empty()) {
     tr_circles_table_->setColumnCount(0);
+    return;
   }
+
+  // кол-во столбцов = кол-во опасных зон
+  tr_circles_table_->setColumnCount(trappy_circles.size());
+
+  for (size_t i = 0; i < trappy_circles.size(); i++) {
+    // устанавливаем столбик с номером объекта
+    auto item = new QTableWidgetItem("№ " + QString::number(i + 1));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    item->setTextAlignment(Qt::AlignCenter);
+    tr_circles_table_->setHorizontalHeaderItem(
+        i, item);  // номер зоны = индекс + 1
+
+    // в строки добавляем индекс на полотне, координаты точки и радиус
+    item = new QTableWidgetItem(
+        QString::number(trappy_circles[i].GetIndexOnPlot()));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    tr_circles_table_->setItem(0, i, item);
+
+    item =
+        new QTableWidgetItem(QString::number(trappy_circles[i].GetCenter().x));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    tr_circles_table_->setItem(1, i, item);
+
+    item =
+        new QTableWidgetItem(QString::number(trappy_circles[i].GetCenter().y));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    tr_circles_table_->setItem(2, i, item);
+
+    item = new QTableWidgetItem(QString::number(trappy_circles[i].GetRadius()));
+    item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
+                   Qt::ItemIsEnabled);
+    tr_circles_table_->setItem(3, i, item);
+  }
+
+  tr_circles_table_->update();
 }
 
 void TablesConnection::UpdateTables() {
