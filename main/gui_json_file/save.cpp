@@ -12,7 +12,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
 
   for (size_t i = 0; i < manager->GetTargets().size(); i++) {
     int id = add_to_id + manager->GetTargets()[i].GetPlottableIndex();
-    targets_array.append(manager->GetTargets()[i].GetData().Load(id));
+    targets_array.append(manager->GetTargets()[i].GetData().GetJsonInfo(id));
   }
   root.insert("Targets", targets_array);
 
@@ -21,7 +21,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
   for (size_t i = 0; i < manager->GetTrappyCircles().size(); i++) {
     int id = add_to_id + manager->GetTrappyCircles()[i].GetItemIndex();
     trappy_circles_array.append(
-        manager->GetTrappyCircles()[i].GetData().Load(id));
+        manager->GetTrappyCircles()[i].GetData().GetJsonInfo(id));
   }
   root.insert("Trappy_Circles", trappy_circles_array);
 
@@ -29,7 +29,8 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
 
   for (size_t i = 0; i < manager->GetTrappyLines().size(); i++) {
     int id = add_to_id + manager->GetTrappyLines()[i].GetPlottableIndex();
-    trappy_lines_array.append(manager->GetTrappyLines()[i].GetData().Load(id));
+    trappy_lines_array.append(
+        manager->GetTrappyLines()[i].GetData().GetJsonInfo(id));
   }
   root.insert("Trappy_Lines", trappy_lines_array);
 
@@ -37,7 +38,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
 
   for (size_t i = 0; i < manager->GetHills().size(); i++) {
     int id = add_to_id + manager->GetHills()[i].GetPlottableIndex();
-    hills_array.append(manager->GetHills()[i].GetData().Load(id));
+    hills_array.append(manager->GetHills()[i].GetData().GetJsonInfo(id));
   }
   root.insert("Hills", hills_array);
 

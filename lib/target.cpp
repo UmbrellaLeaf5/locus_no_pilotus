@@ -2,7 +2,7 @@
 
 namespace lib {
 
-QJsonObject Target::Load(int id) const {
+QJsonObject Target::GetJsonInfo(int id) const {
   QVariantMap target_map;
 
   target_map.insert("Id", id);
@@ -12,7 +12,7 @@ QJsonObject Target::Load(int id) const {
   return QJsonObject::fromVariantMap(target_map);
 }
 
-void Target::Save(const QJsonObject& target_obj) {
+void Target::SetJsonInfo(const QJsonObject& target_obj) {
   if (!(target_obj.contains("X") && target_obj.contains("Y")))
     throw std::invalid_argument("");
   double x = target_obj.value("X").toDouble();

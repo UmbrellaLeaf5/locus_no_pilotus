@@ -10,7 +10,7 @@ TrappyCircle::TrappyCircle(Point center, double radius)
     throw std::invalid_argument("trappy circle cannot have of negative radius");
 }
 
-QJsonObject TrappyCircle::Load(int id) const {
+QJsonObject TrappyCircle::GetJsonInfo(int id) const {
   QVariantMap trappy_circle_map;
 
   trappy_circle_map.insert("Id", id);
@@ -21,7 +21,7 @@ QJsonObject TrappyCircle::Load(int id) const {
   return QJsonObject::fromVariantMap(trappy_circle_map);
 }
 
-void TrappyCircle::Save(const QJsonObject& trappy_circle_obj) {
+void TrappyCircle::SetJsonInfo(const QJsonObject& trappy_circle_obj) {
   if (!(trappy_circle_obj.contains("X") && trappy_circle_obj.contains("Y") &&
         trappy_circle_obj.contains("Radius")))
     throw std::invalid_argument("");
