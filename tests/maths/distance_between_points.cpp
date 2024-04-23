@@ -8,7 +8,6 @@
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
 using namespace math;
-constexpr double test_precision = 0.00001;
 
 void CHECK_DISTANCES(const PolygonObstacle& poly,
                      const std::vector<double>& dist) {
