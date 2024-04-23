@@ -235,7 +235,9 @@ void TablesConnection::HillsItemChanged(int row, int column) {
 
   // здесь важно понимать, что из-за айдишника нумерация сдвинута
   // поэтому X на нечетных, а Y на четных
-  if (row % 2 == 0) {
+  bool is_y_item_changed = row % 2 == 0;
+
+  if (is_y_item_changed) {
     // если попали в Y, то предыдущий X (той же точки)
     x_item = hills_table_->item(row - 1, column);
     p_index = row / 2 - 1;
