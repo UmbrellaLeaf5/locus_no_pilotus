@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget* parent)
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
 
-  connect(ui->plot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this,
-          SLOT(mousePressObjectsButton(QMouseEvent*)));
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   area_->Setup(manager_.get());
   t_connection_->Setup(manager_.get(), area_.get());

@@ -4,7 +4,7 @@
 
 namespace lib {
 
-QJsonObject TrappyLine::Load(int id) const {
+QJsonObject TrappyLine::GetJsonInfo(int id) const {
   QVariantMap trappy_line_map;
   QVariantMap p1_map;
   QVariantMap p2_map;
@@ -22,7 +22,7 @@ QJsonObject TrappyLine::Load(int id) const {
   return QJsonObject::fromVariantMap(trappy_line_map);
 }
 
-void TrappyLine::Save(const QJsonObject& trappy_line_obj) {
+void TrappyLine::SetJsonInfo(const QJsonObject& trappy_line_obj) {
   if (!(trappy_line_obj.contains("P1") && trappy_line_obj.contains("P2")))
     throw std::invalid_argument("");
 

@@ -5,7 +5,7 @@ std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
   std::vector<lib::Target> targets;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Target t;
-    t.Save(arr.at(i).toObject());
+    t.SetJsonInfo(arr.at(i).toObject());
     targets.push_back(t);
   }
 
@@ -17,7 +17,7 @@ std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
   std::vector<lib::TrappyCircle> trappy_circles;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyCircle tc;
-    tc.Save(arr.at(i).toObject());
+    tc.SetJsonInfo(arr.at(i).toObject());
     trappy_circles.push_back(tc);
   }
 
@@ -29,7 +29,7 @@ std::vector<lib::TrappyLine> GetTrappyLinesFromFile(
   std::vector<lib::TrappyLine> trappy_lines;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::TrappyLine tl;
-    tl.Save(arr.at(i).toObject());
+    tl.SetJsonInfo(arr.at(i).toObject());
     trappy_lines.push_back(tl);
   }
 
@@ -41,7 +41,7 @@ std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr,
   std::vector<lib::Hill> hills;
   for (size_t i = 0; i < arr.size(); i++) {
     lib::Hill h;
-    h.Save(arr.at(i).toObject());
+    h.SetJsonInfo(arr.at(i).toObject());
     hills.push_back(h);
   }
 

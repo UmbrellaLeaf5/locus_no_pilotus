@@ -22,7 +22,7 @@ void TrappyLine::Draw(QCustomPlot* plot) {
   graph_->addData(targets.second.GetPoint().x, targets.second.GetPoint().y);
 
   // индекс последнего созданного = кол-во всех - 1
-  plottable_index_ = plot->plottableCount() - 1;
+  SetIndexOnPlot(plot);
 }
 
 void TrappyLine::UpdateData(gui::Target* first_target,

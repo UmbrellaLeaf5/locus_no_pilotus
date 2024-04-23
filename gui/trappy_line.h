@@ -48,12 +48,6 @@ class TrappyLine : public Drawable {
   void Draw(QCustomPlot* plot) override;
 
   /**
-   * @brief Возвращает индекс на полотне [plottable]
-   * @return size_t: индекс
-   */
-  size_t GetPlottableIndex() const { return plottable_index_; }
-
-  /**
    * @brief Возвращает значение указателя на полотне
    * @return QCPGraph*: указатель
    */
@@ -74,7 +68,7 @@ class TrappyLine : public Drawable {
   void UpdateData(std::pair<gui::Target*, gui::Target*> targets);
 
   lib::TrappyLine data_;
-  size_t plottable_index_{ULLONG_MAX};
+
   QCPGraph* graph_{nullptr};
 
   // самый простой способ иметь доступ из TrappyLine к привязанным к.т.

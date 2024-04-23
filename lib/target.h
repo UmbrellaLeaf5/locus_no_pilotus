@@ -18,8 +18,8 @@ class Target : public JSONable {
   Target& operator=(const Target&) = default;
   Target& operator=(Target&&) = default;
 
-  QJsonObject Load(int id) const override;
-  void Save(const QJsonObject& target_obj) override;
+  QJsonObject GetJsonInfo(int id) const override;
+  void SetJsonInfo(const QJsonObject& target_obj) override;
   bool IsChanged(const QJsonObject& target_obj) const override;
 
   Point GetPoint() const { return p_; }

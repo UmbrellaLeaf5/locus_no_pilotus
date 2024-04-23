@@ -23,8 +23,8 @@ class TrappyLine : public JSONable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
-  QJsonObject Load(int id) const override;
-  void Save(const QJsonObject& trappy_line_obj) override;
+  QJsonObject GetJsonInfo(int id) const override;
+  void SetJsonInfo(const QJsonObject& trappy_line_obj) override;
   bool IsChanged(const QJsonObject& trappy_line_obj) const override;
 
   void SetTargets(Target* first_target, Target* second_target) {
