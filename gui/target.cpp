@@ -12,5 +12,5 @@ void gui::Target::Draw(QCustomPlot* plot) {
   graph_->setData({GetPoint().x}, {GetPoint().y});
 
   // индекс последнего созданного = кол-во всех - 1
-  plottable_index_ = plot->plottableCount() - 1;
+  SetPlottableIndex(plot);
 }

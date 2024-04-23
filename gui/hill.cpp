@@ -26,5 +26,5 @@ void gui::Hill::Draw(QCustomPlot* plot) {
   curve_->addData(points[0].x, points[0].y);
 
   // индекс последнего созданного = кол-во всех - 1
-  plottable_index_ = plot->plottableCount() - 1;
+  SetPlottableIndex(plot);
 }

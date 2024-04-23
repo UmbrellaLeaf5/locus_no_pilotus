@@ -56,12 +56,6 @@ class Hill : public Drawable {
   void Draw(QCustomPlot* plot) override;
 
   /**
-   * @brief Возвращает индекс на полотне [plottable]
-   * @return size_t: индекс
-   */
-  size_t GetPlottableIndex() const { return plottable_index_; }
-
-  /**
    * @brief Возвращает значение указателя на полотне
    * @return QCPGraph*: указатель
    */
@@ -70,7 +64,7 @@ class Hill : public Drawable {
  private:
   lib::Hill data_;
   QColor color_;
-  size_t plottable_index_{ULLONG_MAX};
+
   QCPCurve* curve_{nullptr};
 };
 

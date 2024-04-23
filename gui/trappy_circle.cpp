@@ -15,6 +15,9 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) {
   ellipse_->bottomRight->setCoords(GetCenter().x + GetRadius(),
                                    GetCenter().y - GetRadius());
 
+  // SetPlottableIndex(plot); невозможно использовать, так как
+  // ellipse это item, а не plottable
+
   // индекс последнего созданного = кол-во всех - 1
   item_index_ = plot->itemCount() - 1;
 }
