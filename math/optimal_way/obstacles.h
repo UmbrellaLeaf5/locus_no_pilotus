@@ -25,6 +25,10 @@ struct LinearFunction {
 
   double a_coef, b_coef, c_coef;
 
+  double Substitute(const lib::Point& p) {
+    return a_coef * p.x + b_coef * p.y + c_coef;
+  }
+
   bool operator==(const LinearFunction& other) {
     return (std::abs(a_coef - other.a_coef) < precision &&
             std::abs(b_coef - other.b_coef) < precision &&

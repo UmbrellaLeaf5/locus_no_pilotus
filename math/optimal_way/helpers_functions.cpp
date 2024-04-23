@@ -262,14 +262,8 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
   std::vector<Point> vertexes = poly_obst.GetVertexes();
   for (std::size_t i = 0; i < vertexes.size() - 1; ++i) {
     LinearFunction v_line(vertexes[i], vertexes[i + 1]);
-    if (((line.a_coef * vertexes[i].x + line.b_coef * vertexes[i].y +
-          line.c_coef) *
-             (line.a_coef * vertexes[i + 1].x +
-              line.b_coef * vertexes[i + 1].y + line.c_coef) <
-         0) &&
-        ((v_line.a_coef * pnt1.x + v_line.b_coef * pnt1.y + v_line.c_coef) *
-             (v_line.a_coef * pnt2.x + v_line.b_coef * pnt2.y + v_line.c_coef) <
-         0))
+    if ((line.Substitute(vertexes[i]) * line.Substitute(vertexes[i + 1]) < 0) &&
+        (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < 0))
       return true;
   }
   return false;
