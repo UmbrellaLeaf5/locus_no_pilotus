@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(points_on_vertical_line_2) {
 BOOST_AUTO_TEST_CASE(points_on_vertical_line_3) {
   Point point1(3, 10);
   Point point2(3, 14);
-  BOOST_TEST((DistanceBetweenPoints(point1, point2) - 5) < test_precision);
+  BOOST_TEST((DistanceBetweenPoints(point1, point2) - 4) < test_precision);
 }
 
 BOOST_AUTO_TEST_CASE(points_on_horizontal_line_1) {
@@ -118,33 +118,33 @@ BOOST_AUTO_TEST_CASE(simple_test) {
 }
 
 BOOST_AUTO_TEST_CASE(random_points_and_circle_1) {
-  Point point1(-5.83, 4.8);
-  Point point2(-13.04, 1.28);
-  CircleObstacle circle({7.68, 0.56}, 5.671684);
-  BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) - 25.28 <
+  Point point1(5.83, -4.8);
+  Point point2(13.041218, -1.286467);
+  CircleObstacle circle({7.68, 0.56}, 5.670282);
+  BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) - 8.910595 <
              test_precision);
 }
 
 BOOST_AUTO_TEST_CASE(random_points_and_circle_2) {
   Point point1(-7.69, -17.77);
-  Point point2(16.67, -11.35);
-  CircleObstacle circle({4.444373, -14.381376}, 12.594773);
-  BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) - 246.84 <
+  Point point2(16.670395, -11.339995);
+  CircleObstacle circle({4.444373, -14.381376}, 12.598639);
+  BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) - 39.220643 <
              test_precision);
 }
 
 BOOST_AUTO_TEST_CASE(random_points_and_circle_3) {
   Point point1(14.7, -1.48);
-  Point point2(-12.17, 25.75);
-  CircleObstacle circle({-6.157260, 4.806428}, 21.784085);
-  BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) - 508.41 <
+  Point point2(-12.173166, 25.743317);
+  CircleObstacle circle({-6.157260, 4.806428}, 21.784041);
+  BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) - 46.690539 <
              test_precision);
 }
 
 BOOST_AUTO_TEST_CASE(zero_distance) {
   Point point1(14.7, -1.48);
   Point point2(14.7, -1.48);
-  CircleObstacle circle({-6.157260, 4.806428}, 21.784085);
+  CircleObstacle circle({-6.157260, 4.806428}, 21.784041);
   BOOST_TEST(DistanceBetweenPointsOnCircle(circle, point1, point2) == 0);
 }
 
