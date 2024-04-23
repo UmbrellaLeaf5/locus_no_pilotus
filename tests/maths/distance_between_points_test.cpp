@@ -1,7 +1,4 @@
-#include <QApplication>
-
 #include "math/optimal_way/helpers_functions.h"
-#include "math/optimal_way/obstacles.h"
 
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
