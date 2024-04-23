@@ -11,7 +11,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
   int add_to_id = 10000;
 
   for (size_t i = 0; i < manager->GetTargets().size(); i++) {
-    int id = add_to_id + manager->GetTargets()[i].GetPlottableIndex();
+    int id = add_to_id + manager->GetTargets()[i].GetIndexOnPlot();
     targets_array.append(manager->GetTargets()[i].GetData().GetJsonInfo(id));
   }
   root.insert("Targets", targets_array);
@@ -28,7 +28,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
   add_to_id = 30000;
 
   for (size_t i = 0; i < manager->GetTrappyLines().size(); i++) {
-    int id = add_to_id + manager->GetTrappyLines()[i].GetPlottableIndex();
+    int id = add_to_id + manager->GetTrappyLines()[i].GetIndexOnPlot();
     trappy_lines_array.append(
         manager->GetTrappyLines()[i].GetData().GetJsonInfo(id));
   }
@@ -37,7 +37,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
   add_to_id = 40000;
 
   for (size_t i = 0; i < manager->GetHills().size(); i++) {
-    int id = add_to_id + manager->GetHills()[i].GetPlottableIndex();
+    int id = add_to_id + manager->GetHills()[i].GetIndexOnPlot();
     hills_array.append(manager->GetHills()[i].GetData().GetJsonInfo(id));
   }
   root.insert("Hills", hills_array);

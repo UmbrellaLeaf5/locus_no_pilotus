@@ -19,15 +19,15 @@ class Drawable {
    * @brief Возвращает индекс на полотне [plottable]
    * @return size_t: индекс
    */
-  size_t GetPlottableIndex() const { return plottable_index_; }
+  virtual size_t GetIndexOnPlot() const { return index_on_plot_; }
 
  protected:
-  void SetPlottableIndex(QCustomPlot* plot) {
-    plottable_index_ = plot->plottableCount() - 1;
+  virtual void SetIndexOnPlot(QCustomPlot* plot) {
+    index_on_plot_ = plot->plottableCount() - 1;
   }
 
  private:
-  size_t plottable_index_{ULLONG_MAX};
+  size_t index_on_plot_{ULLONG_MAX};
 };
 
 // @brief Типы объектов по категориям
