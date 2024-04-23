@@ -7,13 +7,13 @@ namespace gui {
 /// @brief Некоторая возможная к рисованию фигура [абстрактный класс]
 class Drawable {
  public:
+  Drawable() = default;
+
   /**
    * @brief Привязывает (рисует) экземпляр класса на полотне
    * @param plot: указатель на соотв. полотно
    */
   virtual void Draw(QCustomPlot* plot) = 0;
-
-  Drawable() = default;
 
   /**
    * @brief Возвращает индекс на полотне [plottable]

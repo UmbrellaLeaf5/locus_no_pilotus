@@ -19,7 +19,7 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
   add_to_id = 20000;
 
   for (size_t i = 0; i < manager->GetTrappyCircles().size(); i++) {
-    int id = add_to_id + manager->GetTrappyCircles()[i].GetItemIndex();
+    int id = add_to_id + manager->GetTrappyCircles()[i].GetIndexOnPlot();
     trappy_circles_array.append(
         manager->GetTrappyCircles()[i].GetData().GetJsonInfo(id));
   }

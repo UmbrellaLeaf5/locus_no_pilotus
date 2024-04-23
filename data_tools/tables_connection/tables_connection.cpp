@@ -172,9 +172,9 @@ void TablesConnection::UpdateTable(
       tr_circles_table_->setHorizontalHeaderItem(
           i, item);  // номер зоны = индекс + 1
 
-      // в строки добавляем индекс на полотне и координаты точки и радиус
+      // в строки добавляем индекс на полотне, координаты точки и радиус
       item = new QTableWidgetItem(
-          QString::number(trappy_circles[i].GetItemIndex()));
+          QString::number(trappy_circles[i].GetIndexOnPlot()));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
       tr_circles_table_->setItem(0, i, item);
 

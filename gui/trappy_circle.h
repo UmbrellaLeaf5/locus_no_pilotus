@@ -41,9 +41,12 @@ class TrappyCircle : public Drawable {
 
   /**
    * @brief Возвращает индекс на полотне [item]
+   * @details Этот метод перегружен у TrappyCircle, так как его фигуры на
+   * полотне являются QCPItemEllipse, которые в свою очередь относятся к Items,
+   * а не Plottables по отношению к QCustomPlot plot
    * @return size_t: индекс
    */
-  size_t GetItemIndex() const { return item_index_; }
+  size_t GetIndexOnPlot() const override { return item_index_; }
 
   /**
    * @brief Возвращает значение указателя на полотне
@@ -52,6 +55,10 @@ class TrappyCircle : public Drawable {
   QCPItemEllipse* GetItemEllipsePtr() const { return ellipse_; }
 
  private:
+  void SetIndexOnPlot(QCustomPlot* plot) override {
+    item_index_ = plot->itemCount() - 1;
+  }
+
   lib::TrappyCircle data_;
   QColor color_;
   size_t item_index_{ULLONG_MAX};
