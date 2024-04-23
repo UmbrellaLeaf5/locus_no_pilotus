@@ -46,4 +46,11 @@ bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
   return p1 != targets_.first->GetPoint() || p2 != targets_.second->GetPoint();
 }
 
+std::pair<Target, Target> TrappyLine::GetTargets() const {
+  if (targets_.first == nullptr || targets_.second == nullptr)
+    throw std::runtime_error("target is nullptr");
+
+  return std::make_pair(*targets_.first, *targets_.second);
+}
+
 }  // namespace lib

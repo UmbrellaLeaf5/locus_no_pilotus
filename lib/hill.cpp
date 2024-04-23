@@ -9,6 +9,8 @@ namespace lib {
 Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
   if (points.size() == 0 || points.size() == 1)
     throw std::invalid_argument("hill cannot consist of one or zero points");
+
+  CheckErrorValues();
 }
 
 QJsonObject Hill::GetJsonInfo(int id) const {
@@ -39,6 +41,8 @@ void Hill::SetJsonInfo(const QJsonObject& hill_obj) {
     vertice.y = v_obj.value("Y").toDouble();
     vertices_.push_back(vertice);
   }
+
+  CheckErrorValues();
 }
 
 bool Hill::IsChanged(const QJsonObject& hill_obj) const {
@@ -68,6 +72,8 @@ Hill::Hill(Point center, double radius, std::size_t vertices_amount) {
 
     vertices_.push_back({x, y});
   }
+
+  CheckErrorValues();
 }
 
 Point Hill::GetCenter() const {
@@ -84,6 +90,12 @@ double Hill::GetRadius() const {
 
   return sqrt(pow((vertices_[0].x - GetCenter().x), 2) +
               pow((vertices_[0].y - GetCenter().y), 2));
+}
+
+void Hill::CheckErrorValues() const {
+  for (const auto& vert : vertices_)
+    if (vert.x > max_coord || vert.y > max_coord)
+      throw std::invalid_argument("exceeding the maximum permissible values");
 }
 
 }  // namespace lib

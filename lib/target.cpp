@@ -17,13 +17,20 @@ void Target::SetJsonInfo(const QJsonObject& target_obj) {
     throw std::invalid_argument("");
   double x = target_obj.value("X").toDouble();
   double y = target_obj.value("Y").toDouble();
-  SetPoint({x, y});
+  SetPoint(x, y);
+
+  CheckErrorValues();
 }
 
 bool Target::IsChanged(const QJsonObject& target_obj) const {
   Point p = {target_obj.value("X").toDouble(),
              target_obj.value("Y").toDouble()};
   return p != p_;
+}
+
+void Target::CheckErrorValues() const {
+  if (p_.x > max_coord || p_.y > max_coord)
+    throw std::invalid_argument("exceeding the maximum permissible values");
 }
 
 }  // namespace lib
