@@ -34,6 +34,8 @@ class Target : public JSONable {
     CheckErrorValues();
   }
 
+  bool operator==(const Target&) const;
+
  private:
   /**
    * @brief Проверяет данные в классе на валидность

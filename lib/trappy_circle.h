@@ -33,6 +33,8 @@ class TrappyCircle : public JSONable {
     CheckErrorValues();
   }
 
+  bool operator==(const TrappyCircle&) const;
+
  private:
   /**
    * @brief Проверяет данные в классе на валидность

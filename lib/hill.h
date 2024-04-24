@@ -51,6 +51,8 @@ class Hill : public JSONable {
 
   void AddVertice(Point vertice) { vertices_.push_back(vertice); }
 
+  bool operator==(const Hill&) const;
+
  private:
   /**
    * @brief Проверяет данные в классе на валидность

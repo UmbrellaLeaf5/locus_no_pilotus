@@ -95,6 +95,15 @@ double Hill::GetRadius() const {
               pow((vertices_[0].y - GetCenter().y), 2));
 }
 
+bool Hill::operator==(const Hill& hill) const {
+  if (vertices_.size() != hill.GetPoints().size()) return false;
+
+  for (size_t i = 0; i < vertices_.size(); i++)
+    if (vertices_[i] != hill.GetPoints()[i]) return false;
+
+  return true;
+}
+
 void Hill::CheckErrorValues() const {
   for (const auto& vert : vertices_)
     if (vert.x > max_coord || vert.y > max_coord)

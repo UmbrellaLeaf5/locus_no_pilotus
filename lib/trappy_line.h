@@ -37,6 +37,8 @@ class TrappyLine : public JSONable {
   std::pair<Target*, Target*>& GetTargetsPtrs() { return targets_; }
   const std::pair<Target*, Target*>& GetTargetsPtrs() const { return targets_; }
 
+  bool operator==(const TrappyLine&) const;
+
  private:
   // невозможно проверить, так как класс не содержит координат
   void CheckErrorValues() const override {}

@@ -54,6 +54,10 @@ class TrappyCircle : public Drawable {
    */
   QCPItemEllipse* GetItemEllipsePtr() const { return ellipse_; }
 
+  bool operator==(const gui::TrappyCircle& tr_circle) const {
+    return data_ == tr_circle.GetData();
+  }
+
  private:
   void SetIndexOnPlot(QCustomPlot* plot) override {
     item_index_ = plot->itemCount() - 1;

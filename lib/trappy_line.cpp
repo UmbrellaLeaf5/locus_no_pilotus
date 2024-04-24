@@ -58,4 +58,9 @@ std::pair<Target, Target> TrappyLine::GetTargets() const {
   return std::make_pair(*targets_.first, *targets_.second);
 }
 
+bool TrappyLine::operator==(const TrappyLine& tr_line) const {
+  return targets_.first == tr_line.GetTargetsPtrs().first &&
+         targets_.second == tr_line.GetTargetsPtrs().second;
+}
+
 }  // namespace lib

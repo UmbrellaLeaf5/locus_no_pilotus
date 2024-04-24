@@ -29,6 +29,10 @@ bool Target::IsChanged(const QJsonObject& target_obj) const {
   return p != p_;
 }
 
+bool Target::operator==(const Target& target) const {
+  return p_ == target.GetPoint();
+}
+
 void Target::CheckErrorValues() const {
   if (p_.x > max_coord || p_.y > max_coord)
     throw std::invalid_argument("Exceeding the maximum permissible values!");

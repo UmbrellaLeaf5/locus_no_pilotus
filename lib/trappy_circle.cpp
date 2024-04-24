@@ -46,6 +46,10 @@ bool TrappyCircle::IsChanged(const QJsonObject& trappy_circle_obj) const {
   return c != center_ || r != radius_;
 }
 
+bool TrappyCircle::operator==(const TrappyCircle& tr_circle) const {
+  return center_ == tr_circle.GetCenter() && radius_ == tr_circle.GetRadius();
+}
+
 void TrappyCircle::CheckErrorValues() const {
   if (center_.x > max_coord || center_.y > max_coord || radius_ > max_coord)
     throw std::invalid_argument("Exceeding the maximum permissible values!");
