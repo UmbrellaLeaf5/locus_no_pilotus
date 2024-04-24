@@ -25,7 +25,11 @@ class DataManager {
   // ----------------------   Target methods   ----------------------
 
   // for gui::Target
-  void Add(gui::Target* t) { targets_.emplace_back(t); }
+  void Add(gui::Target* t) {
+    targets_.emplace_back(t);
+    CheckErrorValues();
+  }
+
   void Add(std::initializer_list<gui::Target*>);
   void Add(std::vector<gui::Target*>);
 
@@ -33,7 +37,11 @@ class DataManager {
   void Set(std::vector<gui::Target*>);
 
   // for lib::Target
-  void Add(lib::Target data) { targets_.emplace_back(new gui::Target(data)); }
+  void Add(lib::Target data) {
+    targets_.emplace_back(new gui::Target(data));
+    CheckErrorValues();
+  }
+
   void Add(std::initializer_list<lib::Target>);
   void Add(std::vector<lib::Target>);
 
@@ -55,7 +63,11 @@ class DataManager {
   // ----------------------    Hill methods    ----------------------
 
   // for gui::Hill
-  void Add(gui::Hill* h) { hills_.emplace_back(h); }
+  void Add(gui::Hill* h) {
+    hills_.emplace_back(h);
+    CheckErrorValues();
+  }
+
   void Add(std::initializer_list<gui::Hill*>);
   void Add(std::vector<gui::Hill*>);
 
@@ -63,7 +75,11 @@ class DataManager {
   void Set(std::vector<gui::Hill*>);
 
   // for lib::Hill
-  void Add(lib::Hill data) { hills_.emplace_back(new gui::Hill(data)); }
+  void Add(lib::Hill data) {
+    hills_.emplace_back(new gui::Hill(data));
+    CheckErrorValues();
+  }
+
   void Add(std::initializer_list<lib::Hill>);
   void Add(std::vector<lib::Hill>);
 
@@ -85,7 +101,11 @@ class DataManager {
   // ---------------------- TrappyCircle methods ----------------------
 
   // for gui::TrappyCircle
-  void Add(gui::TrappyCircle* tr_c) { tr_circles_.emplace_back(tr_c); }
+  void Add(gui::TrappyCircle* tr_c) {
+    tr_circles_.emplace_back(tr_c);
+    CheckErrorValues();
+  }
+
   void Add(std::initializer_list<gui::TrappyCircle*>);
   void Add(std::vector<gui::TrappyCircle*>);
 
@@ -95,7 +115,9 @@ class DataManager {
   // for lib::TrappyCircle
   void Add(lib::TrappyCircle data) {
     tr_circles_.emplace_back(new gui::TrappyCircle(data));
+    CheckErrorValues();
   }
+
   void Add(std::initializer_list<lib::TrappyCircle>);
   void Add(std::vector<lib::TrappyCircle>);
 
@@ -116,7 +138,11 @@ class DataManager {
   // ----------------------  TrappyLine methods  ----------------------
 
   // for gui::TrappyLine
-  void Add(gui::TrappyLine* tr_l) { tr_lines_.emplace_back(tr_l); }
+  void Add(gui::TrappyLine* tr_l) {
+    tr_lines_.emplace_back(tr_l);
+    CheckErrorValues();
+  }
+
   void Add(std::initializer_list<gui::TrappyLine*>);
   void Add(std::vector<gui::TrappyLine*>);
 
@@ -126,7 +152,9 @@ class DataManager {
   // for lib::TrappyLine
   void Add(lib::TrappyLine data) {
     tr_lines_.emplace_back(new gui::TrappyLine(data));
+    CheckErrorValues();
   }
+
   void Add(std::initializer_list<lib::TrappyLine>);
   void Add(std::vector<lib::TrappyLine>);
 
@@ -146,6 +174,12 @@ class DataManager {
   std::vector<gui::TrappyLine> GetTrappyLines() const;
 
  private:
+  /**
+   * @brief Проверяет данные в DataManager на валидность
+   * @throw std::invalid_argument: если объектов какого-либо вектора > 10000
+   */
+  void CheckErrorValues();
+
   std::vector<std::unique_ptr<gui::Hill>> hills_;
   std::vector<std::unique_ptr<gui::Target>> targets_;
   std::vector<std::unique_ptr<gui::TrappyCircle>> tr_circles_;
