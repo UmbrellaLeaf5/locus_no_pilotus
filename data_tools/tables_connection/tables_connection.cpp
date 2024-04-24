@@ -211,18 +211,28 @@ void TablesConnection::UpdateTables() {
   UpdateTable(manager_->GetTrappyCircles());
 }
 
+// TODO: переписать так, чтобы оно меняло конкретное поле, а не целую точку
+
 // MARK: Targets Item C.
 
 void TablesConnection::TargetsItemChanged(int row, int column) {
   auto x_item = targets_table_->item(1, column);
   auto y_item = targets_table_->item(2, column);
 
-  if (x_item != nullptr && y_item != nullptr &&
-      column < manager_->GetTargets().size()) {
-    manager_->GetTargetsPtrs()[column]->SetPoint(x_item->text().toDouble(),
-                                                 y_item->text().toDouble());
+  try {
+    if (x_item != nullptr && y_item != nullptr &&
+        column < manager_->GetTargets().size()) {
+      manager_->GetTargetsPtrs()[column]->SetPoint(x_item->text().toDouble(),
+                                                   y_item->text().toDouble());
 
-    area_->Redraw();
+      area_->Redraw();
+    }
+
+  } catch (const std::exception& e) {
+    x_item->setText("0");
+    y_item->setText("0");
+
+    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
 }
 
@@ -248,15 +258,23 @@ void TablesConnection::HillsItemChanged(int row, int column) {
     p_index = (row - 1) / 2;
   }
 
-  if (x_item != nullptr && y_item != nullptr &&
-      column < manager_->GetHills().size() &&
-      p_index < manager_->GetHills()[column].GetPoints().size()) {
-    manager_->GetHillsPtrs()[column]->GetPoints()[p_index].x =
-        x_item->text().toDouble();
-    manager_->GetHillsPtrs()[column]->GetPoints()[p_index].y =
-        y_item->text().toDouble();
+  try {
+    if (x_item != nullptr && y_item != nullptr &&
+        column < manager_->GetHills().size() &&
+        p_index < manager_->GetHills()[column].GetPoints().size()) {
+      manager_->GetHillsPtrs()[column]->GetPoints()[p_index].x =
+          x_item->text().toDouble();
+      manager_->GetHillsPtrs()[column]->GetPoints()[p_index].y =
+          y_item->text().toDouble();
 
-    area_->Redraw();
+      area_->Redraw();
+    }
+
+  } catch (const std::exception& e) {
+    x_item->setText("0");
+    y_item->setText("0");
+
+    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
 }
 
@@ -267,14 +285,23 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
   auto y_item = tr_circles_table_->item(2, column);
   auto r_item = tr_circles_table_->item(3, column);
 
-  if (x_item != nullptr && y_item != nullptr && r_item != nullptr &&
-      column < manager_->GetTrappyCircles().size()) {
-    manager_->GetTrappyCirclesPtrs()[column]->SetCenter(
-        {x_item->text().toDouble(), y_item->text().toDouble()});
-    manager_->GetTrappyCirclesPtrs()[column]->SetRadius(
-        r_item->text().toDouble());
+  try {
+    if (x_item != nullptr && y_item != nullptr && r_item != nullptr &&
+        column < manager_->GetTrappyCircles().size()) {
+      manager_->GetTrappyCirclesPtrs()[column]->SetCenter(
+          {x_item->text().toDouble(), y_item->text().toDouble()});
+      manager_->GetTrappyCirclesPtrs()[column]->SetRadius(
+          r_item->text().toDouble());
 
-    area_->Redraw();
+      area_->Redraw();
+    }
+
+  } catch (const std::exception& e) {
+    x_item->setText("0");
+    y_item->setText("0");
+    r_item->setText("0");
+
+    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
 }
 
@@ -284,20 +311,29 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
   auto t_1_item = tr_lines_table_->item(1, column);
   auto t_2_item = tr_lines_table_->item(2, column);
 
-  if (t_1_item != nullptr && t_2_item != nullptr &&
-      column < manager_->GetTrappyLines().size()) {
-    // мы в клетках таблицы храним номера, так что для индекса нужно вычесть 1
-    auto t_1_index = t_1_item->text().toDouble() - 1;
-    auto t_2_index = t_2_item->text().toDouble() - 1;
+  try {
+    if (t_1_item != nullptr && t_2_item != nullptr &&
+        column < manager_->GetTrappyLines().size()) {
+      // мы в клетках таблицы храним номера, так что для индекса нужно вычесть 1
+      auto t_1_index = t_1_item->text().toDouble() - 1;
+      auto t_2_index = t_2_item->text().toDouble() - 1;
 
-    if (t_1_index < manager_->GetTargets().size() &&
-        t_2_index < manager_->GetTargets().size()) {
-      manager_->GetTrappyLinesPtrs()[column]->SetTargets(
-          manager_->GetTargetsPtrs()[t_1_index],
-          manager_->GetTargetsPtrs()[t_2_index]);
+      if (t_1_index < manager_->GetTargets().size() &&
+          t_2_index < manager_->GetTargets().size()) {
+        manager_->GetTrappyLinesPtrs()[column]->SetTargets(
+            manager_->GetTargetsPtrs()[t_1_index],
+            manager_->GetTargetsPtrs()[t_2_index]);
 
-      area_->Redraw();
+        area_->Redraw();
+      } else
+        throw std::invalid_argument("Wrong targets numbers! (out of range)");
     }
+
+  } catch (const std::exception& e) {
+    t_1_item->setText("1");
+    t_2_item->setText("1");
+
+    QMessageBox::warning(targets_table_.get(), "Error!", e.what());
   }
 }
 

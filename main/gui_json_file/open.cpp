@@ -54,7 +54,8 @@ void GuiJsonFile::Open(data_tools::DataManager* manager) {
 
     if (!(root.contains("Targets") && root.contains("Trappy_Circles") &&
           root.contains("Trappy_Lines") && root.contains("Hills")))
-      throw std::invalid_argument("");
+      throw std::invalid_argument(
+          "Invalid file format: missing some objects fields!");
 
     QJsonArray json_targets = root["Targets"].toArray();
     QJsonArray json_trappy_circles = root["Trappy_Circles"].toArray();

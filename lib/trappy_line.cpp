@@ -24,15 +24,20 @@ QJsonObject TrappyLine::GetJsonInfo(int id) const {
 
 void TrappyLine::SetJsonInfo(const QJsonObject& trappy_line_obj) {
   if (!(trappy_line_obj.contains("P1") && trappy_line_obj.contains("P2")))
-    throw std::invalid_argument("");
+    throw std::invalid_argument(
+        "Invalid file format: missing P1 or P2 field in TrappyLines!");
 
   QJsonObject p1 = trappy_line_obj.value("P1").toObject();
-  if (!(p1.contains("X") && p1.contains("Y"))) throw std::invalid_argument("");
+  if (!(p1.contains("X") && p1.contains("Y")))
+    throw std::invalid_argument(
+        "Invalid file format: missing X or Y field in TrappyLines!");
   double x1 = p1.value("X").toDouble();
   double y1 = p1.value("Y").toDouble();
 
   QJsonObject p2 = trappy_line_obj.value("P2").toObject();
-  if (!(p2.contains("X") && p2.contains("Y"))) throw std::invalid_argument("");
+  if (!(p2.contains("X") && p2.contains("Y")))
+    throw std::invalid_argument(
+        "Invalid file format: missing X or Y field in TrappyLines!");
   double x2 = p2.value("X").toDouble();
   double y2 = p2.value("Y").toDouble();
   SetTargets({new Target(x1, y1), new Target(x2, y2)});

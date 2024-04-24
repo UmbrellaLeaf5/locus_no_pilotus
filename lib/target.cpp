@@ -14,7 +14,8 @@ QJsonObject Target::GetJsonInfo(int id) const {
 
 void Target::SetJsonInfo(const QJsonObject& target_obj) {
   if (!(target_obj.contains("X") && target_obj.contains("Y")))
-    throw std::invalid_argument("");
+    throw std::invalid_argument(
+        "Invalid file format: missing X or Y field in Targets!");
   double x = target_obj.value("X").toDouble();
   double y = target_obj.value("Y").toDouble();
   SetPoint(x, y);
@@ -30,7 +31,7 @@ bool Target::IsChanged(const QJsonObject& target_obj) const {
 
 void Target::CheckErrorValues() const {
   if (p_.x > max_coord || p_.y > max_coord)
-    throw std::invalid_argument("exceeding the maximum permissible values");
+    throw std::invalid_argument("Exceeding the maximum permissible values!");
 }
 
 }  // namespace lib

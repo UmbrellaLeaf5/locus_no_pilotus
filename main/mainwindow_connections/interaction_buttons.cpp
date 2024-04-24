@@ -82,71 +82,74 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::LeftButton) {
     double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
     double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+    try {
+      switch (cursor_) {
+        case CursorType::TargetCursor: {
+          manager_->Add(new gui::Target(x, y));
 
-    switch (cursor_) {
-      case CursorType::TargetCursor: {
-        manager_->Add(new gui::Target(x, y));
-
-        ui->plot->setCursor(Qt::CrossCursor);
-        cursor_ = CursorType::DefaultCursor;
-        break;
-      }
-
-      case CursorType::TrCircleCursor: {
-        manager_->Add(new gui::TrappyCircle({x, y}, 0));
-        disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-                   &MainWindow::mousePressObjectsButton);
-
-        connect(ui->plot, &QCustomPlot::mouseMove, this,
-                &MainWindow::mouseMoveSetRadiusFromPlot);
-        connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-                &MainWindow::mousePressSetRadiusFromPlot);
-
-        ui->plot->setCursor(Qt::ClosedHandCursor);
-        what_obj_addition_ = WhatObjectAddition::TrCircle;
-        break;
-      }
-
-      case CursorType::TrLineCursor: {
-        if (ui->plot->selectedGraphs().empty()) return;
-
-        for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
-          if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
-            manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
-            disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-                       &MainWindow::mousePressObjectsButton);
-
-            connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-                    &MainWindow::mousePressSelectSecondTarget);
-
-            what_obj_addition_ = WhatObjectAddition::TrLine;
-            break;
-          }
+          ui->plot->setCursor(Qt::CrossCursor);
+          cursor_ = CursorType::DefaultCursor;
+          break;
         }
-        break;
+
+        case CursorType::TrCircleCursor: {
+          manager_->Add(new gui::TrappyCircle({x, y}, 0));
+          disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+                     &MainWindow::mousePressObjectsButton);
+
+          connect(ui->plot, &QCustomPlot::mouseMove, this,
+                  &MainWindow::mouseMoveSetRadiusFromPlot);
+          connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+                  &MainWindow::mousePressSetRadiusFromPlot);
+
+          ui->plot->setCursor(Qt::ClosedHandCursor);
+          what_obj_addition_ = WhatObjectAddition::TrCircle;
+          break;
+        }
+
+        case CursorType::TrLineCursor: {
+          if (ui->plot->selectedGraphs().empty()) return;
+
+          for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
+            if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
+              manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
+              disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+                         &MainWindow::mousePressObjectsButton);
+
+              connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+                      &MainWindow::mousePressSelectSecondTarget);
+
+              what_obj_addition_ = WhatObjectAddition::TrLine;
+              break;
+            }
+          }
+          break;
+        }
+
+        case CursorType::HillCursor: {
+          manager_->Add(new gui::Hill{{x, y}, {x, y}});
+
+          disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+                     &MainWindow::mousePressObjectsButton);
+
+          connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+                  &MainWindow::mousePressAddVertice);
+          connect(ui->plot, &QCustomPlot::mousePress, this,
+                  &MainWindow::mousePressDeleteLastVertice);
+
+          what_obj_addition_ = WhatObjectAddition::Hill;
+          break;
+        }
+
+        default:
+          break;
       }
 
-      case CursorType::HillCursor: {
-        manager_->Add(new gui::Hill{{x, y}, {x, y}});
-
-        disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-                   &MainWindow::mousePressObjectsButton);
-
-        connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-                &MainWindow::mousePressAddVertice);
-        connect(ui->plot, &QCustomPlot::mousePress, this,
-                &MainWindow::mousePressDeleteLastVertice);
-
-        what_obj_addition_ = WhatObjectAddition::Hill;
-        break;
-      }
-
-      default:
-        break;
+      area_->Redraw();
+      t_connection_->UpdateTables();
+    } catch (const std::exception& e) {
+      QMessageBox::critical(this, "Error!", e.what());
     }
-
-    area_->Redraw();
-    t_connection_->UpdateTables();
   }
 }
 

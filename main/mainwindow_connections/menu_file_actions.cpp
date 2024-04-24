@@ -102,8 +102,9 @@ void MainWindow::on_actionOpen_triggered() {
         json_file_.Open(manager_.get());
         area_->Redraw();
         t_connection_->UpdateTables();
-      } catch (...) {
-        QMessageBox::critical(this, "Damaged file", "Invalid format file!");
+      } catch (const std::exception& e) {
+        QMessageBox::critical(this, "Error!", e.what());
+
         json_file_.SetFile(old_filename);
       }
     }
