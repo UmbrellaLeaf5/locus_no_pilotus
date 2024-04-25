@@ -27,7 +27,9 @@ class DataManager {
   // for gui::Target
   void Add(gui::Target* t) {
     targets_.emplace_back(t);
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<gui::Target*>);
@@ -39,7 +41,9 @@ class DataManager {
   // for lib::Target
   void Add(lib::Target data) {
     targets_.emplace_back(new gui::Target(data));
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<lib::Target>);
@@ -65,7 +69,9 @@ class DataManager {
   // for gui::Hill
   void Add(gui::Hill* h) {
     hills_.emplace_back(h);
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<gui::Hill*>);
@@ -77,7 +83,9 @@ class DataManager {
   // for lib::Hill
   void Add(lib::Hill data) {
     hills_.emplace_back(new gui::Hill(data));
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<lib::Hill>);
@@ -103,7 +111,9 @@ class DataManager {
   // for gui::TrappyCircle
   void Add(gui::TrappyCircle* tr_c) {
     tr_circles_.emplace_back(tr_c);
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<gui::TrappyCircle*>);
@@ -115,7 +125,9 @@ class DataManager {
   // for lib::TrappyCircle
   void Add(lib::TrappyCircle data) {
     tr_circles_.emplace_back(new gui::TrappyCircle(data));
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<lib::TrappyCircle>);
@@ -140,7 +152,9 @@ class DataManager {
   // for gui::TrappyLine
   void Add(gui::TrappyLine* tr_l) {
     tr_lines_.emplace_back(tr_l);
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<gui::TrappyLine*>);
@@ -152,7 +166,9 @@ class DataManager {
   // for lib::TrappyLine
   void Add(lib::TrappyLine data) {
     tr_lines_.emplace_back(new gui::TrappyLine(data));
+
     CheckErrorValues();
+    RemoveLastDuplicate();
   }
 
   void Add(std::initializer_list<lib::TrappyLine>);
@@ -172,6 +188,21 @@ class DataManager {
    * @return std::vector<gui::TrappyLine>: объекты оп. перелета
    */
   std::vector<gui::TrappyLine> GetTrappyLines() const;
+
+  /**
+   * @brief Удаляет последний объект в векторах, если он является дупликатом
+   * другого
+   * @return true: если был удалён хоть один объект
+   * @return false: если не был
+   */
+  bool RemoveLastDuplicate();
+
+  /**
+   * @brief Удаляет все повторяющиеся объекты в векторах объектов
+   * @return true: если был удалён хоть один объект
+   * @return false: если не был
+   */
+  bool RemoveAllDuplicates();
 
  private:
   /**

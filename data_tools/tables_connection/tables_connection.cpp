@@ -226,6 +226,7 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
                                                    y_item->text().toDouble());
 
       area_->Redraw();
+      if (manager_->RemoveAllDuplicates()) UpdateTables();
     }
 
   } catch (const std::exception& e) {
@@ -268,6 +269,7 @@ void TablesConnection::HillsItemChanged(int row, int column) {
           y_item->text().toDouble();
 
       area_->Redraw();
+      if (manager_->RemoveAllDuplicates()) UpdateTables();
     }
 
   } catch (const std::exception& e) {
@@ -294,6 +296,7 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
           r_item->text().toDouble());
 
       area_->Redraw();
+      if (manager_->RemoveAllDuplicates()) UpdateTables();
     }
 
   } catch (const std::exception& e) {
@@ -325,6 +328,7 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
             manager_->GetTargetsPtrs()[t_2_index]);
 
         area_->Redraw();
+        if (manager_->RemoveAllDuplicates()) UpdateTables();
       } else
         throw std::invalid_argument("Wrong targets numbers! (out of range)");
     }
