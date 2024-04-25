@@ -43,7 +43,9 @@ bool TrappyCircle::IsChanged(const QJsonObject& trappy_circle_obj) const {
   Point c = {trappy_circle_obj.value("X").toDouble(),
              trappy_circle_obj.value("Y").toDouble()};
   double r = trappy_circle_obj.value("Radius").toDouble();
-  return c != center_ || r != radius_;
+  return abs(pow(pow(center_.x, 2) + pow(center_.y, 2), 0.5) -
+             pow(pow(c.x, 2) + pow(c.y, 2), 0.5)) > 10.E-7 ||
+         abs(r - radius_) > 10.E-7;
 }
 
 bool TrappyCircle::operator==(const TrappyCircle& tr_circle) const {

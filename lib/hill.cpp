@@ -49,10 +49,13 @@ void Hill::SetJsonInfo(const QJsonObject& hill_obj) {
 }
 
 bool Hill::IsChanged(const QJsonObject& hill_obj) const {
-  for (size_t i = 1; i < hill_obj.size(); i++) {
-    QJsonObject json_p = hill_obj.value("P" + QString::number(i)).toObject();
-    lib::Point p = {json_p.value("X").toDouble(), json_p.value("Y").toDouble()};
-    if (p != vertices_[i - 1]) return true;
+  QJsonArray json_vertices = hill_obj.value("Vertices").toArray();
+  for (size_t i = 0; i < vertices_.size() - 1; i++) {
+    QJsonObject v_obj = json_vertices[i].toObject();
+    lib::Point p = {v_obj.value("X").toDouble(), v_obj.value("Y").toDouble()};
+    if (abs(pow(pow(p.x, 2) + pow(p.y, 2), 0.5) -
+            pow(pow(vertices_[i].x, 2) + pow(vertices_[i].y, 2), 0.5)) > 10.E-7)
+      return true;
   }
   return false;
 }
