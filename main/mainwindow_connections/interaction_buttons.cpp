@@ -79,10 +79,12 @@ void MainWindow::keyPressEvent(QKeyEvent* key_event) {
 }
 
 void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
-  if (mouse_event->button() == Qt::LeftButton) {
-    double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
-    double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+  if (mouse_event->button() != Qt::LeftButton) return;
 
+  double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
+  double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+
+  try {
     switch (cursor_) {
       case CursorType::TargetCursor: {
         manager_->Add(new gui::Target(x, y));
@@ -147,6 +149,9 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
     area_->Redraw();
     t_connection_->UpdateTables();
+
+  } catch (const std::exception& e) {
+    QMessageBox::critical(this, "Error!", e.what());
   }
 }
 

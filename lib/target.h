@@ -8,8 +8,8 @@ namespace lib {
 /// @brief Контрольная точка
 class Target : public JSONable {
  public:
-  Target(double x, double y) : p_(x, y) {}
-  Target(const Point& p) : p_{p} {}
+  Target(double x, double y) : p_(x, y) { CheckErrorValues(); }
+  Target(const Point& p) : p_{p} { CheckErrorValues(); }
   Target() : p_(0, 0) {}
 
   Target(const Target&) = default;
@@ -24,10 +24,26 @@ class Target : public JSONable {
 
   Point GetPoint() const { return p_; }
 
-  void SetPoint(const Point& p) { p_ = p; }
-  void SetPoint(double x, double y) { p_ = Point(x, y); }
+  void SetPoint(const Point& p) {
+    p_ = p;
+    CheckErrorValues();
+  }
+
+  void SetPoint(double x, double y) {
+    p_ = Point(x, y);
+    CheckErrorValues();
+  }
+
+  bool operator==(const Target&) const;
 
  private:
+  /**
+   * @brief Проверяет данные в классе на валидность
+   * @throw std::invalid_argument: если одна из коорд. точки превышает
+   * максимально допустимое значение
+   */
+  void CheckErrorValues() const override;
+
   Point p_;
 };
 

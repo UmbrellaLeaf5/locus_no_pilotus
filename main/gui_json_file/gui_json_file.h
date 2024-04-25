@@ -16,10 +16,12 @@ class GuiJsonFile {
     return QString::fromStdString(
         file_->filesystemFileName().filename().string());
   }
+
   QString GetParentPath() const {
     return QString::fromStdString(
         file_->filesystemFileName().parent_path().string());
   }
+
   QString GetRelativePath() const {
     return QString::fromStdString(
         file_->filesystemFileName().relative_path().string());

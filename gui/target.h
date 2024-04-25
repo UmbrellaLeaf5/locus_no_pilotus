@@ -35,6 +35,10 @@ class Target : public Drawable {
    */
   QCPGraph* GetGraphPtr() const { return graph_; }
 
+  bool operator==(const gui::Target& target) const {
+    return data_ == target.GetData();
+  }
+
  private:
   lib::Target data_;
 

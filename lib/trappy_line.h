@@ -32,15 +32,17 @@ class TrappyLine : public JSONable {
   }
   void SetTargets(std::pair<Target*, Target*> targets) { targets_ = targets; }
 
-  std::pair<Target, Target> GetTargets() const {
-    return std::make_pair(*targets_.first, *targets_.second);
-  }
+  std::pair<Target, Target> GetTargets() const;
 
   std::pair<Target*, Target*>& GetTargetsPtrs() { return targets_; }
-
   const std::pair<Target*, Target*>& GetTargetsPtrs() const { return targets_; }
 
+  bool operator==(const TrappyLine&) const;
+
  private:
+  // невозможно проверить, так как класс не содержит координат
+  void CheckErrorValues() const override {}
+
   // здесь нет смысла использовать умные указатели, так как мы не создаём новых
   std::pair<Target*, Target*> targets_;
 };

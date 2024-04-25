@@ -20,6 +20,8 @@ enum class CursorType {
   DefaultCursor
 };
 
+constexpr double max_scale = lib::max_coord / 2;
+
 enum class WhatObjectAddition { Nothing, Target, TrCircle, TrLine, Hill };
 
 QT_BEGIN_NAMESPACE
@@ -38,6 +40,9 @@ class MainWindow : public QMainWindow {
 
  private slots:
   void on_actionBeautify_triggered();
+
+  void on_xAxis_rangeChanged(QCPRange range);
+  void on_yAxis_rangeChanged(QCPRange range);
 
   // Слоты для Target
   void on_pushButtonAddTarget_clicked();
@@ -66,7 +71,7 @@ class MainWindow : public QMainWindow {
   void on_actionHill_triggered();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
 
-  // Слотs для Hill
+  // Слоты для Hill
   void on_pushButtonAddHill_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
@@ -91,10 +96,10 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow* ui;
   GuiJsonFile json_file_;
-  CursorType cursor_ = CursorType::DefaultCursor;
-  WhatObjectAddition what_obj_addition_ = WhatObjectAddition::Nothing;
+  CursorType cursor_{CursorType::DefaultCursor};
+  WhatObjectAddition what_obj_addition_{WhatObjectAddition::Nothing};
 
   bool OpenMessageWindow();
-  gui::ObjectType GetObjType();
+  gui::ObjectType GetObjType() const;
   void DeleteLastAddedObject();
 };

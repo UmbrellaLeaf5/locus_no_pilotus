@@ -63,6 +63,10 @@ class TrappyLine : public Drawable {
     return targets_;
   }
 
+  bool operator==(const gui::TrappyLine& tr_line) const {
+    return data_ == tr_line.GetData();
+  }
+
  private:
   void UpdateData(gui::Target* first_target, gui::Target* second_target);
   void UpdateData(std::pair<gui::Target*, gui::Target*> targets);

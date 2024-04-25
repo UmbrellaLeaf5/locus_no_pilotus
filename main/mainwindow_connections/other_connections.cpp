@@ -1,6 +1,6 @@
 #include "main/mainwindow.h"
 
-gui::ObjectType MainWindow::GetObjType() {
+gui::ObjectType MainWindow::GetObjType() const {
   switch (cursor_) {
     case CursorType::TrCircleCursor:
       return gui::ObjectType::TrappyCircles;
@@ -71,4 +71,22 @@ void MainWindow::on_trappyCircleAddFromTablePushButton_clicked() {
 
 void MainWindow::on_trappyLineAddFromTablePushButton_clicked() {
   on_actionTrappy_Line_triggered();
+}
+
+void MainWindow::on_xAxis_rangeChanged(QCPRange range) {
+  if (range.upper > max_scale || range.lower < -max_scale) {
+    range.lower = -max_scale;
+    range.upper = max_scale;
+  }
+
+  ui->plot->xAxis->setRange(range);
+}
+
+void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
+  if (range.upper > max_scale || range.lower < -max_scale) {
+    range.lower = -max_scale;
+    range.upper = max_scale;
+  }
+
+  ui->plot->yAxis->setRange(range);
 }

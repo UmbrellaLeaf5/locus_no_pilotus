@@ -61,6 +61,10 @@ class Hill : public Drawable {
    */
   QCPCurve* GetCurvePtr() const { return curve_; }
 
+  bool operator==(const gui::Hill& hill) const {
+    return data_ == hill.GetData();
+  }
+
  private:
   lib::Hill data_;
   QColor color_;

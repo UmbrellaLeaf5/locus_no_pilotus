@@ -89,24 +89,26 @@ void MainWindow::on_actionOpen_triggered() {
                                           manager_->GetHills().size()) != 0)
     is_closed = OpenMessageWindow();
 
-  if (!is_closed) {
-    QString file_name = QFileDialog::getOpenFileName(
-        this, tr("Open"), json_file_.GetParentPath(), tr("File (*.json)"));
+  if (is_closed) return;
 
-    if (!file_name.isEmpty()) {
-      QString old_filename = json_file_.GetFileName();
+  QString file_name = QFileDialog::getOpenFileName(
+      this, tr("Open"), json_file_.GetParentPath(), tr("File (*.json)"));
 
-      try {
-        json_file_.SetFile(file_name);
-        manager_->Clear();
-        json_file_.Open(manager_.get());
-        area_->Redraw();
-        t_connection_->UpdateTables();
-      } catch (...) {
-        QMessageBox::critical(this, "Damaged file", "Invalid format file!");
-        json_file_.SetFile(old_filename);
-      }
-    }
+  if (file_name.isEmpty()) return;
+
+  QString old_filename = json_file_.GetFileName();
+
+  try {
+    json_file_.SetFile(file_name);
+    manager_->Clear();
+    json_file_.Open(manager_.get());
+    area_->Redraw();
+    t_connection_->UpdateTables();
+
+  } catch (const std::exception& e) {
+    QMessageBox::critical(this, "Error!", e.what());
+
+    json_file_.SetFile(old_filename);
   }
 }
 

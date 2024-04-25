@@ -15,6 +15,12 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
 
+  connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
+          SLOT(on_xAxis_rangeChanged(QCPRange)));
+
+  connect(ui->plot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
+          SLOT(on_yAxis_rangeChanged(QCPRange)));
+
   area_->Setup(manager_.get());
   t_connection_->Setup(manager_.get(), area_.get());
 
