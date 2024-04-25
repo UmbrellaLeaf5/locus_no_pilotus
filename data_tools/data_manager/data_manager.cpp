@@ -41,8 +41,22 @@ void DataManager::Clear() {
 
 // ----------------------   Target methods   ----------------------
 
+void DataManager::Add(gui::Target* t) {
+  targets_.emplace_back(t);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
 void DataManager::Add(std::initializer_list<gui::Target*> new_targets) {
   for (const auto& target : new_targets) Add(target);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
+void DataManager::Add(lib::Target data) {
+  targets_.emplace_back(new gui::Target(data));
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -121,8 +135,22 @@ std::vector<gui::Target> DataManager::GetTargets() const {
 
 // ----------------------    Hill methods    ----------------------
 
+void DataManager::Add(gui::Hill* h) {
+  hills_.emplace_back(h);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
 void DataManager::Add(std::initializer_list<gui::Hill*> new_hills) {
   for (const auto& hill : new_hills) Add(hill);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
+void DataManager::Add(lib::Hill data) {
+  hills_.emplace_back(new gui::Hill(data));
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -201,9 +229,23 @@ std::vector<gui::Hill> DataManager::GetHills() const {
 
 // ---------------------- TrappyCircle methods ----------------------s
 
+void DataManager::Add(gui::TrappyCircle* tr_c) {
+  tr_circles_.emplace_back(tr_c);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
 void DataManager::Add(
     std::initializer_list<gui::TrappyCircle*> new_tr_circles) {
   for (const auto& tr_circle : new_tr_circles) Add(tr_circle);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
+void DataManager::Add(lib::TrappyCircle data) {
+  tr_circles_.emplace_back(new gui::TrappyCircle(data));
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -282,8 +324,22 @@ std::vector<gui::TrappyCircle> DataManager::GetTrappyCircles() const {
 
 // ----------------------  TrappyLine methods  ----------------------
 
+void DataManager::Add(gui::TrappyLine* tr_l) {
+  tr_lines_.emplace_back(tr_l);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
 void DataManager::Add(std::initializer_list<gui::TrappyLine*> new_tr_lines) {
   for (const auto& tr_line : new_tr_lines) Add(tr_line);
+
+  CheckErrorValues();
+  RemoveLastDuplicate();
+}
+
+void DataManager::Add(lib::TrappyLine data) {
+  tr_lines_.emplace_back(new gui::TrappyLine(data));
 
   CheckErrorValues();
   RemoveLastDuplicate();
