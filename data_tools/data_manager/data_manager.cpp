@@ -1,7 +1,5 @@
 #include "data_manager.h"
 
-#include <icecream.hpp>
-
 namespace data_tools {
 
 void DataManager::Remove(gui::ObjectType obj_type, size_t index) {
