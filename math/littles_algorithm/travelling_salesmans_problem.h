@@ -59,7 +59,7 @@ class TravellingSalesmansProblem {
    * @param matrix: матрица смежности
    * @param start_num: начало ребра
    * @param end_num: конец ребра
-   * @return AdjacencyMatrix матрица с удалённым ребром
+   * @return AdjacencyMatrix: матрица с удалённым ребром
    */
   AdjacencyMatrix& DeleteEdge(AdjacencyMatrix& matrix, std::size_t start_num,
                               std::size_t end_num);
@@ -67,7 +67,7 @@ class TravellingSalesmansProblem {
   /**
    * @brief Находит место для вставки вершины для соблюдения порядка
    * @param eval: нижняя оценка матрицы
-   * @return std::size_t индекс вставки вершины
+   * @return std::size_t: индекс вставки вершины
    */
   std::size_t FindIndex(double eval) const;
 
@@ -80,14 +80,14 @@ class TravellingSalesmansProblem {
   /**
    * @brief Переводит ребра, содержащихся в пути
    * в последовательность обхода контрольных точек
-   * @return std::vector<std::size_t> последовательность
+   * @return std::vector<std::size_t>: последовательность
    * обхода контрольных точек
    */
   std::vector<std::size_t> ConvertToVertexPath();
 
   /**
    * @brief Просчитывает оптимальную маршрут
-   * @return std::vector<std::size_t> порядок следования вершин
+   * @return std::vector<std::size_t>: порядок следования вершин
    */
   std::vector<std::size_t> CalculateTrajectory();
 };

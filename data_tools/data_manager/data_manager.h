@@ -25,12 +25,7 @@ class DataManager {
   // ----------------------   Target methods   ----------------------
 
   // for gui::Target
-  void Add(gui::Target* t) {
-    targets_.emplace_back(t);
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(gui::Target* t);
 
   void Add(std::initializer_list<gui::Target*>);
   void Add(std::vector<gui::Target*>);
@@ -39,12 +34,7 @@ class DataManager {
   void Set(std::vector<gui::Target*>);
 
   // for lib::Target
-  void Add(lib::Target data) {
-    targets_.emplace_back(new gui::Target(data));
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(lib::Target data);
 
   void Add(std::initializer_list<lib::Target>);
   void Add(std::vector<lib::Target>);
@@ -53,13 +43,13 @@ class DataManager {
   void Set(std::vector<lib::Target>);
 
   /**
-   * @brief возвращает значение Targets
+   * @brief Возвращает значение Targets
    * @return std::vector<gui::Target*>: указатели на объекты к.т.
    */
   std::vector<gui::Target*> GetTargetsPtrs();
 
   /**
-   * @brief возвращает значение Targets
+   * @brief Возвращает значение Targets
    * @return std::vector<gui::Target>: объекты к.т.
    */
   std::vector<gui::Target> GetTargets() const;
@@ -67,12 +57,7 @@ class DataManager {
   // ----------------------    Hill methods    ----------------------
 
   // for gui::Hill
-  void Add(gui::Hill* h) {
-    hills_.emplace_back(h);
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(gui::Hill* h);
 
   void Add(std::initializer_list<gui::Hill*>);
   void Add(std::vector<gui::Hill*>);
@@ -81,12 +66,7 @@ class DataManager {
   void Set(std::vector<gui::Hill*>);
 
   // for lib::Hill
-  void Add(lib::Hill data) {
-    hills_.emplace_back(new gui::Hill(data));
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(lib::Hill data);
 
   void Add(std::initializer_list<lib::Hill>);
   void Add(std::vector<lib::Hill>);
@@ -95,13 +75,13 @@ class DataManager {
   void Set(std::vector<lib::Hill>);
 
   /**
-   * @brief возвращает значение Hills
+   * @brief Возвращает значение Hills
    * @return std::vector<gui::Hill*>: указатели на объекты рельефа
    */
   std::vector<gui::Hill*> GetHillsPtrs();
 
   /**
-   * @brief возвращает значение Hills
+   * @brief Возвращает значение Hills
    * @return std::vector<gui::Hill>: объекты рельефа
    */
   std::vector<gui::Hill> GetHills() const;
@@ -109,12 +89,7 @@ class DataManager {
   // ---------------------- TrappyCircle methods ----------------------
 
   // for gui::TrappyCircle
-  void Add(gui::TrappyCircle* tr_c) {
-    tr_circles_.emplace_back(tr_c);
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(gui::TrappyCircle* tr_c);
 
   void Add(std::initializer_list<gui::TrappyCircle*>);
   void Add(std::vector<gui::TrappyCircle*>);
@@ -123,12 +98,7 @@ class DataManager {
   void Set(std::vector<gui::TrappyCircle*>);
 
   // for lib::TrappyCircle
-  void Add(lib::TrappyCircle data) {
-    tr_circles_.emplace_back(new gui::TrappyCircle(data));
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(lib::TrappyCircle data);
 
   void Add(std::initializer_list<lib::TrappyCircle>);
   void Add(std::vector<lib::TrappyCircle>);
@@ -137,25 +107,20 @@ class DataManager {
   void Set(std::vector<lib::TrappyCircle>);
 
   /**
-   * @brief возвращает значение Trappy Circles
+   * @brief Возвращает значение Trappy Circles
    * @return std::vector<gui::TrappyCircle*>: указатели на объекты опасной зоны
    */
   std::vector<gui::TrappyCircle*> GetTrappyCirclesPtrs();
 
   /**
-   * @brief возвращает значение Trappy Circles
+   * @brief Возвращает значение Trappy Circles
    * @return std::vector<gui::TrappyCircle>: объекты опасной зоны
    */
   std::vector<gui::TrappyCircle> GetTrappyCircles() const;
   // ----------------------  TrappyLine methods  ----------------------
 
   // for gui::TrappyLine
-  void Add(gui::TrappyLine* tr_l) {
-    tr_lines_.emplace_back(tr_l);
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(gui::TrappyLine* tr_l);
 
   void Add(std::initializer_list<gui::TrappyLine*>);
   void Add(std::vector<gui::TrappyLine*>);
@@ -164,12 +129,7 @@ class DataManager {
   void Set(std::vector<gui::TrappyLine*>);
 
   // for lib::TrappyLine
-  void Add(lib::TrappyLine data) {
-    tr_lines_.emplace_back(new gui::TrappyLine(data));
-
-    CheckErrorValues();
-    RemoveLastDuplicate();
-  }
+  void Add(lib::TrappyLine data);
 
   void Add(std::initializer_list<lib::TrappyLine>);
   void Add(std::vector<lib::TrappyLine>);
@@ -178,13 +138,13 @@ class DataManager {
   void Set(std::vector<lib::TrappyLine>);
 
   /**
-   * @brief возвращает значение Trappy Lines
+   * @brief Возвращает значение Trappy Lines
    * @return std::vector<gui::TrappyLine*>: указатели на объекты оп. перелета
    */
   std::vector<gui::TrappyLine*> GetTrappyLinesPtrs();
 
   /**
-   * @brief возвращает значение Trappy Lines
+   * @brief Возвращает значение Trappy Lines
    * @return std::vector<gui::TrappyLine>: объекты оп. перелета
    */
   std::vector<gui::TrappyLine> GetTrappyLines() const;
