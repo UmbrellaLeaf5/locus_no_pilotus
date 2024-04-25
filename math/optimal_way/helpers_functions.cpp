@@ -94,15 +94,14 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   std::pair<Point, Point> tang_pnts;
   std::vector<Point> vertexes = polygon.GetVertexes();
   for (auto& vertex : vertexes)
-    if (tangent.a_coef * vertex.x + tangent.b_coef * vertex.y +
-            tangent.c_coef <=
-        precision)
+    if (std::abs(tangent.a_coef * vertex.x + tangent.b_coef * vertex.y +
+                 tangent.c_coef) <= precision)
       tang_pnts.first = vertex;
 
   std::pair<Point, Point> cr_points = TangentPoints(circle, tang_pnts.first);
   for (auto& point : {cr_points.first, cr_points.second})
-    if (tangent.a_coef * point.x + tangent.b_coef * point.y + tangent.c_coef <=
-        precision)
+    if (std::abs(tangent.a_coef * point.x + tangent.b_coef * point.y +
+                 tangent.c_coef) <= precision)
       tang_pnts.second = point;
   return tang_pnts;
 }
@@ -111,23 +110,15 @@ std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
                                       const Point& point) {
   Point center = cr_obst.GetCenter();
   double radius = cr_obst.GetRadius();
-  double discriminant = pow((center.x - point.x) * (center.y - point.y), 2) -
-                        (pow(radius, 2) - pow(point.x - center.x, 2)) *
-                            (pow(radius, 2) - pow(point.y - center.y, 2));
-  double slope_1 =
-      (-(center.x - point.x) * (center.y - point.y) + sqrt(discriminant)) /
-      (pow(radius, 2) - pow(point.x - center.x, 2));
-  double slope_2 =
-      (-(center.x - point.x) * (center.y - point.y) - sqrt(discriminant)) /
-      (pow(radius, 2) - pow(point.x - center.x, 2));
-  double b1_coef = point.y - slope_1 * point.x;
-  double b2_coef = point.y - slope_2 * point.x;
-  double x1_tang_pnt = (-(slope_1 * b1_coef - center.x - slope_1 * center.y)) /
-                       (1 + pow(slope_1, 2));
-  double x2_tang_pnt = (-(slope_2 * b2_coef - center.x - slope_2 * center.y)) /
-                       (1 + pow(slope_2, 2));
-  double y1_tang_pnt = slope_1 * x1_tang_pnt + b1_coef;
-  double y2_tang_pnt = slope_2 * x2_tang_pnt + b2_coef;
+  double dist = DistanceBetweenPoints(center, point);
+  double theta = acos(radius / dist);
+  double delta = atan2(point.y - center.y, point.x - center.x);
+  double delta1 = delta + theta;
+  double delta2 = delta - theta;
+  double x1_tang_pnt = center.x + radius * cos(delta1);
+  double x2_tang_pnt = center.x + radius * cos(delta2);
+  double y1_tang_pnt = center.y + radius * sin(delta1);
+  double y2_tang_pnt = center.y + radius * sin(delta2);
   return std::make_pair(Point(x1_tang_pnt, y1_tang_pnt),
                         Point(x2_tang_pnt, y2_tang_pnt));
 }
