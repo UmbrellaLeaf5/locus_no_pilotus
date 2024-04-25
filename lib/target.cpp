@@ -26,8 +26,7 @@ void Target::SetJsonInfo(const QJsonObject& target_obj) {
 bool Target::IsChanged(const QJsonObject& target_obj) const {
   Point p = {target_obj.value("X").toDouble(),
              target_obj.value("Y").toDouble()};
-  return abs(pow(pow(p.x, 2) + pow(p.y, 2), 0.5) -
-             pow(pow(p_.x, 2) + pow(p_.y, 2), 0.5)) > 10.E-7;
+  return p != p_;
 }
 
 bool Target::operator==(const Target& target) const {

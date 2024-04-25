@@ -53,9 +53,7 @@ bool Hill::IsChanged(const QJsonObject& hill_obj) const {
   for (size_t i = 0; i < vertices_.size() - 1; i++) {
     QJsonObject v_obj = json_vertices[i].toObject();
     lib::Point p = {v_obj.value("X").toDouble(), v_obj.value("Y").toDouble()};
-    if (abs(pow(pow(p.x, 2) + pow(p.y, 2), 0.5) -
-            pow(pow(vertices_[i].x, 2) + pow(vertices_[i].y, 2), 0.5)) > 10.E-7)
-      return true;
+    if (p != vertices_[i]) return true;
   }
   return false;
 }
