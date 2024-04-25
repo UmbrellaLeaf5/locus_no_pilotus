@@ -53,13 +53,13 @@ class DataManager {
   void Set(std::vector<lib::Target>);
 
   /**
-   * @brief возвращает значение Targets
+   * @brief Возвращает значение Targets
    * @return std::vector<gui::Target*>: указатели на объекты к.т.
    */
   std::vector<gui::Target*> GetTargetsPtrs();
 
   /**
-   * @brief возвращает значение Targets
+   * @brief Возвращает значение Targets
    * @return std::vector<gui::Target>: объекты к.т.
    */
   std::vector<gui::Target> GetTargets() const;
@@ -95,13 +95,13 @@ class DataManager {
   void Set(std::vector<lib::Hill>);
 
   /**
-   * @brief возвращает значение Hills
+   * @brief Возвращает значение Hills
    * @return std::vector<gui::Hill*>: указатели на объекты рельефа
    */
   std::vector<gui::Hill*> GetHillsPtrs();
 
   /**
-   * @brief возвращает значение Hills
+   * @brief Возвращает значение Hills
    * @return std::vector<gui::Hill>: объекты рельефа
    */
   std::vector<gui::Hill> GetHills() const;
@@ -137,13 +137,13 @@ class DataManager {
   void Set(std::vector<lib::TrappyCircle>);
 
   /**
-   * @brief возвращает значение Trappy Circles
+   * @brief Возвращает значение Trappy Circles
    * @return std::vector<gui::TrappyCircle*>: указатели на объекты опасной зоны
    */
   std::vector<gui::TrappyCircle*> GetTrappyCirclesPtrs();
 
   /**
-   * @brief возвращает значение Trappy Circles
+   * @brief Возвращает значение Trappy Circles
    * @return std::vector<gui::TrappyCircle>: объекты опасной зоны
    */
   std::vector<gui::TrappyCircle> GetTrappyCircles() const;
@@ -178,13 +178,13 @@ class DataManager {
   void Set(std::vector<lib::TrappyLine>);
 
   /**
-   * @brief возвращает значение Trappy Lines
+   * @brief Возвращает значение Trappy Lines
    * @return std::vector<gui::TrappyLine*>: указатели на объекты оп. перелета
    */
   std::vector<gui::TrappyLine*> GetTrappyLinesPtrs();
 
   /**
-   * @brief возвращает значение Trappy Lines
+   * @brief Возвращает значение Trappy Lines
    * @return std::vector<gui::TrappyLine>: объекты оп. перелета
    */
   std::vector<gui::TrappyLine> GetTrappyLines() const;

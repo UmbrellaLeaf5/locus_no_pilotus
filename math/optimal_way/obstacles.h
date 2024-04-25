@@ -104,7 +104,7 @@ class CircleObstacle {
 class PolygonObstacle {
  public:
   /**
-   * @brief Инициализирует экзепляр PolygonObstacle
+   * @brief Инициализирует экземпляр PolygonObstacle
    * @param vertexes: вершины многоугольника
    */
   PolygonObstacle(std::vector<Point> vertexes) : vertexes_{vertexes} {

@@ -31,7 +31,7 @@ class TablesConnection : public QObject {
   }
 
   /**
-   * @brief устанавливает значение всех кнопок для удаления объектов
+   * @brief Устанавливает значение всех кнопок для удаления объектов
    * @param targets_remove_button
    * @param hills_remove_button
    * @param tr_circles_remove_button
