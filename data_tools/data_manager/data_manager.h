@@ -1,5 +1,6 @@
 #pragma once
 
+#include "gui/airport.h"
 #include "gui/hill.h"
 #include "gui/target.h"
 #include "gui/trappy_circle.h"
