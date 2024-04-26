@@ -164,6 +164,8 @@ class DataManager {
    */
   bool RemoveAllDuplicates();
 
+  unsigned short GetMinId(gui::ObjectType obj_type);
+
  private:
   /**
    * @brief Проверяет данные в DataManager на валидность

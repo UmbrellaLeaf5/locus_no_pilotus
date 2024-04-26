@@ -16,7 +16,7 @@ class TrappyCircle : public JSONable {
   TrappyCircle& operator=(const TrappyCircle&) = default;
   TrappyCircle& operator=(TrappyCircle&&) = default;
 
-  QJsonObject GetJsonInfo(int id) const override;
+  QJsonObject GetJsonInfo() const override;
   void SetJsonInfo(const QJsonObject& trappy_circle_obj) override;
   bool IsChanged(const QJsonObject& trappy_circle_obj) const override;
 

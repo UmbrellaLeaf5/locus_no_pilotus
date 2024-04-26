@@ -18,7 +18,7 @@ class Target : public JSONable {
   Target& operator=(const Target&) = default;
   Target& operator=(Target&&) = default;
 
-  QJsonObject GetJsonInfo(int id) const override;
+  QJsonObject GetJsonInfo() const override;
   void SetJsonInfo(const QJsonObject& target_obj) override;
   bool IsChanged(const QJsonObject& target_obj) const override;
 
