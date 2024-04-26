@@ -27,6 +27,7 @@ class DataManager {
   // for gui::Target
   void Add(gui::Target* t) {
     targets_.emplace_back(t);
+    t->GetData().SetId(GetMinId(gui::ObjectType::Targets));
 
     CheckErrorValues();
     RemoveLastDuplicate();
@@ -69,6 +70,7 @@ class DataManager {
   // for gui::Hill
   void Add(gui::Hill* h) {
     hills_.emplace_back(h);
+    h->GetData().SetId(GetMinId(gui::ObjectType::Hills));
 
     CheckErrorValues();
     RemoveLastDuplicate();
@@ -111,6 +113,7 @@ class DataManager {
   // for gui::TrappyCircle
   void Add(gui::TrappyCircle* tr_c) {
     tr_circles_.emplace_back(tr_c);
+    tr_c->GetData().SetId(GetMinId(gui::ObjectType::TrappyCircles));
 
     CheckErrorValues();
     RemoveLastDuplicate();
@@ -152,6 +155,7 @@ class DataManager {
   // for gui::TrappyLine
   void Add(gui::TrappyLine* tr_l) {
     tr_lines_.emplace_back(tr_l);
+    tr_l->GetData().SetId(GetMinId(gui::ObjectType::TrappyLines));
 
     CheckErrorValues();
     RemoveLastDuplicate();
@@ -203,6 +207,8 @@ class DataManager {
    * @return false: если не был
    */
   bool RemoveAllDuplicates();
+
+  unsigned short GetMinId(gui::ObjectType obj_type);
 
  private:
   /**

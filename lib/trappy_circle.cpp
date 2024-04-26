@@ -13,10 +13,10 @@ TrappyCircle::TrappyCircle(Point center, double radius)
   CheckErrorValues();
 }
 
-QJsonObject TrappyCircle::GetJsonInfo(int id) const {
+QJsonObject TrappyCircle::GetJsonInfo() const {
   QVariantMap trappy_circle_map;
 
-  trappy_circle_map.insert("Id", id);
+  trappy_circle_map.insert("Id", GetId());
   trappy_circle_map.insert("X", center_.x);
   trappy_circle_map.insert("Y", center_.y);
   trappy_circle_map.insert("Radius", radius_);
@@ -26,15 +26,17 @@ QJsonObject TrappyCircle::GetJsonInfo(int id) const {
 
 void TrappyCircle::SetJsonInfo(const QJsonObject& trappy_circle_obj) {
   if (!(trappy_circle_obj.contains("X") && trappy_circle_obj.contains("Y") &&
-        trappy_circle_obj.contains("Radius")))
+        trappy_circle_obj.contains("Radius") &&
+        trappy_circle_obj.contains("Id")))
     throw std::invalid_argument(
-        "Invalid file format: missing X or Y or Radius field in "
+        "Invalid file format: missing X,Y,Radius or Id field in "
         "TrappyCircles!");
   double x = trappy_circle_obj.value("X").toDouble();
   double y = trappy_circle_obj.value("Y").toDouble();
   double r = trappy_circle_obj.value("Radius").toDouble();
   SetCenter({x, y});
   SetRadius(r);
+  SetId(trappy_circle_obj.value("Id").toInt());
 
   CheckErrorValues();
 }

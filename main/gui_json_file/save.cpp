@@ -8,38 +8,22 @@ void GuiJsonFile::Save(data_tools::DataManager* manager) {
   QJsonArray trappy_lines_array;
   QJsonArray hills_array;
 
-  int add_to_id = 10000;
-
-  for (size_t i = 0; i < manager->GetTargets().size(); i++) {
-    int id = add_to_id + manager->GetTargets()[i].GetIndexOnPlot();
-    targets_array.append(manager->GetTargets()[i].GetData().GetJsonInfo(id));
-  }
+  for (size_t i = 0; i < manager->GetTargets().size(); i++)
+    targets_array.append(manager->GetTargets()[i].GetData().GetJsonInfo());
   root.insert("Targets", targets_array);
 
-  add_to_id = 20000;
-
-  for (size_t i = 0; i < manager->GetTrappyCircles().size(); i++) {
-    int id = add_to_id + manager->GetTrappyCircles()[i].GetIndexOnPlot();
+  for (size_t i = 0; i < manager->GetTrappyCircles().size(); i++)
     trappy_circles_array.append(
-        manager->GetTrappyCircles()[i].GetData().GetJsonInfo(id));
-  }
+        manager->GetTrappyCircles()[i].GetData().GetJsonInfo());
   root.insert("Trappy_Circles", trappy_circles_array);
 
-  add_to_id = 30000;
-
-  for (size_t i = 0; i < manager->GetTrappyLines().size(); i++) {
-    int id = add_to_id + manager->GetTrappyLines()[i].GetIndexOnPlot();
+  for (size_t i = 0; i < manager->GetTrappyLines().size(); i++)
     trappy_lines_array.append(
-        manager->GetTrappyLines()[i].GetData().GetJsonInfo(id));
-  }
+        manager->GetTrappyLines()[i].GetData().GetJsonInfo());
   root.insert("Trappy_Lines", trappy_lines_array);
 
-  add_to_id = 40000;
-
-  for (size_t i = 0; i < manager->GetHills().size(); i++) {
-    int id = add_to_id + manager->GetHills()[i].GetIndexOnPlot();
-    hills_array.append(manager->GetHills()[i].GetData().GetJsonInfo(id));
-  }
+  for (size_t i = 0; i < manager->GetHills().size(); i++)
+    hills_array.append(manager->GetHills()[i].GetData().GetJsonInfo());
   root.insert("Hills", hills_array);
 
   QJsonDocument json_file(root);

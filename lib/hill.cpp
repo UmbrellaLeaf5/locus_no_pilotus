@@ -13,9 +13,9 @@ Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
   CheckErrorValues();
 }
 
-QJsonObject Hill::GetJsonInfo(int id) const {
+QJsonObject Hill::GetJsonInfo() const {
   QVariantMap hill_map;
-  hill_map.insert("Id", id);
+  hill_map.insert("Id", GetId());
 
   QJsonArray vertices_array;
   for (size_t i = 0; i < vertices_.size(); i++) {
@@ -30,9 +30,9 @@ QJsonObject Hill::GetJsonInfo(int id) const {
 }
 
 void Hill::SetJsonInfo(const QJsonObject& hill_obj) {
-  if (!hill_obj.contains("Vertices"))
+  if (!(hill_obj.contains("Vertices") && hill_obj.contains("Id")))
     throw std::invalid_argument(
-        "Invalid file format: missing Vertices filed in Hills!");
+        "Invalid file format: missing Vertices or Id field in Hills!");
   QJsonArray vertices_array = hill_obj.value("Vertices").toArray();
   for (size_t i = 0; i < vertices_array.size(); i++) {
     lib::Point vertice;
@@ -44,6 +44,7 @@ void Hill::SetJsonInfo(const QJsonObject& hill_obj) {
     vertice.y = v_obj.value("Y").toDouble();
     vertices_.push_back(vertice);
   }
+  SetId(hill_obj.value("Id").toInt());
 
   CheckErrorValues();
 }

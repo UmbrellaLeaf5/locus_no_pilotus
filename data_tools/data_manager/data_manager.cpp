@@ -438,4 +438,42 @@ bool DataManager::RemoveAllDuplicates() {
   return res;
 }
 
+unsigned short DataManager::GetMinId(gui::ObjectType obj_type) {
+  std::vector<unsigned short> ids;
+  switch (obj_type) {
+    case gui::ObjectType::Targets: {
+      for (auto& t : targets_) ids.push_back(t->GetData().GetId());
+      unsigned short id = 10000;
+      while (!(ids.empty() || find(ids.begin(), ids.end(), id) == ids.end()))
+        id++;
+
+      return id;
+    }
+    case gui::ObjectType::TrappyCircles: {
+      for (auto& trc : tr_circles_) ids.push_back(trc->GetData().GetId());
+      unsigned short id = 20000;
+      while (!(ids.empty() || find(ids.begin(), ids.end(), id) == ids.end()))
+        id++;
+
+      return id;
+    }
+    case gui::ObjectType::TrappyLines: {
+      for (auto& trl : tr_lines_) ids.push_back(trl->GetData().GetId());
+      unsigned short id = 30000;
+      while (!(ids.empty() || find(ids.begin(), ids.end(), id) == ids.end()))
+        id++;
+
+      return id;
+    }
+    case gui::ObjectType::Hills: {
+      for (auto& h : hills_) ids.push_back(h->GetData().GetId());
+      unsigned short id = 40000;
+      while (!(ids.empty() || find(ids.begin(), ids.end(), id) == ids.end()))
+        id++;
+
+      return id;
+    }
+  }
+}
+
 }  // namespace data_tools
