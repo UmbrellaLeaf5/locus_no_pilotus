@@ -17,7 +17,7 @@ double DistanceBetweenPointsOnPolygon(const PolygonObstacle& polygon,
  * @param tangent: касательная
  * @param circle1: круг 1
  * @param circle2: круг 2
- * @return точки касательной
+ * @return std::pair<Point, Point>: точки касательной
  */
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle1,
@@ -28,7 +28,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
  * @param tangent: касательная
  * @param polygon1: многоугольник 1
  * @param polygon2: многоугольник 2
- * @return точки касательной
+ * @return std::pair<Point, Point>: точки касательной
  */
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const PolygonObstacle& polygon1,
@@ -40,7 +40,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
  * @param tangent: касательная
  * @param polygon: многоугольник
  * @param circle: круг
- * @return точки касательной
+ * @return std::pair<Point, Point>: точки касательной
  */
 std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const PolygonObstacle& polygon,
@@ -51,7 +51,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
  * проведенной из контрольной точки
  * @param cr_obst: круг
  * @param point: контрольная точка
- * @return точки касательной
+ * @return std::pair<Point, Point>: точки касательной
  */
 std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
                                               const Point& point);
@@ -61,7 +61,7 @@ std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
  * проведенной из контрольной точки
  * @param poly_obst: многоугольник
  * @param point: контрольная точка
- * @return точки касательной
+ * @return std::pair<Point, Point>: точки касательной
  */
 std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
                                             const Point& point);
@@ -70,7 +70,7 @@ std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
  * @brief Находит уравнения общих касательных двух кругов
  * @param circle1: круг 1
  * @param circle2: круг 2
- * @return уравнения касательных
+ * @return std::vector<LinearFunction>: уравнения касательных
  */
 std::vector<LinearFunction> TangentsBetweenCircles(
     const CircleObstacle& circle1, const CircleObstacle& circle2);
@@ -79,7 +79,7 @@ std::vector<LinearFunction> TangentsBetweenCircles(
  * @brief Находит уравнения общих касательных двух многоугольников
  * @param polygon1: многоугольник 1
  * @param polygon2: многоугольник 2
- * @return уравнения касательных
+ * @return std::vector<LinearFunction>: уравнения касательных
  */
 std::vector<LinearFunction> TangentsBetweenPolys(
     const PolygonObstacle& polygon1, const PolygonObstacle& polygon2);
@@ -88,7 +88,7 @@ std::vector<LinearFunction> TangentsBetweenPolys(
  * @brief Находит уравнения общих касательных двух многоугольников
  * @param polygon1: многоугольник 1
  * @param polygon2: многоугольник 2
- * @return уравнения касательных
+ * @return std::vector<LinearFunction>: уравнения касательных
  */
 std::vector<LinearFunction> TangentsBetweenPolyAndCircle(
     const PolygonObstacle& polygon, const CircleObstacle& circle);
@@ -99,16 +99,16 @@ std::vector<LinearFunction> TangentsBetweenPolyAndCircle(
  * @param cr_obst: круг
  * @param pnt1: точка 1
  * @param pnt2: точка 2
- * @return результат проверки
+ * @return bool: результат проверки
  */
 bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& pnt1,
                            const Point& pnt2);
 
 /**
- * @brief  Проверяет, пересекает ли прямая многоугольник
+ * @brief Проверяет, пересекает ли прямая многоугольник
  * @param poly_obst: многоугольник
  * @param line: прямая
- * @return результат проверки
+ * @return bool: результат проверки
  */
 bool AreThereIntersections(const PolygonObstacle& poly_obst,
                            const LinearFunction& line);
@@ -119,7 +119,7 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst,
  * @param poly_obst: многоугольник
  * @param pnt1: точка 1
  * @param pnt2: точка 2
- * @return результат проверки
+ * @return bool: результат проверки
  */
 bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
                            const Point& pnt2);
