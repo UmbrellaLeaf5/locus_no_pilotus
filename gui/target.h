@@ -27,7 +27,7 @@ class Target : public Drawable {
   lib::Target& GetData() { return data_; }
   const lib::Target& GetData() const { return data_; }
 
-  void Draw(QCustomPlot* plot) override;
+  virtual void Draw(QCustomPlot* plot) override;
 
   /**
    * @brief Возвращает значение указателя на полотне

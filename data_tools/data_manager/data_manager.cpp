@@ -6,6 +6,12 @@ void DataManager::Remove(gui::ObjectType obj_type, size_t index) {
   switch (obj_type) {
     case gui::ObjectType::Targets: {
       targets_.erase(targets_.begin() + index);
+
+      // если был удалён первый, не явл. последним, меняем следующий на аэропорт
+      if (index == 0 && !targets_.empty()) {
+        targets_[0].reset(new gui::Airport(targets_[0]->GetData()));
+      }
+
       break;
     }
 
@@ -40,6 +46,8 @@ void DataManager::Clear() {
 // ----------------------   Target methods   ----------------------
 
 void DataManager::Add(gui::Target* t) {
+  if (targets_.empty()) t = new gui::Airport(*t);
+
   targets_.emplace_back(t);
   t->GetData().SetId(GetMinId(gui::ObjectType::Targets));
 
@@ -47,25 +55,11 @@ void DataManager::Add(gui::Target* t) {
   RemoveLastDuplicate();
 }
 
-void DataManager::Add(std::initializer_list<gui::Target*> new_targets) {
-  for (const auto& target : new_targets) {
-    Add(target);
-    target->GetData().SetId(GetMinId(gui::ObjectType::Targets));
-  }
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
 void DataManager::Add(lib::Target data) {
-  targets_.emplace_back(new gui::Target(data));
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
-void DataManager::Add(std::initializer_list<lib::Target> new_targets) {
-  for (const auto& target : new_targets) Add(target);
+  if (targets_.empty())
+    targets_.emplace_back(new gui::Airport(data));
+  else
+    targets_.emplace_back(new gui::Target(data));
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -86,22 +80,6 @@ void DataManager::Add(std::vector<lib::Target> new_targets) {
 
   CheckErrorValues();
   RemoveLastDuplicate();
-}
-
-void DataManager::Set(std::initializer_list<gui::Target*> targets) {
-  targets_.clear();
-  Add(targets);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
-}
-
-void DataManager::Set(std::initializer_list<lib::Target> targets) {
-  targets_.clear();
-  Add(targets);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
 }
 
 void DataManager::Set(std::vector<gui::Target*> targets) {
@@ -148,25 +126,8 @@ void DataManager::Add(gui::Hill* h) {
   RemoveLastDuplicate();
 }
 
-void DataManager::Add(std::initializer_list<gui::Hill*> new_hills) {
-  for (const auto& hill : new_hills) {
-    Add(hill);
-    hill->GetData().SetId(GetMinId(gui::ObjectType::Hills));
-  }
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
 void DataManager::Add(lib::Hill data) {
   hills_.emplace_back(new gui::Hill(data));
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
-void DataManager::Add(std::initializer_list<lib::Hill> new_hills) {
-  for (const auto& hill : new_hills) Add(hill);
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -187,22 +148,6 @@ void DataManager::Add(std::vector<lib::Hill> new_hills) {
 
   CheckErrorValues();
   RemoveLastDuplicate();
-}
-
-void DataManager::Set(std::initializer_list<gui::Hill*> hills) {
-  hills_.clear();
-  Add(hills);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
-}
-
-void DataManager::Set(std::initializer_list<lib::Hill> hills) {
-  hills_.clear();
-  Add(hills);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
 }
 
 void DataManager::Set(std::vector<gui::Hill*> hills) {
@@ -249,26 +194,8 @@ void DataManager::Add(gui::TrappyCircle* tr_c) {
   RemoveLastDuplicate();
 }
 
-void DataManager::Add(
-    std::initializer_list<gui::TrappyCircle*> new_tr_circles) {
-  for (const auto& tr_circle : new_tr_circles) {
-    Add(tr_circle);
-    tr_circle->GetData().SetId(GetMinId(gui::ObjectType::TrappyCircles));
-  }
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
 void DataManager::Add(lib::TrappyCircle data) {
   tr_circles_.emplace_back(new gui::TrappyCircle(data));
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
-void DataManager::Add(std::initializer_list<lib::TrappyCircle> new_tr_circles) {
-  for (const auto& tr_circle : new_tr_circles) Add(tr_circle);
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -289,22 +216,6 @@ void DataManager::Add(std::vector<lib::TrappyCircle> new_tr_circles) {
 
   CheckErrorValues();
   RemoveLastDuplicate();
-}
-
-void DataManager::Set(std::initializer_list<gui::TrappyCircle*> tr_circles) {
-  tr_circles_.clear();
-  Add(tr_circles);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
-}
-
-void DataManager::Set(std::initializer_list<lib::TrappyCircle> tr_circles) {
-  tr_circles_.clear();
-  Add(tr_circles);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
 }
 
 void DataManager::Set(std::vector<gui::TrappyCircle*> tr_circles) {
@@ -351,25 +262,8 @@ void DataManager::Add(gui::TrappyLine* tr_l) {
   RemoveLastDuplicate();
 }
 
-void DataManager::Add(std::initializer_list<gui::TrappyLine*> new_tr_lines) {
-  for (const auto& tr_line : new_tr_lines) {
-    Add(tr_line);
-    tr_line->GetData().SetId(GetMinId(gui::ObjectType::TrappyLines));
-  }
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
 void DataManager::Add(lib::TrappyLine data) {
   tr_lines_.emplace_back(new gui::TrappyLine(data));
-
-  CheckErrorValues();
-  RemoveLastDuplicate();
-}
-
-void DataManager::Add(std::initializer_list<lib::TrappyLine> new_tr_lines) {
-  for (const auto& tr_line : new_tr_lines) Add(tr_line);
 
   CheckErrorValues();
   RemoveLastDuplicate();
@@ -390,22 +284,6 @@ void DataManager::Add(std::vector<lib::TrappyLine> new_tr_lines) {
 
   CheckErrorValues();
   RemoveLastDuplicate();
-}
-
-void DataManager::Set(std::initializer_list<gui::TrappyLine*> tr_lines) {
-  tr_lines_.clear();
-  Add(tr_lines);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
-}
-
-void DataManager::Set(std::initializer_list<lib::TrappyLine> tr_lines) {
-  tr_lines_.clear();
-  Add(tr_lines);
-
-  CheckErrorValues();
-  RemoveAllDuplicates();
 }
 
 void DataManager::Set(std::vector<gui::TrappyLine*> tr_lines) {
