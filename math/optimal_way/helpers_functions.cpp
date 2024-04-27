@@ -242,6 +242,13 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
         (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < 0))
       return true;
   }
+  std::size_t prev = -1;
+  for (std::size_t i = 0; i < vertexes.size(); ++i)
+    if (std::abs(line.Substitute(vertexes[i])) <= precision)
+      if (prev == -1)
+        prev = i;
+      else if (i - prev > 1)
+        return true;
   return false;
 }
 
