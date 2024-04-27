@@ -178,7 +178,6 @@ void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
 
   manager_->GetTrappyCirclesPtrs()[last]->SetRadius(r);
   area_->Redraw();
-  t_connection_->UpdateTables();
 }
 
 void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
