@@ -29,6 +29,10 @@ struct LinearFunction {
     }
   }
 
+  double Substitute(const lib::Point& p) {
+    return a_coef * p.x + b_coef * p.y + c_coef;
+  }
+
   double a_coef, b_coef, c_coef;
 
   bool operator==(const LinearFunction& other) {

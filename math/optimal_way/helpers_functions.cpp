@@ -147,10 +147,7 @@ std::pair<Point, Point> TangentPoints(const PolygonObstacle& poly_obst,
     double new_cos_alpha =
         (pow(dist_to_vrtx, 2) + pow(dist_to_cnt, 2) - pow(dist_cnt_vrtx, 2)) /
         (2 * dist_to_vrtx * dist_to_cnt);
-    if (((line.a_coef * vertex.x + line.b_coef * vertex.y + line.c_coef) *
-             (line.a_coef * tang_pnt_1.x + line.b_coef * tang_pnt_1.y +
-              line.c_coef) >
-         0) &&
+    if ((line.Substitute(vertex) * line.Substitute(tang_pnt_1) > 0) &&
         (new_cos_alpha < cos_alpha_1)) {
       tang_pnt_1 = vertex;
       cos_alpha_1 = new_cos_alpha;
@@ -241,14 +238,8 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
   std::vector<Point> vertexes = poly_obst.GetVertexes();
   for (std::size_t i = 0; i < vertexes.size() - 1; ++i) {
     LinearFunction v_line(vertexes[i], vertexes[i + 1]);
-    if (((line.a_coef * vertexes[i].x + line.b_coef * vertexes[i].y +
-          line.c_coef) *
-             (line.a_coef * vertexes[i + 1].x +
-              line.b_coef * vertexes[i + 1].y + line.c_coef) <
-         0) &&
-        ((v_line.a_coef * pnt1.x + v_line.b_coef * pnt1.y + v_line.c_coef) *
-             (v_line.a_coef * pnt2.x + v_line.b_coef * pnt2.y + v_line.c_coef) <
-         0))
+    if ((line.Substitute(vertexes[i]) * line.Substitute(vertexes[i + 1]) < 0) &&
+        (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < 0))
       return true;
   }
   return false;
