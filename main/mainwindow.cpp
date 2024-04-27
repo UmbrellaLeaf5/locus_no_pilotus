@@ -34,9 +34,6 @@ MainWindow::MainWindow(QWidget* parent)
       ui->targetRemovePushButton, ui->hillRemovePushButton,
       ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
-  manager_->Add(new gui::Airport(0, 0));
-  area_->Redraw();
-
   // Нужно для того, чтобы при открытии приложения менялось имя "Untitled"
   // файла, так как может быть такое, что пользователь уже создавал такие файлы
   json_file_.SetUntitledFile();

@@ -6,6 +6,12 @@ void DataManager::Remove(gui::ObjectType obj_type, size_t index) {
   switch (obj_type) {
     case gui::ObjectType::Targets: {
       targets_.erase(targets_.begin() + index);
+
+      // если был удалён первый, не явл. последним, меняем следующий на аэропорт
+      if (index == 0 && !targets_.empty()) {
+        targets_[0].reset(new gui::Airport(targets_[0]->GetData()));
+      }
+
       break;
     }
 
@@ -40,6 +46,8 @@ void DataManager::Clear() {
 // ----------------------   Target methods   ----------------------
 
 void DataManager::Add(gui::Target* t) {
+  if (targets_.empty()) t = new gui::Airport(*t);
+
   targets_.emplace_back(t);
   t->GetData().SetId(GetMinId(gui::ObjectType::Targets));
 
@@ -48,7 +56,10 @@ void DataManager::Add(gui::Target* t) {
 }
 
 void DataManager::Add(lib::Target data) {
-  targets_.emplace_back(new gui::Target(data));
+  if (targets_.empty())
+    targets_.emplace_back(new gui::Airport(data));
+  else
+    targets_.emplace_back(new gui::Target(data));
 
   CheckErrorValues();
   RemoveLastDuplicate();
