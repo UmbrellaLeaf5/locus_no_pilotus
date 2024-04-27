@@ -16,5 +16,5 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) {
                                    GetCenter().y - GetRadius());
 
   // индекс последнего созданного = кол-во всех - 1
-  item_index_ = plot->itemCount() - 1;
+  SetIndexOnPlot(plot);
 }

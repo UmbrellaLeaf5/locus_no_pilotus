@@ -27,13 +27,7 @@ class Target : public Drawable {
   lib::Target& GetData() { return data_; }
   const lib::Target& GetData() const { return data_; }
 
-  void Draw(QCustomPlot* plot) override;
-
-  /**
-   * @brief Возвращает индекс на полотне [plottable]
-   * @return size_t: индекс
-   */
-  size_t GetPlottableIndex() const { return plottable_index_; }
+  virtual void Draw(QCustomPlot* plot) override;
 
   /**
    * @brief Возвращает значение указателя на полотне
@@ -41,9 +35,13 @@ class Target : public Drawable {
    */
   QCPGraph* GetGraphPtr() const { return graph_; }
 
+  bool operator==(const gui::Target& target) const {
+    return data_ == target.GetData();
+  }
+
  private:
   lib::Target data_;
-  size_t plottable_index_{ULLONG_MAX};
+
   QCPGraph* graph_{nullptr};
 };
 

@@ -1,7 +1,5 @@
 #include "plot_area.h"
 
-#include <icecream.hpp>
-
 namespace data_tools {
 
 void PlotArea::Setup(DataManager* manager) { manager_.reset(manager); }

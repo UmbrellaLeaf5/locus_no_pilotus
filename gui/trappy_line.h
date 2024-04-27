@@ -26,6 +26,14 @@ class TrappyLine : public Drawable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
+  void SetFirstTarget(gui::Target* target) {
+    SetTargets(target, targets_.second);
+  }
+
+  void SetSecondTarget(gui::Target* target) {
+    SetTargets(targets_.first, target);
+  }
+
   void SetTargets(gui::Target* first_target, gui::Target* second_target) {
     UpdateData(first_target, second_target);
   }
@@ -38,12 +46,6 @@ class TrappyLine : public Drawable {
   lib::TrappyLine& GetData() { return data_; }
 
   void Draw(QCustomPlot* plot) override;
-
-  /**
-   * @brief Возвращает индекс на полотне [plottable]
-   * @return size_t: индекс
-   */
-  size_t GetPlottableIndex() const { return plottable_index_; }
 
   /**
    * @brief Возвращает значение указателя на полотне
@@ -61,12 +63,16 @@ class TrappyLine : public Drawable {
     return targets_;
   }
 
+  bool operator==(const gui::TrappyLine& tr_line) const {
+    return data_ == tr_line.GetData();
+  }
+
  private:
   void UpdateData(gui::Target* first_target, gui::Target* second_target);
   void UpdateData(std::pair<gui::Target*, gui::Target*> targets);
 
   lib::TrappyLine data_;
-  size_t plottable_index_{ULLONG_MAX};
+
   QCPGraph* graph_{nullptr};
 
   // самый простой способ иметь доступ из TrappyLine к привязанным к.т.

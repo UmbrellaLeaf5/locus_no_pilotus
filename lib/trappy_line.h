@@ -23,8 +23,8 @@ class TrappyLine : public JSONable {
   TrappyLine& operator=(const TrappyLine&) = default;
   TrappyLine& operator=(TrappyLine&&) = default;
 
-  QJsonObject Load(int id) const override;
-  void Save(const QJsonObject& trappy_line_obj) override;
+  QJsonObject GetJsonInfo() const override;
+  void SetJsonInfo(const QJsonObject& trappy_line_obj) override {}
   bool IsChanged(const QJsonObject& trappy_line_obj) const override;
 
   void SetTargets(Target* first_target, Target* second_target) {
@@ -32,15 +32,17 @@ class TrappyLine : public JSONable {
   }
   void SetTargets(std::pair<Target*, Target*> targets) { targets_ = targets; }
 
-  std::pair<Target, Target> GetTargets() const {
-    return std::make_pair(*targets_.first, *targets_.second);
-  }
+  std::pair<Target, Target> GetTargets() const;
 
   std::pair<Target*, Target*>& GetTargetsPtrs() { return targets_; }
-
   const std::pair<Target*, Target*>& GetTargetsPtrs() const { return targets_; }
 
+  bool operator==(const TrappyLine&) const;
+
  private:
+  // невозможно проверить, так как класс не содержит координат
+  void CheckErrorValues() const override {}
+
   // здесь нет смысла использовать умные указатели, так как мы не создаём новых
   std::pair<Target*, Target*> targets_;
 };

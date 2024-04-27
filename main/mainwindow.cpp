@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 
-#include "./ui_mainwindow.h"
-
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
@@ -14,19 +12,27 @@ MainWindow::MainWindow(QWidget* parent)
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
 
-  connect(ui->plot, SIGNAL(mousePress(QMouseEvent*)), this,
-          SLOT(on_plot_MousePressed()));
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
+
+  connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
+          SLOT(on_xAxis_rangeChanged(QCPRange)));
+
+  connect(ui->plot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
+          SLOT(on_yAxis_rangeChanged(QCPRange)));
 
   area_->Setup(manager_.get());
   t_connection_->Setup(manager_.get(), area_.get());
 
   area_->SetPlot(ui->plot);
 
-  // нынче для проверки функционала файл открывают
-
   t_connection_->SetSettingsTables(
       ui->targetInfoTableWidget, ui->hillInfoTableWidget,
       ui->trappyCircleInfoTableWidget, ui->trappyLineInfoTableWidget);
+
+  t_connection_->SetRemoveButtons(
+      ui->targetRemovePushButton, ui->hillRemovePushButton,
+      ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
   // Нужно для того, чтобы при открытии приложения менялось имя "Untitled"
   // файла, так как может быть такое, что пользователь уже создавал такие файлы

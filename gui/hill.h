@@ -51,13 +51,9 @@ class Hill : public Drawable {
   const std::vector<lib::Point>& GetPoints() const { return data_.GetPoints(); }
   std::vector<lib::Point>& GetPoints() { return data_.GetPoints(); }
 
-  void Draw(QCustomPlot* plot) override;
+  void AddVertice(lib::Point vertice) { data_.AddVertice(vertice); }
 
-  /**
-   * @brief Возвращает индекс на полотне [plottable]
-   * @return size_t: индекс
-   */
-  size_t GetPlottableIndex() const { return plottable_index_; }
+  void Draw(QCustomPlot* plot) override;
 
   /**
    * @brief Возвращает значение указателя на полотне
@@ -65,10 +61,14 @@ class Hill : public Drawable {
    */
   QCPCurve* GetCurvePtr() const { return curve_; }
 
+  bool operator==(const gui::Hill& hill) const {
+    return data_ == hill.GetData();
+  }
+
  private:
   lib::Hill data_;
   QColor color_;
-  size_t plottable_index_{ULLONG_MAX};
+
   QCPCurve* curve_{nullptr};
 };
 

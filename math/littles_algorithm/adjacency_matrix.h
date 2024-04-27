@@ -20,7 +20,8 @@ class AdjacencyMatrix {
    * @brief Создает новый экземпляр AdjacencyMatrix с
    * добавлением строки и столбца номеров точек
    * @param nums: матрица смежности графа
-   * @return экземпляр AdjacencyMatrix по данной матрице смежности
+   * @return AdjacencyMatrix: экземпляр AdjacencyMatrix по данной матрице
+   * смежности
    */
   static AdjacencyMatrix WithExtraRowCol(std::vector<std::vector<double>> nums);
 
@@ -64,13 +65,13 @@ class AdjacencyMatrix {
    * @brief Создает минор матрицы
    * @param i: номер удаляемой строки
    * @param j: номер удаляемого столбца
-   * @return AdjacencyMatrix минор матрицы
+   * @return AdjacencyMatrix: минор матрицы
    */
   AdjacencyMatrix Minor(std::size_t i, std::size_t j);
 
   /**
    * @brief Создает редуцированную матрицы
-   * @return AdjacencyMatrix редуцированная матрица
+   * @return AdjacencyMatrix: редуцированная матрица
    */
   AdjacencyMatrix Reducted();
 
@@ -108,7 +109,8 @@ class AdjacencyMatrix {
   /**
    * @brief Создает новый экземпляр AdjacencyMatrix
    * @param nums: матрица смежности графа
-   * @return экземпляр AdjacencyMatrix по данной матрице смежности
+   * @return AdjacencyMatrix: экземпляр AdjacencyMatrix по данной матрице
+   * смежности
    */
   AdjacencyMatrix(std::vector<std::vector<double>> nums);
 
@@ -116,19 +118,20 @@ class AdjacencyMatrix {
    * @brief Находит 2 минимума в строке или столбце
    * @param type: тип поиска минимума(в строке или в столбце)
    * @param index: номер строки/столбца
-   * @return Minimums 2 найденных минимума
+   * @return Minimums: 2 найденных минимума
    */
   Minimums FindTwoMinimums(Mins type, std::size_t index) const;
 
   /**
    * @brief Находит нижнюю оценку для матрицы
-   * @return double нижняя оценку матрицы
+   * @return double: нижняя оценку матрицы
    */
   double BottomLineEvaluation();
 
   /**
    * @brief Находит позицию нуля с наибольшей степенью
-   * @return позицию нуля с наибольшей степенью
+   * @return std::pair<std::size_t, std::size_t>: позицию нуля с наибольшей
+   * степенью
    */
   std::pair<std::size_t, std::size_t> HighestPowerOfZero() const;
 };

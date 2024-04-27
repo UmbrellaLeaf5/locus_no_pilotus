@@ -31,7 +31,7 @@ class Hill : public JSONable {
    * @throw std::invalid_argument: если кол-во вершин 1 или 0
    */
   Hill(std::initializer_list<Point> points);
-  Hill(std::vector<Point> points) : vertices_{points} {}
+  Hill(std::vector<Point> points) : vertices_{points} { CheckErrorValues(); }
 
   Hill(const Hill&) = default;
   Hill(Hill&&) = default;
@@ -39,8 +39,8 @@ class Hill : public JSONable {
   Hill& operator=(const Hill&) = default;
   Hill& operator=(Hill&&) = default;
 
-  QJsonObject Load(int id) const override;
-  void Save(const QJsonObject& hill_obj) override;
+  QJsonObject GetJsonInfo() const override;
+  void SetJsonInfo(const QJsonObject& hill_obj) override;
   bool IsChanged(const QJsonObject& hill_obj) const override;
 
   Point GetCenter() const;
@@ -49,7 +49,18 @@ class Hill : public JSONable {
   const std::vector<Point>& GetPoints() const { return vertices_; }
   std::vector<Point>& GetPoints() { return vertices_; }
 
+  void AddVertice(Point vertice) { vertices_.push_back(vertice); }
+
+  bool operator==(const Hill&) const;
+
  private:
+  /**
+   * @brief Проверяет данные в классе на валидность
+   * @throw std::invalid_argument: если одна из коорд. вершин превышает
+   * максимально допустимое значение
+   */
+  void CheckErrorValues() const override;
+
   std::vector<Point> vertices_;
 };
 
