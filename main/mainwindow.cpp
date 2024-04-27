@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
 
+  connect(ui->plot, &QCustomPlot::mousePress, this,
+          &MainWindow::mousePressContextMenu);
+
   connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
           SLOT(on_xAxis_rangeChanged(QCPRange)));
 

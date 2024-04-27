@@ -90,3 +90,62 @@ void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
 
   ui->plot->yAxis->setRange(range);
 }
+
+void MainWindow::mousePressRemoveObject() {
+  if (ui->plot->selectedPlottables().size() > 0) {
+    bool is_found = false;
+    for (size_t i = 0; i < manager_->GetTargetsPtrs().size(); i++) {
+      if (ui->plot->selectedGraphs()[0] ==
+          manager_->GetTargetsPtrs()[i]->GetGraphPtr()) {
+        manager_->Remove(gui::ObjectType::Targets, i);
+        is_found = true;
+        break;
+      }
+    }
+    if (!is_found) {
+      for (size_t i = 0; i < manager_->GetTrappyLinesPtrs().size(); i++) {
+        if (ui->plot->selectedGraphs()[0] ==
+            manager_->GetTrappyLinesPtrs()[i]->GetGraphPtr()) {
+          manager_->Remove(gui::ObjectType::TrappyLines, i);
+          break;
+        }
+      }
+    }
+    if (!is_found) {
+      for (size_t i = 0; i < manager_->GetHillsPtrs().size(); i++) {
+        if (ui->plot->selectedPlottables()[0] ==
+            manager_->GetHillsPtrs()[i]->GetCurvePtr()) {
+          manager_->Remove(gui::ObjectType::Hills, i);
+          break;
+        }
+      }
+    }
+  } else if (ui->plot->selectedItems().size() > 0) {
+    for (size_t i = 0; i < manager_->GetTrappyCirclesPtrs().size(); i++) {
+      if (ui->plot->selectedItems()[0] ==
+          manager_->GetTrappyCirclesPtrs()[i]->GetItemEllipsePtr()) {
+        manager_->Remove(gui::ObjectType::TrappyCircles, i);
+        break;
+      }
+    }
+  }
+  area_->Redraw();
+  t_connection_->UpdateTables();
+}
+
+void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {
+  if (mouse_event->button() == Qt::RightButton &&
+      (ui->plot->selectedGraphs().size() > 0 ||
+       ui->plot->selectedItems().size() > 0 ||
+       ui->plot->selectedPlottables().size() > 0)) {
+    ui->plot->setContextMenuPolicy(Qt::ActionsContextMenu);
+
+    QMenu* menu{new QMenu(this)};
+    QAction* remove_button{new QAction("Remove", this)};
+    menu->addAction(remove_button);
+    connect(remove_button, &QAction::triggered, this,
+            &MainWindow::mousePressRemoveObject);
+
+    menu->exec(mouse_event->globalPosition().toPoint());
+  }
+}

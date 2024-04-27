@@ -31,6 +31,8 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
 
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
+  connect(ui->plot, &QCustomPlot::mousePress, this,
+          &MainWindow::mousePressContextMenu);
 
   ui->plot->setCursor(Qt::CrossCursor);
   cursor_ = CursorType::DefaultCursor;
@@ -98,6 +100,8 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         manager_->Add(new gui::TrappyCircle({x, y}, 0));
         disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                    &MainWindow::mousePressObjectsButton);
+        disconnect(ui->plot, &QCustomPlot::mousePress, this,
+                   &MainWindow::mousePressContextMenu);
 
         connect(ui->plot, &QCustomPlot::mouseMove, this,
                 &MainWindow::mouseMoveSetRadiusFromPlot);
@@ -117,6 +121,8 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
             manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
             disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                        &MainWindow::mousePressObjectsButton);
+            disconnect(ui->plot, &QCustomPlot::mousePress, this,
+                       &MainWindow::mousePressContextMenu);
 
             connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                     &MainWindow::mousePressSelectSecondTarget);
@@ -133,6 +139,8 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                    &MainWindow::mousePressObjectsButton);
+        disconnect(ui->plot, &QCustomPlot::mousePress, this,
+                   &MainWindow::mousePressContextMenu);
 
         connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                 &MainWindow::mousePressAddVertice);
