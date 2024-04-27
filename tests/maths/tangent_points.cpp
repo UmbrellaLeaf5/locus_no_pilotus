@@ -1,6 +1,5 @@
-#include <icecream.hpp>
-
 #include "math/optimal_way/helpers_functions.h"
+
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif
