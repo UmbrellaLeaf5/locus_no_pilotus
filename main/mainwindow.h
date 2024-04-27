@@ -77,6 +77,7 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddHill_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
+  void mouseMoveAddVertice(QMouseEvent* mouse_event);
 
   // Слоты для Settings
   void on_targetAddFromTablePushButton_clicked();
