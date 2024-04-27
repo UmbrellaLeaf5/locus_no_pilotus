@@ -27,20 +27,12 @@ class DataManager {
 
   // for gui::Target
   void Add(gui::Target* t);
-
-  void Add(std::initializer_list<gui::Target*>);
   void Add(std::vector<gui::Target*>);
-
-  void Set(std::initializer_list<gui::Target*>);
   void Set(std::vector<gui::Target*>);
 
   // for lib::Target
   void Add(lib::Target data);
-
-  void Add(std::initializer_list<lib::Target>);
   void Add(std::vector<lib::Target>);
-
-  void Set(std::initializer_list<lib::Target>);
   void Set(std::vector<lib::Target>);
 
   /**
@@ -59,20 +51,12 @@ class DataManager {
 
   // for gui::Hill
   void Add(gui::Hill* h);
-
-  void Add(std::initializer_list<gui::Hill*>);
   void Add(std::vector<gui::Hill*>);
-
-  void Set(std::initializer_list<gui::Hill*>);
   void Set(std::vector<gui::Hill*>);
 
   // for lib::Hill
   void Add(lib::Hill data);
-
-  void Add(std::initializer_list<lib::Hill>);
   void Add(std::vector<lib::Hill>);
-
-  void Set(std::initializer_list<lib::Hill>);
   void Set(std::vector<lib::Hill>);
 
   /**
@@ -91,20 +75,12 @@ class DataManager {
 
   // for gui::TrappyCircle
   void Add(gui::TrappyCircle* tr_c);
-
-  void Add(std::initializer_list<gui::TrappyCircle*>);
   void Add(std::vector<gui::TrappyCircle*>);
-
-  void Set(std::initializer_list<gui::TrappyCircle*>);
   void Set(std::vector<gui::TrappyCircle*>);
 
   // for lib::TrappyCircle
   void Add(lib::TrappyCircle data);
-
-  void Add(std::initializer_list<lib::TrappyCircle>);
   void Add(std::vector<lib::TrappyCircle>);
-
-  void Set(std::initializer_list<lib::TrappyCircle>);
   void Set(std::vector<lib::TrappyCircle>);
 
   /**
@@ -122,20 +98,12 @@ class DataManager {
 
   // for gui::TrappyLine
   void Add(gui::TrappyLine* tr_l);
-
-  void Add(std::initializer_list<gui::TrappyLine*>);
   void Add(std::vector<gui::TrappyLine*>);
-
-  void Set(std::initializer_list<gui::TrappyLine*>);
   void Set(std::vector<gui::TrappyLine*>);
 
   // for lib::TrappyLine
   void Add(lib::TrappyLine data);
-
-  void Add(std::initializer_list<lib::TrappyLine>);
   void Add(std::vector<lib::TrappyLine>);
-
-  void Set(std::initializer_list<lib::TrappyLine>);
   void Set(std::vector<lib::TrappyLine>);
 
   /**
