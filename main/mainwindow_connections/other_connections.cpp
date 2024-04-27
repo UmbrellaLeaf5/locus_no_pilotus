@@ -92,9 +92,9 @@ void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
 }
 
 void MainWindow::mousePressRemoveObject() {
-  if (ui->plot->selectedPlottables().size() > 0) {
+  if (ui->plot->selectedGraphs().size() > 0) {
     bool is_found = false;
-    for (size_t i = 0; i < manager_->GetTargetsPtrs().size(); i++) {
+    for (size_t i = 0; i < manager_->GetTargets().size(); i++) {
       if (ui->plot->selectedGraphs()[0] ==
           manager_->GetTargetsPtrs()[i]->GetGraphPtr()) {
         manager_->Remove(gui::ObjectType::Targets, i);
@@ -102,33 +102,31 @@ void MainWindow::mousePressRemoveObject() {
         break;
       }
     }
-    if (!is_found) {
-      for (size_t i = 0; i < manager_->GetTrappyLinesPtrs().size(); i++) {
+    if (!is_found)
+      for (size_t i = 0; i < manager_->GetTrappyLines().size(); i++) {
         if (ui->plot->selectedGraphs()[0] ==
             manager_->GetTrappyLinesPtrs()[i]->GetGraphPtr()) {
           manager_->Remove(gui::ObjectType::TrappyLines, i);
           break;
         }
       }
-    }
-    if (!is_found) {
-      for (size_t i = 0; i < manager_->GetHillsPtrs().size(); i++) {
-        if (ui->plot->selectedPlottables()[0] ==
-            manager_->GetHillsPtrs()[i]->GetCurvePtr()) {
-          manager_->Remove(gui::ObjectType::Hills, i);
-          break;
-        }
+  } else if (ui->plot->selectedPlottables().size() > 0) {
+    for (size_t i = 0; i < manager_->GetHills().size(); i++) {
+      if (ui->plot->selectedPlottables()[0] ==
+          manager_->GetHillsPtrs()[i]->GetCurvePtr()) {
+        manager_->Remove(gui::ObjectType::Hills, i);
+        break;
       }
     }
-  } else if (ui->plot->selectedItems().size() > 0) {
-    for (size_t i = 0; i < manager_->GetTrappyCirclesPtrs().size(); i++) {
+  } else if (ui->plot->selectedItems().size() > 0)
+    for (size_t i = 0; i < manager_->GetTrappyCircles().size(); i++) {
       if (ui->plot->selectedItems()[0] ==
           manager_->GetTrappyCirclesPtrs()[i]->GetItemEllipsePtr()) {
         manager_->Remove(gui::ObjectType::TrappyCircles, i);
         break;
       }
     }
-  }
+
   area_->Redraw();
   t_connection_->UpdateTables();
 }
