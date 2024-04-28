@@ -40,9 +40,10 @@ struct LinearFunction {
   }
 
   bool operator==(const LinearFunction& other) {
-    return (std::abs(a_coef - other.a_coef) < precision &&
-            std::abs(b_coef - other.b_coef) < precision &&
-            std::abs(c_coef - other.c_coef) < precision);
+    double proportion = a_coef ? other.a_coef / a_coef : other.b_coef / b_coef;
+    return (other.a_coef - proportion * a_coef < precision) &&
+           (other.b_coef - proportion * b_coef < precision) &&
+           (other.c_coef - c_coef < precision);
   }
 };
 
