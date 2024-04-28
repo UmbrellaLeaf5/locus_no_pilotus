@@ -252,4 +252,9 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
   return false;
 }
 
+template std::vector<LinearFunction> TangentsBetween<CircleObstacle>(
+    const PolygonObstacle& polygon, const CircleObstacle& obstacle);
+template std::vector<LinearFunction> TangentsBetween<PolygonObstacle>(
+    const PolygonObstacle& polygon, const PolygonObstacle& obstacle);
+
 }  // namespace math
