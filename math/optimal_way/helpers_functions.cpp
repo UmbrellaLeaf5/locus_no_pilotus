@@ -186,8 +186,13 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
   };
 
   for (auto n1 : {-1, 1})
-    for (auto n2 : {-1, 1}) tangents.push_back(FindTangent(r_0 * n1, r_1 * n2));
-  return tangents;
+    for (auto n2 : {-1, 1}) {
+      tangents.push_back(FindTangent(r_0 * n1, r_1 * n2));
+      for (std::size_t i = 0; i < tangents.size() - 1; ++i)
+        if (tangents[i] == FindTangent(r_0 * n1, r_1 * n2)) tangents.pop_back();
+    }
+}
+return tangents;
 }
 
 template <typename T>
