@@ -248,6 +248,16 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
   }
 }
 
+bool AreThereIntersections(const CircleObstacle& cr_obst,
+                           const LinearFunction& line) {
+  Point center = cr_obst.GetCenter();
+  double radius = cr_obst.GetRadius();
+  double dist =
+      std::abs(line.a_coef * center.x + line.b_coef * center.y + line.c_coef) /
+      sqrt(pow(line.a_coef, 2) + pow(line.b_coef, 2));
+  return dist < radius - precision;
+}
+
 bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
                            const Point& pnt2) {
   LinearFunction line(pnt1, pnt2);
