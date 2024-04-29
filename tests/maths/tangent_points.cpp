@@ -14,7 +14,7 @@ void CHECK_TANGENT_POINTS(const PolygonObstacle& poly1,
                           std::vector<std::array<std::size_t, 2>>& indexes) {
   std::vector<Point> v1 = poly1.GetVertexes();
   std::vector<Point> v2 = poly2.GetVertexes();
-  for (std::size_t i = 0; i < 4; ++i) {
+  for (std::size_t i = 0; i < indexes.size(); ++i) {
     LinearFunction tang(v1[indexes[i][0]], v2[indexes[i][1]]);
     std::pair<Point, Point> tang_points = TangentPoints(tang, poly1, poly2);
     BOOST_TEST(tang_points.first.x == v1[indexes[i][0]].x);
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE(poly_3_and_circle) {
   CircleObstacle circle({0, 8}, 2);
   // index of the polys vertex and point on the circle
   std::vector<std::pair<std::size_t, Point>> indexes_and_points{
-      {0, {0, 6}}, {0, {-1.2, 9.6}}, {1, {1.686725, 6.925309}}, {2, {-2, 8}}};
+      {0, {0, 6}}, {0, {-1.2, 9.6}}, {1, {1.686725, 6.9253099}}, {2, {-2, 8}}};
   CHECK_TANGENT_POINTS(poly, circle, indexes_and_points);
 }
 
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE(poly_4_and_circle) {
   PolygonObstacle poly({{8, 0}, {12, 2}, {6, 2}, {6, 0}});
   CircleObstacle circle({12, -2}, 4);
   std::vector<std::pair<std::size_t, Point>> indexes_and_points{
-      {2, {12, 2}}, {3, {8.620204, -4.139388}}};
+      {2, {12, 2}}, {3, {8.6202041, -4.1393877}}};
   CHECK_TANGENT_POINTS(poly, circle, indexes_and_points);
 }
 
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(poly_5_and_circle) {
   PolygonObstacle poly({{-14, 0}, {-12, 2}, {-10, -2}, {-10, -4}, {-12, -4}});
   CircleObstacle circle({-12, 10}, 8);
   std::vector<std::pair<std::size_t, Point>> indexes_and_points{
-      {1, {-12, 2}}, {3, {-4.829334, 6.452952}}, {4, {-18.565214, 5.428571}}};
+      {1, {-12, 2}}, {3, {-4.829334, 6.452952}}, {4, {-18.5652144, 5.4285714}}};
   CHECK_TANGENT_POINTS(poly, circle, indexes_and_points);
 }
 
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(poly_6_and_circle) {
       {{-8, -4}, {0, -2}, {-4, 2}, {-12, 4}, {-13, 0}, {-12, -3}});
   CircleObstacle circle({5, -5}, sqrt(130));
   std::vector<std::pair<std::size_t, Point>> indexes_and_points{
-      {3, {3.323559, 6.277834}}, {5, {-3.536299, -12.558544}}};
+      {3, {3.3235593, 6.2778343}}, {5, {-3.5362993, -12.5585444}}};
   CHECK_TANGENT_POINTS(poly, circle, indexes_and_points);
 }
 
@@ -137,9 +137,9 @@ BOOST_AUTO_TEST_CASE(poly_7_and_circle) {
   CircleObstacle circle({0, 20}, sqrt(50));
   std::vector<std::pair<std::size_t, Point>> indexes_and_points{
       {1, {-6.303152, 23.204727}},
-      {1, {0.533921, 12.949119}},
-      {3, {-6.676347, 17.670539}},
-      {5, {6.083551, 16.395779}}};
+      {1, {0.5339209, 12.9491186}},
+      {3, {-6.6763471, 17.6705388}},
+      {5, {6.0835508, 16.3957789}}};
   CHECK_TANGENT_POINTS(poly, circle, indexes_and_points);
 }
 

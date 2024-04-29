@@ -19,7 +19,7 @@ void CHECK_TANGENT_POINTS(const PolygonObstacle& poly, const Point& point,
   BOOST_TEST(tang_points.second.y == vertexes[indexes.second].y);
 }
 
-BOOST_AUTO_TEST_SUITE(polys_tangent_points, *utf::tolerance(10E-5))
+BOOST_AUTO_TEST_SUITE(polys_tangent_points, *utf::tolerance(1.0E-5))
 
 BOOST_AUTO_TEST_CASE(poly_3) {
   PolygonObstacle poly({{-5, 0}, {5, 5}, {0, -5}});
