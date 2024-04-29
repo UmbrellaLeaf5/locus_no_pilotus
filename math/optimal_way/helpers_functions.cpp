@@ -211,13 +211,16 @@ std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
   std::vector<Point> vertexes = polygon.GetVertexes();
   for (auto& vertex : vertexes) {
     std::pair<Point, Point> tang_pnts = TangentPoints(obstacle, vertex);
-
-    if (!AreThereIntersections(polygon,
-                               LinearFunction(vertex, tang_pnts.first)))
-      tangents.push_back(LinearFunction(vertex, tang_pnts.first));
-    if (!AreThereIntersections(polygon,
-                               LinearFunction(vertex, tang_pnts.first)))
-      tangents.push_back(LinearFunction(vertex, tang_pnts.second));
+    for (auto& tang_pnt : {tang_pnts.first, tang_pnts.second})
+      if (vertex != tang_pnt) {
+        LinearFunction line(vertex, tang_pnt);
+        if (!AreThereIntersections(polygon, line)) {
+          bool is_unique = !_isnan(line.a_coef);
+          for (std::size_t i = 0; i < tangents.size(); ++i)
+            if (tangents[i] == line) is_unique = false;
+          if (is_unique) tangents.push_back(line);
+        }
+      }
   }
   return tangents;
 }
