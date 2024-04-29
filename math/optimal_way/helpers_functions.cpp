@@ -271,6 +271,25 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
   return false;
 }
 
+bool AreThereIntersections(const PolygonObstacle& poly_obst,
+                           const LinearFunction& line) {
+  std::vector<Point> vertexes = poly_obst.GetVertexes();
+  for (std::size_t i = 0; i < vertexes.size(); ++i) {
+    if ((line.Substitute(vertexes[i]) *
+             line.Substitute(vertexes[(i + 1) % vertexes.size()]) <
+         0))
+      return true;
+  }
+  std::size_t prev = -1;
+  for (std::size_t i = 0; i < vertexes.size(); ++i)
+    if (std::abs(line.Substitute(vertexes[i])) <= precision)
+      if (prev == -1)
+        prev = i;
+      else if (i - prev > 1)
+        return true;
+  return false;
+}
+
 template std::vector<LinearFunction> TangentsBetween<CircleObstacle>(
     const PolygonObstacle& polygon, const CircleObstacle& obstacle);
 template std::vector<LinearFunction> TangentsBetween<PolygonObstacle>(
