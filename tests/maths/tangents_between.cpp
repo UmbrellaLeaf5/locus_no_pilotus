@@ -161,3 +161,68 @@ BOOST_AUTO_TEST_CASE(poly_and_circle_intersect_2) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(tangents_between_polys, *utf::tolerance(1.0E-5))
+
+BOOST_AUTO_TEST_CASE(random_polys_1) {
+  PolygonObstacle poly1({{-6, 6}, {-4, -2}, {-2, 4}});
+  PolygonObstacle poly2({{2, 0}, {4, 2}, {6, -2}});
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<PolygonObstacle>(poly1, poly2);
+  std::vector<LinearFunction> correct_tangents{
+      {2, 5, -18}, {1, -2, 0}, {0, 1, 2}, {1, 1, -2}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_CASE(random_polys_2) {
+  PolygonObstacle poly1({{-10, 4}, {-8, -2}, {0, -2}, {-4, 2}});
+  PolygonObstacle poly2({{0, 2}, {2, 0}, {4, 2}, {2, 4}, {0, 4}});
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<PolygonObstacle>(poly1, poly2);
+  std::vector<LinearFunction> correct_tangents{
+      {0, 1, -4}, {1, 3, -2}, {1, -1, -2}, {1, 0, 0}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_CASE(random_polys_3) {
+  PolygonObstacle poly1(
+      {{-14, 0}, {-12, 12}, {-6, 12}, {-4, 10}, {-4, 0}, {-6, -4}, {-12, -2}});
+  PolygonObstacle poly2(
+      {{0, 4}, {0, 6}, {2, 8}, {4, 8}, {6, 6}, {6, 4}, {4, -4}, {2, -4}});
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<PolygonObstacle>(poly1, poly2);
+  std::vector<LinearFunction> correct_tangents{
+      {2, 5, -48}, {7, 3, -2}, {5, -3, 18}, {0, 1, 4}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_CASE(polys_touch) {
+  PolygonObstacle poly1({{-6, 0}, {-4, 6}, {0, 0}, {-4, -2}});
+  PolygonObstacle poly2({{4, -4}, {0, 0}, {6, 2}, {8, -2}});
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<PolygonObstacle>(poly1, poly2);
+  std::vector<LinearFunction> correct_tangents{
+      {2, 5, -22}, {1, 4, 12}, {3, 2, 0}, {1, -2, 0}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_CASE(polys_touch_2) {
+  PolygonObstacle poly1({{-6, 0}, {-4, 6}, {0, 0}, {-4, -2}});
+  PolygonObstacle poly2({{4, -4}, {0, 0}, {-4, 6}, {8, -2}});
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<PolygonObstacle>(poly1, poly2);
+  std::vector<LinearFunction> correct_tangents{
+      {1, 4, 12}, {3, -1, 18}, {2, 3, -10}, {3, 2, 0}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_CASE(polys_intersect) {
+  PolygonObstacle poly1({{-6, 0}, {0, 4}, {2, 0}, {0, -2}});
+  PolygonObstacle poly2({{4, 2}, {-2, -2}, {2, -4}, {6, 0}});
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<PolygonObstacle>(poly1, poly2);
+  std::vector<LinearFunction> correct_tangents{{1, 2, -8}, {1, 2, 6}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
