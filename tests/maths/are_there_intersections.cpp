@@ -35,6 +35,14 @@ BOOST_AUTO_TEST_CASE(no_intersections_3) {
   BOOST_TEST(AreThereIntersections(poly, LinearFunction(p1, p2)) == false);
 }
 
+BOOST_AUTO_TEST_CASE(no_intersections_4) {
+  PolygonObstacle poly({{-10, 4}, {-8, -2}, {0, -2}, {-4, 2}});
+  Point p1(-10, 4);
+  Point p2(2, 0);
+  BOOST_TEST(AreThereIntersections(poly, p1, p2) == false);
+  BOOST_TEST(AreThereIntersections(poly, LinearFunction(p1, p2)) == false);
+}
+
 BOOST_AUTO_TEST_CASE(semi_intersection_1) {
   PolygonObstacle poly({{-6, 6}, {-4, -2}, {-2, 4}});
   Point p1(-2, -2);
