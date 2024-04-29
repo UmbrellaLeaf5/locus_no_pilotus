@@ -175,21 +175,31 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
   double r_0 = circle1.GetRadius();
 
   auto FindTangent = [&x_1, &x_0, &y_1, &y_0](double r_0, double r_1) {
-    double b =
-        ((r_1 - r_0) * (y_1 - y_0) +
-         sqrt(pow(x_1 - x_0, 2) *
-              (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2)))) /
-        (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
-    double a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
-    double c = r_0 - a * x_0 - b * y_0;
-    return LinearFunction(a, b, c);
+    double a, b, c;
+    if (std::abs(x_1 - x_0) > precision) {
+      double b =
+          ((r_1 - r_0) * (y_1 - y_0) +
+           sqrt(pow(x_1 - x_0, 2) *
+                (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2)))) /
+          (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
+      double a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
+      double c = r_0 - a * x_0 - b * y_0;
+      return LinearFunction(a, b, c);
+    } else {
+      double a =
+          std::abs(y_1 - y_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
+      double b = (r_1 - r_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
+      double c = r_0 - a * x_0 - b * y_0;
+      return LinearFunction(a, b, c);
+    }
   };
 
   for (auto n1 : {-1, 1})
     for (auto n2 : {-1, 1}) {
-      tangents.push_back(FindTangent(r_0 * n1, r_1 * n2));
-      for (std::size_t i = 0; i < tangents.size() - 1; ++i)
-        if (tangents[i] == FindTangent(r_0 * n1, r_1 * n2)) tangents.pop_back();
+      bool is_unique = !(_isnan(FindTangent(r_0 * n1, r_1 * n2).a_coef));
+      for (std::size_t i = 0; i < tangents.size(); ++i)
+        if (tangents[i] == FindTangent(r_0 * n1, r_1 * n2)) is_unique = false;
+      if (is_unique) tangents.push_back(FindTangent(r_0 * n1, r_1 * n2));
     }
   return tangents;
 }
@@ -201,9 +211,12 @@ std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
   std::vector<Point> vertexes = polygon.GetVertexes();
   for (auto& vertex : vertexes) {
     std::pair<Point, Point> tang_pnts = TangentPoints(obstacle, vertex);
-    if (!AreThereIntersections(polygon, vertex, tang_pnts.first))
+
+    if (!AreThereIntersections(polygon,
+                               LinearFunction(vertex, tang_pnts.first)))
       tangents.push_back(LinearFunction(vertex, tang_pnts.first));
-    if (!AreThereIntersections(polygon, vertex, tang_pnts.second))
+    if (!AreThereIntersections(polygon,
+                               LinearFunction(vertex, tang_pnts.first)))
       tangents.push_back(LinearFunction(vertex, tang_pnts.second));
   }
   return tangents;
@@ -240,9 +253,11 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
                            const Point& pnt2) {
   LinearFunction line(pnt1, pnt2);
   std::vector<Point> vertexes = poly_obst.GetVertexes();
-  for (std::size_t i = 0; i < vertexes.size() - 1; ++i) {
-    LinearFunction v_line(vertexes[i], vertexes[i + 1]);
-    if ((line.Substitute(vertexes[i]) * line.Substitute(vertexes[i + 1]) < 0) &&
+  for (std::size_t i = 0; i < vertexes.size(); ++i) {
+    LinearFunction v_line(vertexes[i], vertexes[(i + 1) % vertexes.size()]);
+    if ((line.Substitute(vertexes[i]) *
+             line.Substitute(vertexes[(i + 1) % vertexes.size()]) <
+         0) &&
         (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < 0))
       return true;
   }
