@@ -18,15 +18,10 @@ struct LinearFunction {
       : a_coef{a}, b_coef{b}, c_coef{c} {}
 
   LinearFunction(const lib::Point& point1, const lib::Point& point2) {
-    if (point2.x != point1.x) {
-      a_coef = (point2.y - point1.y) / (point2.x - point1.x);
-      b_coef = -1;
-      c_coef = point1.y - a_coef * point1.x;
-    } else {
-      a_coef = 1;
-      b_coef = 0;
-      c_coef = -point1.x;
-    }
+    a_coef = point2.y - point1.y;
+    b_coef = -(point2.x - point1.x);
+    c_coef =
+        (point2.x - point1.x) * point1.y - (point2.y - point1.y) * point1.x;
   }
 
   double Substitute(const lib::Point& p) const {
