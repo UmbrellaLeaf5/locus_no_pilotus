@@ -210,7 +210,8 @@ std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
     for (auto& tang_pnt : {tang_pnts.first, tang_pnts.second})
       if (vertex != tang_pnt) {
         LinearFunction line(vertex, tang_pnt);
-        if (!AreThereIntersections(polygon, line)) {
+        if (!AreThereIntersections(polygon, line) &&
+            !AreThereIntersections(obstacle, line)) {
           bool is_unique = !_isnan(line.a_coef);
           for (std::size_t i = 0; i < tangents.size(); ++i)
             if (tangents[i] == line) is_unique = false;
