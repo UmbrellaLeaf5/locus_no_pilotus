@@ -134,10 +134,7 @@ std::pair<Point, Point> TangentPoints(const PolygonObstacle& poly_obst,
   double dist_to_cnt = DistanceBetweenPoints(center, point);
   LinearFunction line(center, point);
   for (const auto& vertex : vertexes)
-    if ((line.a_coef * vertex.x + line.b_coef * vertex.y + line.c_coef) *
-            (line.a_coef * vertexes[0].x + line.b_coef * vertexes[0].y +
-             line.c_coef) <
-        0) {
+    if (line.Substitute(vertex) * line.Substitute(vertexes[0]) < 0) {
       tang_pnt_2 = vertex;
       break;
     }
