@@ -4,7 +4,7 @@
 #define BOOST_TEST_DYN_LINK
 #endif
 #include <boost/test/unit_test.hpp>
-#include <iostream>
+#include <icecream.hpp>
 
 namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
@@ -13,16 +13,15 @@ using namespace math;
 void CHECK_TANGENTS(std::vector<LinearFunction> func_tangents,
                     std::vector<LinearFunction> correct_tangents) {
   std::size_t amount_of_matches = 0;
+  BOOST_TEST(func_tangents.size() == correct_tangents.size());
   for (std::size_t i = 0; i < func_tangents.size(); ++i)
-    for (std::size_t j = 0; j < func_tangents.size(); ++j)
-      if (func_tangents[i] == correct_tangents[j]) {
-        amount_of_matches += 1;
-        continue;
-      }
+    for (std::size_t j = 0; j < correct_tangents.size(); ++j)
+      if (func_tangents[i] == correct_tangents[j]) amount_of_matches += 1;
   BOOST_TEST(amount_of_matches == correct_tangents.size());
 }
 
-BOOST_AUTO_TEST_SUITE(tangents_between_two_circles)
+BOOST_AUTO_TEST_SUITE(tangents_between_two_circles, *utf::tolerance(1.0E-5))
+
 BOOST_AUTO_TEST_CASE(random_circles_1) {
   CircleObstacle circle1({-10, 1.6}, 3);
   CircleObstacle circle2({3.9, -6.24}, 3);
@@ -76,8 +75,25 @@ BOOST_AUTO_TEST_CASE(circles_touch) {
   std::vector<LinearFunction> correct_tangents{
       {-0.663836717691, 0.747877538268, 2},
       {0.6, 0.8, -2},
-      {-0.6, -0.8, 2},
       {-0.903836717691, 0.427877538268, -2}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(tangents_between_poly_and_circles,
+                      *utf::tolerance(1.0E-5))
+
+BOOST_AUTO_TEST_CASE(test_1) {
+  PolygonObstacle poly({{-6, 6}, {-4, -2}, {-2, 4}});
+  CircleObstacle circle({2, 6}, 2);
+  std::vector<LinearFunction> tangents =
+      TangentsBetween<CircleObstacle>(poly, circle);
+  std::vector<LinearFunction> correct_tangents{
+      {1.9364917, 7.5, -33.38105},
+      {-1.9364917, 7.5, -56.61895},
+      {-6.504245, 7.327673, -11.361633},
+      {-8.855755, 4.192326, -27.0383672}};
   CHECK_TANGENTS(tangents, correct_tangents);
 }
 
