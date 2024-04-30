@@ -14,7 +14,7 @@ class AddTrappyCircleForm : public QDialog {
   ~AddTrappyCircleForm();
 
  signals:
-  void AddTrappyCircle(double x, double y, double radius);
+  void AddTrappyCircle(std::string x, std::string y, std::string radius);
 
  private slots:
   void on_clearPushButton_clicked();

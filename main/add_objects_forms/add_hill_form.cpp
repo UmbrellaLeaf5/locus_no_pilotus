@@ -13,11 +13,13 @@ AddHillForm::AddHillForm(QWidget* parent)
 AddHillForm::~AddHillForm() { delete ui; }
 
 void AddHillForm::on_createPushButton_clicked() {
-  std::vector<lib::Point> points;
+  std::vector<std::pair<std::string, std::string>> points;
   for (size_t i = 0; i < both_coords_point_line_edits_.size(); i++) {
     points.push_back(
-        {both_coords_point_line_edits_[i].abscissa->displayText().toDouble(),
-         both_coords_point_line_edits_[i].ordinate->displayText().toDouble()});
+        {both_coords_point_line_edits_[i].abscissa->displayText().toStdString(),
+         both_coords_point_line_edits_[i]
+             .ordinate->displayText()
+             .toStdString()});
   }
   emit AddHill(points);
   close();
