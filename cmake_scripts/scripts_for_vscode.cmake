@@ -18,12 +18,3 @@ function(load_qcustomplot_dll START_DIR)
     return()
   endif()
 endfunction()
-
-function(add_qt_runtime START_DIR TARGET)
-  if(EXISTS "${START_DIR}/.vscode")
-    message(STATUS "Found ${START_DIR}/.vscode, installing RUNTIME DESTINATION Qt")
-    install(TARGETS TARGET
-      RUNTIME DESTINATION "${Qt${QT_VERSION_MAJOR}_DIR}"
-    )
-  endif()
-endfunction()

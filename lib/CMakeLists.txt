@@ -11,8 +11,5 @@ add_library(lib STATIC ${PROJECT_SOURCES})
 
 target_link_libraries(lib PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 
-include(${CMAKESCRIPTS_DIR}/scripts_for_vscode.cmake)
-add_qt_runtime(${CMAKE_CURRENT_SOURCE_DIR} lib)
-
 find_package(IcecreamCpp)
 include_directories(${IcecreamCpp_INCLUDE_DIRS})
