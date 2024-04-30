@@ -4,9 +4,11 @@ namespace lib {
 
 QJsonObject Target::GetJsonInfo() const {
   QVariantMap target_map;
+
   target_map.insert("Id", GetId());
   target_map.insert("X", p_.x);
   target_map.insert("Y", p_.y);
+
   return QJsonObject::fromVariantMap(target_map);
 }
 
@@ -15,9 +17,12 @@ void Target::SetJsonInfo(const QJsonObject& target_obj) {
         target_obj.contains("Id")))
     throw std::invalid_argument(
         "Invalid file format: missing X,Y or Id field in Targets!");
+
   double x = target_obj.value("X").toDouble();
   double y = target_obj.value("Y").toDouble();
+
   SetPoint(x, y);
+
   SetId(static_cast<unsigned short>(target_obj.value("Id").toInt()));
 
   CheckErrorValues();

@@ -6,9 +6,11 @@ namespace lib {
 
 QJsonObject TrappyLine::GetJsonInfo() const {
   QVariantMap trappy_line_map;
+
   trappy_line_map.insert("Id", GetId());
   trappy_line_map.insert("Id_P1", targets_.first->GetId());
   trappy_line_map.insert("Id_P2", targets_.second->GetId());
+
   return QJsonObject::fromVariantMap(trappy_line_map);
 }
 
