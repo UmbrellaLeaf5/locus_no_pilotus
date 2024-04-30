@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
+    <width>420</width>
     <height>310</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>280</width>
+    <width>500</width>
     <height>310</height>
    </size>
   </property>
@@ -44,10 +44,10 @@
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>0</y>
-     <width>280</width>
-     <height>310</height>
+     <width>401</width>
+     <height>311</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -64,8 +64,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>278</width>
-      <height>308</height>
+      <width>399</width>
+      <height>309</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -108,6 +108,18 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
          </property>
          <property name="text">
           <string>Clear all</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deletePushButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+         </property>
+         <property name="text">
+          <string>Delete point</string>
          </property>
         </widget>
        </item>

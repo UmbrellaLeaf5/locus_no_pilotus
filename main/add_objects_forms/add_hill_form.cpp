@@ -13,11 +13,13 @@ AddHillForm::AddHillForm(QWidget* parent)
 AddHillForm::~AddHillForm() { delete ui; }
 
 void AddHillForm::on_createPushButton_clicked() {
-  std::vector<lib::Point> points;
+  std::vector<std::pair<std::string, std::string>> points;
   for (size_t i = 0; i < both_coords_point_line_edits_.size(); i++) {
     points.push_back(
-        {both_coords_point_line_edits_[i].abscissa->displayText().toDouble(),
-         both_coords_point_line_edits_[i].ordinate->displayText().toDouble()});
+        {both_coords_point_line_edits_[i].abscissa->displayText().toStdString(),
+         both_coords_point_line_edits_[i]
+             .ordinate->displayText()
+             .toStdString()});
   }
   emit AddHill(points);
   close();
@@ -83,5 +85,15 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     // добавляем оба лейбла в вектор
     both_coords_point_line_edits_.emplace_back(
         PointLineEdits(abscissa_line_edit, ordinate_line_edit));
+  }
+}
+
+void AddHillForm::on_deletePushButton_clicked() {
+  if (both_coords_point_line_edits_.size() > 3) {
+    both_coords_point_line_edits_.erase(both_coords_point_line_edits_.begin() +
+                                        both_coords_point_line_edits_.size() -
+                                        1);
+    point_layouts_widgets_.erase(point_layouts_widgets_.begin() +
+                                 point_layouts_widgets_.size() - 1);
   }
 }

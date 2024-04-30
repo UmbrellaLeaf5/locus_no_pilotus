@@ -17,10 +17,11 @@ void AddTrappyLineForm::on_clearPushButton_clicked() {
 }
 
 void AddTrappyLineForm::on_createPushButton_clicked() {
-  double x1 = (ui->firstPointAbscissaLineEdit->displayText()).toDouble();
-  double y1 = (ui->firstPointOrdinateLineEdit->displayText()).toDouble();
-  double x2 = (ui->secondPointAbscissaLineEdit->displayText()).toDouble();
-  double y2 = (ui->secondPointOrdinateLineEdit->displayText()).toDouble();
+  std::string x1 = ui->firstPointAbscissaLineEdit->displayText().toStdString();
+  std::string y1 = ui->firstPointOrdinateLineEdit->displayText().toStdString();
+  std::string x2 = ui->secondPointAbscissaLineEdit->displayText().toStdString();
+  std::string y2 = ui->secondPointOrdinateLineEdit->displayText().toStdString();
+
   emit AddTrappyLine(x1, y1, x2, y2);
   close();
 }
