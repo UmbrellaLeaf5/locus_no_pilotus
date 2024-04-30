@@ -38,6 +38,7 @@ class AddHillForm : public QDialog {
   void on_createPushButton_clicked();
   void on_clearPushButton_clicked();
   void on_newPushButton_clicked();
+  void on_deletePushButton_clicked();
 
  private:
   /**
