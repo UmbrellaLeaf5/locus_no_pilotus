@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -std=c++17 -O2")
 
-# less speed, more warnings = less errors in code
+# less speed, more warnings = less potential errors in code
 # flags using source: https://codeforces.com/blog/entry/15547?locale=ru
 # (commented because of qcustomplot warnings)
 # set(CMAKE_CXX_FLAGS " -Wall -Wextra -pedantic -std=c++17 -O2 -Wfloat-equal -Wconversion -Wlogical-op -Wduplicated-cond")

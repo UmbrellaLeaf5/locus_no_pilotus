@@ -15,8 +15,8 @@ void AddTargetForm::on_clearPushButton_clicked() {
 }
 
 void AddTargetForm::on_createPushButton_clicked() {
-  double x = (ui->abscissaLineEdit->displayText()).toDouble();
-  double y = (ui->ordinateLineEdit->displayText()).toDouble();
+  std::string x = ui->abscissaLineEdit->displayText().toStdString();
+  std::string y = ui->ordinateLineEdit->displayText().toStdString();
   emit AddTarget(x, y);
   close();
 }
