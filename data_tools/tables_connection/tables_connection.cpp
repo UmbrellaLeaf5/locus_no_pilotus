@@ -233,8 +233,9 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
-    x_item->setText("0");
-    y_item->setText("0");
+    manager_->Remove(gui::ObjectType::Targets, static_cast<size_t>(column));
+    UpdateTables();
+    area_->Redraw();
 
     QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
@@ -275,8 +276,9 @@ void TablesConnection::HillsItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
-    x_item->setText("0");
-    y_item->setText("0");
+    manager_->Remove(gui::ObjectType::Hills, static_cast<size_t>(column));
+    UpdateTables();
+    area_->Redraw();
 
     QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
@@ -303,9 +305,10 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
-    x_item->setText("0");
-    y_item->setText("0");
-    r_item->setText("0");
+    manager_->Remove(gui::ObjectType::TrappyCircles,
+                     static_cast<size_t>(column));
+    UpdateTables();
+    area_->Redraw();
 
     QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
@@ -333,13 +336,15 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
             manager_->GetTargetsPtrs()[t_2_index]);
 
         area_->Redraw();
+
       } else
         throw std::invalid_argument("Wrong targets numbers in TrappyLines!");
     }
 
   } catch (const std::exception& e) {
-    t_1_item->setText("1");
-    t_2_item->setText("1");
+    manager_->Remove(gui::ObjectType::TrappyLines, static_cast<size_t>(column));
+    UpdateTables();
+    area_->Redraw();
 
     QMessageBox::warning(targets_table_.get(), "Error!", e.what());
   }
