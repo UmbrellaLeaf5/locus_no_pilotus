@@ -25,6 +25,7 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
                  &MainWindow::mousePressDeleteLastVertice);
       disconnect(ui->plot, &QCustomPlot::mouseMove, this,
                  &MainWindow::mouseMoveAddVertice);
+      break;
     }
 
     default:
@@ -214,7 +215,8 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
 
       area_->Redraw();
       t_connection_->UpdateTables();
-      break;
+
+      return;
     }
   }
 }
