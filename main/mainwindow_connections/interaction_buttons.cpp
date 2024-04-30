@@ -225,16 +225,16 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     int x_pixels = mouse_event->pos().x();
     int y_pixels = mouse_event->pos().y();
 
-    // // Позиция курсора в координатах
+    // Позиция курсора в координатах
     double x = ui->plot->xAxis->pixelToCoord(x_pixels);
     double y = ui->plot->yAxis->pixelToCoord(y_pixels);
 
     size_t last = manager_->GetHills().size() - 1;
 
     // Позиция начальной точки в пикселях
-    int x2_pixels = ui->plot->xAxis->coordToPixel(
+    double x2_pixels = ui->plot->xAxis->coordToPixel(
         manager_->GetHills()[last].GetPoints()[0].x);
-    int y2_pixels = ui->plot->yAxis->coordToPixel(
+    double y2_pixels = ui->plot->yAxis->coordToPixel(
         manager_->GetHills()[last].GetPoints()[0].y);
 
     // Проверка на то, что расстояние от курсора до начальной точки меньше 10

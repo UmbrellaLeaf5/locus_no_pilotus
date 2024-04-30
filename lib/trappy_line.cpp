@@ -13,8 +13,10 @@ QJsonObject TrappyLine::GetJsonInfo() const {
 }
 
 bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
-  unsigned short id1 = trappy_line_obj.value("Id_P1").toInt();
-  unsigned short id2 = trappy_line_obj.value("Id_P2").toInt();
+  unsigned short id1 =
+      static_cast<unsigned short>(trappy_line_obj.value("Id_P1").toInt());
+  unsigned short id2 =
+      static_cast<unsigned short>(trappy_line_obj.value("Id_P2").toInt());
   return id1 != targets_.first->GetId() || id2 != targets_.second->GetId();
 }
 

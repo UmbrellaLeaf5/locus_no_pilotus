@@ -13,6 +13,7 @@ namespace utf = boost::unit_test;
 using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(lib_trappy_circle)
+
 BOOST_AUTO_TEST_CASE(simple_construct) {
   struct {
     double x, y, r;

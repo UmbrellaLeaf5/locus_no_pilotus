@@ -18,7 +18,7 @@ void Target::SetJsonInfo(const QJsonObject& target_obj) {
   double x = target_obj.value("X").toDouble();
   double y = target_obj.value("Y").toDouble();
   SetPoint(x, y);
-  SetId(target_obj.value("Id").toInt());
+  SetId(static_cast<unsigned short>(target_obj.value("Id").toInt()));
 
   CheckErrorValues();
 }

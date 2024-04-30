@@ -93,11 +93,12 @@ class MainWindow : public QMainWindow {
   void AddHill(std::vector<lib::Point> points);
 
  private:
+  Ui::MainWindow* ui;
+
   std::unique_ptr<data_tools::PlotArea> area_;
   std::unique_ptr<data_tools::DataManager> manager_;
   std::unique_ptr<data_tools::TablesConnection> t_connection_;
 
-  Ui::MainWindow* ui;
   GuiJsonFile json_file_;
   CursorType cursor_{CursorType::DefaultCursor};
   WhatObjectAddition what_obj_addition_{WhatObjectAddition::Nothing};

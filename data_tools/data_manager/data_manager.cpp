@@ -434,6 +434,9 @@ unsigned short DataManager::GetMinId(gui::ObjectType obj_type) {
       return id;
     }
   }
+
+  // this case is impossible
+  return SHRT_MAX;
 }
 
 }  // namespace data_tools

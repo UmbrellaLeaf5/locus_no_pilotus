@@ -12,7 +12,7 @@ namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
 using namespace lib;
 
-BOOST_AUTO_TEST_SUITE(lib_point)
+BOOST_AUTO_TEST_SUITE(lib_point, *utf::tolerance(1.0E-7))
 
 BOOST_AUTO_TEST_CASE(simple_construct) {
   struct {
