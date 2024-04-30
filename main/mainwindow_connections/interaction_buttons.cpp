@@ -23,6 +23,8 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
                  &MainWindow::mousePressAddVertice);
       disconnect(ui->plot, &QCustomPlot::mousePress, this,
                  &MainWindow::mousePressDeleteLastVertice);
+      disconnect(ui->plot, &QCustomPlot::mouseMove, this,
+                 &MainWindow::mouseMoveAddVertice);
     }
 
     default:
@@ -31,6 +33,8 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
 
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
+  connect(ui->plot, &QCustomPlot::mousePress, this,
+          &MainWindow::mousePressContextMenu);
 
   ui->plot->setCursor(Qt::CrossCursor);
   cursor_ = CursorType::DefaultCursor;
@@ -98,6 +102,8 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         manager_->Add(new gui::TrappyCircle({x, y}, 0));
         disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                    &MainWindow::mousePressObjectsButton);
+        disconnect(ui->plot, &QCustomPlot::mousePress, this,
+                   &MainWindow::mousePressContextMenu);
 
         connect(ui->plot, &QCustomPlot::mouseMove, this,
                 &MainWindow::mouseMoveSetRadiusFromPlot);
@@ -117,6 +123,8 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
             manager_->Add(new gui::TrappyLine(t_ptr, t_ptr));
             disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                        &MainWindow::mousePressObjectsButton);
+            disconnect(ui->plot, &QCustomPlot::mousePress, this,
+                       &MainWindow::mousePressContextMenu);
 
             connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                     &MainWindow::mousePressSelectSecondTarget);
@@ -133,11 +141,15 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                    &MainWindow::mousePressObjectsButton);
+        disconnect(ui->plot, &QCustomPlot::mousePress, this,
+                   &MainWindow::mousePressContextMenu);
 
         connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
                 &MainWindow::mousePressAddVertice);
         connect(ui->plot, &QCustomPlot::mousePress, this,
                 &MainWindow::mousePressDeleteLastVertice);
+        connect(ui->plot, &QCustomPlot::mouseMove, this,
+                &MainWindow::mouseMoveAddVertice);
 
         what_obj_addition_ = WhatObjectAddition::Hill;
         break;
@@ -159,6 +171,8 @@ void MainWindow::mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::LeftButton) {
     DisconnectObject(gui::ObjectType::TrappyCircles);
     what_obj_addition_ = WhatObjectAddition::Nothing;
+    area_->Redraw();
+    t_connection_->UpdateTables();
   }
 }
 
@@ -178,7 +192,6 @@ void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
 
   manager_->GetTrappyCirclesPtrs()[last]->SetRadius(r);
   area_->Redraw();
-  t_connection_->UpdateTables();
 }
 
 void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
@@ -229,6 +242,10 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     if (pow(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2), 0.5) <
             10 &&
         manager_->GetHills()[last].GetPoints().size() > 2) {
+      size_t last_vertice =
+          manager_->GetHillsPtrs()[last]->GetPoints().size() - 1;
+      manager_->GetHillsPtrs()[last]->GetPoints().erase(
+          manager_->GetHillsPtrs()[last]->GetPoints().begin() + last_vertice);
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
 
@@ -265,5 +282,21 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
 
     area_->Redraw();
     t_connection_->UpdateTables();
+  }
+}
+
+void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
+  size_t last = manager_->GetHills().size() - 1;
+  size_t last_vertice = manager_->GetHillsPtrs()[last]->GetPoints().size() - 1;
+
+  if (last_vertice > 0) {
+    double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
+    double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
+
+    manager_->GetHillsPtrs()[last]->GetPoints().erase(
+        manager_->GetHillsPtrs()[last]->GetPoints().begin() + last_vertice);
+
+    manager_->GetHillsPtrs()[last]->AddVertice({x, y});
+    area_->Redraw();
   }
 }

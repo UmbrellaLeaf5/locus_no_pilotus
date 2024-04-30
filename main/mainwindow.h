@@ -55,6 +55,8 @@ class MainWindow : public QMainWindow {
   void on_actionNew_triggered();
 
   void mousePressObjectsButton(QMouseEvent* mouse_event);
+  void mousePressContextMenu(QMouseEvent* mouse_event);
+  void mousePressRemoveObject();
   void DisconnectObject(gui::ObjectType obj_type);
   void closeEvent(QCloseEvent* event) override;
   void keyPressEvent(QKeyEvent* key_event) override;
@@ -75,6 +77,7 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddHill_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
+  void mouseMoveAddVertice(QMouseEvent* mouse_event);
 
   // Слоты для Settings
   void on_targetAddFromTablePushButton_clicked();
