@@ -1,6 +1,6 @@
 # Locus No Pilotus
 
-**Project of four first grade students (for engineering practical work in the second semester) in Qt C++**
+**Project of four first grade MIPT DAFE/RSE students (for engineering practical work in the second semester) in Qt C++**
 
 ## **Contents**
   * [Documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html "documentation generated with doxygen")

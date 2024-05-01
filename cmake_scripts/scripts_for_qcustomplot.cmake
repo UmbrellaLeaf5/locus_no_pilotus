@@ -1,7 +1,7 @@
 # language: CMake
 
 function(replace_include_qcustomplot_in_autogen BUILD_DIR)
-  if(EXISTS "${BUILD_DIR}/main/main_autogen/include")
+  if(EXISTS "${BUILD_DIR}/main/main_autogen/include/ui_mainwindow.h")
     message(STATUS "Found ${BUILD_DIR}/main/main_autogen/include/ui_mainwindow.h, replacing qcustomplot include")
 
     # open the file where you need to replace the line in FILE_CONTENT

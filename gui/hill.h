@@ -12,17 +12,6 @@ class Hill : public Drawable {
 
   /**
    * @brief Инициализирует новый экземпляр Hill
-   * @param center: центр описанной окружности
-   * @param radius: радиус опис. окр.
-   * @param vertices_amount: кол-во вершин
-   * @param color: цвет
-   */
-  Hill(lib::Point center, double radius, std::size_t vertices_amount,
-       QColor color = QColor(50, 200, 50, 255))
-      : data_(center, radius, vertices_amount), color_{color} {}
-
-  /**
-   * @brief Инициализирует новый экземпляр Hill
    * @param points: список точек
    * @param color: цвет
    */
@@ -41,9 +30,6 @@ class Hill : public Drawable {
 
   Hill& operator=(const Hill&) = default;
   Hill& operator=(Hill&&) = default;
-
-  lib::Point GetCenter() const { return data_.GetCenter(); }
-  double GetRadius() const { return data_.GetRadius(); }
 
   const lib::Hill& GetData() const { return data_; }
   lib::Hill& GetData() { return data_; }

@@ -32,10 +32,13 @@ bool GuiJsonFile::IsChanged(data_tools::DataManager* manager) const {
   QJsonArray json_trappy_lines = root["Trappy_Lines"].toArray();
   QJsonArray json_hills = root["Hills"].toArray();
 
-  if (manager->GetTargets().size() == json_targets.size() &&
-      manager->GetTrappyCircles().size() == json_trappy_circles.size() &&
-      manager->GetTrappyLines().size() == json_trappy_lines.size() &&
-      manager->GetHills().size() == json_hills.size()) {
+  if (manager->GetTargets().size() ==
+          static_cast<size_t>(json_targets.size()) &&
+      manager->GetTrappyCircles().size() ==
+          static_cast<size_t>(json_trappy_circles.size()) &&
+      manager->GetTrappyLines().size() ==
+          static_cast<size_t>(json_trappy_lines.size()) &&
+      manager->GetHills().size() == static_cast<size_t>(json_hills.size())) {
     for (size_t i = 0; i < manager->GetTargets().size(); i++) {
       lib::Target t = manager->GetTargets()[i].GetData();
       if (t.IsChanged(json_targets.at(i).toObject())) {

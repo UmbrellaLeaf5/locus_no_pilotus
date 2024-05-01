@@ -1,9 +1,8 @@
 #include "gui_json_file.h"
 
-std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
-                                            data_tools::DataManager* manager) {
+std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr) {
   std::vector<lib::Target> targets;
-  for (size_t i = 0; i < arr.size(); i++) {
+  for (size_t i = 0; i < static_cast<size_t>(arr.size()); i++) {
     lib::Target t;
     t.SetJsonInfo(arr.at(i).toObject());
     targets.push_back(t);
@@ -11,10 +10,9 @@ std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr,
   return targets;
 }
 
-std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
-    QJsonArray arr, data_tools::DataManager* manager) {
+std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(QJsonArray arr) {
   std::vector<lib::TrappyCircle> trappy_circles;
-  for (size_t i = 0; i < arr.size(); i++) {
+  for (size_t i = 0; i < static_cast<size_t>(arr.size()); i++) {
     lib::TrappyCircle tc;
     tc.SetJsonInfo(arr.at(i).toObject());
     trappy_circles.push_back(tc);
@@ -22,10 +20,9 @@ std::vector<lib::TrappyCircle> GetTrappyCirclesFromFile(
   return trappy_circles;
 }
 
-std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr,
-                                        data_tools::DataManager* manager) {
+std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr) {
   std::vector<lib::Hill> hills;
-  for (size_t i = 0; i < arr.size(); i++) {
+  for (size_t i = 0; i < static_cast<size_t>(arr.size()); i++) {
     lib::Hill h;
     h.SetJsonInfo(arr.at(i).toObject());
     hills.push_back(h);
@@ -49,23 +46,26 @@ void GuiJsonFile::Open(data_tools::DataManager* manager) {
 
     std::vector<lib::Target> targets;
 
-    for (size_t i = 0; i < json_targets.size(); i++) {
+    for (size_t i = 0; i < static_cast<size_t>(json_targets.size()); i++) {
       lib::Target t;
       t.SetJsonInfo(json_targets.at(i).toObject());
       targets.push_back(t);
     }
-    manager->Set(GetTargetsFromFile(json_targets, manager));
+    manager->Set(GetTargetsFromFile(json_targets));
 
-    for (size_t i = 0; i < json_trappy_circles.size(); i++) {
+    for (size_t i = 0; i < static_cast<size_t>(json_trappy_circles.size());
+         i++) {
       lib::TrappyCircle trc;
       trc.SetJsonInfo(json_trappy_circles.at(i).toObject());
     }
-    manager->Set(GetTrappyCirclesFromFile(json_trappy_circles, manager));
+    manager->Set(GetTrappyCirclesFromFile(json_trappy_circles));
 
-    for (size_t i = 0; i < json_trappy_lines.size(); i++) {
+    for (size_t i = 0; i < static_cast<size_t>(json_trappy_lines.size()); i++) {
       QJsonObject json_tr_line = json_trappy_lines.at(i).toObject();
-      unsigned short id1 = json_tr_line.value("Id_P1").toInt();
-      unsigned short id2 = json_tr_line.value("Id_P2").toInt();
+      unsigned short id1 =
+          static_cast<unsigned short>(json_tr_line.value("Id_P1").toInt());
+      unsigned short id2 =
+          static_cast<unsigned short>(json_tr_line.value("Id_P2").toInt());
       std::pair<gui::Target*, gui::Target*> targets_ptrs;
       for (const auto& target : manager->GetTargetsPtrs()) {
         if (target->GetData().GetId() == id1) targets_ptrs.first = target;
@@ -75,11 +75,11 @@ void GuiJsonFile::Open(data_tools::DataManager* manager) {
           new gui::TrappyLine(targets_ptrs.first, targets_ptrs.second));
     }
 
-    for (size_t i = 0; i < json_hills.size(); i++) {
+    for (size_t i = 0; i < static_cast<size_t>(json_hills.size()); i++) {
       lib::Hill h;
       h.SetJsonInfo(json_hills.at(i).toObject());
     }
-    manager->Set(GetHillsFromFile(json_hills, manager));
+    manager->Set(GetHillsFromFile(json_hills));
 
     file_->close();
     // перерисовка произойдёт уже после

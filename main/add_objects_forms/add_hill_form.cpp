@@ -37,8 +37,8 @@ void AddHillForm::on_newPushButton_clicked() { AddNewInputFields(); }
 void AddHillForm::AddNewInputFields(size_t amount) {
   // передвигаем кнопки в конец
   ui->gridLayout->removeItem(ui->buttonsLayout);
-  ui->gridLayout->addItem(ui->buttonsLayout, ui->gridLayout->count() + amount,
-                          0);
+  ui->gridLayout->addItem(
+      ui->buttonsLayout, ui->gridLayout->count() + static_cast<int>(amount), 0);
 
   // (-1, так как buttonLayout считается за отдельный уже находящийся элемент)
   auto old_size = ui->gridLayout->count() - 1;
@@ -50,7 +50,8 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     point_layouts_widgets_[i]->setObjectName("point" + QString::number(i + 1) +
                                              "LayoutWidget");
     point_layouts_widgets_[i]->setLayout(new QHBoxLayout);
-    ui->gridLayout->addWidget(point_layouts_widgets_[i].get(), i, 0);
+    ui->gridLayout->addWidget(point_layouts_widgets_[i].get(),
+                              static_cast<int>(i), 0);
 
     // добавляем лейбл с указанием, к какой точке он относится
     QLabel* point_label = new QLabel(this);
