@@ -54,13 +54,13 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   double x_1 = circle2.GetCenter().x;
   double y_1 = circle2.GetCenter().y;
   double point1_x =
-      (-(a * (c + y_0 * b) - x_0 * pow(b, 2))) / (pow(a, 2) + pow(b, 2));
+      (-((a / b) * ((c / b) + y_0) - x_0)) / (1 + (pow(a, 2) / pow(b, 2)));
   double point2_x =
-      (-(a * (c + y_1 * b) - x_1 * pow(b, 2))) / (pow(a, 2) + pow(b, 2));
+      (-((a / b) * ((c / b) + y_1) - x_1)) / (1 + (pow(a, 2) / pow(b, 2)));
   double point1_y, point2_y;
   if (b) {
-    point1_y = a / b * point1_x - c / b;
-    point2_y = a / b * point2_x - c / b;
+    point1_y = a / b * (-point1_x) - c / b;
+    point2_y = a / b * (-point2_x) - c / b;
   } else {
     point1_y = y_0;
     point2_y = y_1;
