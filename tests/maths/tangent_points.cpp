@@ -24,6 +24,13 @@ void CHECK_TANGENT_POINTS(const PolygonObstacle& poly1,
   }
 }
 
+void CHECK_TANGENT_POINTS(std::pair<Point, Point> func_points,
+                          std::pair<Point, Point> correct_points) {
+  BOOST_TEST(func_points.first.x == correct_points.first.x);
+  BOOST_TEST(func_points.first.y == correct_points.first.y);
+  BOOST_TEST(func_points.second.x == correct_points.second.x);
+  BOOST_TEST(func_points.second.y == correct_points.second.y);
+}
 LinearFunction MakeOrtagonal(const Point& p1, const Point& p2) {
   double dx = p1.x - p2.x;
   double dy = p1.y - p2.y;
@@ -141,6 +148,71 @@ BOOST_AUTO_TEST_CASE(poly_7_and_circle) {
       {3, {-6.6763471, 17.6705388}},
       {5, {6.0835508, 16.3957789}}};
   CHECK_TANGENT_POINTS(poly, circle, indexes_and_points);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(circle_tangent_points, *utf::tolerance(1.0E-4))
+
+BOOST_AUTO_TEST_CASE(circle_1) {
+  CircleObstacle circle1({-10, 1.6}, 3);
+  CircleObstacle circle2({2.3, -6.24}, 3.8);
+  LinearFunction tangent1(0.582938, 0.812517, 7.52935);
+  std::pair<Point, Point> func_points =
+      TangentPoints(tangent1, circle1, circle2);
+  std::pair<Point, Point> correct_points = {{-11.748813, -0.837551},
+                                            {0.084837, -9.32756}};
+  CHECK_TANGENT_POINTS(func_points, correct_points);
+}
+
+BOOST_AUTO_TEST_CASE(circle_2) {
+  CircleObstacle circle1({-10, 1.6}, 3);
+  CircleObstacle circle2({2.3, -6.24}, 3.8);
+  LinearFunction tangent1(0.868640281211, 0.495443298328, 4.89369353478);
+  std::pair<Point, Point> func_points =
+      TangentPoints(tangent1, circle1, circle2);
+  std::pair<Point, Point> correct_points = {{-7.39407915637, 3.08632989498},
+                                            {-1.0008330686, -8.12268453365}};
+  CHECK_TANGENT_POINTS(func_points, correct_points);
+}
+
+BOOST_AUTO_TEST_CASE(circle_3) {
+  CircleObstacle circle1({-2.5, 0.4}, 3.1);
+  CircleObstacle circle2({-0.3, -8.1}, 5.6);
+  LinearFunction tangent1(-0.117818969629, 0.993035090214, 2.40823853984);
+  LinearFunction tangent2(0.378743489834, -0.925501684984, -1.78294060142);
+  std::pair<Point, Point> func_points1 =
+      TangentPoints(tangent1, circle1, circle2);
+  std::pair<Point, Point> func_points2 =
+      TangentPoints(tangent2, circle1, circle2);
+  std::pair<Point, Point> correct_points1 = {{-2.13476119415, -2.67840877966},
+                                             {-0.959786229925, -2.5390034948}};
+  std::pair<Point, Point> correct_points2 = {{-1.32589518152, -2.46905522345},
+                                             {-2.42096354307, -2.91719056409}};
+  CHECK_TANGENT_POINTS(func_points1, correct_points1);
+  CHECK_TANGENT_POINTS(func_points2, correct_points2);
+}
+
+BOOST_AUTO_TEST_CASE(circle_with_intersection) {
+  CircleObstacle circle1({-1.3, 0.4}, 3.9);
+  CircleObstacle circle2({-6.7, -7.6}, 6.2);
+  LinearFunction tangent1(-0.6716530644451, 0.7408658185, -5.06949531118);
+  std::pair<Point, Point> func_points =
+      TangentPoints(tangent1, circle1, circle2);
+  std::pair<Point, Point> correct_points = {{-3.91944695133, 3.28937669215},
+                                            {-10.8642489996, -3.0066319253}};
+  CHECK_TANGENT_POINTS(func_points, correct_points);
+}
+
+BOOST_AUTO_TEST_CASE(circles_cross) {
+  CircleObstacle circle1({0, 0}, 4);
+  CircleObstacle circle2({5, 12}, 9);
+  LinearFunction tangent1(-0.384615384615, -0.923076923077, 4);
+  std::pair<Point, Point> func_points =
+      TangentPoints(tangent1, circle1, circle2);
+  std::pair<Point, Point> correct_points = {{1.53846153846, 3.69230769231},
+                                            {1.53846153846, 3.69230769231}};
+  CHECK_TANGENT_POINTS(func_points, correct_points);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
