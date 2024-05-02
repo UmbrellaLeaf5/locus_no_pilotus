@@ -92,3 +92,41 @@ BOOST_AUTO_TEST_CASE(intersection_3) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(circle_and_segment)
+BOOST_AUTO_TEST_CASE(intersection_1) {
+  CircleObstacle circle({0.7, 3.5}, 5.1);
+  Point point1(-6.74, 2.32);
+  Point point2(1.845, 0);
+  BOOST_TEST(AreThereIntersections(circle, point1, point2));
+}
+
+BOOST_AUTO_TEST_CASE(intersection_2) {
+  CircleObstacle circle({0.7, 3.5}, 5.1);
+  Point point1(-6.74, 2.32);
+  Point point2(7.02, -1.398);
+  BOOST_TEST(AreThereIntersections(circle, point1, point2));
+}
+
+BOOST_AUTO_TEST_CASE(no_intersection_1) {
+  CircleObstacle circle({6.7, -6.9}, 5.1);
+  Point point1(-1.9, -2.075);
+  Point point2(4.32, 5.022);
+  BOOST_TEST(!AreThereIntersections(circle, point1, point2));
+}
+
+BOOST_AUTO_TEST_CASE(no_intersection_2) {
+  CircleObstacle circle({-3.4, 8.1}, 4.6);
+  Point point1(-0.31, 3.561);
+  Point point2(-2.704, -9.009);
+  BOOST_TEST(!AreThereIntersections(circle, point1, point2));
+}
+
+BOOST_AUTO_TEST_CASE(tangent) {
+  CircleObstacle circle({0, 0}, 1);
+  Point point1(0, pow(2, 0.5));
+  Point point2(-pow(2, 0.5), 0);
+  BOOST_TEST(!AreThereIntersections(circle, point1, point2));
+}
+
+BOOST_AUTO_TEST_SUITE_END()
