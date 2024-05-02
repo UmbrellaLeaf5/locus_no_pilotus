@@ -31,8 +31,8 @@ struct LinearFunction {
   double a_coef, b_coef, c_coef;
 
   bool operator==(const LinearFunction& other) {
-    double proportion =
-        (a_coef * other.a_coef) ? other.a_coef / a_coef : other.b_coef / b_coef;
+    double proportion = (a_coef && other.a_coef) ? other.a_coef / a_coef
+                                                 : other.b_coef / b_coef;
     return (std::abs(other.a_coef - proportion * a_coef) < precision) &&
            (std::abs(other.b_coef - proportion * b_coef) < precision) &&
            (std::abs(other.c_coef - proportion * c_coef) < precision);

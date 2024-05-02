@@ -170,21 +170,19 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
   auto FindTangent = [&x_1, &x_0, &y_1, &y_0](double r_0, double r_1) {
     double a, b, c;
     if (std::abs(x_1 - x_0) > precision) {
-      double b =
-          ((r_1 - r_0) * (y_1 - y_0) +
+      b = ((r_1 - r_0) * (y_1 - y_0) +
            sqrt(pow(x_1 - x_0, 2) *
                 (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2)))) /
           (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
-      double a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
-      double c = r_0 - a * x_0 - b * y_0;
-      return LinearFunction(a, b, c);
+      a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
+      c = r_0 - a * x_0 - b * y_0;
     } else {
-      double a =
-          std::abs(y_1 - y_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
-      double b = (r_1 - r_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
-      double c = r_0 - a * x_0 - b * y_0;
-      return LinearFunction(a, b, c);
+      a = std::abs(y_1 - y_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
+      b = (r_1 - r_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
+      c = r_0 - a * x_0 - b * y_0;
     }
+
+    return LinearFunction(a, b, c);
   };
 
   for (auto n1 : {-1, 1})
@@ -238,8 +236,10 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
     double x_2 =
         (-(slope * b_coef - center.x - slope * center.y) - sqrt(discriminant)) /
         (1 + pow(slope, 2));
-    if ((std::min(point1.x, point2.x) <= x_1 <= std::max(point1.x, point2.x)) ||
-        (std::min(point1.x, point2.x) <= x_2 <= std::max(point1.x, point2.x)))
+    if (((std::min(point1.x, point2.x) <= x_1) &&
+         (x_1 <= std::max(point1.x, point2.x))) ||
+        ((std::min(point1.x, point2.x) <= x_2) &&
+         (x_2 <= std::max(point1.x, point2.x))))
       return true;
     else
       return false;
@@ -268,13 +268,15 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
         (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < 0))
       return true;
   }
-  std::size_t prev = -1;
+  std::size_t prev = ULONG_LONG_MAX;
   for (std::size_t i = 0; i < vertexes.size(); ++i)
-    if (std::abs(line.Substitute(vertexes[i])) <= precision)
-      if ((prev == -1) || (i - prev == 1) || (i - prev == vertexes.size() - 1))
+    if (std::abs(line.Substitute(vertexes[i])) <= precision) {
+      if ((prev + 1 == 0) || (i - prev == 1) ||
+          (i - prev == vertexes.size() - 1))
         prev = i;
       else
         return true;
+    }
   return false;
 }
 
@@ -287,13 +289,15 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst,
          0))
       return true;
 
-  std::size_t prev = -1;
+  std::size_t prev = ULONG_LONG_MAX;
   for (std::size_t i = 0; i < vertexes.size(); ++i)
-    if (std::abs(line.Substitute(vertexes[i])) <= precision)
-      if ((prev == -1) || (i - prev == 1) || (i - prev == vertexes.size() - 1))
+    if (std::abs(line.Substitute(vertexes[i])) <= precision) {
+      if ((prev + 1 == 0) || (i - prev == 1) ||
+          (i - prev == vertexes.size() - 1))
         prev = i;
       else
         return true;
+    }
   return false;
 }
 
