@@ -111,6 +111,7 @@ std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
   Point center = cr_obst.GetCenter();
   double radius = cr_obst.GetRadius();
   double dist = DistanceBetweenPoints(center, point);
+  // Угол между касательной и отрезком, соединяющим точку и центр круга
   double theta = acos(radius / dist);
   double delta = atan2(point.y - center.y, point.x - center.x);
   double delta1 = delta + theta;
