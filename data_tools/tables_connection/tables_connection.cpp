@@ -206,6 +206,26 @@ void TablesConnection::UpdateTable(
   tr_circles_table_->update();
 }
 
+void TablesConnection::UpdateTable(gui::ObjectType obj_type) {
+  switch (obj_type) {
+    case gui::ObjectType::Targets:
+      UpdateTable(manager_->GetTargets());
+      break;
+
+    case gui::ObjectType::Hills:
+      UpdateTable(manager_->GetHills());
+      break;
+
+    case gui::ObjectType::TrappyCircles:
+      UpdateTable(manager_->GetTrappyCircles());
+      break;
+
+    case gui::ObjectType::TrappyLines:
+      UpdateTable(manager_->GetTrappyLines());
+      break;
+  }
+}
+
 void TablesConnection::UpdateTables() {
   UpdateTable(manager_->GetTargets());
   UpdateTable(manager_->GetHills());
@@ -234,7 +254,10 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
 
   } catch (const std::exception& e) {
     manager_->Remove(gui::ObjectType::Targets, static_cast<size_t>(column));
-    UpdateTables();
+    UpdateTable(gui::ObjectType::Targets);
+
+    // (в случае удаления к.т., которая была привязана, надо обновить)
+    UpdateTable(gui::ObjectType::TrappyLines);
     area_->Redraw();
 
     QMessageBox::critical(targets_table_.get(), "Error!", e.what());
@@ -277,7 +300,7 @@ void TablesConnection::HillsItemChanged(int row, int column) {
 
   } catch (const std::exception& e) {
     manager_->Remove(gui::ObjectType::Hills, static_cast<size_t>(column));
-    UpdateTables();
+    UpdateTable(gui::ObjectType::Hills);
     area_->Redraw();
 
     QMessageBox::critical(targets_table_.get(), "Error!", e.what());
@@ -307,7 +330,7 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
   } catch (const std::exception& e) {
     manager_->Remove(gui::ObjectType::TrappyCircles,
                      static_cast<size_t>(column));
-    UpdateTables();
+    UpdateTable(gui::ObjectType::TrappyCircles);
     area_->Redraw();
 
     QMessageBox::critical(targets_table_.get(), "Error!", e.what());
@@ -343,7 +366,7 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
 
   } catch (const std::exception& e) {
     manager_->Remove(gui::ObjectType::TrappyLines, static_cast<size_t>(column));
-    UpdateTables();
+    UpdateTable(gui::ObjectType::TrappyLines);
     area_->Redraw();
 
     QMessageBox::warning(targets_table_.get(), "Error!", e.what());
@@ -380,19 +403,17 @@ void TablesConnection::RemoveTrappyLineItem() {
 // MARK: Update Connections
 
 void TablesConnection::UpdateTablesConnections() {
-  {
-    QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
-                     &TablesConnection::TargetsItemChanged);
+  QObject::connect(targets_table_.get(), &QTableWidget::cellChanged, this,
+                   &TablesConnection::TargetsItemChanged);
 
-    QObject::connect(hills_table_.get(), &QTableWidget::cellChanged, this,
-                     &TablesConnection::HillsItemChanged);
+  QObject::connect(hills_table_.get(), &QTableWidget::cellChanged, this,
+                   &TablesConnection::HillsItemChanged);
 
-    QObject::connect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
-                     &TablesConnection::TrappyCirclesItemChanged);
+  QObject::connect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
+                   &TablesConnection::TrappyCirclesItemChanged);
 
-    QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
-                     &TablesConnection::TrappyLinesItemChanged);
-  }
+  QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
+                   &TablesConnection::TrappyLinesItemChanged);
 }
 
 void TablesConnection::UpdateRemoveButtonConnections() {

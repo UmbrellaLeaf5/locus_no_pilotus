@@ -42,7 +42,7 @@ void MainWindow::AddTarget(std::string x, std::string y) {
 
     manager_->Add(new gui::Target(std::stod(x), std::stod(y)));
     area_->Redraw();
-    t_connection_->UpdateTables();
+    t_connection_->UpdateTable(gui::ObjectType::Targets);
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -57,7 +57,7 @@ void MainWindow::AddTrappyCircle(std::string x, std::string y,
     manager_->Add(
         new gui::TrappyCircle(std::stod(x), std::stod(y), std::stod(radius)));
     area_->Redraw();
-    t_connection_->UpdateTables();
+    t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -77,7 +77,7 @@ void MainWindow::AddTrappyLine(std::string x1, std::string y1, std::string x2,
         manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 1]));
 
     area_->Redraw();
-    t_connection_->UpdateTables();
+    t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -96,7 +96,7 @@ void MainWindow::AddHill(
     manager_->Add(new gui::Hill(lib_points));
 
     area_->Redraw();
-    t_connection_->UpdateTables();
+    t_connection_->UpdateTable(gui::ObjectType::Hills);
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());

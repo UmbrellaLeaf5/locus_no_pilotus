@@ -95,7 +95,9 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         ui->plot->setCursor(Qt::CrossCursor);
         cursor_ = CursorType::DefaultCursor;
-        t_connection_->UpdateTables();
+
+        // после финального добавления обновляем таблицу
+        t_connection_->UpdateTable(gui::ObjectType::Targets);
         break;
       }
 
@@ -171,8 +173,11 @@ void MainWindow::mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::LeftButton) {
     DisconnectObject(gui::ObjectType::TrappyCircles);
     what_obj_addition_ = WhatObjectAddition::Nothing;
+
     area_->Redraw();
-    t_connection_->UpdateTables();
+
+    // после финального добавления обновляем таблицу
+    t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
   }
 }
 
@@ -213,7 +218,9 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
       what_obj_addition_ = WhatObjectAddition::Nothing;
 
       area_->Redraw();
-      t_connection_->UpdateTables();
+
+      // после финального добавления обновляем таблицу
+      t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
 
       return;
     }
@@ -249,7 +256,9 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
           manager_->GetHillsPtrs()[last]->GetPoints().begin() + last_vertice);
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
-      t_connection_->UpdateTables();
+
+      // после финального добавления обновляем таблицу
+      t_connection_->UpdateTable(gui::ObjectType::Hills);
 
     } else if (manager_->GetHills()[last].GetPoints()[0] ==
                manager_->GetHills()[last].GetPoints()[1]) {
