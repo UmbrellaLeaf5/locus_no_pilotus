@@ -10,6 +10,8 @@ void TablesConnection::Setup(DataManager* manager, PlotArea* area) {
 // MARK: U.T. by Targets
 
 void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
+  DisableTablesConnections();
+
   if (targets.empty()) {
     targets_table_->setColumnCount(0);
     return;
@@ -43,11 +45,14 @@ void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
   }
 
   targets_table_->update();
+  UpdateTablesConnections();
 }
 
 // MARK: U.T. by Hills
 
 void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
+  DisableTablesConnections();
+
   if (hills.empty()) {
     hills_table_->setColumnCount(0);
     return;
@@ -104,12 +109,15 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   }
 
   hills_table_->update();
+  UpdateTablesConnections();
 }
 
 // MARK: U.T. by Tr. Lines
 
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyLine>& trappy_lines) {
+  DisableTablesConnections();
+
   if (trappy_lines.empty()) {
     tr_lines_table_->setColumnCount(0);
     return;
@@ -154,15 +162,27 @@ void TablesConnection::UpdateTable(
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                    Qt::ItemIsEnabled);
     tr_lines_table_->setItem(2, static_cast<int>(i), item);
+
+    // если эти номера остались огромными, то валидные к.т. не нашлись
+    if (t_1_n == ULLONG_MAX || t_2_n == ULLONG_MAX) {
+      QMessageBox::warning(targets_table_.get(), "Error!",
+                           "Wrong targets numbers in TrappyLines!");
+
+      manager_->Remove(gui::ObjectType::TrappyLines, i);
+      area_->Redraw();
+    }
   }
 
   tr_lines_table_->update();
+  UpdateTablesConnections();
 }
 
 // MARK: U.T. by Tr. Circles
 
 void TablesConnection::UpdateTable(
     const std::vector<gui::TrappyCircle>& trappy_circles) {
+  DisableTablesConnections();
+
   if (trappy_circles.empty()) {
     tr_circles_table_->setColumnCount(0);
     return;
@@ -204,6 +224,7 @@ void TablesConnection::UpdateTable(
   }
 
   tr_circles_table_->update();
+  UpdateTablesConnections();
 }
 
 void TablesConnection::UpdateTable(gui::ObjectType obj_type) {
@@ -376,28 +397,44 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
 // MARK: Remove Items
 
 void TablesConnection::RemoveTargetItem() {
+  DisableTablesConnections();
+
   manager_->Remove(gui::ObjectType::Targets, selected_column_);
   area_->Redraw();
   UpdateTable(manager_->GetTargets());
   UpdateTable(manager_->GetTrappyLines());
+
+  UpdateTablesConnections();
 }
 
 void TablesConnection::RemoveHillItem() {
+  DisableTablesConnections();
+
   manager_->Remove(gui::ObjectType::Hills, selected_column_);
   area_->Redraw();
   UpdateTable(manager_->GetHills());
+
+  UpdateTablesConnections();
 }
 
 void TablesConnection::RemoveTrappyCircleItem() {
+  DisableTablesConnections();
+
   manager_->Remove(gui::ObjectType::TrappyCircles, selected_column_);
   area_->Redraw();
   UpdateTable(manager_->GetTrappyCircles());
+
+  UpdateTablesConnections();
 }
 
 void TablesConnection::RemoveTrappyLineItem() {
+  DisableTablesConnections();
+
   manager_->Remove(gui::ObjectType::TrappyLines, selected_column_);
   area_->Redraw();
   UpdateTable(manager_->GetTrappyLines());
+
+  UpdateTablesConnections();
 }
 
 // MARK: Update Connections
@@ -414,6 +451,20 @@ void TablesConnection::UpdateTablesConnections() {
 
   QObject::connect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
                    &TablesConnection::TrappyLinesItemChanged);
+}
+
+void TablesConnection::DisableTablesConnections() {
+  QObject::disconnect(targets_table_.get(), &QTableWidget::cellChanged, this,
+                      &TablesConnection::TargetsItemChanged);
+
+  QObject::disconnect(hills_table_.get(), &QTableWidget::cellChanged, this,
+                      &TablesConnection::HillsItemChanged);
+
+  QObject::disconnect(tr_circles_table_.get(), &QTableWidget::cellChanged, this,
+                      &TablesConnection::TrappyCirclesItemChanged);
+
+  QObject::disconnect(tr_lines_table_.get(), &QTableWidget::cellChanged, this,
+                      &TablesConnection::TrappyLinesItemChanged);
 }
 
 void TablesConnection::UpdateRemoveButtonConnections() {

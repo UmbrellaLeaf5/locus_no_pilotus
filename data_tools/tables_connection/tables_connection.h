@@ -133,6 +133,7 @@ class TablesConnection : public QObject {
 
   int selected_column_{INT_MAX};
   void UpdateTablesConnections();
+  void DisableTablesConnections();
   void UpdateRemoveButtonConnections();
 
   std::unique_ptr<QTableWidget> targets_table_{nullptr};
