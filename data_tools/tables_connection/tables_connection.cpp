@@ -29,7 +29,7 @@ void TablesConnection::UpdateTable(const std::vector<gui::Target>& targets) {
                                             item);  // номер к.т. = индекс + 1
 
     // в строки добавляем индекс на полотне и координаты
-    item = new QTableWidgetItem(QString::number(targets[i].GetIndexOnPlot()));
+    item = new QTableWidgetItem(QString::number(targets[i].GetData().GetId()));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     targets_table_->setItem(0, static_cast<int>(i), item);
 
@@ -80,7 +80,7 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
                                           item);  // номер рельефа = индекс + 1
 
     // в строки добавляем индекс на полотне и координаты всех точек
-    item = new QTableWidgetItem(QString::number(hills[i].GetIndexOnPlot()));
+    item = new QTableWidgetItem(QString::number(hills[i].GetData().GetId()));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     hills_table_->setItem(0, static_cast<int>(i), item);
 
@@ -135,8 +135,8 @@ void TablesConnection::UpdateTable(
                                              item);  // номер линии = индекс + 1
 
     // в строки добавляем индекс на полотне
-    item =
-        new QTableWidgetItem(QString::number(trappy_lines[i].GetIndexOnPlot()));
+    item = new QTableWidgetItem(
+        QString::number(trappy_lines[i].GetData().GetId()));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     tr_lines_table_->setItem(0, static_cast<int>(i), item);
 
@@ -201,7 +201,7 @@ void TablesConnection::UpdateTable(
 
     // в строки добавляем индекс на полотне, координаты точки и радиус
     item = new QTableWidgetItem(
-        QString::number(trappy_circles[i].GetIndexOnPlot()));
+        QString::number(trappy_circles[i].GetData().GetId()));
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     tr_circles_table_->setItem(0, static_cast<int>(i), item);
 
