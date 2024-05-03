@@ -15,6 +15,8 @@ gui::ObjectType MainWindow::GetObjType() const {
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -23,6 +25,8 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
 
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(
       QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -31,6 +35,8 @@ void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -39,6 +45,8 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
 
 void MainWindow::on_pushButtonAddHill_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -133,9 +141,9 @@ void MainWindow::mousePressRemoveObject() {
 
 void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::RightButton &&
-      (ui->plot->selectedGraphs().size() > 0 ||
-       ui->plot->selectedItems().size() > 0 ||
-       ui->plot->selectedPlottables().size() > 0)) {
+      (!ui->plot->selectedGraphs().empty() ||
+       !ui->plot->selectedItems().empty() ||
+       !ui->plot->selectedPlottables().empty())) {
     ui->plot->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QMenu* menu{new QMenu(this)};

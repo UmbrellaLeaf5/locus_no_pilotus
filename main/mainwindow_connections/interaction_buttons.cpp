@@ -32,8 +32,8 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
       break;
   }
 
-  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-          &MainWindow::mousePressObjectsButton);
+  disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+             &MainWindow::mousePressObjectsButton);
   connect(ui->plot, &QCustomPlot::mousePress, this,
           &MainWindow::mousePressContextMenu);
 
@@ -70,7 +70,6 @@ void MainWindow::DeleteLastAddedObject() {
   }
 
   area_->Redraw();
-  t_connection_->UpdateTables();
 
   what_obj_addition_ = WhatObjectAddition::Nothing;
 }
@@ -96,6 +95,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         ui->plot->setCursor(Qt::CrossCursor);
         cursor_ = CursorType::DefaultCursor;
+        t_connection_->UpdateTables();
         break;
       }
 
@@ -161,7 +161,6 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
     }
 
     area_->Redraw();
-    t_connection_->UpdateTables();
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -250,6 +249,7 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
           manager_->GetHillsPtrs()[last]->GetPoints().begin() + last_vertice);
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
+      t_connection_->UpdateTables();
 
     } else if (manager_->GetHills()[last].GetPoints()[0] ==
                manager_->GetHills()[last].GetPoints()[1]) {
@@ -261,7 +261,6 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
       manager_->GetHillsPtrs()[last]->AddVertice({x, y});
 
     area_->Redraw();
-    t_connection_->UpdateTables();
   }
 }
 
@@ -283,7 +282,6 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
     }
 
     area_->Redraw();
-    t_connection_->UpdateTables();
   }
 }
 
