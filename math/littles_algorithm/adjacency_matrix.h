@@ -1,9 +1,13 @@
 #pragma once
 
+#include <./lib/point.h>
+
 #include <limits>
 #include <vector>
 
 namespace math {
+
+constexpr double precision = lib::precision;
 
 constexpr double inf = std::numeric_limits<double>::infinity();
 

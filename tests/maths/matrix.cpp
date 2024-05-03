@@ -1,6 +1,3 @@
-#include <QApplication>
-#include <cfloat>
-
 #include "math/littles_algorithm/adjacency_matrix.h"
 
 #if !defined(WIN32)

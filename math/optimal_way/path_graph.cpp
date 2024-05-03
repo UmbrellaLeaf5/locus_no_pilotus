@@ -8,7 +8,7 @@ void DijkstrasAlgorithm::Calculate_Min_Path() {
   while (graphs_vertex_[second_point_] > min_length_) {
     std::shared_ptr<PathWayNode> min_len_key;
     for (auto& elem : graphs_vertex_)
-      if ((elem.second == min_length_) &&
+      if ((std::abs(elem.second - min_length_) <= precision) &&
           (!path_nodes_[elem.first]->is_visited))
         min_len_key = path_nodes_[elem.first];
 
@@ -35,9 +35,9 @@ void DijkstrasAlgorithm::Calculate_Min_Path() {
   min_path_.push_back(end);
   while (end != first_point_) {
     for (std::size_t i = 0; i < path_nodes_[end]->edges.size(); ++i)
-      if (graphs_vertex_[path_nodes_[end]->number] ==
-          graphs_vertex_[path_nodes_[end]->edges[i]->number] +
-              path_nodes_[end]->edges_lens[i]) {
+      if (std::abs(graphs_vertex_[path_nodes_[end]->number] -
+                   graphs_vertex_[path_nodes_[end]->edges[i]->number] -
+                   path_nodes_[end]->edges_lens[i]) <= precision) {
         end = path_nodes_[end]->edges[i]->number;
         min_path_.push_back(end);
         break;

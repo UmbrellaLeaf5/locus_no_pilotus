@@ -18,21 +18,26 @@ struct LinearFunction {
       : a_coef{a}, b_coef{b}, c_coef{c} {}
 
   LinearFunction(const lib::Point& point1, const lib::Point& point2) {
-    a_coef = (point2.y - point1.y) / (point2.x - point1.x);
-    b_coef = -1;
-    c_coef = point1.y - a_coef * point1.x;
+    a_coef = point2.y - point1.y;
+    b_coef = -(point2.x - point1.x);
+    c_coef =
+        (point2.x - point1.x) * point1.y - (point2.y - point1.y) * point1.x;
+  }
+
+  double Substitute(const lib::Point& p) const {
+    return a_coef * p.x + b_coef * p.y + c_coef;
   }
 
   double a_coef, b_coef, c_coef;
 
-  double Substitute(const lib::Point& p) {
-    return a_coef * p.x + b_coef * p.y + c_coef;
-  }
-
   bool operator==(const LinearFunction& other) {
-    return (std::abs(a_coef - other.a_coef) < precision &&
-            std::abs(b_coef - other.b_coef) < precision &&
-            std::abs(c_coef - other.c_coef) < precision);
+    double proportion = ((std::abs(a_coef) >= precision) &&
+                         (std::abs(other.a_coef) >= precision))
+                            ? other.a_coef / a_coef
+                            : other.b_coef / b_coef;
+    return (std::abs(other.a_coef - proportion * a_coef) < precision) &&
+           (std::abs(other.b_coef - proportion * b_coef) < precision) &&
+           (std::abs(other.c_coef - proportion * c_coef) < precision);
   }
 };
 
@@ -113,8 +118,8 @@ class PolygonObstacle {
       center_.x += elem.x;
       center_.y += elem.y;
     }
-    center_.x /= vertexes_.size();
-    center_.y /= vertexes_.size();
+    center_.x /= (double)vertexes_.size();
+    center_.y /= (double)vertexes_.size();
   }
 
   Point GetCenter() const { return center_; }

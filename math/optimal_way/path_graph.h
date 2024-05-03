@@ -74,9 +74,9 @@ class DijkstrasAlgorithm {
    * @param end: конечная точка
    */
   DijkstrasAlgorithm(PathWayGraph graph)
-      : path_nodes_{graph.nodes},
-        first_point_{graph.nodes.size() - 2},
+      : first_point_{graph.nodes.size() - 2},
         second_point_{graph.nodes.size() - 1},
+        path_nodes_{graph.nodes},
         min_length_{0} {
     graphs_vertex_[first_point_] = 0;
     graphs_vertex_[second_point_] = inf;

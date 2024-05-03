@@ -24,7 +24,8 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle2);
 
 /**
- * @brief Находит точки касания многоугольников с их общей касательной
+ * @brief Находит точки касания двух многугольников с их общей
+ * касательной
  * @param tangent: касательная
  * @param polygon1: многоугольник 1
  * @param polygon2: многоугольник 2
@@ -35,7 +36,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const PolygonObstacle& polygon2);
 
 /**
- * @brief Находит точки касания многоугольника и окружности с их общей
+ * @brief Находит точки касания многоугольника и круга с их общей
  * касательной
  * @param tangent: касательная
  * @param polygon: многоугольник
@@ -47,24 +48,24 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle);
 
 /**
- * @brief Находит точки касания кругов c касательной,
+ * @brief Находит точки касания круга c касательной,
  * проведенной из контрольной точки
  * @param cr_obst: круг
  * @param point: контрольная точка
  * @return std::pair<Point, Point>: точки касательной
  */
-std::pair<Point, Point> TangentPointsToCircle(const CircleObstacle& cr_obst,
-                                              const Point& point);
+std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
+                                      const Point& point);
 
 /**
- * @brief Находит точки касания многоугольников c касательной,
+ * @brief Находит точки касания многоугольника c касательной,
  * проведенной из контрольной точки
  * @param poly_obst: многоугольник
  * @param point: контрольная точка
  * @return std::pair<Point, Point>: точки касательной
  */
-std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
-                                            const Point& point);
+std::pair<Point, Point> TangentPoints(const PolygonObstacle& poly_obst,
+                                      const Point& point);
 
 /**
  * @brief Находит уравнения общих касательных двух кругов
@@ -72,26 +73,19 @@ std::pair<Point, Point> TangentPointsToPoly(const PolygonObstacle& poly_obst,
  * @param circle2: круг 2
  * @return std::vector<LinearFunction>: уравнения касательных
  */
-std::vector<LinearFunction> TangentsBetweenCircles(
-    const CircleObstacle& circle1, const CircleObstacle& circle2);
+std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
+                                            const CircleObstacle& circle2);
 
 /**
- * @brief Находит уравнения общих касательных двух многоугольников
- * @param polygon1: многоугольник 1
- * @param polygon2: многоугольник 2
- * @return std::vector<LinearFunction>: уравнения касательных
+ * @brief Находит уравнения общих касательных многоугольника и другого
+ * препятствия
+ * @param polygon: многоугольник
+ * @param obstacle: препятствие
+ * @return уравнения касательных
  */
-std::vector<LinearFunction> TangentsBetweenPolys(
-    const PolygonObstacle& polygon1, const PolygonObstacle& polygon2);
-
-/**
- * @brief Находит уравнения общих касательных двух многоугольников
- * @param polygon1: многоугольник 1
- * @param polygon2: многоугольник 2
- * @return std::vector<LinearFunction>: уравнения касательных
- */
-std::vector<LinearFunction> TangentsBetweenPolyAndCircle(
-    const PolygonObstacle& polygon, const CircleObstacle& circle);
+template <typename T>
+std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
+                                            const T& obstacle);
 
 /**
  * @brief Проверяет, пересекает ли отрезок,
@@ -106,11 +100,11 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& pnt1,
 
 /**
  * @brief Проверяет, пересекает ли прямая многоугольник
- * @param poly_obst: многоугольник
+ * @param cr_obst: круг
  * @param line: прямая
  * @return bool: результат проверки
  */
-bool AreThereIntersections(const PolygonObstacle& poly_obst,
+bool AreThereIntersections(const CircleObstacle& cr_obst,
                            const LinearFunction& line);
 
 /**
@@ -123,5 +117,14 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst,
  */
 bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
                            const Point& pnt2);
+
+/**
+ * @brief Проверяет, пересекает ли прямая многоугольник
+ * @param poly_obst: многоугольник
+ * @param line: прямая
+ * @return bool: результат проверки
+ */
+bool AreThereIntersections(const PolygonObstacle& poly_obst,
+                           const LinearFunction& line);
 
 }  // namespace math

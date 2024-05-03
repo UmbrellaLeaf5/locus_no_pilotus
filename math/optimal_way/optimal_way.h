@@ -43,7 +43,8 @@ class MinimumDistanceCalculator {
    * @return bool: результат проверки
    */
   bool TangentGoesTroughOtherCircle(const LinearFunction& tangent,
-                                    int circle1_index, int circle2_index);
+                                    std::size_t circle1_index,
+                                    std::size_t circle2_index);
 
   /**
    * @brief Добавляет информацию об общей касательной двух кругов
