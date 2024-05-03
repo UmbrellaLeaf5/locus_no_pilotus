@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
+    <width>340</width>
     <height>310</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>280</width>
+    <width>340</width>
     <height>310</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>280</width>
+    <width>340</width>
     <height>310</height>
    </size>
   </property>
@@ -46,7 +46,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>280</width>
+     <width>340</width>
      <height>310</height>
     </rect>
    </property>
@@ -64,8 +64,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>278</width>
-      <height>308</height>
+      <width>340</width>
+      <height>310</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -108,6 +108,18 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
          </property>
          <property name="text">
           <string>Clear all</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deletePushButton">
+         <property name="styleSheet">
+          <string notr="true">QPushButton::hover{background-color: rgb(184, 184, 184);border: 1px solid #6f6f6f;}
+QPushButton::pressed{background-color: rgb(135, 135, 135);}
+              </string>
+         </property>
+         <property name="text">
+          <string>Delete point</string>
          </property>
         </widget>
        </item>

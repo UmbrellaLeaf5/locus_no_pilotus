@@ -18,7 +18,7 @@ void gui::Hill::Draw(QCustomPlot* plot) {
 
   auto points = data_.GetPoints();
 
-  for (int i = 0; i < points.size(); i++) {
+  for (size_t i = 0; i < points.size(); i++) {
     curve_->addData(points[i].x, points[i].y);
   }
 

@@ -31,12 +31,15 @@ void TrappyCircle::SetJsonInfo(const QJsonObject& trappy_circle_obj) {
     throw std::invalid_argument(
         "Invalid file format: missing X,Y,Radius or Id field in "
         "TrappyCircles!");
+
   double x = trappy_circle_obj.value("X").toDouble();
   double y = trappy_circle_obj.value("Y").toDouble();
   double r = trappy_circle_obj.value("Radius").toDouble();
+
   SetCenter({x, y});
   SetRadius(r);
-  SetId(trappy_circle_obj.value("Id").toInt());
+
+  SetId(static_cast<unsigned short>(trappy_circle_obj.value("Id").toInt()));
 
   CheckErrorValues();
 }
@@ -49,7 +52,8 @@ bool TrappyCircle::IsChanged(const QJsonObject& trappy_circle_obj) const {
 }
 
 bool TrappyCircle::operator==(const TrappyCircle& tr_circle) const {
-  return center_ == tr_circle.GetCenter() && radius_ == tr_circle.GetRadius();
+  return center_ == tr_circle.GetCenter() &&
+         abs(radius_ - tr_circle.GetRadius()) < 10.E-7;
 }
 
 void TrappyCircle::CheckErrorValues() const {

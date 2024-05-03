@@ -2,7 +2,7 @@ name: Doxygen
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "documenting"]
 
 permissions:
   pages: write
@@ -24,7 +24,10 @@ jobs:
           submodules: 'recursive'
 
       - name: Install Doxygen
-        run: sudo apt install doxygen && doxygen --version 
+        # source: https://askubuntu.com/questions/1291874/how-to-install-doxygen-on-ubuntu
+        run: |
+          chmod +x install_doxygen.sh
+          ./install_doxygen.sh
       
       - name: Install Graphviz
         run: sudo apt install graphviz

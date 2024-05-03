@@ -6,15 +6,19 @@ namespace lib {
 
 QJsonObject TrappyLine::GetJsonInfo() const {
   QVariantMap trappy_line_map;
+
   trappy_line_map.insert("Id", GetId());
   trappy_line_map.insert("Id_P1", targets_.first->GetId());
   trappy_line_map.insert("Id_P2", targets_.second->GetId());
+
   return QJsonObject::fromVariantMap(trappy_line_map);
 }
 
 bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
-  unsigned short id1 = trappy_line_obj.value("Id_P1").toInt();
-  unsigned short id2 = trappy_line_obj.value("Id_P2").toInt();
+  unsigned short id1 =
+      static_cast<unsigned short>(trappy_line_obj.value("Id_P1").toInt());
+  unsigned short id2 =
+      static_cast<unsigned short>(trappy_line_obj.value("Id_P2").toInt());
   return id1 != targets_.first->GetId() || id2 != targets_.second->GetId();
 }
 

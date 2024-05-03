@@ -55,6 +55,8 @@ class MainWindow : public QMainWindow {
   void on_actionNew_triggered();
 
   void mousePressObjectsButton(QMouseEvent* mouse_event);
+  void mousePressContextMenu(QMouseEvent* mouse_event);
+  void mousePressRemoveObject();
   void DisconnectObject(gui::ObjectType obj_type);
   void closeEvent(QCloseEvent* event) override;
   void keyPressEvent(QKeyEvent* key_event) override;
@@ -75,6 +77,7 @@ class MainWindow : public QMainWindow {
   void on_pushButtonAddHill_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
+  void mouseMoveAddVertice(QMouseEvent* mouse_event);
 
   // Слоты для Settings
   void on_targetAddFromTablePushButton_clicked();
@@ -84,17 +87,19 @@ class MainWindow : public QMainWindow {
   void on_pushButtonEditObjects_clicked();
 
  public slots:
-  void AddTrappyCircle(double x, double y, double radius);
-  void AddTarget(double x, double y);
-  void AddTrappyLine(double x1, double y1, double x2, double y2);
-  void AddHill(std::vector<lib::Point> points);
+  void AddTrappyCircle(std::string x, std::string y, std::string radius);
+  void AddTarget(std::string x, std::string y);
+  void AddTrappyLine(std::string x1, std::string y1, std::string x2,
+                     std::string y2);
+  void AddHill(std::vector<std::pair<std::string, std::string>> points);
 
  private:
+  Ui::MainWindow* ui;
+
   std::unique_ptr<data_tools::PlotArea> area_;
   std::unique_ptr<data_tools::DataManager> manager_;
   std::unique_ptr<data_tools::TablesConnection> t_connection_;
 
-  Ui::MainWindow* ui;
   GuiJsonFile json_file_;
   CursorType cursor_{CursorType::DefaultCursor};
   WhatObjectAddition what_obj_addition_{WhatObjectAddition::Nothing};

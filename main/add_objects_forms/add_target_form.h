@@ -14,7 +14,7 @@ class AddTargetForm : public QDialog {
   ~AddTargetForm();
 
  signals:
-  void AddTarget(double x, double y);
+  void AddTarget(std::string x, std::string y);
 
  private slots:
   void on_clearPushButton_clicked();

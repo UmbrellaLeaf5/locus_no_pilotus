@@ -13,11 +13,13 @@ AddHillForm::AddHillForm(QWidget* parent)
 AddHillForm::~AddHillForm() { delete ui; }
 
 void AddHillForm::on_createPushButton_clicked() {
-  std::vector<lib::Point> points;
+  std::vector<std::pair<std::string, std::string>> points;
   for (size_t i = 0; i < both_coords_point_line_edits_.size(); i++) {
     points.push_back(
-        {both_coords_point_line_edits_[i].abscissa->displayText().toDouble(),
-         both_coords_point_line_edits_[i].ordinate->displayText().toDouble()});
+        {both_coords_point_line_edits_[i].abscissa->displayText().toStdString(),
+         both_coords_point_line_edits_[i]
+             .ordinate->displayText()
+             .toStdString()});
   }
   emit AddHill(points);
   close();
@@ -35,8 +37,8 @@ void AddHillForm::on_newPushButton_clicked() { AddNewInputFields(); }
 void AddHillForm::AddNewInputFields(size_t amount) {
   // передвигаем кнопки в конец
   ui->gridLayout->removeItem(ui->buttonsLayout);
-  ui->gridLayout->addItem(ui->buttonsLayout, ui->gridLayout->count() + amount,
-                          0);
+  ui->gridLayout->addItem(
+      ui->buttonsLayout, ui->gridLayout->count() + static_cast<int>(amount), 0);
 
   // (-1, так как buttonLayout считается за отдельный уже находящийся элемент)
   auto old_size = ui->gridLayout->count() - 1;
@@ -48,7 +50,8 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     point_layouts_widgets_[i]->setObjectName("point" + QString::number(i + 1) +
                                              "LayoutWidget");
     point_layouts_widgets_[i]->setLayout(new QHBoxLayout);
-    ui->gridLayout->addWidget(point_layouts_widgets_[i].get(), i, 0);
+    ui->gridLayout->addWidget(point_layouts_widgets_[i].get(),
+                              static_cast<int>(i), 0);
 
     // добавляем лейбл с указанием, к какой точке он относится
     QLabel* point_label = new QLabel(this);
@@ -83,5 +86,15 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     // добавляем оба лейбла в вектор
     both_coords_point_line_edits_.emplace_back(
         PointLineEdits(abscissa_line_edit, ordinate_line_edit));
+  }
+}
+
+void AddHillForm::on_deletePushButton_clicked() {
+  if (both_coords_point_line_edits_.size() > 3) {
+    both_coords_point_line_edits_.erase(both_coords_point_line_edits_.begin() +
+                                        both_coords_point_line_edits_.size() -
+                                        1);
+    point_layouts_widgets_.erase(point_layouts_widgets_.begin() +
+                                 point_layouts_widgets_.size() - 1);
   }
 }
