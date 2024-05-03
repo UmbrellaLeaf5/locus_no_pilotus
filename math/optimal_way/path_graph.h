@@ -24,7 +24,9 @@ struct PathWayNode {
   // Длины ребер
   std::vector<double> edges_lens;
 
-  std::shared_ptr<CircleObstacle> circle_prt = nullptr;
+  std::shared_ptr<CircleObstacle> circle_ptr = nullptr;
+
+  std::shared_ptr<PolygonObstacle> poly_ptr = nullptr;
 
   // Координаты вершины
   Point point;
