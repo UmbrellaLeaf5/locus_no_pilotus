@@ -58,7 +58,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
   double point2_x =
       (x_1 * pow(b, 2) - (a * (c + y_1 * b))) / (pow(a, 2) + pow(b, 2));
   double point1_y, point2_y;
-  if (b) {
+  if (std::abs(b) > precision) {
     point1_y = a / b * (-point1_x) - c / b;
     point2_y = a / b * (-point2_x) - c / b;
   } else {

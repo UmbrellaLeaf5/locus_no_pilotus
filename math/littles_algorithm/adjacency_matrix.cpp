@@ -9,8 +9,8 @@ AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
   m.matrix_[m.size_].resize(m.size_ + 1);
   for (std::size_t i = 0; i < m.size_; ++i) {
     m.matrix_[i].resize(m.size_ + 1);
-    m.matrix_[i][m.size_] = i;
-    m.matrix_[m.size_][i] = i;
+    m.matrix_[i][m.size_] = (double)i;
+    m.matrix_[m.size_][i] = (double)i;
   }
   m.CalculateData();
   return m;
@@ -51,7 +51,7 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
 }
 
 AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
-    : matrix_{nums}, size_{nums.size()}, min_numbers_(size_ + size_) {}
+    : size_{nums.size()}, matrix_{nums}, min_numbers_(size_ + size_) {}
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {
   Minimums result;
@@ -115,7 +115,7 @@ double AdjacencyMatrix::BottomLineEvaluation() {
     double first_min = twoMins.first;
     double second_min = twoMins.second;
     for (std::size_t j = 0; j < size_; ++j) {
-      if (reducted_matrix_[j][i] == min_numbers_[j])
+      if (std::abs(reducted_matrix_[j][i] - min_numbers_[j]) <= precision)
         min_numbers_[j] -= first_min;
       reducted_matrix_[j][i] -= first_min;
     }
@@ -133,7 +133,7 @@ std::pair<std::size_t, std::size_t> AdjacencyMatrix::HighestPowerOfZero()
   double max = -1;
   for (std::size_t i = 0; i < size_; ++i) {
     for (std::size_t j = 0; j < size_; ++j) {
-      if (reducted_matrix_[i][j] == 0) {
+      if (std::abs(reducted_matrix_[i][j]) <= precision) {
         if ((min_numbers_[i] + min_numbers_[size_ + j]) > max) {
           max = min_numbers_[i] + min_numbers_[size_ + j];
           row = i;
@@ -157,8 +157,8 @@ void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
     for (std::size_t j = 0; j < size_ + 1; ++j) {
       matrix_[j].insert(matrix_[j].begin() + size_, matrix_[j][0]);
     }
-    matrix_[size_ + 1][size_] = size_;
-    matrix_[size_][size_ + 1] = size_;
+    matrix_[size_ + 1][size_] = (double)size_;
+    matrix_[size_][size_ + 1] = (double)size_;
     matrix_[size_ + 1].push_back(0);
     ++size_;
     min_numbers_.resize(size_ + size_);

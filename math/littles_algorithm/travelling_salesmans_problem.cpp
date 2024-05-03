@@ -76,18 +76,20 @@ void TravellingSalesmansProblem::ExpandStack() {
   // Добавляем детей в стек вершин,удаляем их родителя
   double with_eval = paths_stack_[0]->with_edge->evaluation;
   double without_eval = paths_stack_[0]->without_edge->evaluation;
-  if (without_eval != inf)
+  if (!std::isinf(without_eval)) {
     if (FindIndex(without_eval) < paths_stack_.size())
       paths_stack_.insert(paths_stack_.begin() + FindIndex(without_eval),
                           paths_stack_[0]->without_edge);
     else
       paths_stack_.push_back(paths_stack_[0]->without_edge);
-  if (with_eval != inf)
+  }
+  if (!std::isinf(with_eval)) {
     if (FindIndex(with_eval) < paths_stack_.size())
       paths_stack_.insert(paths_stack_.begin() + FindIndex(with_eval),
                           paths_stack_[0]->with_edge);
     else
       paths_stack_.push_back(paths_stack_[0]->with_edge);
+  }
   paths_stack_.erase(paths_stack_.begin());
 }
 
@@ -95,9 +97,13 @@ AdjacencyMatrix& TravellingSalesmansProblem::DeleteEdge(AdjacencyMatrix& matrix,
                                                         std::size_t start_num,
                                                         std::size_t end_num) {
   for (std::size_t i = 0; i < matrix.GetSize(); ++i) {
-    if (matrix.GetMatrixValue(i, matrix.GetSize()) != start_num) continue;
+    if (std::abs(matrix.GetMatrixValue(i, matrix.GetSize()) -
+                 (double)start_num) > precision)
+      continue;
     for (std::size_t j = 0; j < matrix.GetSize(); ++j) {
-      if (matrix.GetMatrixValue(matrix.GetSize(), j) != end_num) continue;
+      if (std::abs(matrix.GetMatrixValue(matrix.GetSize(), j) -
+                   (double)end_num) > precision)
+        continue;
       matrix.SetMatrixValue(i, j, inf);
     }
   }
@@ -112,7 +118,7 @@ std::size_t TravellingSalesmansProblem::FindIndex(double eval) const {
   while (start < end) {
     std::size_t mid = (start + end) / 2;
     // Если eval нашлось
-    if (paths_stack_[mid]->evaluation == eval)
+    if (std::abs(paths_stack_[mid]->evaluation - eval) <= precision)
       if (mid)
         return mid;
       else
@@ -136,11 +142,15 @@ void TravellingSalesmansProblem::CompleteEdgePath(
     if ((node->matrix.GetMatrixValue(0, 0) + node->matrix.GetMatrixValue(1, 1) <
          node->matrix.GetMatrixValue(0, 1) +
              node->matrix.GetMatrixValue(1, 0))) {
-      first_missed_edge.end_num = node->matrix.GetMatrixValue(2, 0);
-      second_missed_edge.end_num = node->matrix.GetMatrixValue(2, 1);
+      first_missed_edge.end_num =
+          (std::size_t)node->matrix.GetMatrixValue(2, 0);
+      second_missed_edge.end_num =
+          (std::size_t)node->matrix.GetMatrixValue(2, 1);
     } else {
-      first_missed_edge.end_num = node->matrix.GetMatrixValue(2, 1);
-      second_missed_edge.end_num = node->matrix.GetMatrixValue(2, 0);
+      first_missed_edge.end_num =
+          (std::size_t)node->matrix.GetMatrixValue(2, 1);
+      second_missed_edge.end_num =
+          (std::size_t)node->matrix.GetMatrixValue(2, 0);
     }
   }
   node->path.push_back(first_missed_edge);

@@ -94,6 +94,7 @@ BOOST_AUTO_TEST_CASE(intersection_3) {
 BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE(circles)
+
 BOOST_AUTO_TEST_CASE(intersection_1) {
   CircleObstacle circle({0.7, 3.5}, 5.1);
   Point point1(-6.74, 2.32);

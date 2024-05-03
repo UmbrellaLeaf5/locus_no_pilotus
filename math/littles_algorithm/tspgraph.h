@@ -30,7 +30,7 @@ struct TSPNode {
    * @param new_edge: новое ребро маршрута
    * @param graph_chains: завершенные цепи в уже существующем маршруте
    */
-  TSPNode(AdjacencyMatrix& m,
+  TSPNode(const AdjacencyMatrix& m,
           std::optional<std::shared_ptr<TSPNode>> prev_node = std::nullopt,
           std::optional<Edge> new_edge = std::nullopt,
           std::optional<std::map<std::size_t, std::size_t>> graph_chains =

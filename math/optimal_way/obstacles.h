@@ -31,8 +31,10 @@ struct LinearFunction {
   double a_coef, b_coef, c_coef;
 
   bool operator==(const LinearFunction& other) {
-    double proportion = (a_coef && other.a_coef) ? other.a_coef / a_coef
-                                                 : other.b_coef / b_coef;
+    double proportion = ((std::abs(a_coef) >= precision) &&
+                         (std::abs(other.a_coef) >= precision))
+                            ? other.a_coef / a_coef
+                            : other.b_coef / b_coef;
     return (std::abs(other.a_coef - proportion * a_coef) < precision) &&
            (std::abs(other.b_coef - proportion * b_coef) < precision) &&
            (std::abs(other.c_coef - proportion * c_coef) < precision);
@@ -116,8 +118,8 @@ class PolygonObstacle {
       center_.x += elem.x;
       center_.y += elem.y;
     }
-    center_.x /= vertexes_.size();
-    center_.y /= vertexes_.size();
+    center_.x /= (double)vertexes_.size();
+    center_.y /= (double)vertexes_.size();
   }
 
   Point GetCenter() const { return center_; }
