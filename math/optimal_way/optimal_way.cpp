@@ -110,8 +110,9 @@ void MinimumDistanceCalculator::AddGraphTangentPoints() {
     }
 }
 
-void MinimumDistanceCalculator::AddGraphControlPoints() {
-  for (auto& point : {point1_, point2_}) {
+void MinimumDistanceCalculator::AddGraphControlPoints(Point point1,
+                                                      Point point2) {
+  for (auto& point : {point1, point2}) {
     PathWayNode new_node{point, graph_.nodes.size()};
     for (auto& prev : graph_.nodes) {
       if (prev->circle_ptr) {
@@ -157,13 +158,11 @@ void MinimumDistanceCalculator::AddGraphControlPoints() {
   }
 }
 
-void MinimumDistanceCalculator::FindOptimalWay() {
-  AddCommonTangents();
-  AddControlPointTangents();
-  AddGraphTangentPoints();
-  AddGraphControlPoints();
+std::vector<size_t> MinimumDistanceCalculator::FindOptimalWay(Point p1,
+                                                              Point p2) {
+  AddGraphControlPoints(p1, p2);
   DijkstrasAlgorithm da(graph_);
-  optimal_way_ = da.Get_Min_Path();
+  return da.Get_Min_Path();
 }
 
 template bool MinimumDistanceCalculator::TangentGoesTroughOtherObstacle<

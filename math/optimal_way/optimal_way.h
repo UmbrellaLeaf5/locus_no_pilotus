@@ -11,25 +11,21 @@ class MinimumDistanceCalculator {
  public:
   /**
    * @brief Находит кратчайший путь между точками
-   * @param p1: точка 1
-   * @param p2: точка 2
    * @param circles: круговые препятствия
    * @param polys: многоугольные препятствия
    */
-  MinimumDistanceCalculator(Point p1, Point p2,
-                            std::vector<CircleObstacle> circles,
+  MinimumDistanceCalculator(std::vector<CircleObstacle> circles,
                             std::vector<PolygonObstacle> polys)
-      : point1_{p1}, point2_{p2}, circles_{circles}, polys_{polys} {
-    FindOptimalWay();
+      : circles_{circles}, polys_{polys} {
+    AddCommonTangents();
+    AddGraphTangentPoints();
   }
 
-  std::vector<std::size_t> GetOptimalWay() { return optimal_way_; }
+  std::vector<std::size_t> GetOptimalWay(Point point1, Point point2) {
+    return FindOptimalWay(point1, point2);
+  }
 
  private:
-  Point point1_;
-
-  Point point2_;
-
   std::vector<CircleObstacle> circles_;
 
   std::vector<PolygonObstacle> polys_;
@@ -64,17 +60,14 @@ class MinimumDistanceCalculator {
   // Добавляет информацию о всех общих касательных всех препятствий
   void AddCommonTangents();
 
-  // Добавляет информацию о всех касательных из контрольных точек
-  void AddControlPointTangents();
-
   // Добавляет в граф точки касания
   void AddGraphTangentPoints();
 
   // Добавляет в граф контрольные точки
-  void AddGraphControlPoints();
+  void AddGraphControlPoints(Point p1, Point p2);
 
   // Находит оптимальный маршрут
-  void FindOptimalWay();
+  std::vector<size_t> FindOptimalWay(Point p1, Point p2);
 };
 
 }  // namespace math
