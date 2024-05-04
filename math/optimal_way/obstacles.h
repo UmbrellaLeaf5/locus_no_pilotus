@@ -47,9 +47,6 @@ struct Point : public lib::Point {
 
   Point(double xx, double yy) : lib::Point{xx, yy} {}
 
-  // Касательные, проходящие через точку
-  std::vector<LinearFunction> tangents;
-
   // Вторая точка касательной
   std::shared_ptr<lib::Point> another_tangent_point = nullptr;
 };
