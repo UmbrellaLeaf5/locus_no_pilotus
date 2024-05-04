@@ -96,20 +96,23 @@ void MainWindow::on_actionOpen_triggered() {
 
   if (file_name.isEmpty()) return;
 
-  QString old_filename = json_file_.GetFileName();
+  QString old_filename = json_file_.GetAbsolutePath();
 
   try {
     json_file_.SetFile(file_name);
     manager_->Clear();
     json_file_.Open(manager_.get());
-    area_->Redraw();
-    t_connection_->UpdateTables();
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
-
+    json_file_.Close();
+    manager_->Clear();
     json_file_.SetFile(old_filename);
+    json_file_.Open(manager_.get());
   }
+
+  area_->Redraw();
+  t_connection_->UpdateTables();
 }
 
 // Кнопка "Save"
@@ -131,7 +134,7 @@ bool MainWindow::on_actionSave_as_triggered() {
   DeleteLastAddedObject();
 
   QString file_name = QFileDialog::getSaveFileName(
-      this, tr("Save as"), json_file_.GetRelativePath(), tr("File (*.json)"));
+      this, tr("Save as"), json_file_.GetParentPath(), tr("File (*.json)"));
 
   if (!file_name.isEmpty()) {
     json_file_.SetFile(file_name);

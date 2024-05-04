@@ -16,14 +16,18 @@ void Target::SetJsonInfo(const QJsonObject& target_obj) {
   if (!(target_obj.contains("X") && target_obj.contains("Y") &&
         target_obj.contains("Id")))
     throw std::invalid_argument(
-        "Invalid file format: missing X,Y or Id field in Targets!");
+        "Invalid file format: missing X, Y or Id field in Targets!");
 
   double x = target_obj.value("X").toDouble();
   double y = target_obj.value("Y").toDouble();
-
   SetPoint(x, y);
 
-  SetId(static_cast<unsigned short>(target_obj.value("Id").toInt()));
+  unsigned short id =
+      static_cast<unsigned short>(target_obj.value("Id").toInt());
+  if (id < 10000 || id > 19999)
+    throw std::invalid_argument(
+        "Invalid file format: incorrect id in 'Target'!");
+  SetId(id);
 
   CheckErrorValues();
 }

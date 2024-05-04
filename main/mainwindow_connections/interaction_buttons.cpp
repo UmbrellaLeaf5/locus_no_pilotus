@@ -32,8 +32,8 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
       break;
   }
 
-  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-          &MainWindow::mousePressObjectsButton);
+  disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+             &MainWindow::mousePressObjectsButton);
   connect(ui->plot, &QCustomPlot::mousePress, this,
           &MainWindow::mousePressContextMenu);
 
@@ -70,7 +70,6 @@ void MainWindow::DeleteLastAddedObject() {
   }
 
   area_->Redraw();
-  t_connection_->UpdateTables();
 
   what_obj_addition_ = WhatObjectAddition::Nothing;
 }
@@ -96,6 +95,9 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         ui->plot->setCursor(Qt::CrossCursor);
         cursor_ = CursorType::DefaultCursor;
+
+        // после финального добавления обновляем таблицу
+        t_connection_->UpdateTable(gui::ObjectType::Targets);
         break;
       }
 
@@ -161,7 +163,6 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
     }
 
     area_->Redraw();
-    t_connection_->UpdateTables();
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -172,8 +173,11 @@ void MainWindow::mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::LeftButton) {
     DisconnectObject(gui::ObjectType::TrappyCircles);
     what_obj_addition_ = WhatObjectAddition::Nothing;
+
     area_->Redraw();
-    t_connection_->UpdateTables();
+
+    // после финального добавления обновляем таблицу
+    t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
   }
 }
 
@@ -214,7 +218,9 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
       what_obj_addition_ = WhatObjectAddition::Nothing;
 
       area_->Redraw();
-      t_connection_->UpdateTables();
+
+      // после финального добавления обновляем таблицу
+      t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
 
       return;
     }
@@ -251,6 +257,9 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
 
+      // после финального добавления обновляем таблицу
+      t_connection_->UpdateTable(gui::ObjectType::Hills);
+
     } else if (manager_->GetHills()[last].GetPoints()[0] ==
                manager_->GetHills()[last].GetPoints()[1]) {
       size_t last_p = manager_->GetHills()[last].GetPoints().size() - 1;
@@ -261,7 +270,6 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
       manager_->GetHillsPtrs()[last]->AddVertice({x, y});
 
     area_->Redraw();
-    t_connection_->UpdateTables();
   }
 }
 
@@ -283,7 +291,6 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
     }
 
     area_->Redraw();
-    t_connection_->UpdateTables();
   }
 }
 

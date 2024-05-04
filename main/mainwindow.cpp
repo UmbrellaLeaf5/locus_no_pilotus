@@ -12,9 +12,6 @@ MainWindow::MainWindow(QWidget* parent)
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom |
                             QCP::iSelectPlottables | QCP::iSelectItems);
 
-  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
-          &MainWindow::mousePressObjectsButton);
-
   connect(ui->plot, &QCustomPlot::mousePress, this,
           &MainWindow::mousePressContextMenu);
 

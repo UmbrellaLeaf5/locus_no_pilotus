@@ -14,7 +14,4 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) {
                                GetCenter().y + GetRadius());
   ellipse_->bottomRight->setCoords(GetCenter().x + GetRadius(),
                                    GetCenter().y - GetRadius());
-
-  // индекс последнего созданного = кол-во всех - 1
-  SetIndexOnPlot(plot);
 }

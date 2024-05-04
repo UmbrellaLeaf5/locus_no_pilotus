@@ -11,20 +11,20 @@ class GuiJsonFile {
 
   void Save(data_tools::DataManager* plot_area);
   void Open(data_tools::DataManager* plot_area);
+  void Close() { file_->close(); }
 
   QString GetFileName() const {
     return QString::fromStdString(
         file_->filesystemFileName().filename().string());
   }
 
+  QString GetAbsolutePath() const {
+    return QString::fromStdString(file_->filesystemFileName().string());
+  }
+
   QString GetParentPath() const {
     return QString::fromStdString(
         file_->filesystemFileName().parent_path().string());
-  }
-
-  QString GetRelativePath() const {
-    return QString::fromStdString(
-        file_->filesystemFileName().relative_path().string());
   }
 
   void SetFile(const QString& file_name) { file_->setFileName(file_name); }

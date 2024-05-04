@@ -15,6 +15,8 @@ gui::ObjectType MainWindow::GetObjType() const {
 
 void MainWindow::on_pushButtonAddTarget_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/better_cross_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -23,6 +25,8 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
 
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/move_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -31,6 +35,8 @@ void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/choose_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -39,6 +45,8 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
 
 void MainWindow::on_pushButtonAddHill_clicked() {
   DeleteLastAddedObject();
+  connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+          &MainWindow::mousePressObjectsButton);
 
   ui->plot->setCursor(QCursor(QPixmap("../images/move_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
@@ -98,44 +106,50 @@ void MainWindow::mousePressRemoveObject() {
       if (ui->plot->selectedGraphs()[0] ==
           manager_->GetTargetsPtrs()[i]->GetGraphPtr()) {
         manager_->Remove(gui::ObjectType::Targets, i);
+        t_connection_->UpdateTable(gui::ObjectType::Targets);
         is_found = true;
         break;
       }
     }
+
     if (!is_found)
       for (size_t i = 0; i < manager_->GetTrappyLines().size(); i++) {
         if (ui->plot->selectedGraphs()[0] ==
             manager_->GetTrappyLinesPtrs()[i]->GetGraphPtr()) {
           manager_->Remove(gui::ObjectType::TrappyLines, i);
+          t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
           break;
         }
       }
+
   } else if (ui->plot->selectedPlottables().size() > 0) {
     for (size_t i = 0; i < manager_->GetHills().size(); i++) {
       if (ui->plot->selectedPlottables()[0] ==
           manager_->GetHillsPtrs()[i]->GetCurvePtr()) {
         manager_->Remove(gui::ObjectType::Hills, i);
+        t_connection_->UpdateTable(gui::ObjectType::Hills);
         break;
       }
     }
+
   } else if (ui->plot->selectedItems().size() > 0)
     for (size_t i = 0; i < manager_->GetTrappyCircles().size(); i++) {
       if (ui->plot->selectedItems()[0] ==
           manager_->GetTrappyCirclesPtrs()[i]->GetItemEllipsePtr()) {
         manager_->Remove(gui::ObjectType::TrappyCircles, i);
+        t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
         break;
       }
     }
 
   area_->Redraw();
-  t_connection_->UpdateTables();
 }
 
 void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::RightButton &&
-      (ui->plot->selectedGraphs().size() > 0 ||
-       ui->plot->selectedItems().size() > 0 ||
-       ui->plot->selectedPlottables().size() > 0)) {
+      (!ui->plot->selectedGraphs().empty() ||
+       !ui->plot->selectedItems().empty() ||
+       !ui->plot->selectedPlottables().empty())) {
     ui->plot->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     QMenu* menu{new QMenu(this)};
