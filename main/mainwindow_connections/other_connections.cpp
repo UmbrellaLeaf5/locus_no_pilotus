@@ -16,7 +16,7 @@ gui::ObjectType MainWindow::GetObjType() const {
 void MainWindow::on_pushButtonAddTarget_clicked() {
   DeleteLastAddedObject();
 
-  ui->plot->setCursor(QCursor(QPixmap("../images/target.png")
+  ui->plot->setCursor(QCursor(QPixmap("../images/better_cross_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TargetCursor;
 }
@@ -24,15 +24,15 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
 void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   DeleteLastAddedObject();
 
-  ui->plot->setCursor(QCursor(
-      QPixmap("../images/AA.png").scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+  ui->plot->setCursor(QCursor(QPixmap("../images/move_cursor.png")
+                                  .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrCircleCursor;
 }
 
 void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   DeleteLastAddedObject();
 
-  ui->plot->setCursor(QCursor(QPixmap("../images/enemy.png")
+  ui->plot->setCursor(QCursor(QPixmap("../images/choose_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::TrLineCursor;
 }
@@ -40,7 +40,7 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
 void MainWindow::on_pushButtonAddHill_clicked() {
   DeleteLastAddedObject();
 
-  ui->plot->setCursor(QCursor(QPixmap("../images/high_hills.png")
+  ui->plot->setCursor(QCursor(QPixmap("../images/move_cursor.png")
                                   .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
   cursor_ = CursorType::HillCursor;
 }
