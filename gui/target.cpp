@@ -10,7 +10,4 @@ void gui::Target::Draw(QCustomPlot* plot) {
   graph_->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
 
   graph_->setData({GetPoint().x}, {GetPoint().y});
-
-  // индекс последнего созданного = кол-во всех - 1
-  SetIndexOnPlot(plot);
 }
