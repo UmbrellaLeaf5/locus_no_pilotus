@@ -39,7 +39,12 @@ void TrappyCircle::SetJsonInfo(const QJsonObject& trappy_circle_obj) {
   SetCenter({x, y});
   SetRadius(r);
 
-  SetId(static_cast<unsigned short>(trappy_circle_obj.value("Id").toInt()));
+  unsigned short id =
+      static_cast<unsigned short>(trappy_circle_obj.value("Id").toInt());
+  if (id < 20000 || id > 29999)
+    throw std::invalid_argument(
+        "Invalid file format: incorrect id in 'Trappy_Circle'!");
+  SetId(id);
 
   CheckErrorValues();
 }

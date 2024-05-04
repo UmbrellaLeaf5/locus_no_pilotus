@@ -107,7 +107,7 @@ void MainWindow::on_actionOpen_triggered() {
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
-
+    manager_->Clear();
     json_file_.SetFile(old_filename);
   }
 }
