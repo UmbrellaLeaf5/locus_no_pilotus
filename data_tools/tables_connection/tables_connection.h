@@ -52,28 +52,10 @@ class TablesConnection : public QObject {
   void UpdateTables();
 
   /**
-   * @brief Обновляет значения таблицы с Targets
-   * @param targets: вектор новых значений
+   * @brief Обновляет значения таблицы с определенным типом объекта
+   * @param obj_type: тип объекта
    */
-  void UpdateTable(const std::vector<gui::Target>& targets);
-
-  /**
-   * @brief Обновляет значения таблицы с Hills
-   * @param hills: вектор новых значений
-   */
-  void UpdateTable(const std::vector<gui::Hill>& hills);
-
-  /**
-   * @brief Обновляет значения таблицы с TrappyLines
-   * @param trappy_lines: вектор новых значений
-   */
-  void UpdateTable(const std::vector<gui::TrappyLine>& trappy_lines);
-
-  /**
-   * @brief Обновляет значения таблицы с TrappyCircles
-   * @param trappy_circles: вектор новых значений
-   */
-  void UpdateTable(const std::vector<gui::TrappyCircle>& trappy_circles);
+  void UpdateTable(gui::ObjectType obj_type);
 
  private slots:
   void TargetsItemChanged(int row, int column);
@@ -125,8 +107,33 @@ class TablesConnection : public QObject {
   }
 
  private:
+  /**
+   * @brief Обновляет значения таблицы с Targets
+   * @param targets: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::Target>& targets);
+
+  /**
+   * @brief Обновляет значения таблицы с Hills
+   * @param hills: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::Hill>& hills);
+
+  /**
+   * @brief Обновляет значения таблицы с TrappyLines
+   * @param trappy_lines: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::TrappyLine>& trappy_lines);
+
+  /**
+   * @brief Обновляет значения таблицы с TrappyCircles
+   * @param trappy_circles: вектор новых значений
+   */
+  void UpdateTable(const std::vector<gui::TrappyCircle>& trappy_circles);
+
   int selected_column_{INT_MAX};
   void UpdateTablesConnections();
+  void DisableTablesConnections();
   void UpdateRemoveButtonConnections();
 
   std::unique_ptr<QTableWidget> targets_table_{nullptr};

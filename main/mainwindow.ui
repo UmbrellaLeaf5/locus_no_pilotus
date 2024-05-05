@@ -156,7 +156,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
+          <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1040,7 +1040,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
   <action name="actionTrappy_Line">
    <property name="icon">
     <iconset>
-     <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
+     <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
    </property>
    <property name="text">
     <string>Trappy Line</string>

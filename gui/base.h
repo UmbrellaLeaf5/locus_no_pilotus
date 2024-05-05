@@ -15,17 +15,6 @@ class Drawable {
    */
   virtual void Draw(QCustomPlot* plot) = 0;
 
-  /**
-   * @brief Возвращает индекс на полотне [plottable]
-   * @return size_t: индекс
-   */
-  virtual size_t GetIndexOnPlot() const { return index_on_plot_; }
-
- protected:
-  virtual void SetIndexOnPlot(QCustomPlot* plot) {
-    index_on_plot_ = plot->plottableCount() - 1;
-  }
-
  private:
   size_t index_on_plot_{ULLONG_MAX};
 };

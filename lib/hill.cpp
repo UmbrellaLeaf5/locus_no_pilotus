@@ -47,7 +47,10 @@ void Hill::SetJsonInfo(const QJsonObject& hill_obj) {
     vertices_.push_back(vertice);
   }
 
-  SetId(static_cast<unsigned short>(hill_obj.value("Id").toInt()));
+  unsigned short id = static_cast<unsigned short>(hill_obj.value("Id").toInt());
+  if (id < 40000 || id > 49999)
+    throw std::invalid_argument("Invalid file format: incorrect id in 'Hill'!");
+  SetId(id);
 
   CheckErrorValues();
 }

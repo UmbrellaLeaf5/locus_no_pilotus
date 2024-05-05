@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../images/enemy.png</normaloff>../images/enemy.png</iconset>
+    <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>
