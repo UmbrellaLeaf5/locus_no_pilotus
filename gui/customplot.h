@@ -2,6 +2,9 @@
 
 namespace custom_plot {
 
+/// @brief Value for arc degree in qPainter
+static constexpr char arc_correction_value = 16;
+
 /// @brief Class of the arc shape
 class ItemArc : public QCPAbstractItem {
  public:
@@ -33,6 +36,11 @@ class ItemArc : public QCPAbstractItem {
   QCPItemAnchor *const left;
   QCPItemAnchor *const center;
 
+  void SetCenterAndRadiusCoords(double center_x, double center_y, double rad);
+  void SetStart(int angle);
+  void SetLength(int angle);
+  void SetStartAndEnd(int start_angle, int end_angle);
+
  protected:
   enum AnchorIndex {
     aiTopLeftRim,
@@ -54,13 +62,17 @@ class ItemArc : public QCPAbstractItem {
 
   QPen MainPen() const;
   QBrush MainBrush() const;
+
+ private:
+  int arc_start_{0};
+  int arc_length_{90};
 };
 
 /**
- * @brief Creates an arc item and sets default values.
+ * @brief Creates an arc item and sets default values
  * @details The created item is automatically registered with \a parentPlot.
  * This QCustomPlot instance takes ownership of the item, so do not delete it
- * manually but use QCustomPlot::removeItem() instead.
+ * manually but use QCustomPlot::removeItem() instead
  * @param parentPlot
  */
 ItemArc::ItemArc(QCustomPlot *parentPlot)
@@ -105,16 +117,16 @@ void ItemArc::SetPen(const QPen &pen) { mPen = pen; }
 void ItemArc::SetSelectedPen(const QPen &pen) { mSelectedPen = pen; }
 
 /**
- * @brief Sets the brush that will be used to fill the arc.
- * To disable filling, set @a brush to Qt::NoBrush.
+ * @brief Sets the brush that will be used to fill the arc
+ * To disable filling, set @a brush to Qt::NoBrush
  * @param brush
  * @see setSelectedBrush, setPen
  */
 void ItemArc::SetBrush(const QBrush &brush) { mBrush = brush; }
 
 /**
- * @brief Sets the brush that will be used to fill the arc when selected.
- * To disable filling, set @a brush to Qt::NoBrush.
+ * @brief Sets the brush that will be used to fill the arc when selected
+ * To disable filling, set @a brush to Qt::NoBrush
  * @param brush
  * @see setBrush
  */
@@ -167,8 +179,8 @@ void ItemArc::draw(QCPPainter *painter) {
     try  // drawArc sometimes throws exceptions if arc is too big
     {
 #endif
-      // TEMP: this is primary version, 100 is invalid constant
-      painter->drawArc(arcRect, 100, 100);
+      painter->drawArc(arcRect, arc_start_ * arc_correction_value,
+                       arc_length_ * arc_correction_value);
 #ifdef __EXCEPTIONS
     } catch (...) {
       qDebug() << Q_FUNC_INFO << "Item too large for memory, setting invisible";
@@ -208,19 +220,53 @@ QPointF ItemArc::anchorPixelPosition(int anchorId) const {
 }
 
 /**
- * @brief Returns the pen that should be used for drawing lines.
- * Returns mPen when the item is not selected and mSelectedPen when it is.
+ * @brief Returns the pen that should be used for drawing lines
+ * Returns mPen when the item is not selected and mSelectedPen when it is
  * @return QPen
  */
 QPen ItemArc::MainPen() const { return mSelected ? mSelectedPen : mPen; }
 
 /**
- * @brief Returns the brush that should be used for drawing fills of the item.
- * Returns mBrush when the item is not selected and mSelectedBrush when it is.
+ * @brief Returns the brush that should be used for drawing fills of the item
+ * Returns mBrush when the item is not selected and mSelectedBrush when it is
  * @return QBrush
  */
 QBrush ItemArc::MainBrush() const {
   return mSelected ? mSelectedBrush : mBrush;
+}
+
+/**
+ * @brief Sets center and radius of the arc by setting topLeft and bottomRight
+ * @param center_x: abscissa coord of the arc
+ * @param center_y: ordinate coord of the arc
+ * @param rad: radius value of the arc
+ */
+void ItemArc::SetCenterAndRadiusCoords(double center_x, double center_y,
+                                       double rad) {
+  topLeft->setCoords(center_x - rad, center_y + rad);
+  bottomRight->setCoords(center_x + rad, center_y - rad);
+}
+
+/**
+ * @brief Sets start of current acr
+ * @param angle: start value in degree
+ */
+void ItemArc::SetStart(int angle) { arc_start_ = angle; }
+
+/**
+ * @brief Sets length of current acr
+ * @param angle: length value in degree
+ */
+void ItemArc::SetLength(int angle) { arc_length_ = angle; }
+
+/**
+ * @brief Sets start and end of current acr
+ * @param start_angle: start value in degree
+ * @param end_angle: end value in degree
+ */
+void ItemArc::SetStartAndEnd(int start_angle, int end_angle) {
+  arc_start_ = start_angle;
+  arc_length_ = end_angle - start_angle;
 }
 
 }  // namespace custom_plot
