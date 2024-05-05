@@ -55,8 +55,8 @@ class PlotItemArc : public QCPAbstractItem {
   QPen mPen, mSelectedPen;
   QBrush mBrush, mSelectedBrush;
 
-  virtual void draw(QCPPainter *painter) Q_DECL_OVERRIDE;
-  virtual QPointF anchorPixelPosition(int anchorId) const Q_DECL_OVERRIDE;
+  virtual void draw(QCPPainter *painter) override;
+  virtual QPointF anchorPixelPosition(int anchorId) const override;
 
   QPen MainPen() const;
   QBrush MainBrush() const;
@@ -135,12 +135,15 @@ void PlotItemArc::SetSelectedBrush(const QBrush &brush) {
 /* check documentation from base class */
 double PlotItemArc::selectTest(const QPointF &pos, bool onlySelectable,
                                QVariant *details) const {
+  // i love qcustomplot, because it has genius solutions in code
   Q_UNUSED(details)
+
   if (onlySelectable && !mSelectable) return -1;
 
   QPointF p1 = topLeft->pixelPosition();
   QPointF p2 = bottomRight->pixelPosition();
   QPointF center((p1 + p2) / 2.0);
+
   double a = qAbs(p1.x() - p2.x()) / 2.0;
   double b = qAbs(p1.y() - p2.y()) / 2.0;
   double x = pos.x() - center.x();
@@ -149,12 +152,14 @@ double PlotItemArc::selectTest(const QPointF &pos, bool onlySelectable,
   // distance to border:
   double c = 1.0 / qSqrt(x * x / (a * a) + y * y / (b * b));
   double result = qAbs(c - 1) * qSqrt(x * x + y * y);
+
   // filled arc, allow click inside to count as hit:
   if (result > mParentPlot->selectionTolerance() * 0.99 &&
       mBrush.style() != Qt::NoBrush && mBrush.color().alpha() != 0) {
     if (x * x / (a * a) + y * y / (b * b) <= 1)
       result = mParentPlot->selectionTolerance() * 0.99;
   }
+
   return result;
 }
 
@@ -181,6 +186,7 @@ void PlotItemArc::draw(QCPPainter *painter) {
 #endif
       painter->drawArc(arcRect, arc_start_ * arc_correction_value,
                        arc_length_ * arc_correction_value);
+
 #ifdef __EXCEPTIONS
     } catch (...) {
       qDebug() << Q_FUNC_INFO << "Item too large for memory, setting invisible";
