@@ -1,15 +1,13 @@
 #include <qcustomplot.h>
 
-namespace custom_plot {
-
 /// @brief Value for arc degree in qPainter
 static constexpr char arc_correction_value = 16;
 
 /// @brief Class of the arc shape
-class ItemArc : public QCPAbstractItem {
+class PlotItemArc : public QCPAbstractItem {
  public:
-  explicit ItemArc(QCustomPlot *parentPlot);
-  virtual ~ItemArc() override;
+  explicit PlotItemArc(QCustomPlot *parentPlot);
+  virtual ~PlotItemArc() override;
 
   QPen Pen() const { return mPen; }
   QPen SelectedPen() const { return mSelectedPen; }
@@ -75,7 +73,7 @@ class ItemArc : public QCPAbstractItem {
  * manually but use QCustomPlot::removeItem() instead
  * @param parentPlot
  */
-ItemArc::ItemArc(QCustomPlot *parentPlot)
+PlotItemArc::PlotItemArc(QCustomPlot *parentPlot)
     : QCPAbstractItem(parentPlot),
       topLeft(createPosition(QLatin1String("topLeft"))),
       bottomRight(createPosition(QLatin1String("bottomRight"))),
@@ -99,14 +97,14 @@ ItemArc::ItemArc(QCustomPlot *parentPlot)
   SetSelectedBrush(Qt::NoBrush);
 }
 
-ItemArc::~ItemArc() {}
+PlotItemArc::~PlotItemArc() {}
 
 /**
  * @brief Sets the pen that will be used to draw the line of the arc
  * @param pen
  * @see setSelectedPen, setBrush
  */
-void ItemArc::SetPen(const QPen &pen) { mPen = pen; }
+void PlotItemArc::SetPen(const QPen &pen) { mPen = pen; }
 
 /**
  * @brief Sets the pen that will be used to draw the line of the arc when
@@ -114,7 +112,7 @@ void ItemArc::SetPen(const QPen &pen) { mPen = pen; }
  * @param pen
  * @see setPen, setSelected
  */
-void ItemArc::SetSelectedPen(const QPen &pen) { mSelectedPen = pen; }
+void PlotItemArc::SetSelectedPen(const QPen &pen) { mSelectedPen = pen; }
 
 /**
  * @brief Sets the brush that will be used to fill the arc
@@ -122,7 +120,7 @@ void ItemArc::SetSelectedPen(const QPen &pen) { mSelectedPen = pen; }
  * @param brush
  * @see setSelectedBrush, setPen
  */
-void ItemArc::SetBrush(const QBrush &brush) { mBrush = brush; }
+void PlotItemArc::SetBrush(const QBrush &brush) { mBrush = brush; }
 
 /**
  * @brief Sets the brush that will be used to fill the arc when selected
@@ -130,11 +128,13 @@ void ItemArc::SetBrush(const QBrush &brush) { mBrush = brush; }
  * @param brush
  * @see setBrush
  */
-void ItemArc::SetSelectedBrush(const QBrush &brush) { mSelectedBrush = brush; }
+void PlotItemArc::SetSelectedBrush(const QBrush &brush) {
+  mSelectedBrush = brush;
+}
 
 /* check documentation from base class */
-double ItemArc::selectTest(const QPointF &pos, bool onlySelectable,
-                           QVariant *details) const {
+double PlotItemArc::selectTest(const QPointF &pos, bool onlySelectable,
+                               QVariant *details) const {
   Q_UNUSED(details)
   if (onlySelectable && !mSelectable) return -1;
 
@@ -159,7 +159,7 @@ double ItemArc::selectTest(const QPointF &pos, bool onlySelectable,
 }
 
 /* check documentation from base class */
-void ItemArc::draw(QCPPainter *painter) {
+void PlotItemArc::draw(QCPPainter *painter) {
   QPointF p1 = topLeft->pixelPosition();
   QPointF p2 = bottomRight->pixelPosition();
 
@@ -191,7 +191,7 @@ void ItemArc::draw(QCPPainter *painter) {
 }
 
 /* check documentation from base class */
-QPointF ItemArc::anchorPixelPosition(int anchorId) const {
+QPointF PlotItemArc::anchorPixelPosition(int anchorId) const {
   QRectF rect = QRectF(topLeft->pixelPosition(), bottomRight->pixelPosition());
   switch (anchorId) {
     case aiTopLeftRim:
@@ -224,14 +224,14 @@ QPointF ItemArc::anchorPixelPosition(int anchorId) const {
  * Returns mPen when the item is not selected and mSelectedPen when it is
  * @return QPen
  */
-QPen ItemArc::MainPen() const { return mSelected ? mSelectedPen : mPen; }
+QPen PlotItemArc::MainPen() const { return mSelected ? mSelectedPen : mPen; }
 
 /**
  * @brief Returns the brush that should be used for drawing fills of the item
  * Returns mBrush when the item is not selected and mSelectedBrush when it is
  * @return QBrush
  */
-QBrush ItemArc::MainBrush() const {
+QBrush PlotItemArc::MainBrush() const {
   return mSelected ? mSelectedBrush : mBrush;
 }
 
@@ -241,8 +241,8 @@ QBrush ItemArc::MainBrush() const {
  * @param center_y: ordinate coord of the arc
  * @param rad: radius value of the arc
  */
-void ItemArc::SetCenterAndRadiusCoords(double center_x, double center_y,
-                                       double rad) {
+void PlotItemArc::SetCenterAndRadiusCoords(double center_x, double center_y,
+                                           double rad) {
   topLeft->setCoords(center_x - rad, center_y + rad);
   bottomRight->setCoords(center_x + rad, center_y - rad);
 }
@@ -251,22 +251,20 @@ void ItemArc::SetCenterAndRadiusCoords(double center_x, double center_y,
  * @brief Sets start of current acr
  * @param angle: start value in degree
  */
-void ItemArc::SetStart(int angle) { arc_start_ = angle; }
+void PlotItemArc::SetStart(int angle) { arc_start_ = angle; }
 
 /**
  * @brief Sets length of current acr
  * @param angle: length value in degree
  */
-void ItemArc::SetLength(int angle) { arc_length_ = angle; }
+void PlotItemArc::SetLength(int angle) { arc_length_ = angle; }
 
 /**
  * @brief Sets start and end of current acr
  * @param start_angle: start value in degree
  * @param end_angle: end value in degree
  */
-void ItemArc::SetStartAndEnd(int start_angle, int end_angle) {
+void PlotItemArc::SetStartAndEnd(int start_angle, int end_angle) {
   arc_start_ = start_angle;
   arc_length_ = end_angle - start_angle;
 }
-
-}  // namespace custom_plot
