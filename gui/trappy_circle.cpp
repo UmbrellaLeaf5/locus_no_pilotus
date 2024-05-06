@@ -19,4 +19,11 @@ void gui::TrappyCircle::Draw(QCustomPlot* plot) {
   ellipse_->setPen(QColor(color_));
   ellipse_->setBrush(fill_color);
   SetCenterAndRadiusCoords(ellipse_, GetCenter(), GetRadius());
+
+  auto arc = new PlotItemArc(plot);
+
+  arc->SetPen(QColor(color_));
+  arc->SetBrush(fill_color);
+  arc->SetCenterAndRadiusCoords(GetCenter().x, GetCenter().y, GetRadius());
+  arc->SetStartAndEnd(0, -45);
 }

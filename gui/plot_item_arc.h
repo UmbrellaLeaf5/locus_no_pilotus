@@ -136,31 +136,11 @@ void PlotItemArc::SetSelectedBrush(const QBrush &brush) {
 double PlotItemArc::selectTest(const QPointF &pos, bool onlySelectable,
                                QVariant *details) const {
   // i love qcustomplot, because it has genius solutions in code
-  Q_UNUSED(details)
+  Q_UNUSED(details);
+  Q_UNUSED(pos);
+  Q_UNUSED(onlySelectable);
 
-  if (onlySelectable && !mSelectable) return -1;
-
-  QPointF p1 = topLeft->pixelPosition();
-  QPointF p2 = bottomRight->pixelPosition();
-  QPointF center((p1 + p2) / 2.0);
-
-  double a = qAbs(p1.x() - p2.x()) / 2.0;
-  double b = qAbs(p1.y() - p2.y()) / 2.0;
-  double x = pos.x() - center.x();
-  double y = pos.y() - center.y();
-
-  // distance to border:
-  double c = 1.0 / qSqrt(x * x / (a * a) + y * y / (b * b));
-  double result = qAbs(c - 1) * qSqrt(x * x + y * y);
-
-  // filled arc, allow click inside to count as hit:
-  if (result > mParentPlot->selectionTolerance() * 0.99 &&
-      mBrush.style() != Qt::NoBrush && mBrush.color().alpha() != 0) {
-    if (x * x / (a * a) + y * y / (b * b) <= 1)
-      result = mParentPlot->selectionTolerance() * 0.99;
-  }
-
-  return result;
+  return -1.0;
 }
 
 /* check documentation from base class */
