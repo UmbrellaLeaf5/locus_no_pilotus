@@ -165,7 +165,7 @@ void TablesConnection::UpdateTable(
 
     // если эти номера остались огромными, то валидные к.т. не нашлись
     if (t_1_n == ULLONG_MAX || t_2_n == ULLONG_MAX) {
-      QMessageBox::warning(targets_table_.get(), "Error!",
+      QMessageBox::warning(tr_lines_table_.get(), "Error!",
                            "Wrong targets numbers in TrappyLines!");
 
       manager_->Remove(gui::ObjectType::TrappyLines, i);
@@ -274,14 +274,14 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
+    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
+
     manager_->Remove(gui::ObjectType::Targets, static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::Targets);
 
     // (в случае удаления к.т., которая была привязана, надо обновить)
     UpdateTable(gui::ObjectType::TrappyLines);
     area_->Redraw();
-
-    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
 }
 
@@ -320,11 +320,11 @@ void TablesConnection::HillsItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
+    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
+
     manager_->Remove(gui::ObjectType::Hills, static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::Hills);
     area_->Redraw();
-
-    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
 }
 
@@ -349,12 +349,12 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
+    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
+
     manager_->Remove(gui::ObjectType::TrappyCircles,
                      static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::TrappyCircles);
     area_->Redraw();
-
-    QMessageBox::critical(targets_table_.get(), "Error!", e.what());
   }
 }
 
@@ -386,11 +386,11 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
+    QMessageBox::warning(targets_table_.get(), "Error!", e.what());
+
     manager_->Remove(gui::ObjectType::TrappyLines, static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::TrappyLines);
     area_->Redraw();
-
-    QMessageBox::warning(targets_table_.get(), "Error!", e.what());
   }
 }
 
