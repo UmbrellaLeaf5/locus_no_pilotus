@@ -61,5 +61,5 @@ inline bool operator!=(Point a, Point b) { return !(a == b); }
  * @return false: если не является
  */
 inline bool isinf(const lib::Point& p) {
-  return std::isinf(p.x) && std::isinf(p.y);
+  return std::isinf(p.x) || std::isinf(p.y);
 }

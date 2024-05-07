@@ -2,45 +2,46 @@
 
 #include <QtMath>
 
-namespace lib {
-enum class QuarterOfСircle { First, Second, Third, Fourth };
+namespace gui {
 
-static QuarterOfСircle GetQuarterOfСircle(lib::Point p) {
+enum class QuarterOfCircle { First, Second, Third, Fourth };
+
+static QuarterOfCircle GetQuarterOfCircle(lib::Point p) {
   double x = p.x, y = p.y;
   if (x >= 0 && y >= 0)
-    return QuarterOfСircle::First;
+    return QuarterOfCircle::First;
   else if (x < 0 && y >= 0)
-    return QuarterOfСircle::Second;
+    return QuarterOfCircle::Second;
   else if (x <= 0 && y < 0)
-    return QuarterOfСircle::Third;
+    return QuarterOfCircle::Third;
   else if (x > 0 && y < 0)
-    return QuarterOfСircle::Fourth;
+    return QuarterOfCircle::Fourth;
 
   // Impossible case
-  return QuarterOfСircle::First;
+  return QuarterOfCircle::First;
 }
 
-static double GetMinAngle(lib::Point p, double R, QuarterOfСircle quarter) {
+static double GetMinAngle(lib::Point p, double R, QuarterOfCircle quarter) {
   double angle{lib::inf};
   char sign{CHAR_MAX};
 
   switch (quarter) {
-    case QuarterOfСircle::First: {
+    case QuarterOfCircle::First: {
       angle = 0;
       sign = 1;
       break;
     }
-    case QuarterOfСircle::Second: {
+    case QuarterOfCircle::Second: {
       angle = 180;
       sign = -1;
       break;
     }
-    case QuarterOfСircle::Third: {
+    case QuarterOfCircle::Third: {
       angle = 180;
       sign = 1;
       break;
     }
-    case QuarterOfСircle::Fourth: {
+    case QuarterOfCircle::Fourth: {
       angle = 360;
       sign = -1;
       break;
@@ -52,7 +53,7 @@ static double GetMinAngle(lib::Point p, double R, QuarterOfСircle quarter) {
   double sinus = qAsin(abs(p.y) / R) * 180 / M_PI;
   angle += sign * sinus;
 
-  if (abs(-360 + angle) < angle) return -360 + angle;
+  if (abs(angle - 360) < angle) return angle - 360;
   return angle;
 }
 
@@ -66,8 +67,8 @@ static std::pair<double, double> GetAngles(lib::Point start, lib::Point end,
   end -= center;
 
   // Находим, в какие четвертях находятся точки
-  QuarterOfСircle start_quarter = GetQuarterOfСircle(start);
-  QuarterOfСircle end_quarter = GetQuarterOfСircle(end);
+  QuarterOfCircle start_quarter = GetQuarterOfCircle(start);
+  QuarterOfCircle end_quarter = GetQuarterOfCircle(end);
 
   // Находим минимальный по модулю угол у каждой точки
   double min_start_angle = GetMinAngle(start, R, start_quarter);
@@ -75,4 +76,11 @@ static std::pair<double, double> GetAngles(lib::Point start, lib::Point end,
 
   return {min_start_angle, min_end_angle};
 }
-}  // namespace lib
+
+void Segment::Draw(QCustomPlot* plot) {
+  if (IsArc()) {
+  } else {
+  }
+}
+
+}  // namespace gui

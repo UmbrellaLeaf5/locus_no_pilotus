@@ -69,11 +69,7 @@ class Segment {
    * @return const Point&: центр окружности
    * @throw std::runtime_error: если сегмент не имеет отношения к окружности
    */
-  const Point& Center() const {
-    if (IsArc()) return center_;
-
-    throw std::runtime_error("dev: Segment is not Arc");
-  }
+  const Point& Center() const { return Center(); }
 
   /**
    * @brief Возвращает радиус окружности

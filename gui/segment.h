@@ -43,6 +43,4 @@ struct Segment : Drawable {
   lib::Segment data_;
 };
 
-void Segment::Draw(QCustomPlot* plot) {}
-
 }  // namespace gui
