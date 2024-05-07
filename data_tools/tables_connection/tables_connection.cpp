@@ -59,10 +59,10 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
   }
 
   // находим максимально возможное кол-во точек среди всех холмов
-  size_t hills_max_points = hills[0].GetPoints().size();
+  size_t hills_max_points = hills[0].GetVertices().size();
   for (size_t i = 0; i < hills.size() - 1; i++) {
-    hills_max_points =
-        std::max(hills[i].GetPoints().size(), hills[i + 1].GetPoints().size());
+    hills_max_points = std::max(hills[i].GetVertices().size(),
+                                hills[i + 1].GetVertices().size());
   }
 
   // кол-во столбцов = кол-во рельефов
@@ -84,7 +84,7 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     hills_table_->setItem(0, static_cast<int>(i), item);
 
-    for (size_t j = 1; j < hills[i].GetPoints().size() * 2; j += 2) {
+    for (size_t j = 1; j < hills[i].GetVertices().size() * 2; j += 2) {
       // названия строк с координатами
       hills_table_->setVerticalHeaderItem(
           static_cast<int>(j),
@@ -95,13 +95,13 @@ void TablesConnection::UpdateTable(const std::vector<gui::Hill>& hills) {
 
       // сами координаты
       item = new QTableWidgetItem(
-          QString::number(hills[i].GetPoints()[(j - 1) / 2].x));
+          QString::number(hills[i].GetVertices()[(j - 1) / 2].x));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       hills_table_->setItem(static_cast<int>(j), static_cast<int>(i), item);
 
       item = new QTableWidgetItem(
-          QString::number(hills[i].GetPoints()[(j - 1) / 2].y));
+          QString::number(hills[i].GetVertices()[(j - 1) / 2].y));
       item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable |
                      Qt::ItemIsEnabled);
       hills_table_->setItem(static_cast<int>(j + 1), static_cast<int>(i), item);
@@ -310,10 +310,10 @@ void TablesConnection::HillsItemChanged(int row, int column) {
   try {
     if (x_item != nullptr && y_item != nullptr &&
         static_cast<size_t>(column) < manager_->GetHills().size() &&
-        p_index < manager_->GetHills()[column].GetPoints().size()) {
-      manager_->GetHillsPtrs()[column]->GetPoints()[p_index].x =
+        p_index < manager_->GetHills()[column].GetVertices().size()) {
+      manager_->GetHillsPtrs()[column]->GetVertices()[p_index].x =
           x_item->text().toDouble();
-      manager_->GetHillsPtrs()[column]->GetPoints()[p_index].y =
+      manager_->GetHillsPtrs()[column]->GetVertices()[p_index].y =
           y_item->text().toDouble();
 
       area_->Redraw();

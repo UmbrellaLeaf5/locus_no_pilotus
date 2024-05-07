@@ -24,7 +24,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle2);
 
 /**
- * @brief Находит точки касания двух многугольников с их общей
+ * @brief Находит точки касания двух многоугольников с их общей
  * касательной
  * @param tangent: касательная
  * @param polygon1: многоугольник 1

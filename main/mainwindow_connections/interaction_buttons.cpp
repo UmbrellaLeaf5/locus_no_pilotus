@@ -241,30 +241,30 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
 
     // Позиция начальной точки в пикселях
     double x2_pixels = ui->plot->xAxis->coordToPixel(
-        manager_->GetHills()[last].GetPoints()[0].x);
+        manager_->GetHills()[last].GetVertices()[0].x);
     double y2_pixels = ui->plot->yAxis->coordToPixel(
-        manager_->GetHills()[last].GetPoints()[0].y);
+        manager_->GetHills()[last].GetVertices()[0].y);
 
     // Проверка на то, что расстояние от курсора до начальной точки меньше 10
     // пикселей. Если это так, то мы считаем, что он завершил создание Hill
     if (pow(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2), 0.5) <
             10 &&
-        manager_->GetHills()[last].GetPoints().size() > 2) {
+        manager_->GetHills()[last].GetVertices().size() > 2) {
       size_t last_vertice =
-          manager_->GetHillsPtrs()[last]->GetPoints().size() - 1;
-      manager_->GetHillsPtrs()[last]->GetPoints().erase(
-          manager_->GetHillsPtrs()[last]->GetPoints().begin() + last_vertice);
+          manager_->GetHillsPtrs()[last]->GetVertices().size() - 1;
+      manager_->GetHillsPtrs()[last]->GetVertices().erase(
+          manager_->GetHillsPtrs()[last]->GetVertices().begin() + last_vertice);
       DisconnectObject(gui::ObjectType::Hills);
       what_obj_addition_ = WhatObjectAddition::Nothing;
 
       // после финального добавления обновляем таблицу
       t_connection_->UpdateTable(gui::ObjectType::Hills);
 
-    } else if (manager_->GetHills()[last].GetPoints()[0] ==
-               manager_->GetHills()[last].GetPoints()[1]) {
-      size_t last_p = manager_->GetHills()[last].GetPoints().size() - 1;
-      manager_->GetHillsPtrs()[last]->GetPoints()[last_p].x = x;
-      manager_->GetHillsPtrs()[last]->GetPoints()[last_p].y = y;
+    } else if (manager_->GetHills()[last].GetVertices()[0] ==
+               manager_->GetHills()[last].GetVertices()[1]) {
+      size_t last_p = manager_->GetHills()[last].GetVertices().size() - 1;
+      manager_->GetHillsPtrs()[last]->GetVertices()[last_p].x = x;
+      manager_->GetHillsPtrs()[last]->GetVertices()[last_p].y = y;
 
     } else
       manager_->GetHillsPtrs()[last]->AddVertice({x, y});
@@ -276,15 +276,15 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
 void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
   if (mouse_event->button() == Qt::RightButton) {
     size_t last = manager_->GetHills().size() - 1;
-    size_t vertices_size = manager_->GetHills()[last].GetPoints().size();
+    size_t vertices_size = manager_->GetHills()[last].GetVertices().size();
     if (vertices_size > 2)
-      manager_->GetHillsPtrs()[last]->GetPoints().pop_back();
+      manager_->GetHillsPtrs()[last]->GetVertices().pop_back();
 
     else {
-      if (manager_->GetHills()[last].GetPoints()[0] !=
-          manager_->GetHills()[last].GetPoints()[1]) {
-        manager_->GetHillsPtrs()[last]->GetPoints()[1] =
-            manager_->GetHills()[last].GetPoints()[0];
+      if (manager_->GetHills()[last].GetVertices()[0] !=
+          manager_->GetHills()[last].GetVertices()[1]) {
+        manager_->GetHillsPtrs()[last]->GetVertices()[1] =
+            manager_->GetHills()[last].GetVertices()[0];
 
       } else
         DeleteLastAddedObject();
@@ -296,14 +296,15 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
 
 void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
   size_t last = manager_->GetHills().size() - 1;
-  size_t last_vertice = manager_->GetHillsPtrs()[last]->GetPoints().size() - 1;
+  size_t last_vertice =
+      manager_->GetHillsPtrs()[last]->GetVertices().size() - 1;
 
   if (last_vertice > 0) {
     double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
     double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
 
-    manager_->GetHillsPtrs()[last]->GetPoints().erase(
-        manager_->GetHillsPtrs()[last]->GetPoints().begin() + last_vertice);
+    manager_->GetHillsPtrs()[last]->GetVertices().erase(
+        manager_->GetHillsPtrs()[last]->GetVertices().begin() + last_vertice);
 
     manager_->GetHillsPtrs()[last]->AddVertice({x, y});
     area_->Redraw();

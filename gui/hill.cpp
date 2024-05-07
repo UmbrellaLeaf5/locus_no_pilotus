@@ -16,7 +16,7 @@ void gui::Hill::Draw(QCustomPlot* plot) {
 
   curve_->setLineStyle(QCPCurve::lsLine);
 
-  auto points = data_.GetPoints();
+  auto points = data_.GetVertices();
 
   for (size_t i = 0; i < points.size(); i++) {
     curve_->addData(points[i].x, points[i].y);

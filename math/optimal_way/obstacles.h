@@ -8,7 +8,7 @@
 
 namespace math {
 
-constexpr double precision = lib::precision;
+using lib::precision;
 
 constexpr double inf = std::numeric_limits<double>::infinity();
 

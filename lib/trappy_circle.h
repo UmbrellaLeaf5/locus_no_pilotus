@@ -17,6 +17,7 @@ class TrappyCircle : public JSONable {
 
   QJsonObject GetJsonInfo() const override;
   void SetJsonInfo(const QJsonObject& trappy_circle_obj) override;
+
   bool IsChanged(const QJsonObject& trappy_circle_obj) const override;
 
   Point GetCenter() const { return center_; }

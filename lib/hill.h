@@ -29,10 +29,11 @@ class Hill : public JSONable {
 
   QJsonObject GetJsonInfo() const override;
   void SetJsonInfo(const QJsonObject& hill_obj) override;
+
   bool IsChanged(const QJsonObject& hill_obj) const override;
 
-  const std::vector<Point>& GetPoints() const { return vertices_; }
-  std::vector<Point>& GetPoints() { return vertices_; }
+  const std::vector<Point>& GetVertices() const { return vertices_; }
+  std::vector<Point>& GetVertices() { return vertices_; }
 
   void AddVertice(Point vertice) { vertices_.push_back(vertice); }
 

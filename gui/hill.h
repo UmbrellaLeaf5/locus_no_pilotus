@@ -34,8 +34,10 @@ class Hill : public Drawable {
   const lib::Hill& GetData() const { return data_; }
   lib::Hill& GetData() { return data_; }
 
-  const std::vector<lib::Point>& GetPoints() const { return data_.GetPoints(); }
-  std::vector<lib::Point>& GetPoints() { return data_.GetPoints(); }
+  const std::vector<lib::Point>& GetVertices() const {
+    return data_.GetVertices();
+  }
+  std::vector<lib::Point>& GetVertices() { return data_.GetVertices(); }
 
   void AddVertice(lib::Point vertice) { data_.AddVertice(vertice); }
 

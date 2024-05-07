@@ -19,6 +19,7 @@ class Target : public JSONable {
 
   QJsonObject GetJsonInfo() const override;
   void SetJsonInfo(const QJsonObject& target_obj) override;
+
   bool IsChanged(const QJsonObject& target_obj) const override;
 
   Point GetPoint() const { return p_; }
