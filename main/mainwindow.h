@@ -3,13 +3,8 @@
 #include <QMainWindow>
 
 #include "./ui_mainwindow.h"
-#include "add_objects_forms/add_hill_form.h"
-#include "add_objects_forms/add_target_form.h"
-#include "add_objects_forms/add_trappy_circle_form.h"
-#include "add_objects_forms/add_trappy_line_form.h"
-#include "data_tools/data_manager/data_manager.h"
-#include "data_tools/plot_area/plot_area.h"
-#include "data_tools/tables_connection/tables_connection.h"
+#include "add_objects_forms/_forms.h"
+#include "data_tools/_tools.h"
 #include "gui_json_file/gui_json_file.h"
 
 enum class CursorType {
@@ -67,7 +62,7 @@ class MainWindow : public QMainWindow {
   void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
-  // Слот для  TrappyLine
+  // Слот для TrappyLine
   void on_pushButtonAddTrappyLine_clicked();
   void on_actionTrappy_Line_triggered();
   void on_actionHill_triggered();

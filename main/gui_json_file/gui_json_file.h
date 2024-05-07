@@ -1,8 +1,6 @@
 #pragma once
 
-#include "data_tools/plot_area/plot_area.h"
-
-// TODO: исправить добавление TrappyLines вместо точек на Targets id
+#include "data_tools/data_manager/data_manager.h"
 
 class GuiJsonFile {
  public:
