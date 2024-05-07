@@ -77,36 +77,35 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
     for (auto& point : circle.GetTangentPoints()) {
       PathWayNode new_node(point, graph_.nodes.size());
       new_node.circle_ptr = std::make_unique<CircleObstacle>(circle);
-      for (auto& prev : graph_.nodes) {
-        if (prev->circle_ptr && ((*prev->circle_ptr) == circle)) {
-          graph_.AddEdge(prev->number, new_node.number,
-                         DistanceBetweenPointsOnCircle(circle, prev->point,
+      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
+      for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
+        if (nodes[i]->circle_ptr && ((*nodes[i]->circle_ptr) == circle)) {
+          graph_.AddEdge(nodes[i]->number, new_node.number,
+                         DistanceBetweenPointsOnCircle(circle, nodes[i]->point,
                                                        new_node.point));
-        } else if (prev->circle_ptr &&
-                   (new_node.point == (*prev->point.another_tangent_point))) {
-          graph_.AddEdge(prev->number, new_node.number,
-                         DistanceBetweenPoints(prev->point, new_node.point));
+        } else if (new_node.point == *nodes[i]->point.another_tangent_point) {
+          graph_.AddEdge(
+              nodes[i]->number, new_node.number,
+              DistanceBetweenPoints(nodes[i]->point, new_node.point));
         }
       }
-      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
     }
 
   for (auto& poly : polys_)
     for (auto& point : poly.GetTangentPoints()) {
       PathWayNode new_node(point, graph_.nodes.size());
       new_node.poly_ptr = std::make_unique<PolygonObstacle>(poly);
-      for (auto& prev : graph_.nodes) {
+      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
+      for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
         if (prev->poly_ptr && ((*prev->poly_ptr) == poly)) {
           graph_.AddEdge((*prev).number, new_node.number,
                          DistanceBetweenPointsOnPolygon(poly, prev->point,
                                                         new_node.point));
-        } else if (prev->poly_ptr &&
-                   (new_node.point == (*prev->point.another_tangent_point))) {
+        } else if (new_node.point == *prev->point.another_tangent_point) {
           graph_.AddEdge((*prev).number, new_node.number,
                          DistanceBetweenPoints(prev->point, new_node.point));
         }
       }
-      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
     }
 }
 
