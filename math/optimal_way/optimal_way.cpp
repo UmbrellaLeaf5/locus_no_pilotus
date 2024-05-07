@@ -155,6 +155,16 @@ void OptimalWayCalculator::AddGraphControlPoints(Point point1, Point point2) {
     }
     graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
   }
+  for (auto& circle : circles_)
+    if (AreThereIntersections(circle, point1, point2)) return;
+  for (auto& poly : polys_)
+    if (AreThereIntersections(poly, point1, point2)) return;
+  PathWayNode new_node1{point1, graph_.nodes.size()};
+  graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node1));
+  PathWayNode new_node2{point2, graph_.nodes.size()};
+  graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node2));
+  graph_.AddEdge(new_node1.number, new_node2.number,
+                 DistanceBetweenPoints(new_node1.point, new_node2.point));
 }
 
 std::vector<size_t> OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
