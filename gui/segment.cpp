@@ -4,9 +4,7 @@
 
 namespace gui {
 
-enum class QuarterOfCircle { First, Second, Third, Fourth };
-
-static QuarterOfCircle GetQuarterOfCircle(lib::Point p) {
+QuarterOfCircle Segment::GetQuarterOfCircle(const lib::Point& p) {
   double x = p.x, y = p.y;
   if (x >= 0 && y >= 0)
     return QuarterOfCircle::First;
@@ -21,7 +19,8 @@ static QuarterOfCircle GetQuarterOfCircle(lib::Point p) {
   return QuarterOfCircle::First;
 }
 
-static double GetMinAngle(lib::Point p, double R, QuarterOfCircle quarter) {
+double Segment::GetMinAngle(const lib::Point& p, double R,
+                            QuarterOfCircle quarter) {
   double angle{lib::inf};
   char sign{CHAR_MAX};
 
@@ -57,8 +56,8 @@ static double GetMinAngle(lib::Point p, double R, QuarterOfCircle quarter) {
   return angle;
 }
 
-static std::pair<double, double> GetAngles(lib::Point start, lib::Point end,
-                                           lib::Point center) {
+std::pair<double, double> Segment::GetAngles(lib::Point start, lib::Point end,
+                                             const lib::Point& center) {
   // Считаем радиус окружности
   double R = sqrt(pow(start.x - center.x, 2) + pow(start.y - center.y, 2));
 

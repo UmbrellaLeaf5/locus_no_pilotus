@@ -3,6 +3,8 @@
 #include "base.h"
 #include "lib/segment.h"
 
+enum class QuarterOfCircle { First, Second, Third, Fourth };
+
 namespace gui {
 
 /**
@@ -41,6 +43,16 @@ struct Segment : Drawable {
   bool IsArc() { return data_.IsArc(); }
 
   /**
+   * @brief Возвращает угловые коэффициенты на окружности
+   * @param Точка старта
+   * @param Конечная точка
+   * @param Центр окружности
+   * @return std::pair<double, double>: угол первой точки, угол второй точки
+   */
+  static std::pair<double, double> GetAngles(lib::Point start, lib::Point end,
+                                             const lib::Point& center);
+
+  /**
    * @brief Отрисовывает фигуру на полотне
    * @details Фигура представляет собой отрезок или дугу окружности синего цвета
    * @param plot: указатель на полотно
@@ -49,6 +61,10 @@ struct Segment : Drawable {
 
  private:
   lib::Segment data_;
+
+  static QuarterOfCircle GetQuarterOfCircle(const lib::Point& p);
+  static double GetMinAngle(const lib::Point& p, double R,
+                            QuarterOfCircle quarter);
 };
 
 }  // namespace gui
