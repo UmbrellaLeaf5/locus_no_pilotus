@@ -160,6 +160,8 @@ void OptimalWayCalculator::AddGraphControlPoints(Point point1, Point point2) {
 std::vector<size_t> OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
   AddGraphControlPoints(p1, p2);
   DijkstrasAlgorithm da(graph_);
+  optimal_way_length_ = da.Get_Min_Len();
+  graph_.RemoveLastNodes(2);
   return da.Get_Min_Path();
 }
 

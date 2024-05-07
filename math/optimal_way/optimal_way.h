@@ -25,6 +25,8 @@ class OptimalWayCalculator {
     return FindOptimalWay(point1, point2);
   }
 
+  double GetOptimalWayLength() { return optimal_way_length_; }
+
  private:
   std::vector<CircleObstacle> circles_;
 
@@ -35,6 +37,8 @@ class OptimalWayCalculator {
 
   // Оптимальный путь
   std::vector<std::size_t> optimal_way_;
+
+  double optimal_way_length_;
 
   /**
    * @brief Проверяет, пересекает ли общая касательная двух препятствий другое
