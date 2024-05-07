@@ -171,9 +171,13 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
   auto FindTangent = [&x_1, &x_0, &y_1, &y_0](double r_0, double r_1) {
     double a, b, c;
     if (std::abs(x_1 - x_0) > precision) {
-      b = ((r_1 - r_0) * (y_1 - y_0) +
-           sqrt(pow(x_1 - x_0, 2) *
-                (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2)))) /
+      double root = pow(x_1 - x_0, 2) *
+                    (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2));
+      if (std::abs(root) < precision)
+        root = 0;
+      else
+        root = sqrt(root);
+      b = ((r_1 - r_0) * (y_1 - y_0) + root) /
           (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
       a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
       c = r_0 - a * x_0 - b * y_0;
