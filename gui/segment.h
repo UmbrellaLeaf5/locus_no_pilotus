@@ -62,6 +62,8 @@ struct Segment : Drawable {
  private:
   lib::Segment data_;
 
+  QColor color_{QColor(50, 100, 200, 255)};
+
   static QuarterOfCircle GetQuarterOfCircle(const lib::Point& p);
   static double GetMinAngle(const lib::Point& p, double R,
                             QuarterOfCircle quarter);

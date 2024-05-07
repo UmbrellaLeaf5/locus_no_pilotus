@@ -2,6 +2,8 @@
 
 #include <QtMath>
 
+#include "plot_item_arc.h"
+
 namespace gui {
 
 QuarterOfCircle Segment::GetQuarterOfCircle(const lib::Point& p) {
@@ -78,7 +80,21 @@ std::pair<double, double> Segment::GetAngles(lib::Point start, lib::Point end,
 
 void Segment::Draw(QCustomPlot* plot) {
   if (IsArc()) {
+    auto arc = new PlotItemArc(plot);
+
+    arc->SetPen(QColor(color_));
+    arc->SetCenterAndRadiusCoords(Center().x, Center().y, Radius());
+    arc->SetStartAndEnd(GetAngles(Start(), End(), Center()));
+
   } else {
+    auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
+
+    graph->setPen(QColor(color_));
+    graph->setLineStyle(QCPGraph::lsLine);
+    graph->setSelectable(QCP::stNone);
+
+    graph->addData(Start().x, Start().y);
+    graph->addData(End().x, End().y);
   }
 }
 
