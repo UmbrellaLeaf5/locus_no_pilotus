@@ -12,7 +12,9 @@ function(load_qcustomplot_dll START_DIR)
 
     foreach(file ${QCUSTOMPLOTDLLFILES})
       if(QCUSTOMPLOTDLLFILES)
+        # copy to main and tests, where qcustomplot is used
         file(COPY ${file} DESTINATION ${CMAKE_BINARY_DIR}/main)
+        file(COPY ${file} DESTINATION ${CMAKE_BINARY_DIR}/tests)
       endif()
     endforeach()
     return()
