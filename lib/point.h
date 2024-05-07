@@ -2,7 +2,10 @@
 
 #include <cmath>
 
+#include "infinity.h"
+
 namespace lib {
+
 constexpr double precision = 1.0E-6;
 
 /// @brief Математическая точка
@@ -27,6 +30,8 @@ struct Point {
     y -= d.y;
     return *this;
   }
+
+  const static Point InfPoint() { return {inf, inf}; }
 };
 
 inline Point operator+(Point a, Point b) { return a += b; }
@@ -47,3 +52,14 @@ inline bool operator==(Point a, Point b) {
 inline bool operator!=(Point a, Point b) { return !(a == b); }
 
 }  // namespace lib
+
+/**
+ * @brief Проверяет, является ли точка бесконечной
+ * (имеет именование в стиле стандартной функции)
+ * @param p: точка
+ * @return true: если является
+ * @return false: если не является
+ */
+inline bool isinf(const lib::Point& p) {
+  return std::isinf(p.x) && std::isinf(p.y);
+}

@@ -9,7 +9,7 @@
 namespace lib {
 
 static double DistanceBetweenPoints(const Point& p1, const Point& p2) {
-  return pow(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2), 0.5);
+  return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 
 /**
@@ -24,7 +24,7 @@ class Segment {
    * @param start: точка начала
    * @param end: точка конца
    */
-  Segment(const Point& start, const Point& end) : start{start}, end{end} {}
+  Segment(const Point& start, const Point& end) : start_{start}, end_{end} {}
 
   /**
    * @brief Инициализирует новый экземпляр сегмента,
@@ -33,19 +33,25 @@ class Segment {
    * @param end: точка конца
    * @param center: центр окружности
    */
-  Segment(const Point& start, const Point& end, Point center)
-      : start{start}, end{end}, center_ptr{&center} {
+  Segment(const Point& start, const Point& end, const Point& center)
+      : start_{start}, end_{end}, center_{center} {
     if (std::abs(DistanceBetweenPoints(start, center) -
-                 DistanceBetweenPoints(end, center)) < lib::precision)
-      throw std::logic_error(
+                 DistanceBetweenPoints(end, center)) > lib::precision)
+      throw std::runtime_error(
           "dev: start and end in Segment do not lie on the same circle");
   }
 
   /// @brief Возвращает начало сегмента
-  Point& Start() { return start; }
+  Point& Start() { return start_; }
+
+  /// @brief Возвращает начало сегмента
+  const Point& Start() const { return start_; }
 
   /// @brief Возвращает конец сегмента
-  Point& End() { return end; }
+  Point& End() { return end_; }
+
+  /// @brief Возвращает конец сегмента
+  const Point& End() const { return end_; }
 
   /**
    * @brief Возвращает центр окружности
@@ -53,25 +59,54 @@ class Segment {
    * @throw std::runtime_error: если сегмент не имеет отношения к окружности
    */
   Point& Center() {
-    if (center_ptr) return *center_ptr;
+    if (IsArc()) return center_;
 
-    throw std::runtime_error("dev: center in Segment is nullptr");
+    throw std::runtime_error("dev: Segment is not Arc");
   }
 
-  /// @brief Возвращает радиус окружности
-  double Radius() { return DistanceBetweenPoints(start, *center_ptr); }
+  /**
+   * @brief Возвращает центр окружности
+   * @return const Point&: центр окружности
+   * @throw std::runtime_error: если сегмент не имеет отношения к окружности
+   */
+  const Point& Center() const {
+    if (IsArc()) return center_;
+
+    throw std::runtime_error("dev: Segment is not Arc");
+  }
+
+  /**
+   * @brief Возвращает радиус окружности
+   * @return double радиус окружности
+   * @throw std::runtime_error: если сегмент не имеет отношения к окружности
+   */
+  double Radius() const {
+    if (IsArc()) return DistanceBetweenPoints(start_, center_);
+
+    throw std::runtime_error("dev: Segment is not Arc");
+  }
 
   /**
    * @brief Проверяет, является ли текущий сегмент дугой окружности
    * @return true: да, является
    * @return false: нет, не является
    */
-  bool IsArc() { return center_ptr != nullptr; }
+  bool IsArc() const { return !isinf(center_); }
 
  private:
-  Point start;
-  Point end;
-  std::unique_ptr<Point> center_ptr;
+  Point start_;
+  Point end_;
+  Point center_{Point::InfPoint()};
 };
 
 }  // namespace lib
+
+/// @brief Проверяет, может ли сегмент стать дугой с учетом центра окружности
+inline bool CouldBeArc(const lib::Segment& seg, const lib::Point& center) {
+  try {
+    lib::Segment(seg.Start(), seg.End(), center);
+  } catch (const std::runtime_error&) {
+    return false;
+  }
+  return true;
+}
