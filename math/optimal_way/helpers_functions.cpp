@@ -232,7 +232,7 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
                         (pow(radius, 2) - pow(center.x, 2) - pow(b_coef, 2) -
                          pow(center.y, 2) + 2 * b_coef * center.y) *
                             (1 + pow(slope, 2));
-  if (discriminant <= 0)
+  if (discriminant < precision)
     return false;
   else {
     double x_1 =
