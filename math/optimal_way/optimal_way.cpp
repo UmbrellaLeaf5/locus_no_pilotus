@@ -79,14 +79,16 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
       new_node.circle_ptr = std::make_unique<CircleObstacle>(circle);
       graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
-        if (nodes[i]->circle_ptr && ((*nodes[i]->circle_ptr) == circle)) {
-          graph_.AddEdge(nodes[i]->number, new_node.number,
-                         DistanceBetweenPointsOnCircle(circle, nodes[i]->point,
-                                                       new_node.point));
-        } else if (new_node.point == *nodes[i]->point.another_tangent_point) {
+        if (graph_.nodes[i]->circle_ptr &&
+            ((*graph_.nodes[i]->circle_ptr) == circle)) {
+          graph_.AddEdge(graph_.nodes[i]->number, new_node.number,
+                         DistanceBetweenPointsOnCircle(
+                             circle, graph_.nodes[i]->point, new_node.point));
+        } else if (new_node.point ==
+                   *graph_.nodes[i]->point.another_tangent_point) {
           graph_.AddEdge(
-              nodes[i]->number, new_node.number,
-              DistanceBetweenPoints(nodes[i]->point, new_node.point));
+              graph_.nodes[i]->number, new_node.number,
+              DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
         }
       }
     }
@@ -97,13 +99,16 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
       new_node.poly_ptr = std::make_unique<PolygonObstacle>(poly);
       graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
-        if (prev->poly_ptr && ((*prev->poly_ptr) == poly)) {
-          graph_.AddEdge((*prev).number, new_node.number,
-                         DistanceBetweenPointsOnPolygon(poly, prev->point,
-                                                        new_node.point));
-        } else if (new_node.point == *prev->point.another_tangent_point) {
-          graph_.AddEdge((*prev).number, new_node.number,
-                         DistanceBetweenPoints(prev->point, new_node.point));
+        if (graph_.nodes[i]->poly_ptr &&
+            ((*graph_.nodes[i]->poly_ptr) == poly)) {
+          graph_.AddEdge((*graph_.nodes[i]).number, new_node.number,
+                         DistanceBetweenPointsOnPolygon(
+                             poly, graph_.nodes[i]->point, new_node.point));
+        } else if (new_node.point ==
+                   *graph_.nodes[i]->point.another_tangent_point) {
+          graph_.AddEdge(
+              (*graph_.nodes[i]).number, new_node.number,
+              DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
         }
       }
     }
