@@ -17,30 +17,29 @@ static double DistanceBetweenPoints(const Point& p1, const Point& p2) {
  * @details Может быть как отрезком, так и дугой некоторой окружности
  */
 class Segment {
+ public:
   /**
-   * @brief инициализирует новый экземпляр сегмента,
+   * @brief Инициализирует новый экземпляр сегмента,
    * как отрезок с началом и концом
    * @param start: точка начала
    * @param end: точка конца
    */
-  Segment(Point start, Point end) : start{start}, end{end} {}
+  Segment(const Point& start, const Point& end) : start{start}, end{end} {}
 
   /**
-   * @brief инициализирует новый экземпляр сегмента,
+   * @brief Инициализирует новый экземпляр сегмента,
    * как дугу окружности с началом и концом
    * @param start: точка начала
    * @param end: точка конца
    * @param center: центр окружности
    */
-  Segment(Point start, Point end, Point center)
+  Segment(const Point& start, const Point& end, Point center)
       : start{start}, end{end}, center_ptr{&center} {
-    if (std::abs(DistanceBetweenPoints(start, *center_ptr) -
-                 DistanceBetweenPoints(end, *center_ptr)) < lib::precision)
+    if (std::abs(DistanceBetweenPoints(start, center) -
+                 DistanceBetweenPoints(end, center)) < lib::precision)
       throw std::logic_error(
           "dev: start and end in Segment do not lie on the same circle");
   }
-
-  double Radius() { return DistanceBetweenPoints(start, *center_ptr); }
 
   /// @brief Возвращает начало сегмента
   Point& Start() { return start; }
@@ -58,6 +57,9 @@ class Segment {
 
     throw std::runtime_error("dev: center in Segment is nullptr");
   }
+
+  /// @brief Возвращает радиус окружности
+  double Radius() { return DistanceBetweenPoints(start, *center_ptr); }
 
  private:
   Point start;
