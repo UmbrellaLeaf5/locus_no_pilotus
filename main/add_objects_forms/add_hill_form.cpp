@@ -13,16 +13,26 @@ AddHillForm::AddHillForm(QWidget* parent)
 AddHillForm::~AddHillForm() { delete ui; }
 
 void AddHillForm::on_createPushButton_clicked() {
-  std::vector<std::pair<std::string, std::string>> points;
+  std::vector<std::pair<double, double>> points;
   for (size_t i = 0; i < both_coords_point_line_edits_.size(); i++) {
-    points.push_back(
-        {both_coords_point_line_edits_[i].abscissa->displayText().toStdString(),
-         both_coords_point_line_edits_[i]
-             .ordinate->displayText()
-             .toStdString()});
+    QString x =
+        both_coords_point_line_edits_[i].abscissa->displayText().replace(',',
+                                                                         '.');
+    QString y =
+        both_coords_point_line_edits_[i].ordinate->displayText().replace(',',
+                                                                         '.');
+    if (x.isEmpty() || y.isEmpty()) {
+      QMessageBox::warning(
+          this, "Warning!",
+          "There are empty fields! Please, enter values in all fields.");
+      break;
+    }
+    points.push_back({x.toDouble(), y.toDouble()});
   }
-  emit AddHill(points);
-  close();
+  if (points.size() == both_coords_point_line_edits_.size()) {
+    emit AddHill(points);
+    close();
+  }
 }
 
 void AddHillForm::on_clearPushButton_clicked() {
@@ -53,6 +63,9 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     ui->gridLayout->addWidget(point_layouts_widgets_[i].get(),
                               static_cast<int>(i), 0);
 
+    // создаем валидатор
+    QDoubleValidator* double_validator{new QDoubleValidator()};
+
     // добавляем лейбл с указанием, к какой точке он относится
     QLabel* point_label = new QLabel(this);
     point_label->setObjectName("point" + QString::number(i + 1) + "Label");
@@ -67,6 +80,7 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     point_layouts_widgets_[i]->layout()->addWidget(abscissa_label);
 
     QLineEdit* abscissa_line_edit = new QLineEdit(this);
+    abscissa_line_edit->setValidator(double_validator);
     abscissa_line_edit->setObjectName("abscissa" + QString::number(i + 1) +
                                       "LineEdit");
     point_layouts_widgets_[i]->layout()->addWidget(abscissa_line_edit);
@@ -79,6 +93,7 @@ void AddHillForm::AddNewInputFields(size_t amount) {
     point_layouts_widgets_[i]->layout()->addWidget(ordinate_label);
 
     QLineEdit* ordinate_line_edit = new QLineEdit(this);
+    ordinate_line_edit->setValidator(double_validator);
     ordinate_line_edit->setObjectName("ordinate" + QString::number(i + 1) +
                                       "LineEdit");
     point_layouts_widgets_[i]->layout()->addWidget(ordinate_line_edit);

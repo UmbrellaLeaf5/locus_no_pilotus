@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QDialog>
+#include <QDoubleValidator>
+#include <QMessageBox>
 
 namespace Ui {
 class AddTrappyCircleForm;
@@ -14,7 +16,7 @@ class AddTrappyCircleForm : public QDialog {
   ~AddTrappyCircleForm();
 
  signals:
-  void AddTrappyCircle(std::string x, std::string y, std::string radius);
+  void AddTrappyCircle(double x, double y, double radius);
 
  private slots:
   void on_clearPushButton_clicked();

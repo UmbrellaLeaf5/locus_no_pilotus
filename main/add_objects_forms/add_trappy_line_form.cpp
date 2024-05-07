@@ -2,9 +2,14 @@
 
 #include "ui_add_trappy_line_form.h"
 
-AddTrappyLineForm::AddTrappyLineForm(QWidget *parent)
+AddTrappyLineForm::AddTrappyLineForm(QWidget* parent)
     : QDialog(parent), ui(new Ui::AddTrappyLineForm) {
   ui->setupUi(this);
+  QDoubleValidator* double_validator{new QDoubleValidator()};
+  ui->firstPointAbscissaLineEdit->setValidator(double_validator);
+  ui->firstPointOrdinateLineEdit->setValidator(double_validator);
+  ui->secondPointAbscissaLineEdit->setValidator(double_validator);
+  ui->secondPointOrdinateLineEdit->setValidator(double_validator);
 }
 
 AddTrappyLineForm::~AddTrappyLineForm() { delete ui; }
@@ -17,11 +22,17 @@ void AddTrappyLineForm::on_clearPushButton_clicked() {
 }
 
 void AddTrappyLineForm::on_createPushButton_clicked() {
-  std::string x1 = ui->firstPointAbscissaLineEdit->displayText().toStdString();
-  std::string y1 = ui->firstPointOrdinateLineEdit->displayText().toStdString();
-  std::string x2 = ui->secondPointAbscissaLineEdit->displayText().toStdString();
-  std::string y2 = ui->secondPointOrdinateLineEdit->displayText().toStdString();
-
-  emit AddTrappyLine(x1, y1, x2, y2);
-  close();
+  QString x1 = ui->firstPointAbscissaLineEdit->displayText().replace(',', '.');
+  QString y1 = ui->firstPointOrdinateLineEdit->displayText().replace(',', '.');
+  QString x2 = ui->secondPointAbscissaLineEdit->displayText().replace(',', '.');
+  QString y2 = ui->secondPointOrdinateLineEdit->displayText().replace(',', '.');
+  if (x1.isEmpty() || y1.isEmpty() || x2.isEmpty() || y2.isEmpty())
+    QMessageBox::warning(
+        this, "Warning!",
+        "There are empty fields! Please, enter values in all fields.");
+  else {
+    emit AddTrappyLine(x1.toDouble(), y1.toDouble(), x2.toDouble(),
+                       y2.toDouble());
+    close();
+  }
 }
