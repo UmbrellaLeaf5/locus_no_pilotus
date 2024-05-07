@@ -61,6 +61,13 @@ class Segment {
   /// @brief Возвращает радиус окружности
   double Radius() { return DistanceBetweenPoints(start, *center_ptr); }
 
+  /**
+   * @brief Проверяет, является ли текущий сегмент дугой окружности
+   * @return true: да, является
+   * @return false: нет, не является
+   */
+  bool IsArc() { return center_ptr != nullptr; }
+
  private:
   Point start;
   Point end;

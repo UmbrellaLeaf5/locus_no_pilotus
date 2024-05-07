@@ -30,6 +30,13 @@ struct Segment : Drawable {
    */
   lib::Point& Center() { return data_.Center(); }
 
+  /**
+   * @brief Проверяет, является ли текущий сегмент дугой окружности
+   * @return true: да, является
+   * @return false: нет, не является
+   */
+  bool IsArc() { return data_.IsArc(); }
+
   virtual void Draw(QCustomPlot* plot) override;
 
  private:
