@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "base.h"
-#include "point.h"
 
 namespace lib {
 

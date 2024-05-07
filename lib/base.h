@@ -3,6 +3,9 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
+// lib::Point is used everywhere with lib classes
+#include "point.h"
+
 namespace lib {
 
 constexpr double max_coord = 1000000;
