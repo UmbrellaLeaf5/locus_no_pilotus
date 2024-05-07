@@ -27,6 +27,7 @@ class Target : public Drawable {
   lib::Target& GetData() { return data_; }
   const lib::Target& GetData() const { return data_; }
 
+  //@details Фигура представляет собой малую серую окружность (точку)
   virtual void Draw(QCustomPlot* plot) override;
 
   /**
@@ -44,5 +45,15 @@ class Target : public Drawable {
 
   QCPGraph* graph_{nullptr};
 };
+
+inline void Target::Draw(QCustomPlot* plot) {
+  graph_ = plot->addGraph(plot->xAxis, plot->yAxis);
+
+  graph_->setPen(QColor(50, 50, 50, 255));
+  graph_->setLineStyle(QCPGraph::lsNone);
+  graph_->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
+
+  graph_->setData({GetPoint().x}, {GetPoint().y});
+}
 
 }  // namespace gui
