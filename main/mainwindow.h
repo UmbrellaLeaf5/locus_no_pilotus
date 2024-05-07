@@ -87,11 +87,10 @@ class MainWindow : public QMainWindow {
   void on_pushButtonEditObjects_clicked();
 
  public slots:
-  void AddTrappyCircle(std::string x, std::string y, std::string radius);
-  void AddTarget(std::string x, std::string y);
-  void AddTrappyLine(std::string x1, std::string y1, std::string x2,
-                     std::string y2);
-  void AddHill(std::vector<std::pair<std::string, std::string>> points);
+  void AddTrappyCircle(double x, double y, double radius);
+  void AddTarget(double x, double y);
+  void AddTrappyLine(double x1, double y1, double x2, double y2);
+  void AddHill(std::vector<std::pair<double, double>> points);
 
  private:
   Ui::MainWindow* ui;
