@@ -117,6 +117,7 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
 void OptimalWayCalculator::AddGraphControlPoints(Point point1, Point point2) {
   for (auto& point : {point1, point2}) {
     PathWayNode new_node{point, graph_.nodes.size()};
+    graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
     for (auto& prev : graph_.nodes) {
       if (prev->circle_ptr) {
         std::pair<Point, Point> tangent_points =
@@ -157,7 +158,6 @@ void OptimalWayCalculator::AddGraphControlPoints(Point point1, Point point2) {
           }
       }
     }
-    graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
   }
   for (auto& circle : circles_)
     if (AreThereIntersections(circle, point1, point2) ||
