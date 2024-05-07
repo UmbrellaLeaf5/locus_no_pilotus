@@ -76,7 +76,7 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
   for (auto& circle : circles_)
     for (auto& point : circle.GetTangentPoints()) {
       PathWayNode new_node(point, graph_.nodes.size());
-      new_node.circle_ptr = std::make_unique<CircleObstacle>(circle);
+      new_node.circle_ptr = std::make_shared<CircleObstacle>(circle);
       graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
         if (graph_.nodes[i]->circle_ptr &&
