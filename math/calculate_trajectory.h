@@ -1,10 +1,10 @@
-#ifndef CALCULATETRAJECTORY_H
-#define CALCULATETRAJECTORY_H
+#pragma once
 
-class CalculateTrajectory
-{
-public:
+namespace math {
+
+class CalculateTrajectory {
+ public:
   CalculateTrajectory();
 };
 
-#endif  // CALCULATETRAJECTORY_H
+}  // namespace math
