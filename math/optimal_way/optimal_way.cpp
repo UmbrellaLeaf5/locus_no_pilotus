@@ -5,7 +5,7 @@
 namespace math {
 
 template <typename T, typename U>
-bool MinimumDistanceCalculator::TangentGoesTroughOtherObstacle(
+bool OptimalWayCalculator::TangentGoesTroughOtherObstacle(
     const LinearFunction& tangent, T& obstacle1, U& obstacle2) {
   std::pair<Point, Point> tangent_points =
       TangentPoints(tangent, obstacle1, obstacle2);
@@ -21,8 +21,8 @@ bool MinimumDistanceCalculator::TangentGoesTroughOtherObstacle(
 }
 
 template <typename T, typename U>
-void MinimumDistanceCalculator::AddTangent(const LinearFunction& tangent,
-                                           T& obstacle1, U& obstacle2) {
+void OptimalWayCalculator::AddTangent(const LinearFunction& tangent,
+                                      T& obstacle1, U& obstacle2) {
   std::pair<Point, Point> tangent_points =
       TangentPoints(tangent, obstacle1, obstacle2);
   tangent_points.first.another_tangent_point =
@@ -35,7 +35,7 @@ void MinimumDistanceCalculator::AddTangent(const LinearFunction& tangent,
   obstacle2.AddTangentPoint(tangent_points.second);
 }
 
-void MinimumDistanceCalculator::AddCommonTangents() {
+void OptimalWayCalculator::AddCommonTangents() {
   for (std::size_t i = 0; i < circles_.size(); ++i) {
     for (std::size_t j = i + 1; j < circles_.size(); ++j) {
       std::vector<LinearFunction> tangents =
@@ -72,7 +72,7 @@ void MinimumDistanceCalculator::AddCommonTangents() {
   }
 }
 
-void MinimumDistanceCalculator::AddGraphTangentPoints() {
+void OptimalWayCalculator::AddGraphTangentPoints() {
   for (auto& circle : circles_)
     for (auto& point : circle.GetTangentPoints()) {
       PathWayNode new_node(point, graph_.nodes.size());
@@ -110,8 +110,7 @@ void MinimumDistanceCalculator::AddGraphTangentPoints() {
     }
 }
 
-void MinimumDistanceCalculator::AddGraphControlPoints(Point point1,
-                                                      Point point2) {
+void OptimalWayCalculator::AddGraphControlPoints(Point point1, Point point2) {
   for (auto& point : {point1, point2}) {
     PathWayNode new_node{point, graph_.nodes.size()};
     for (auto& prev : graph_.nodes) {
@@ -158,36 +157,33 @@ void MinimumDistanceCalculator::AddGraphControlPoints(Point point1,
   }
 }
 
-std::vector<size_t> MinimumDistanceCalculator::FindOptimalWay(Point p1,
-                                                              Point p2) {
+std::vector<size_t> OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
   AddGraphControlPoints(p1, p2);
   DijkstrasAlgorithm da(graph_);
   return da.Get_Min_Path();
 }
 
-template bool MinimumDistanceCalculator::TangentGoesTroughOtherObstacle<
+template bool OptimalWayCalculator::TangentGoesTroughOtherObstacle<
     CircleObstacle, CircleObstacle>(const LinearFunction& tangent,
                                     CircleObstacle& obstacle1,
                                     CircleObstacle& obstacle2);
-template bool MinimumDistanceCalculator::TangentGoesTroughOtherObstacle<
+template bool OptimalWayCalculator::TangentGoesTroughOtherObstacle<
     PolygonObstacle, CircleObstacle>(const LinearFunction& tangent,
                                      PolygonObstacle& obstacle1,
                                      CircleObstacle& obstacle2);
-template bool MinimumDistanceCalculator::TangentGoesTroughOtherObstacle<
+template bool OptimalWayCalculator::TangentGoesTroughOtherObstacle<
     PolygonObstacle, PolygonObstacle>(const LinearFunction& tangent,
                                       PolygonObstacle& obstacle1,
                                       PolygonObstacle& obstacle2);
 
-template void
-MinimumDistanceCalculator::AddTangent<CircleObstacle, CircleObstacle>(
+template void OptimalWayCalculator::AddTangent<CircleObstacle, CircleObstacle>(
     const LinearFunction& tangent, CircleObstacle& obstacle1,
     CircleObstacle& obstacle2);
-template void
-MinimumDistanceCalculator::AddTangent<PolygonObstacle, CircleObstacle>(
+template void OptimalWayCalculator::AddTangent<PolygonObstacle, CircleObstacle>(
     const LinearFunction& tangent, PolygonObstacle& obstacle1,
     CircleObstacle& obstacle2);
 template void
-MinimumDistanceCalculator::AddTangent<PolygonObstacle, PolygonObstacle>(
+OptimalWayCalculator::AddTangent<PolygonObstacle, PolygonObstacle>(
     const LinearFunction& tangent, PolygonObstacle& obstacle1,
     PolygonObstacle& obstacle2);
 }  // namespace math

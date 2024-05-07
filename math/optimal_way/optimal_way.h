@@ -7,15 +7,15 @@
 namespace math {
 
 /// @brief Функтор, находящий кратчайший путь между точками
-class MinimumDistanceCalculator {
+class OptimalWayCalculator {
  public:
   /**
    * @brief Находит кратчайший путь между точками
    * @param circles: круговые препятствия
    * @param polys: многоугольные препятствия
    */
-  MinimumDistanceCalculator(std::vector<CircleObstacle> circles,
-                            std::vector<PolygonObstacle> polys)
+  OptimalWayCalculator(std::vector<CircleObstacle> circles,
+                       std::vector<PolygonObstacle> polys)
       : circles_{circles}, polys_{polys} {
     AddCommonTangents();
     AddGraphTangentPoints();
