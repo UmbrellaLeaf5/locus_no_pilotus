@@ -9,9 +9,6 @@ static void SetCenterAndRadiusCoords(QCPItemEllipse*& ellipse,
 }
 
 void gui::TrappyCircle::Draw(QCustomPlot* plot) {
-  // фигура представляет собой красный круг с полупрозрачной заливкой
-  // (красный по умолчанию, однако цвет задаётся в аргументах конструктора)
-
   ellipse_ = new QCPItemEllipse(plot);
 
   QColor fill_color = QColor(color_.red(), color_.green(), color_.blue(), 100);

@@ -5,7 +5,10 @@
 
 namespace gui {
 
-/// @brief Фигура отрезка траектории
+/**
+ * @brief Фигура отрезка траектории
+ * @details Фигура представляет собой отрезок или дугу окружности синего цвета
+ */
 struct Segment : Drawable {
  public:
   Segment() = default;
@@ -37,6 +40,11 @@ struct Segment : Drawable {
    */
   bool IsArc() { return data_.IsArc(); }
 
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой отрезок или дугу окружности синего цвета
+   * @param plot: указатель на полотно
+   */
   virtual void Draw(QCustomPlot* plot) override;
 
  private:

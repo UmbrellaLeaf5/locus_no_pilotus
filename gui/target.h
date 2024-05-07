@@ -5,7 +5,10 @@
 
 namespace gui {
 
-/// @brief Фигура контрольной точки
+/**
+ * @brief Фигура контрольной точки
+ * @details Фигура представляет собой малую серую окружность (точку)
+ */
 class Target : public Drawable {
  public:
   Target() = default;
@@ -27,7 +30,11 @@ class Target : public Drawable {
   lib::Target& GetData() { return data_; }
   const lib::Target& GetData() const { return data_; }
 
-  //@details Фигура представляет собой малую серую окружность (точку)
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой малую серую окружность (точку)
+   * @param plot: указатель на полотно
+   */
   virtual void Draw(QCustomPlot* plot) override;
 
   /**

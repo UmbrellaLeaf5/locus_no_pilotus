@@ -5,7 +5,11 @@
 
 namespace gui {
 
-/// @brief Фигура опасной зоны
+/**
+ * @brief Фигура опасной зоны
+ * @details Фигура представляет собой красный круг с полупрозрачной заливкой
+ * (красный по умолчанию, однако цвет задаётся в аргументах конструктора)
+ */
 class TrappyCircle : public Drawable {
  public:
   TrappyCircle() = default;
@@ -37,6 +41,12 @@ class TrappyCircle : public Drawable {
   void SetCenter(const lib::Point& center) { data_.SetCenter(center); }
   void SetRadius(double radius) { data_.SetRadius(radius); }
 
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой красный круг с полупрозрачной заливкой
+   * (красный по умолчанию, однако цвет задаётся в аргументах конструктора)
+   * @param plot: указатель на полотно
+   */
   void Draw(QCustomPlot* plot) override;
 
   /**

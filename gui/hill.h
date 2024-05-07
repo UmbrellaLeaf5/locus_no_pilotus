@@ -5,7 +5,12 @@
 
 namespace gui {
 
-/// @brief Фигура рельефа с высотой
+/**
+ * @brief Фигура рельефа с высотой
+ * @details Фигура представляет собой зеленый
+ * многоугольник с полупрозрачной заливкой
+ * (зеленый по умолчанию, однако цвет задаётся в аргументах конструктора)
+ */
 class Hill : public Drawable {
  public:
   Hill() = default;
@@ -41,6 +46,13 @@ class Hill : public Drawable {
 
   void AddVertice(lib::Point vertice) { data_.AddVertice(vertice); }
 
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой зеленый
+   * многоугольник с полупрозрачной заливкой
+   * (зеленый по умолчанию, однако цвет задаётся в аргументах конструктора)
+   * @param plot: указатель на полотно
+   */
   void Draw(QCustomPlot* plot) override;
 
   /**
