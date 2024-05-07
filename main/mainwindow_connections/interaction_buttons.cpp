@@ -193,7 +193,7 @@ void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
                  manager_->GetTrappyCircles()[last].GetCenter().y);
 
   // Значение радиуса
-  double r = pow(pow(x, 2) + pow(y, 2), 0.5);
+  double r = sqrt(pow(x, 2) + pow(y, 2));
 
   manager_->GetTrappyCirclesPtrs()[last]->SetRadius(r);
   area_->Redraw();
@@ -247,7 +247,7 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
 
     // Проверка на то, что расстояние от курсора до начальной точки меньше 10
     // пикселей. Если это так, то мы считаем, что он завершил создание Hill
-    if (pow(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2), 0.5) <
+    if (sqrt(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2)) <
             10 &&
         manager_->GetHills()[last].GetVertices().size() > 2) {
       size_t last_vertice =

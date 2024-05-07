@@ -6,7 +6,7 @@
 namespace math {
 
 double DistanceBetweenPoints(const Point& p1, const Point& p2) {
-  return pow(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2), 0.5);
+  return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
@@ -175,7 +175,9 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
            sqrt(pow(x_1 - x_0, 2) *
                 (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2)))) /
           (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
+
       a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
+
       c = r_0 - a * x_0 - b * y_0;
     } else {
       a = std::abs(y_1 - y_0) / sqrt(pow(r_1 - r_0, 2) + pow(y_1 - y_0, 2));
