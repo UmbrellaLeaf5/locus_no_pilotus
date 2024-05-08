@@ -8,10 +8,6 @@
 
 namespace lib {
 
-static double DistanceBetweenPoints(const Point& p1, const Point& p2) {
-  return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
-}
-
 /**
  * @brief Сегмент математический траектории
  * @details Может быть как отрезком, так и дугой некоторой окружности
@@ -88,6 +84,10 @@ class Segment {
    * @return false: нет, не является
    */
   bool IsArc() const { return !isinf(center_); }
+
+  static double DistanceBetweenPoints(const Point& p1, const Point& p2) {
+    return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+  }
 
  private:
   Point start_;

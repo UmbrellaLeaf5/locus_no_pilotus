@@ -73,18 +73,15 @@ class Segment : private Drawable {
 inline std::pair<double, double> Segment::GetAngles(lib::Point start,
                                                     lib::Point end,
                                                     const lib::Point& center) {
-  Segment seg(start, end, center);
+  // Считаем радиус окружности
+  double R = lib::Segment::DistanceBetweenPoints(start, center);
 
   // Чтобы легче считать, переносим окружность в начало координат
-  seg.Start() -= seg.Center();
-  seg.End() -= seg.Center();
+  start -= center;
+  end -= center;
 
-  // Находим, в какие четвертях находятся точки
-  QuarterOfCircle start_quarter = GetQuarterOfCircle(start);
-  QuarterOfCircle end_quarter = GetQuarterOfCircle(end);
-
-  return {GetMinAngle(seg.Start(), seg.Radius(), start_quarter),
-          GetMinAngle(seg.End(), seg.Radius(), end_quarter)};
+  return {GetMinAngle(start, R, GetQuarterOfCircle(start)),
+          GetMinAngle(end, R, GetQuarterOfCircle(end))};
 }
 
 inline QuarterOfCircle Segment::GetQuarterOfCircle(const lib::Point& p) {
