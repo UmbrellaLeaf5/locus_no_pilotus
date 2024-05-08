@@ -31,8 +31,11 @@ class AdjacencyMatrix {
 
   enum Mins { Rows, Columns };
 
+  // Копирующий конструктор для матрицы
+  AdjacencyMatrix(const AdjacencyMatrix& other) = default;
+
   // Копирующее присваивание для матрицы
-  AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
+  AdjacencyMatrix& operator=(const AdjacencyMatrix& other) = default;
 
   /**
    * @brief Меняет элемент матрицы
