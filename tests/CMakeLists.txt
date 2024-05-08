@@ -1,56 +1,54 @@
 # language: CMake
 
-project(tests VERSION 0.1 LANGUAGES CXX)
+# -----------------------------        Subroject setup        -----------------------------
+project(tests LANGUAGES CXX)
 
+# set extra C++ compilation flag for plots
 set(CMAKE_CXX_FLAGS "-DTEST_PLOTS")
 
+# add all needed files to TEST_SOURCES
 file(GLOB_RECURSE TEST_SOURCES "*.h" "*.cpp" "*.ui")
 
+# include dir of all project (for short paths using)
 include_directories(${PROJECT_DIR})
 
+# -----------------------------         Add executable         -----------------------------
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-  qt_add_executable(tests
-    MANUAL_FINALIZATION
-    ${TEST_SOURCES}
-  )
-
-# Define target properties for Android with Qt 6 as:
-# set_property(TARGET tests APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-# ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+  qt_add_executable(tests MANUAL_FINALIZATION ${TEST_SOURCES})
 else()
-  if(ANDROID)
-    add_library(tests SHARED
-      ${TEST_SOURCES}
-    )
-
-  # Define properties for Android with Qt 5 after find_package() calls as:
-  # set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-  else()
-    add_executable(tests
-      ${TEST_SOURCES}
-    )
-  endif()
+  add_executable(tests ${TEST_SOURCES})
 endif()
 
-target_link_libraries(tests PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
+# -----------------------------     Include other libraries    -----------------------------
+# Qt libs:
+target_link_libraries(tests PUBLIC
+  Qt${QT_VERSION_MAJOR}::Core
+  Qt${QT_VERSION_MAJOR}::Gui
+  Qt${QT_VERSION_MAJOR}::Widgets
+  Qt${QT_VERSION_MAJOR}::PrintSupport
+)
 
-target_link_libraries(tests PRIVATE lib)
-
+# Boost libs:
 target_link_libraries(tests PRIVATE ${Boost_LIBRARIES})
 
+# QCustomPlot lib:
 target_compile_definitions(tests PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(tests PUBLIC qcustomplot)
 
-set_target_properties(tests PROPERTIES
-  MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-  MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-  MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-)
-
+# IceCreamCpp lib:
 find_package(IcecreamCpp)
 include_directories(${IcecreamCpp_INCLUDE_DIRS})
 
+# Our lib:
+target_link_libraries(tests PRIVATE lib)
+
+# -----------------------------        Set exetra flags        -----------------------------
+set_target_properties(tests PROPERTIES
+  MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+  MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+)
+
+# -----------------------------      Finalize executable       -----------------------------
 if(QT_VERSION_MAJOR EQUAL 6)
   qt_finalize_executable(tests)
 endif()
