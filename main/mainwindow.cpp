@@ -34,8 +34,6 @@ MainWindow::MainWindow(QWidget* parent)
       ui->targetRemovePushButton, ui->hillRemovePushButton,
       ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
-  // Нужно для того, чтобы при открытии приложения менялось имя "Untitled"
-  // файла, так как может быть такое, что пользователь уже создавал такие файлы
   json_file_.SetUntitledFile();
 }
 

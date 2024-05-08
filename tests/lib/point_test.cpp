@@ -14,6 +14,7 @@ using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(lib_point, *utf::tolerance(1.0E-7))
 
+// random generator:
 static std::random_device rd;
 static std::mt19937 gen(rd());
 static std::uniform_real_distribution<> dis(-1000, 1000);

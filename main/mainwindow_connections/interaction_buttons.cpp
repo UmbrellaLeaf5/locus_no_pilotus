@@ -41,9 +41,11 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
   cursor_ = CursorType::DefaultCursor;
 }
 
-// Функция, которая удаляет последний добавленный объект с помощью кнопок слева,
-// причем его добавление не закончилось. Она должна вызывается везде, где
-// происходит взаимодействие пользователя с кнопками класса "MainWindow"
+/**
+ * @brief Удаляет последний добавленный объект с помощью кнопок слева,
+ * причем его добавление не закончилось. Она должна вызывается везде, где
+ * происходит взаимодействие пользователя с кнопками класса "MainWindow"
+ */
 void MainWindow::DeleteLastAddedObject() {
   DisconnectObject(GetObjType());
   switch (what_obj_addition_) {

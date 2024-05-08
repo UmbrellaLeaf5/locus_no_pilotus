@@ -34,21 +34,13 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
-  void on_actionBeautify_triggered();
-
-  void on_xAxis_rangeChanged(QCPRange range);
-  void on_yAxis_rangeChanged(QCPRange range);
-
-  // Слоты для Target
-  void on_pushButtonAddTarget_clicked();
-  void on_actionTarget_triggered();
-
-  // Слоты для файлов
+  // Slots for files:
   bool on_actionSave_as_triggered();
   bool on_actionSave_triggered();
   void on_actionOpen_triggered();
   void on_actionNew_triggered();
 
+  // Slots for interaction objects adding:
   void mousePressObjectsButton(QMouseEvent* mouse_event);
   void mousePressContextMenu(QMouseEvent* mouse_event);
   void mousePressRemoveObject();
@@ -56,30 +48,40 @@ class MainWindow : public QMainWindow {
   void closeEvent(QCloseEvent* event) override;
   void keyPressEvent(QKeyEvent* key_event) override;
 
-  // Слоты для TrappyCircle
+  // Slots for Target:
+  void on_pushButtonAddTarget_clicked();
+  void on_actionTarget_triggered();
+
+  // Slots for TrappyCircle:
   void on_pushButtonAddTrappyCircle_clicked();
   void on_actionTrappy_Circle_triggered();
   void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
-  // Слот для TrappyLine
+  // Slots for TrappyLine:
   void on_pushButtonAddTrappyLine_clicked();
   void on_actionTrappy_Line_triggered();
   void on_actionHill_triggered();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
 
-  // Слоты для Hill
+  // Slots for Hill:
   void on_pushButtonAddHill_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
   void mouseMoveAddVertice(QMouseEvent* mouse_event);
 
-  // Слоты для Settings
+  // Slots for Settings:
   void on_targetAddFromTablePushButton_clicked();
   void on_hillAddFromTablePushButton_clicked();
   void on_trappyCircleAddFromTablePushButton_clicked();
   void on_trappyLineAddFromTablePushButton_clicked();
   void on_pushButtonEditObjects_clicked();
+
+  // Extra slots:
+  void on_actionBeautify_triggered();
+
+  void on_xAxis_rangeChanged(QCPRange range);
+  void on_yAxis_rangeChanged(QCPRange range);
 
  public slots:
   void AddTrappyCircle(std::string x, std::string y, std::string radius);

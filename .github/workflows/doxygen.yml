@@ -24,7 +24,6 @@ jobs:
           submodules: 'recursive'
 
       - name: Install Doxygen
-        # source: https://askubuntu.com/questions/1291874/how-to-install-doxygen-on-ubuntu
         run: |
           chmod +x install_doxygen.sh
           ./install_doxygen.sh
@@ -38,7 +37,7 @@ jobs:
       - name: Upload Docs
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          # Upload entire repository with index.html created by doxygen 
           path: './doxygen/html/'
 
       - name: Setup Pages

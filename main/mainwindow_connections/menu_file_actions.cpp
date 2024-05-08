@@ -1,7 +1,11 @@
 #include "main/mainwindow.h"
 
-// Вызов окна, которое сообщает об изменениях в файле
-// и возвращает true, если окно было закрыто
+//
+
+/**
+ * @brief Вызов окна, которое сообщает об изменениях в файле
+ * @return true: если окно было закрыто
+ */
 bool MainWindow::OpenMessageWindow() {
   QString text =
       "Do you want save changes in file " + json_file_.GetFileName() + "?";
@@ -28,8 +32,9 @@ bool MainWindow::OpenMessageWindow() {
   return false;
 }
 
-// При закрытии приложения нужно проверить,
-// есть ли изменения в текущем файле
+/**
+ * @brief Проверяет при закрытии приложения, есть ли изменения в текущем файле
+ */
 void MainWindow::closeEvent(QCloseEvent* event) {
   DeleteLastAddedObject();
 
@@ -51,7 +56,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     event->accept();
 }
 
-// Кнопка "New"
+/// @brief Кнопка "New"
 void MainWindow::on_actionNew_triggered() {
   DeleteLastAddedObject();
 
@@ -74,7 +79,7 @@ void MainWindow::on_actionNew_triggered() {
   }
 }
 
-// Кнопка "Open"
+/// @brief Кнопка "Open"
 void MainWindow::on_actionOpen_triggered() {
   DeleteLastAddedObject();
 
@@ -115,8 +120,10 @@ void MainWindow::on_actionOpen_triggered() {
   t_connection_->UpdateTables();
 }
 
-// Кнопка "Save"
-// возвращает, было ли закрыто окно сохранения файла
+/**
+ * @brief Кнопка "Save"
+ * @return true: закрыто окно сохранения файла
+ */
 bool MainWindow::on_actionSave_triggered() {
   DeleteLastAddedObject();
 
@@ -128,8 +135,10 @@ bool MainWindow::on_actionSave_triggered() {
   }
 }
 
-// Кнопка "Save as"
-// возвращает, было ли закрыто окно сохранения файла
+/**
+ * @brief Кнопка "Save as"
+ * @return true: закрыто окно сохранения файла
+ */
 bool MainWindow::on_actionSave_as_triggered() {
   DeleteLastAddedObject();
 
