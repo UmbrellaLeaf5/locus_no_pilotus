@@ -35,10 +35,10 @@ class PlotItemArc : public QCPAbstractItem {
   QCPItemAnchor *const center;
 
   void SetCenterAndRadiusCoords(double center_x, double center_y, double rad);
-  void SetStart(int angle);
-  void SetLength(int angle);
-  void SetStartAndEnd(int start_angle, int end_angle);
-  void SetStartAndEnd(std::pair<int, int> start_and_end);
+  void SetStart(double angle);
+  void SetLength(double angle);
+  void SetStartAndEnd(double start_angle, double end_angle);
+  void SetStartAndEnd(std::pair<double, double> start_and_end);
 
  protected:
   enum AnchorIndex {
@@ -165,8 +165,7 @@ inline void PlotItemArc::draw(QCPPainter *painter) {
     try  // drawArc sometimes throws exceptions if arc is too big
     {
 #endif
-      painter->drawArc(arcRect, arc_start_ * arc_correction_value,
-                       arc_length_ * arc_correction_value);
+      painter->drawArc(arcRect, arc_start_, arc_length_);
 
 #ifdef __EXCEPTIONS
     } catch (...) {
@@ -238,31 +237,40 @@ inline void PlotItemArc::SetCenterAndRadiusCoords(double center_x,
 
 /**
  * @brief Sets start of current acr
- * @param angle: start value in degree
+ * @param angle: start value in degrees
  */
-inline void PlotItemArc::SetStart(int angle) { arc_start_ = angle; }
+inline void PlotItemArc::SetStart(double angle) {
+  arc_start_ = static_cast<int>(angle * arc_correction_value);
+}
 
 /**
  * @brief Sets length of current acr
- * @param angle: length value in degree
+ * @param angle: length value in degrees
  */
-inline void PlotItemArc::SetLength(int angle) { arc_length_ = angle; }
+inline void PlotItemArc::SetLength(double angle) {
+  arc_length_ = static_cast<int>(angle * arc_correction_value);
+}
 
 /**
  * @brief Sets start and end of current acr
  * @param start_angle: start value in degree
  * @param end_angle: end value in degree
  */
-inline void PlotItemArc::SetStartAndEnd(int start_angle, int end_angle) {
-  arc_start_ = start_angle;
-  arc_length_ = end_angle - start_angle;
+inline void PlotItemArc::SetStartAndEnd(double start_angle, double end_angle) {
+  arc_start_ = static_cast<int>(start_angle * arc_correction_value);
+  int arc_end = static_cast<int>(end_angle * arc_correction_value);
+
+  arc_length_ = static_cast<int>(arc_start_ - arc_end);
 }
 
 /**
  * @brief Sets start and end of current acr
  * @param start_and_end: pair of start and end
  */
-inline void PlotItemArc::SetStartAndEnd(std::pair<int, int> start_and_end) {
-  arc_start_ = start_and_end.first;
-  arc_length_ = start_and_end.second - start_and_end.first;
+inline void PlotItemArc::SetStartAndEnd(
+    std::pair<double, double> start_and_end) {
+  arc_start_ = static_cast<int>(start_and_end.first * arc_correction_value);
+  int arc_end = static_cast<int>(start_and_end.second * arc_correction_value);
+
+  arc_length_ = static_cast<int>(arc_start_ - arc_end);
 }
