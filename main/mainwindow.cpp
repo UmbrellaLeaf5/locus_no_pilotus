@@ -35,6 +35,13 @@ MainWindow::MainWindow(QWidget* parent)
       ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
   json_file_.SetUntitledFile();
+
+  gui::Segment seg_1{{0, 0}, {2.4, 2.2}};
+  gui::Segment seg_2{{2.4, 2.2}, {4.8, 3}, {3.7, 2.3}};
+  gui::Segment seg_3{{4.8, 3}, {6.5, 0}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
 }
 
 MainWindow::~MainWindow() { delete ui; }

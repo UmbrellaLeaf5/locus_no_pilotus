@@ -5,14 +5,10 @@
 
 namespace math {
 
-double DistanceBetweenPoints(const Point& p1, const Point& p2) {
-  return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
-}
-
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
                                      const Point& p1, const Point& p2) {
   if (p1 == p2) return 0;
-  double line = DistanceBetweenPoints(p1, p2);
+  double line = lib::DistanceBetweenPoints(p1, p2);
   double cos_alpha = (2 * pow(circle.GetRadius(), 2) - pow(line, 2)) /
                      (2 * pow(circle.GetRadius(), 2));
   return std::abs(cos_alpha) < 1 ? circle.GetRadius() * acos(cos_alpha)
@@ -29,15 +25,15 @@ double DistanceBetweenPointsOnPolygon(const PolygonObstacle& polygon,
   std::size_t iter = index1;
   double d1 = 0;
   while (iter != index2) {
-    d1 += DistanceBetweenPoints(vertexes[iter],
-                                vertexes[(iter + 1) % vertexes.size()]);
+    d1 += lib::DistanceBetweenPoints(vertexes[iter],
+                                     vertexes[(iter + 1) % vertexes.size()]);
     iter = (iter + 1) % vertexes.size();
   }
 
   double d2 = 0;
   while (iter != index1) {
-    d2 += DistanceBetweenPoints(vertexes[iter],
-                                vertexes[(iter + 1) % vertexes.size()]);
+    d2 += lib::DistanceBetweenPoints(vertexes[iter],
+                                     vertexes[(iter + 1) % vertexes.size()]);
     iter = (iter + 1) % vertexes.size();
   }
   return std::min(d1, d2);
@@ -110,7 +106,7 @@ std::pair<Point, Point> TangentPoints(const CircleObstacle& cr_obst,
                                       const Point& point) {
   Point center = cr_obst.GetCenter();
   double radius = cr_obst.GetRadius();
-  double dist = DistanceBetweenPoints(center, point);
+  double dist = lib::DistanceBetweenPoints(center, point);
   // Угол между касательной и отрезком, соединяющим точку и центр круга
   double theta = acos(radius / dist);
   double delta = atan2(point.y - center.y, point.x - center.x);
@@ -132,7 +128,7 @@ std::pair<Point, Point> TangentPoints(const PolygonObstacle& poly_obst,
   double cos_alpha_1 = 1;
   Point tang_pnt_2;
   double cos_alpha_2 = 1;
-  double dist_to_cnt = DistanceBetweenPoints(center, point);
+  double dist_to_cnt = lib::DistanceBetweenPoints(center, point);
   LinearFunction line(center, point);
   for (const auto& vertex : vertexes)
     if (line.Substitute(vertex) * line.Substitute(vertexes[0]) < 0) {
@@ -140,8 +136,8 @@ std::pair<Point, Point> TangentPoints(const PolygonObstacle& poly_obst,
       break;
     }
   for (const auto& vertex : vertexes) {
-    double dist_to_vrtx = DistanceBetweenPoints(vertex, point);
-    double dist_cnt_vrtx = DistanceBetweenPoints(center, vertex);
+    double dist_to_vrtx = lib::DistanceBetweenPoints(vertex, point);
+    double dist_cnt_vrtx = lib::DistanceBetweenPoints(center, vertex);
     double new_cos_alpha =
         (pow(dist_to_vrtx, 2) + pow(dist_to_cnt, 2) - pow(dist_cnt_vrtx, 2)) /
         (2 * dist_to_vrtx * dist_to_cnt);

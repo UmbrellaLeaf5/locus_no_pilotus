@@ -48,6 +48,10 @@ class Trajectory : private Drawable {
   void Calculate(std::vector<lib::Target> targets, std::vector<lib::Hill> hills,
                  std::vector<lib::TrappyCircle> tr_circles,
                  std::vector<lib::TrappyLine> tr_lines) {
+    Q_UNUSED(targets);
+    Q_UNUSED(hills);
+    Q_UNUSED(tr_circles);
+    Q_UNUSED(tr_lines);
     /**
      * Здесь должно быть использование функционала из math
 

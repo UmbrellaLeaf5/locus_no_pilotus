@@ -4,8 +4,6 @@
 
 namespace math {
 
-double DistanceBetweenPoints(const Point& p1, const Point& p2);
-
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
                                      const Point& p1, const Point& p2);
 

@@ -1,10 +1,10 @@
 #pragma once
 
+#include <icecream.hpp>
+
 #include "base.h"
 #include "lib/segment.h"
 #include "plot_item_arc.h"
-
-enum class QuarterOfCircle { First, Second, Third, Fourth };
 
 namespace gui {
 
@@ -45,13 +45,9 @@ class Segment : private Drawable {
 
   /**
    * @brief Возвращает угловые коэффициенты на окружности
-   * @param start: точка старта
-   * @param end: конечная точка
-   * @param center: центр окружности
    * @return std::pair<double, double>: угол первой точки, угол второй точки
    */
-  static std::pair<double, double> GetAngles(lib::Point start, lib::Point end,
-                                             const lib::Point& center);
+  std::pair<double, double> ToAnglesOnCircle();
 
   /**
    * @brief Отрисовывает фигуру на полотне
@@ -64,88 +60,13 @@ class Segment : private Drawable {
   lib::Segment data_;
 
   QColor color_{QColor(50, 100, 200, 255)};
-
-  static QuarterOfCircle GetQuarterOfCircle(const lib::Point& p);
-  static double GetMinAngle(const lib::Point& p, double R,
-                            QuarterOfCircle quarter);
 };
 
-inline std::pair<double, double> Segment::GetAngles(lib::Point start,
-                                                    lib::Point end,
-                                                    const lib::Point& center) {
-  // Считаем радиус окружности
-  double R = lib::Segment::DistanceBetweenPoints(start, center);
-
-  // Чтобы легче считать, переносим окружность в начало координат
-  start -= center;
-  end -= center;
-
-  return {GetMinAngle(start, R, GetQuarterOfCircle(start)),
-          GetMinAngle(end, R, GetQuarterOfCircle(end))};
-}
-
-inline QuarterOfCircle Segment::GetQuarterOfCircle(const lib::Point& p) {
-  double cos = p.x, sin = p.y;
-
-  // I четверть
-  if ((cos > 0 && cos <= 1) /* cos: (0;1] */ &&
-      (sin >= 0 && sin < 1) /* sin: [0;1) */)
-    return QuarterOfCircle::First;
-
-  // II четверть
-  else if ((cos > -1 && cos <= 0) /* cos: (-1;0] */ &&
-           (sin > 0 && sin <= 1) /*  sin: (0;1] */)
-    return QuarterOfCircle::Second;
-
-  // III четверть
-  else if ((cos >= -1 && cos <= 0) /* cos: [-1;0) */ &&
-           (sin > -1 && sin <= 0) /*  sin: (-1;0] */)
-    return QuarterOfCircle::Third;
-
-  // IV четверть
-  else if ((cos >= 0 && cos < 1) /*  cos: [0;1) */ &&
-           (sin >= -1 && sin < 0) /* sin: [-1;0) */)
-    return QuarterOfCircle::Fourth;
-
-  // impossible case
-  return QuarterOfCircle::First;
-}
-
-inline double Segment::GetMinAngle(const lib::Point& p, double R,
-                                   QuarterOfCircle quarter) {
-  double angle{lib::inf};
-  char sign{CHAR_MAX};
-
-  switch (quarter) {
-    case QuarterOfCircle::First: {
-      angle = 0;
-      sign = 1;
-      break;
-    }
-    case QuarterOfCircle::Second: {
-      angle = 180;
-      sign = -1;
-      break;
-    }
-    case QuarterOfCircle::Third: {
-      angle = 180;
-      sign = 1;
-      break;
-    }
-    case QuarterOfCircle::Fourth: {
-      angle = 360;
-      sign = -1;
-      break;
-    }
-  }
-
-  // Считаем угол между осью OX и радиусом, проходящим через нашу точку и
-  // суммируем с angle, с учетом знака
-  double sinus = qAsin(abs(p.y) / R) * 180 / M_PI;
-  angle += sign * sinus;
-
-  if (abs(angle - 360) < angle) return angle - 360;
-  return angle;
+inline std::pair<double, double> Segment::ToAnglesOnCircle() {
+  // TEMP: working special incorrect
+  IC(lib::PointAsAngles::FromPoint(Start(), End()).positive_angle,
+     lib::PointAsAngles::FromPoint(Start(), End()).negative_angle);
+  return lib::PointAsAngles::FromPoint(Start(), End()).ToPair();
 }
 
 inline void Segment::Draw(QCustomPlot* plot) {
@@ -154,7 +75,7 @@ inline void Segment::Draw(QCustomPlot* plot) {
 
     arc->SetPen(QColor(color_));
     arc->SetCenterAndRadiusCoords(Center().x, Center().y, Radius());
-    arc->SetStartAndEnd(GetAngles(Start(), End(), Center()));
+    arc->SetStartAndEnd(ToAnglesOnCircle());
 
   } else {
     auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
