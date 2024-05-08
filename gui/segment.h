@@ -85,17 +85,29 @@ inline std::pair<double, double> Segment::GetAngles(lib::Point start,
 }
 
 inline QuarterOfCircle Segment::GetQuarterOfCircle(const lib::Point& p) {
-  double x = p.x, y = p.y;
-  if (x >= 0 && y >= 0)
+  double cos = p.x, sin = p.y;
+
+  // I четверть
+  if ((cos > 0 && cos <= 1) /* cos: (0;1] */ &&
+      (sin >= 0 && sin < 1) /* sin: [0;1) */)
     return QuarterOfCircle::First;
-  else if (x < 0 && y >= 0)
+
+  // II четверть
+  else if ((cos > -1 && cos <= 0) /* cos: (-1;0] */ &&
+           (sin > 0 && sin <= 1) /*  sin: (0;1] */)
     return QuarterOfCircle::Second;
-  else if (x <= 0 && y < 0)
+
+  // III четверть
+  else if ((cos >= -1 && cos <= 0) /* cos: [-1;0) */ &&
+           (sin > -1 && sin <= 0) /*  sin: (-1;0] */)
     return QuarterOfCircle::Third;
-  else if (x > 0 && y < 0)
+
+  // IV четверть
+  else if ((cos >= 0 && cos < 1) /*  cos: [0;1) */ &&
+           (sin >= -1 && sin < 0) /* sin: [-1;0) */)
     return QuarterOfCircle::Fourth;
 
-  // Impossible case
+  // impossible case
   return QuarterOfCircle::First;
 }
 
