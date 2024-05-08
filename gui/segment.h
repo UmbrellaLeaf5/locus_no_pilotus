@@ -12,7 +12,7 @@ namespace gui {
  * @brief Фигура отрезка траектории
  * @details Фигура представляет собой отрезок или дугу окружности синего цвета
  */
-struct Segment : Drawable {
+class Segment : private Drawable {
  public:
   Segment() = default;
 
@@ -58,7 +58,7 @@ struct Segment : Drawable {
    * @details Фигура представляет собой отрезок или дугу окружности синего цвета
    * @param plot: указатель на полотно
    */
-  virtual void Draw(QCustomPlot* plot) override;
+  void Draw(QCustomPlot* plot) override;
 
  private:
   lib::Segment data_;
