@@ -43,6 +43,7 @@ move_icecream_hpp_to_build_dir(${CMAKE_CURRENT_SOURCE_DIR})
 
 # and add it to CMAKE_PREFIX_PATH manually
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/icecream-cpp")
+find_package(IcecreamCpp) # here finding icecream-cpp
 add_subdirectory(${ICECREAM-CPP_DIR}) # here adding icecream-cpp subfolder
 
 # because of qcustomplot [module] CMake settings we need to change include in autogen

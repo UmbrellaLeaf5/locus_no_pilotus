@@ -36,7 +36,6 @@ target_compile_definitions(tests PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(tests PUBLIC qcustomplot)
 
 # IceCreamCpp lib:
-find_package(IcecreamCpp)
 include_directories(${IcecreamCpp_INCLUDE_DIRS})
 
 # Our lib:
