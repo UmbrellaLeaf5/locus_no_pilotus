@@ -1,7 +1,6 @@
 #include "helpers_functions.h"
 
 #include <algorithm>
-#include <cmath>
 
 namespace math {
 

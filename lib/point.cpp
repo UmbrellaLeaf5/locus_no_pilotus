@@ -1,5 +1,7 @@
+// header file:
 #include "point.h"
 
+// std libs:
 #include <stdexcept>
 
 namespace lib {

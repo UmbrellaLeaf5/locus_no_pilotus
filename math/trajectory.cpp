@@ -1,3 +1,4 @@
+// header file:
 #include "trajectory.h"
 
 namespace math {

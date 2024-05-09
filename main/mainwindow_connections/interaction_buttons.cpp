@@ -1,5 +1,4 @@
-#include <cmath>
-
+// header file:
 #include "main/mainwindow.h"
 
 void MainWindow::DisconnectObject(gui::ObjectType obj_type) {

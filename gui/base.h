@@ -1,6 +1,7 @@
 #pragma once
 
-#include <qcustomplot.h>
+// QCP lib:
+#include <qcustomplot.h>  // used in Draw(QCustomPlot*)
 
 namespace gui {
 

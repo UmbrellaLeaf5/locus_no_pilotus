@@ -1,3 +1,4 @@
+// header file:
 #include "main/mainwindow.h"
 
 gui::ObjectType MainWindow::GetObjType() const {

@@ -1,10 +1,11 @@
 #pragma once
 
+// Qt libs:
 #include <QJsonArray>
 #include <QJsonObject>
 
-// lib::Point is used everywhere with lib classes
-#include "point.h"
+// our code libs:
+#include "point.h"  // used everywhere with lib
 
 namespace lib {
 

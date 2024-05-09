@@ -1,6 +1,8 @@
+// Qt libs:
 #include <QApplication>
 
-#include "mainwindow.h"
+// our code libs:
+#include "mainwindow.h"  // lovely window :)
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);

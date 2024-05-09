@@ -1,5 +1,6 @@
 #pragma once
 
+// our code libs:
 #include "lib/_objects.h"
 #include "segment.h"
 
@@ -52,6 +53,7 @@ class Trajectory : private Drawable {
     Q_UNUSED(hills);
     Q_UNUSED(tr_circles);
     Q_UNUSED(tr_lines);
+
     /**
      * Здесь должно быть использование функционала из math
 

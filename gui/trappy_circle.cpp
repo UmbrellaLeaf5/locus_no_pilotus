@@ -1,6 +1,5 @@
+// header file:
 #include "trappy_circle.h"
-
-#include "plot_item_arc.h"
 
 static void SetCenterAndRadiusCoords(QCPItemEllipse*& ellipse,
                                      lib::Point center, double rad) {

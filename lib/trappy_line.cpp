@@ -1,5 +1,7 @@
+// header file:
 #include "trappy_line.h"
 
+// std libs:
 #include <stdexcept>
 
 namespace lib {

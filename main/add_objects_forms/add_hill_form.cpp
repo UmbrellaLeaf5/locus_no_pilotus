@@ -1,6 +1,8 @@
+// header file
 #include "add_hill_form.h"
 
-#include "ui_add_hill_form.h"
+// autogen libs:
+#include "./ui_add_hill_form.h"
 
 AddHillForm::AddHillForm(QWidget* parent)
     : QDialog(parent), ui(new Ui::AddHillForm) {

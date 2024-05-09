@@ -1,6 +1,5 @@
+// header file:
 #include "main/mainwindow.h"
-
-//
 
 /**
  * @brief Вызов окна, которое сообщает об изменениях в файле
@@ -32,9 +31,7 @@ bool MainWindow::OpenMessageWindow() {
   return false;
 }
 
-/**
- * @brief Проверяет при закрытии приложения, есть ли изменения в текущем файле
- */
+/// @brief Проверяет при закрытии приложения, есть ли изменения в текущем файле
 void MainWindow::closeEvent(QCloseEvent* event) {
   DeleteLastAddedObject();
 

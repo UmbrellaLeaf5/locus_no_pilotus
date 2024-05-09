@@ -1,6 +1,7 @@
 #pragma once
 
-#include "target.h"
+// our code libs:
+#include "target.h"  // base class
 
 namespace gui {
 

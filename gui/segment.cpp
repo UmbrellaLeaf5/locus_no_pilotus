@@ -1,5 +1,7 @@
+// header file
 #include "segment.h"
 
+// our code libs:
 #include "plot_item_arc.h"
 
 namespace gui {

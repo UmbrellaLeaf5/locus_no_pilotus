@@ -1,17 +1,17 @@
 #pragma once
 
-#include <lib/infinity.h>
-#include <lib/point.h>
-
-#include <cmath>
+// std libs:
 #include <memory>
 #include <vector>
 
-namespace math {
-
-using lib::precision;
+// our code libs:
+#include "lib/infinity.h"
+#include "lib/point.h"
 
 using lib::inf;
+using lib::precision;
+
+namespace math {
 
 /// @brief Прямая вида ax+by+c=0
 struct LinearFunction {

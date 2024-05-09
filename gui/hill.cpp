@@ -1,3 +1,4 @@
+// header file:
 #include "hill.h"
 
 void gui::Hill::Draw(QCustomPlot* plot) {

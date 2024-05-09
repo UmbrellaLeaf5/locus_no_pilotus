@@ -1,6 +1,8 @@
+// header file:
 #include "add_trappy_line_form.h"
 
-#include "ui_add_trappy_line_form.h"
+// autogen libs:
+#include "./ui_add_trappy_line_form.h"
 
 AddTrappyLineForm::AddTrappyLineForm(QWidget *parent)
     : QDialog(parent), ui(new Ui::AddTrappyLineForm) {

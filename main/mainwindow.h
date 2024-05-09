@@ -1,8 +1,12 @@
 #pragma once
 
+// Qt libs:
 #include <QMainWindow>
 
+// autogen libs:
 #include "./ui_mainwindow.h"
+
+// our code libs:
 #include "add_objects_forms/_forms.h"
 #include "data_tools/_tools.h"
 #include "gui_json_file/gui_json_file.h"

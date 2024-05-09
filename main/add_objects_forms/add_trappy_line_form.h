@@ -1,5 +1,6 @@
 #pragma once
 
+// Qt libs:
 #include <QDialog>
 
 namespace Ui {

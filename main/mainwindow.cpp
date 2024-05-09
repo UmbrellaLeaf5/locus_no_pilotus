@@ -1,3 +1,4 @@
+// header file:
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent)

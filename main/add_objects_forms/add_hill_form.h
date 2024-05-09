@@ -1,12 +1,16 @@
 #pragma once
 
+// Qt libs:
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+
+// std libs:
 #include <memory>
 #include <vector>
 
+// our code libs:
 #include "lib/point.h"
 
 namespace Ui {

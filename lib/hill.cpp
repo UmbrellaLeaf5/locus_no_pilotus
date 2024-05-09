@@ -1,8 +1,8 @@
+// header file:
 #include "hill.h"
 
-#include <cmath>
+// std libs:
 #include <stdexcept>
-#include <string>
 
 namespace lib {
 

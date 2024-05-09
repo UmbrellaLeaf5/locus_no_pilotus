@@ -1,6 +1,8 @@
+// header file:
 #include "add_target_form.h"
 
-#include "ui_add_target_form.h"
+// autogen libs:
+#include "./ui_add_target_form.h"
 
 AddTargetForm::AddTargetForm(QWidget *parent)
     : QDialog(parent), ui(new Ui::AddTargetForm) {

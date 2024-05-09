@@ -1,9 +1,11 @@
 #pragma once
 
-#include <lib/infinity.h>
-#include <lib/point.h>
-
+// std libs:
 #include <vector>
+
+// our code libs:
+#include "lib/infinity.h"
+#include "lib/point.h"
 
 namespace math {
 

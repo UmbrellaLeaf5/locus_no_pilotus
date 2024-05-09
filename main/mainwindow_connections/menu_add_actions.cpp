@@ -1,3 +1,4 @@
+// header file:
 #include "main/mainwindow.h"
 
 void ChecksValues(std::vector<std::string> values) {

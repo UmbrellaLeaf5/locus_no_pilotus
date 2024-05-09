@@ -1,4 +1,5 @@
-#include <qcustomplot.h>
+// QCP lib:
+#include <qcustomplot.h>  // base class
 
 /// @brief Value for arc degree in qPainter
 static constexpr char arc_correction_value = 16;

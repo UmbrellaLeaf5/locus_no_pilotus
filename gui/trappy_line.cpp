@@ -1,3 +1,4 @@
+// header file:
 #include "trappy_line.h"
 
 namespace gui {
