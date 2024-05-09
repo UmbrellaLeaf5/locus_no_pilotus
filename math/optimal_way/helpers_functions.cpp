@@ -166,9 +166,13 @@ std::vector<LinearFunction> TangentsBetween(const CircleObstacle& circle1,
   auto FindTangent = [&x_1, &x_0, &y_1, &y_0](double r_0, double r_1) {
     double a, b, c;
     if (std::abs(x_1 - x_0) > precision) {
-      b = ((r_1 - r_0) * (y_1 - y_0) +
-           sqrt(pow(x_1 - x_0, 2) *
-                (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2)))) /
+      double root = pow(x_1 - x_0, 2) *
+                    (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2) - pow(r_1 - r_0, 2));
+      if (std::abs(root) < precision)
+        root = 0;
+      else
+        root = sqrt(root);
+      b = ((r_1 - r_0) * (y_1 - y_0) + root) /
           (pow(x_1 - x_0, 2) + pow(y_1 - y_0, 2));
 
       a = ((r_1 - r_0) - b * (y_1 - y_0)) / (x_1 - x_0);
@@ -225,7 +229,7 @@ bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
                         (pow(radius, 2) - pow(center.x, 2) - pow(b_coef, 2) -
                          pow(center.y, 2) + 2 * b_coef * center.y) *
                             (1 + pow(slope, 2));
-  if (discriminant <= 0)
+  if (discriminant < precision)
     return false;
   else {
     double x_1 =
@@ -297,6 +301,11 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst,
         return true;
     }
   return false;
+}
+
+bool IsPointInsideCircle(const Point& point, const CircleObstacle& circle) {
+  return (DistanceBetweenPoints(circle.GetCenter(), point) -
+          circle.GetRadius()) < 0;
 }
 
 template std::vector<LinearFunction> TangentsBetween<CircleObstacle>(

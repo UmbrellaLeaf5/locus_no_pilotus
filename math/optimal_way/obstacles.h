@@ -106,6 +106,7 @@ class CircleObstacle {
 /// @brief Многоугольное препятствие
 class PolygonObstacle {
  public:
+  PolygonObstacle() = default;
   /**
    * @brief Инициализирует экземпляр PolygonObstacle
    * @param vertexes: вершины многоугольника

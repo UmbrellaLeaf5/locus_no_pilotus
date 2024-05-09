@@ -126,4 +126,12 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
 bool AreThereIntersections(const PolygonObstacle& poly_obst,
                            const LinearFunction& line);
 
+/**
+ * @brief Проверяет, находится ли точка внутри окружности
+ * @param point: точка
+ * @param circle: окружность
+ * @return bool: результат проверки
+ */
+bool IsPointInsideCircle(const Point& point, const CircleObstacle& circle);
+
 }  // namespace math

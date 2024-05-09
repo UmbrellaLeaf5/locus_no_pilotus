@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE(circles_intersect) {
   CHECK_TANGENTS(tangents, correct_tangents);
 }
 
-BOOST_AUTO_TEST_CASE(circles_touch) {
+BOOST_AUTO_TEST_CASE(circles_touch_1) {
   CircleObstacle circle1({0, 0}, 2);
   CircleObstacle circle2({3, 4}, 3);
   std::vector<LinearFunction> tangents = TangentsBetween(circle1, circle2);
@@ -75,6 +75,17 @@ BOOST_AUTO_TEST_CASE(circles_touch) {
       {-0.663836717691, 0.747877538268, 2},
       {0.6, 0.8, -2},
       {-0.903836717691, 0.427877538268, -2}};
+  CHECK_TANGENTS(tangents, correct_tangents);
+}
+
+BOOST_AUTO_TEST_CASE(circles_touch_2) {
+  CircleObstacle circle1({-2.0162248453402, 2.6231584035485}, 2.7462998428865);
+  CircleObstacle circle2({1.1993043583534, -2.2001354019919}, 3.0505778679481);
+  std::vector<LinearFunction> tangents = TangentsBetween(circle1, circle2);
+  std::vector<LinearFunction> correct_tangents{
+      {0.860019476917, 0.510261206955, 3.1417965067},
+      {0.554700196225, -0.832050294338, 0.554700196225},
+      {0.801787066772, 0.597609822172, -2.69734206526}};
   CHECK_TANGENTS(tangents, correct_tangents);
 }
 

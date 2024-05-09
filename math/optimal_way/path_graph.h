@@ -49,6 +49,20 @@ struct PathWayGraph {
     nodes.push_back(new_node);
   }
 
+  /**
+   * @brief Удалить последние n вершин
+   * @param n: количество вершин
+   */
+  void RemoveLastNodes(std::size_t n) {
+    for (std::size_t i = 0; i < n; ++i) {
+      for (auto& other_node : nodes[nodes.size() - 1]->edges)
+        for (std::size_t j = 0; j < n; ++j)
+          if (other_node->edges[j] == nodes[nodes.size() - 1])
+            other_node->edges.erase(other_node->edges.begin() + j);
+      nodes.erase(nodes.begin() + nodes.size() - 1);
+    }
+  }
+
   // Добавить новое ребро
   void AddEdge(std::size_t node_1, std::size_t node_2, double length) {
     std::shared_ptr<PathWayNode> node_ptr1, node_ptr2;

@@ -18,11 +18,15 @@ class OptimalWayCalculator {
       : circles_{circles}, polys_{polys} {
     AddCommonTangents();
     AddGraphTangentPoints();
+    normal_graph_size_ = graph_.nodes.size();
   }
 
   std::vector<std::size_t> GetOptimalWay(Point point1, Point point2) {
-    return FindOptimalWay(point1, point2);
+    FindOptimalWay(point1, point2);
+    return optimal_way_;
   }
+
+  double GetOptimalWayLength() { return optimal_way_length_; }
 
  private:
   std::vector<CircleObstacle> circles_;
@@ -32,8 +36,12 @@ class OptimalWayCalculator {
   // Граф для алгоритма Дейкстры
   PathWayGraph graph_;
 
+  std::size_t normal_graph_size_;
+
   // Оптимальный путь
   std::vector<std::size_t> optimal_way_;
+
+  double optimal_way_length_;
 
   /**
    * @brief Проверяет, пересекает ли общая касательная двух препятствий другое
@@ -44,8 +52,11 @@ class OptimalWayCalculator {
    * @return bool: результат проверки
    */
   template <typename T, typename U>
-  bool TangentGoesTroughOtherObstacle(const LinearFunction& tangent,
-                                      T& obstacle1, U& obstacle2);
+  bool TangentGoesThroughOtherObstacle(const LinearFunction& tangent,
+                                       T& obstacle1, U& obstacle2);
+
+  bool TangentGoesThroughOtherObstacle(const Point& tangent_point,
+                                       const Point& control_point);
 
   /**
    * @brief Добавляет информацию об общей касательной двух препятствий
@@ -63,10 +74,10 @@ class OptimalWayCalculator {
   void AddGraphTangentPoints();
 
   // Добавляет в граф контрольные точки
-  void AddGraphControlPoints(Point p1, Point p2);
+  std::size_t AddGraphControlPoints(Point point);
 
   // Находит оптимальный маршрут
-  std::vector<size_t> FindOptimalWay(Point p1, Point p2);
+  void FindOptimalWay(Point p1, Point p2);
 };
 
 }  // namespace math
