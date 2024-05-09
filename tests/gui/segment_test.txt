@@ -1,0 +1,70 @@
+// language: C++
+
+// copy this to mainwindow.cpp
+  
+  
+  goto fiv /* use this to switch between tests*/;
+
+fir: {
+  gui::Segment seg_1{{0, 0}, {2.4, 2.2}};
+  gui::Segment seg_2{{2.4, 2.2}, {4.8, 3}, {3.7, 2.3}};
+  gui::Segment seg_3{{4.8, 3}, {6.5, 0}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
+  goto end;
+}
+
+sec: {
+  gui::Segment seg_1{{-1, 1}, {0, 0.5}};
+  gui::Segment seg_2{{0, 0.5}, {0.5, 0}, {0.5, 0.5}};
+  gui::Segment seg_3{{0.5, 0}, {1.5, 0}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
+  goto end;
+}
+
+thi: {
+  gui::Segment seg_1{{-1, 1}, {1, 0.5}};
+  gui::Segment seg_2{{1, 0.5}, {0.5, 0}, {0.5, 0.5}};
+  gui::Segment seg_3{{0.5, 0}, {1.5, 0}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
+  goto end;
+}
+
+fou: {
+  gui::Segment seg_1{{-1, 1}, {0.5, 1}};
+  gui::Segment seg_2{{0.5, 1}, {0.5, 0}, {0.5, 0.5}};
+  gui::Segment seg_3{{0.5, 0}, {1.5, 0}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
+  goto end;
+}
+
+fiv: {
+  gui::Segment seg_1{{-1, 1}, {0.5, 0}};
+  gui::Segment seg_2{{0.5, 0}, {0.5, 0}, {0.5, 0.5}};
+  gui::Segment seg_3{{0.5, 0}, {1.5, 0}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
+  goto end;
+}
+
+six: {
+  gui::Segment seg_1{{8, 10}, {13.9338529545885, 21.4931160907485}};
+  gui::Segment seg_2{{13.9338529545885, 21.4931160907485},
+                     {21.9760789535401, 24.7152894181395},
+                     {20, 18}};
+  gui::Segment seg_3{{21.9760789535401, 24.7152894181395}, {38, 20}};
+
+  gui::Trajectory traj_test({&seg_1, &seg_2, &seg_3});
+  traj_test.Draw(ui->plot);
+  goto end;
+}
+
+end:

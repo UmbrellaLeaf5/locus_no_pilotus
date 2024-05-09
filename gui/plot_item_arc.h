@@ -260,7 +260,7 @@ inline void PlotItemArc::SetStartAndEnd(double start_angle, double end_angle) {
   arc_start_ = static_cast<int>(start_angle * arc_correction_value);
   int arc_end = static_cast<int>(end_angle * arc_correction_value);
 
-  arc_length_ = static_cast<int>(arc_start_ - arc_end);
+  arc_length_ = static_cast<int>(arc_end - arc_start_);
 }
 
 /**
@@ -272,5 +272,5 @@ inline void PlotItemArc::SetStartAndEnd(
   arc_start_ = static_cast<int>(start_and_end.first * arc_correction_value);
   int arc_end = static_cast<int>(start_and_end.second * arc_correction_value);
 
-  arc_length_ = static_cast<int>(arc_start_ - arc_end);
+  arc_length_ = static_cast<int>(arc_end - arc_start_);
 }

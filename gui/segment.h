@@ -1,10 +1,7 @@
 #pragma once
 
-#include <icecream.hpp>
-
 #include "base.h"
 #include "lib/segment.h"
-#include "plot_item_arc.h"
 
 namespace gui {
 
@@ -61,32 +58,5 @@ class Segment : private Drawable {
 
   QColor color_{QColor(50, 100, 200, 255)};
 };
-
-inline std::pair<double, double> Segment::ToAnglesOnCircle() {
-  // TEMP: working special incorrect
-  IC(lib::PointAsAngles::FromPoint(Start(), End()).positive_angle,
-     lib::PointAsAngles::FromPoint(Start(), End()).negative_angle);
-  return lib::PointAsAngles::FromPoint(Start(), End()).ToPair();
-}
-
-inline void Segment::Draw(QCustomPlot* plot) {
-  if (IsArc()) {
-    auto arc = new PlotItemArc(plot);
-
-    arc->SetPen(QColor(color_));
-    arc->SetCenterAndRadiusCoords(Center().x, Center().y, Radius());
-    arc->SetStartAndEnd(ToAnglesOnCircle());
-
-  } else {
-    auto graph = plot->addGraph(plot->xAxis, plot->yAxis);
-
-    graph->setPen(QColor(color_));
-    graph->setLineStyle(QCPGraph::lsLine);
-    graph->setSelectable(QCP::stNone);
-
-    graph->addData(Start().x, Start().y);
-    graph->addData(End().x, End().y);
-  }
-}
 
 }  // namespace gui

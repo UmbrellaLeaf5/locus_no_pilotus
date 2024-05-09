@@ -39,24 +39,27 @@ CircleQuadrant QuadrantOccupiedByPoint(const lib::Point& point,
   auto rad = DistanceBetweenPoints(point, center);
   double cos = (point - center).x / rad, sin = (point - center).y / rad;
 
+  // да, здесь везде стоят нестрогие условия, это корректно
+  // таким образом нужный случай попадёт просто в наименьшую четверть
+
   // I четверть
-  if ((cos > 0 && cos <= 1) /* cos: (0;1] */ &&
-      (sin >= 0 && sin < 1) /* sin: [0;1) */)
+  if ((cos >= 0 && cos <= 1) /* cos: [0;1] */ &&
+      (sin >= 0 && sin <= 1) /* sin: [0;1] */)
     return CircleQuadrant::First;
 
   // II четверть
-  else if ((cos > -1 && cos <= 0) /* cos: (-1;0] */ &&
-           (sin > 0 && sin <= 1) /*  sin: (0;1] */)
+  else if ((cos >= -1 && cos <= 0) /* cos: [-1;0] */ &&
+           (sin >= 0 && sin <= 1) /*  sin: [0;1] */)
     return CircleQuadrant::Second;
 
   // III четверть
-  else if ((cos >= -1 && cos <= 0) /* cos: [-1;0) */ &&
-           (sin > -1 && sin <= 0) /*  sin: (-1;0] */)
+  else if ((cos >= -1 && cos <= 0) /*  cos: [-1;0] */ &&
+           (sin >= -1 && sin <= 0) /*  sin: [-1;0] */)
     return CircleQuadrant::Third;
 
   // IV четверть
-  else if ((cos >= 0 && cos < 1) /*  cos: [0;1) */ &&
-           (sin >= -1 && sin < 0) /* sin: [-1;0) */)
+  else if ((cos >= 0 && cos <= 1) /*  cos: [0;1] */ &&
+           (sin >= -1 && sin <= 0) /* sin: [-1;0] */)
     return CircleQuadrant::Fourth;
 
   // impossible case
@@ -71,7 +74,7 @@ CircleQuadrant QuadrantOccupiedByPoint(const lib::Point& point,
  */
 PointAsAngles::PointAsAngles(double positive_angle, double negative_angle)
     : positive_angle{positive_angle}, negative_angle{negative_angle} {
-  if (positive_angle < lib::precision || negative_angle > -lib::precision) {
+  if (positive_angle < -lib::precision || negative_angle > lib::precision) {
     throw std::runtime_error("dev: error signed angles in PointAsAngles");
   }
 }
@@ -88,7 +91,7 @@ PointAsAngles PointAsAngles::FromPoint(const lib::Point& point,
   double cos = (point - center).x / rad, sin = (point - center).y / rad;
 
   auto quarter = QuadrantOccupiedByPoint(point, center);
-  double angle = std::atan2(sin, cos) * 180.0 / M_PI;
+  double angle = std::abs(std::atan2(sin, cos) * 180.0 / M_PI);
 
   switch (quarter) {
     case CircleQuadrant::First:
@@ -97,7 +100,7 @@ PointAsAngles PointAsAngles::FromPoint(const lib::Point& point,
     }
     case CircleQuadrant::Third:
     case CircleQuadrant::Fourth: {
-      return {-angle, -angle - 360};
+      return {360 - angle, -angle};
     }
   }
 
