@@ -8,9 +8,15 @@ class FlyingRobot {
   FlyingRobot() = default;
 
   FlyingRobot(gui::Trajectory trj)
-      : trajectory_{trj}, curr_point_{trj.Segments()[0].Start()} {}
+      : trajectory_{trj}, curr_point_{trj.Segments()[0].Start()} {
+    if (trajectory_.Segments()[0].IsArc())
+      SetStartAngleAndClockwise();
+    else
+      SetAnglesOfLine();
+  }
 
   void Draw(QCustomPlot* plot);
+  void ReDraw(QCustomPlot* plot);
 
  private:
   gui::Trajectory trajectory_;
@@ -26,6 +32,9 @@ class FlyingRobot {
   void SetAnglesOfLine();
   void SetStartAngleAndClockwise();
   void SetNewSegment();
+  void SetNewPositionOnLine();
+  void SetNewPositionOnCircle();
+  bool IsCloseToEndPoint();
 };
 
 }  // namespace gui
