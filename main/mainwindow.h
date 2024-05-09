@@ -16,6 +16,7 @@ enum class CursorType {
 };
 
 constexpr double max_scale = lib::max_coord / 2;
+constexpr double min_scale = 10e-4;
 
 enum class WhatObjectAddition { Nothing, Target, TrCircle, TrLine, Hill };
 
