@@ -2,6 +2,8 @@
 
 // Qt libs:
 #include <QDialog>
+#include <QDoubleValidator>
+#include <QMessageBox>
 
 namespace Ui {
 class AddTrappyLineForm;
@@ -15,8 +17,7 @@ class AddTrappyLineForm : public QDialog {
   ~AddTrappyLineForm();
 
  signals:
-  void AddTrappyLine(std::string x1, std::string y1, std::string x2,
-                     std::string y2);
+  void AddTrappyLine(double x1, double y1, double x2, double y2);
 
  private slots:
   void on_clearPushButton_clicked();
