@@ -18,3 +18,14 @@ void gui::FlyingRobot::SetAnglesOfLine() {
   cos_of_line_ = p.x / R;
   sin_of_line_ = p.y / R;
 }
+
+void gui::FlyingRobot::SetStartAngleAndClockwise() {
+  auto angles = trajectory_.Segments()[index_of_segment_].ToAnglesOnCircle();
+
+  curr_angle_on_circle_ = angles.first * M_PI / 180;
+
+  if (angles.second * M_PI / 180 - curr_angle_on_circle_ < 0)
+    clockwise_ = true;
+  else
+    clockwise_ = false;
+}

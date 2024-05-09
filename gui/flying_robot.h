@@ -20,8 +20,11 @@ class FlyingRobot {
   lib::Point curr_point_;
   double cos_of_line_;
   double sin_of_line_;
+  double curr_angle_on_circle_;
+  bool clockwise_;
 
   void SetAnglesOfLine();
+  void SetStartAngleAndClockwise();
 };
 
 }  // namespace gui
