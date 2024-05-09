@@ -76,6 +76,6 @@ compile_commands.json
 *creator.user*
 
 # Folders
-build
-.vscode
-doxygen
+build/*
+.vscode/*
+doxygen/*
