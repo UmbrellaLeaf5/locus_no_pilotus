@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE(random_construct) {
     BOOST_CHECK(seg.Start() == p_1);
     BOOST_CHECK(seg.End() == p_2);
 
-    if (!CouldBeArc(seg, c)) continue;
+    if (!Segment::CouldBeArc(seg, c)) continue;
 
     Segment arc(p_1, p_2, c);
 

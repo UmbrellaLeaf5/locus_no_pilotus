@@ -45,7 +45,9 @@ class Segment : private Drawable {
    * @brief Возвращает угловые коэффициенты на окружности
    * @return std::pair<double, double>: угол первой точки, угол второй точки
    */
-  std::pair<double, double> ToAnglesOnCircle();
+  std::pair<double, double> ToAnglesOnCircle() {
+    return data_.ToAnglesOnCircle();
+  }
 
   /**
    * @brief Отрисовывает фигуру на полотне

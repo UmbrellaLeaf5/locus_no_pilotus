@@ -1,8 +1,5 @@
 #pragma once
 
-// std libs:
-#include <stdexcept>
-
 // our code libs:
 #include "point.h"
 
@@ -29,13 +26,7 @@ class Segment {
    * @param end: точка конца
    * @param center: центр окружности
    */
-  Segment(const Point& start, const Point& end, const Point& center)
-      : start_{start}, end_{end}, center_{center} {
-    if (std::abs(DistanceBetweenPoints(start, center) -
-                 DistanceBetweenPoints(end, center)) > lib::precision)
-      throw std::runtime_error(
-          "dev: start and end in Segment do not lie on the same circle");
-  }
+  Segment(const Point& start, const Point& end, const Point& center);
 
   /// @brief Возвращает начало сегмента
   Point& Start() { return start_; }
@@ -54,29 +45,21 @@ class Segment {
    * @return Point&: центр окружности
    * @throw std::runtime_error: если сегмент не имеет отношения к окружности
    */
-  Point& Center() {
-    if (IsArc()) return center_;
-
-    throw std::runtime_error("dev: Segment is not Arc");
-  }
+  Point& Center();
 
   /**
    * @brief Возвращает центр окружности
    * @return const Point&: центр окружности
    * @throw std::runtime_error: если сегмент не имеет отношения к окружности
    */
-  const Point& Center() const { return Center(); }
+  const Point& Center() const;
 
   /**
    * @brief Возвращает радиус окружности
    * @return double радиус окружности
    * @throw std::runtime_error: если сегмент не имеет отношения к окружности
    */
-  double Radius() const {
-    if (IsArc()) return DistanceBetweenPoints(start_, center_);
-
-    throw std::runtime_error("dev: Segment is not Arc");
-  }
+  double Radius() const;
 
   /**
    * @brief Проверяет, является ли текущий сегмент дугой окружности
@@ -85,6 +68,21 @@ class Segment {
    */
   bool IsArc() const { return !isinf(center_); }
 
+  /**
+   * @brief Возвращает угловые коэффициенты на окружности
+   * @return std::pair<double, double>: угол первой точки, угол второй точки
+   */
+  std::pair<double, double> ToAnglesOnCircle();
+
+  /**
+   * @brief Проверяет, может ли сегмент стать дугой с учетом центра окружности
+   * @param seg: сегмент
+   * @param center: центр предполагаемой окружности
+   * @return true: если может
+   * @return false: если выпадет исключение
+   */
+  static bool CouldBeArc(const lib::Segment& seg, const lib::Point& center);
+
  private:
   Point start_;
   Point end_;
@@ -92,13 +90,3 @@ class Segment {
 };
 
 }  // namespace lib
-
-/// @brief Проверяет, может ли сегмент стать дугой с учетом центра окружности
-inline bool CouldBeArc(const lib::Segment& seg, const lib::Point& center) {
-  try {
-    lib::Segment(seg.Start(), seg.End(), center);
-  } catch (const std::runtime_error&) {
-    return false;
-  }
-  return true;
-}
