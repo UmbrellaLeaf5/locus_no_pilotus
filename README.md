@@ -1,18 +1,17 @@
-# Locus No Pilotus
+# Locus No Pilotus: Trajectory Calculator
 
 **Project of four first grade MIPT DAFE/RSE students (for engineering practical work in the second semester) in Qt C++**
 
 ## [Documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html)
 Project's [documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html) generated with Doxygen with [convenient CSS theme](#used-libs-and-packages).
 
-## Contents
+# Contents
   * [Description](#description)
   * [Installation and configuring](#installation-and-configuring "with using MSYS")
   * [Used libs and packages](#used-libs-and-packages "we are using GitHub submodules feature 😎")
   * [Authors](#authors "the best guys")
 
-### Description  
-\
+## Description
 
 In this project, we are developing an application that calculates the trajectory of a flying delivery robot that collects valuable cargo from control points: **Targets**. 
 On its way, it may encounter high mountains that it cannot fly over: **Hills**; or elliptical territories that are impossible to visit due to climate conditions: **TrappyCircles**. 
@@ -25,7 +24,7 @@ In the application, you can add objects using window forms, interact with the tr
 
 *We strongly recommend that you install our application using the instructions below and try it out!*
 
-### Installation and configuring
+## Installation and configuring
 
 #### On Windows 64 bit system
 1) Install **[MSYS2](https://www.msys2.org/)** to any convenient folder as compiler setup
@@ -98,7 +97,7 @@ In the application, you can add objects using window forms, interact with the tr
 
 > Much respect and help for this installation method to [George Sukhanov](https://github.com/TheFueRr "our colleague with an equally interesting project on processing experimental data")!
 
-### Used libs and packages
+## Used libs and packages
 * [CMake](https://cmake.org/): main project build system
 * [Qt](https://www.qt.io/): main project library for full-working program
 * [QCustomPlot](https://www.qcustomplot.com/): library for drawing all objects on same place with autoscaling ([submodule](https://github.com/legerch/QCustomPlot-library "reference for submodule with lib in GitHub"))
@@ -108,8 +107,7 @@ In the application, you can add objects using window forms, interact with the tr
 * [Flaticon](https://www.flaticon.com/): perfect icons source
 * [GeoGebra](https://www.geogebra.org/): best platform for geometry calculations
 
-
-### Authors
+## Authors
 **[Romanov Fedor](https://github.com/Romanov-Fedor "math greatest gigachad (Desmos proger)")**
 
 **[Rybalkin Ilya](https://github.com/Stargazer2005 "traveling salesman problem and Dijkstra algos enjoyer")**
