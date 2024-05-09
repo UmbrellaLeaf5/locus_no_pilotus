@@ -205,26 +205,25 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
   if (ui->plot->selectedGraphs().empty()) return;
 
   for (const auto& t_ptr : manager_->GetTargetsPtrs()) {
-    if (t_ptr->GetGraphPtr() == ui->plot->selectedGraphs()[0]) {
-      size_t last = manager_->GetTrappyLines().size() - 1;
+    if (t_ptr->GetGraphPtr() != ui->plot->selectedGraphs()[0]) continue;
 
-      // если это та же точка - пропускаем
-      if (manager_->GetTrappyLinesPtrs()[last]->GetTargetsPtrs().second ==
-          t_ptr)
-        continue;
+    size_t last = manager_->GetTrappyLines().size() - 1;
 
-      manager_->GetTrappyLinesPtrs()[last]->SetSecondTarget(t_ptr);
+    // если это та же точка - пропускаем
+    if (manager_->GetTrappyLinesPtrs()[last]->GetTargetsPtrs().second == t_ptr)
+      continue;
 
-      DisconnectObject(gui::ObjectType::TrappyLines);
-      what_obj_addition_ = WhatObjectAddition::Nothing;
+    manager_->GetTrappyLinesPtrs()[last]->SetSecondTarget(t_ptr);
 
-      area_->Redraw();
+    DisconnectObject(gui::ObjectType::TrappyLines);
+    what_obj_addition_ = WhatObjectAddition::Nothing;
 
-      // после финального добавления обновляем таблицу
-      t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
+    area_->Redraw();
 
-      return;
-    }
+    // после финального добавления обновляем таблицу
+    t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
+
+    return;
   }
 }
 

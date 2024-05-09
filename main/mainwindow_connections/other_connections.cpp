@@ -55,15 +55,16 @@ void MainWindow::on_pushButtonAddHill_clicked() {
 }
 
 void MainWindow::on_pushButtonEditObjects_clicked() {
-  DeleteLastAddedObject();
+  manager_->RemoveAllDuplicates();
+  t_connection_->UpdateTables();
 
   ui->plotSettingsDockWidget->setVisible(true);
   on_actionBeautify_triggered();
 }
 
 void MainWindow::on_actionBeautify_triggered() {
-  ui->plot->xAxis->setScaleRatio(ui->plot->yAxis, 1.0);
-  ui->plot->replot();
+  ui->plot->xAxis->setScaleRatio(ui->plot->yAxis);
+  area_->Redraw();
 }
 
 void MainWindow::on_targetAddFromTablePushButton_clicked() {
@@ -87,10 +88,12 @@ void MainWindow::on_xAxis_rangeChanged(QCPRange range) {
     range.upper = max_scale;
     range.lower = max_scale - (range.upper - range.lower);
   }
+
   if (range.lower < -max_scale) {
     range.lower = -max_scale;
     range.upper = -max_scale + (range.upper - range.lower);
   }
+
   if (range.upper - range.lower < min_scale) {
     double mid = (range.upper + range.lower) / 2;
     range.lower = mid - min_scale / 2;
@@ -105,10 +108,12 @@ void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
     range.upper = max_scale;
     range.lower = max_scale - (range.upper - range.lower);
   }
+
   if (range.lower < -max_scale) {
     range.lower = -max_scale;
     range.upper = -max_scale + (range.upper - range.lower);
   }
+
   if (range.upper - range.lower < min_scale) {
     double mid = (range.upper + range.lower) / 2;
     range.lower = mid - min_scale / 2;

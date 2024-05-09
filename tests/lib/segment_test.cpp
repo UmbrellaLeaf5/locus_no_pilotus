@@ -3,8 +3,6 @@
 #include <QApplication>
 #include <random>
 
-#include "gui/segment.h"
-
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif

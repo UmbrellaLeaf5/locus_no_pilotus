@@ -25,14 +25,14 @@ jobs:
 
       - name: Install Doxygen
         run: |
-          chmod +x install_doxygen.sh
-          ./install_doxygen.sh
+          chmod +x .extra/doxygen/install_doxygen.sh
+          ./.extra/doxygen/install_doxygen.sh
       
       - name: Install Graphviz
         run: sudo apt install graphviz
 
       - name: Run Doxygen
-        run: doxygen doxyfile
+        run: doxygen .extra/doxygen/doxyfile
 
       - name: Upload Docs
         uses: actions/upload-pages-artifact@v3
