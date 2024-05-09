@@ -39,6 +39,8 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
+  void moveObject();
+
   // Slots for files:
   bool on_actionSave_as_triggered();
   bool on_actionSave_triggered();
@@ -96,6 +98,9 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow* ui;
+  QTimer* timer;
+  gui::Trajectory* trj;
+  gui::FlyingRobot* robot;
 
   std::unique_ptr<data_tools::PlotArea> area_;
   std::unique_ptr<data_tools::DataManager> manager_;
