@@ -25,6 +25,7 @@ class FlyingRobot {
 
   void SetAnglesOfLine();
   void SetStartAngleAndClockwise();
+  void SetNewSegment();
 };
 
 }  // namespace gui

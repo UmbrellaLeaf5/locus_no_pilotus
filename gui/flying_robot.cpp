@@ -29,3 +29,16 @@ void gui::FlyingRobot::SetStartAngleAndClockwise() {
   else
     clockwise_ = false;
 }
+
+void gui::FlyingRobot::SetNewSegment() {
+  index_of_segment_++;
+
+  if (index_of_segment_ == trajectory_.Segments().size()) index_of_segment_ = 0;
+
+  curr_point_ = trajectory_.Segments()[index_of_segment_].Start();
+
+  if (trajectory_.Segments()[index_of_segment_].IsArc())
+    SetStartAngleAndClockwise();
+  else
+    SetAnglesOfLine();
+}
