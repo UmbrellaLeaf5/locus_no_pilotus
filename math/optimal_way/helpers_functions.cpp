@@ -305,7 +305,7 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst,
 
 bool IsPointInsideCircle(const Point& point, const CircleObstacle& circle) {
   return (DistanceBetweenPoints(circle.GetCenter(), point) -
-          circle.GetRadius()) < precision;
+          circle.GetRadius()) < 0;
 }
 
 template std::vector<LinearFunction> TangentsBetween<CircleObstacle>(
