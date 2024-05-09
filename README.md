@@ -32,43 +32,12 @@ In the application, you can add objects using window forms, interact with the tr
 
 2) Open ```MSYS2 MSYS``` console, copy the command below and paste it with ```Shift+Ins``` or ```RBM and 'Paste'``` to download all the packages used in our project
 ```
-  pacman -S mingw-w64-x86_64-gcc
-  pacman -S mingw-w64-x86_64-gdb
-  pacman -S mingw-w64-x86_64-gdb-multiarch
-  pacman -S mingw-w64-x86_64-libgccjit 
-  pacman -S mingw-w64-x86_64-libmangle-git 
-  pacman -S mingw-w64-x86_64-make
-  pacman -S mingw-w64-x86_64-ninja
-  pacman -S mingw-w64-x86_64-pkgconf
-  pacman -S mingw-w64-x86_64-boost
-  pacman -S mingw-w64-x86_64-qt-creator
-  pacman -S mingw-w64-x86_64-qt6-3d
-  pacman -S mingw-w64-x86_64-qt6-activeqt
-  pacman -S mingw-w64-x86_64-qt6-charts 
-  pacman -S mingw-w64-x86_64-qt6-connectivity 
-  pacman -S mingw-w64-x86_64-qt6-datavis3d
-  pacman -S mingw-w64-x86_64-qt6-doc 
-  pacman -S mingw-w64-x86_64-qt6-grpc 
-  pacman -S mingw-w64-x86_64-qt6-httpserver 
-  pacman -S mingw-w64-x86_64-qt6-imageformats 
-  pacman -S mingw-w64-x86_64-qt6-languageserver
-  pacman -S mingw-w64-x86_64-qt6-location 
-  pacman -S mingw-w64-x86_64-qt6-lottie 
-  pacman -S mingw-w64-x86_64-qt6-multimedia 
-  pacman -S mingw-w64-x86_64-qt6-networkauth 
-  pacman -S mingw-w64-x86_64-qt6-quick3dphysics 
-  pacman -S mingw-w64-x86_64-qt6-quickeffectmaker 
-  pacman -S mingw-w64-x86_64-qt6-quicktimeline 
-  pacman -S mingw-w64-x86_64-qt6-remoteobjects 
-  pacman -S mingw-w64-x86_64-qt6-scxml
-  pacman -S mingw-w64-x86_64-qt6-sensors 
-  pacman -S mingw-w64-x86_64-qt6-serialbus 
-  pacman -S mingw-w64-x86_64-qt6-speech 
-  pacman -S mingw-w64-x86_64-qt6-virtual keyboard 
-  pacman -S mingw-w64-x86_64-qt6-webchannel 
-  pacman -S mingw-w64-x86_64-qt6-webview 
-  pacman -S mingw-w64-x86_64-tools-git
-  pacman -S mingw-w64-x86_64-cmake
+pacman -S mingw-w64-x86_64-gcc
+pacman -S mingw-w64-x86_64-gdb
+pacman -S mingw-w64-x86_64-ninja
+pacman -S mingw-w64-x86_64-cmake
+pacman -S mingw-w64-x86_64-qt-creator
+pacman -S mingw-w64-x86_64-boost
 ```
 
 3) Install **[Git Bash](https://gitforwindows.org/)** to any convenient folder (if you haven't get it yet) 
@@ -77,7 +46,7 @@ In the application, you can add objects using window forms, interact with the tr
 
 5) Clone our repo with including submodules to such folder:
 ``` 
-  git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus 
+git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus 
 ```
 
 6) Open the MSYS bin folder in path like ```C:\YourPathToMsys\msys64\mingw64\bin``` than find and start ```qtcreator.exe```
