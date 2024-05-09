@@ -2,7 +2,7 @@
 
 **Project of four first grade MIPT DAFE/RSE students (for engineering practical work in the second semester) in Qt C++**
 
-## [Documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html)
+## Documentation
 Project's [documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html) generated with Doxygen with [convenient CSS theme](#used-libs-and-packages).
 
 # Contents
