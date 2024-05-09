@@ -2,10 +2,28 @@
 
 **Project of four first grade MIPT DAFE/RSE students (for engineering practical work in the second semester) in Qt C++**
 
-## **Contents**
-  * [Documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html "documentation generated with doxygen")
- * [Installation and configuring](#installation-and-configuring "with using MSYS")
- * [Authors](#authors "the best guys")
+## [Documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html)
+Project's [documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html) generated with Doxygen with [convenient CSS theme](#used-libs-and-packages).
+
+## Contents
+  * [Description](#description)
+  * [Installation and configuring](#installation-and-configuring "with using MSYS")
+  * [Used libs and packages](#used-libs-and-packages "we are using GitHub submodules feature 😎")
+  * [Authors](#authors "the best guys")
+
+### Description  
+\
+
+In this project, we are developing an application that calculates the trajectory of a flying delivery robot that collects valuable cargo from control points: **Targets**. 
+On its way, it may encounter high mountains that it cannot fly over: **Hills**; or elliptical territories that are impossible to visit due to climate conditions: **TrappyCircles**. 
+Also, through some control points, the robot is simply unable to move, as the cargo may not be ready for transportation at that time, these are **TrappyLines**. 
+
+The robot's trajectory is calculated using several mathematical algorithms: [...]. 
+The graphical interface for constructing the trajectory was created using [Qt](#used-libs-and-packages) and [QCustomPlot](#used-libs-and-packages). 
+
+In the application, you can add objects using window forms, interact with the trajectory calculation plot using the mouse cursor, create and open files in ```.json``` format with a specific style for this application. Editing objects can also be done with cursors or using a special dynamic input field with tables, opened in a separate window mode or embedded in the main one. 
+
+*We strongly recommend that you install our application using the instructions below and try it out!*
 
 ### Installation and configuring
 
@@ -80,9 +98,22 @@
 
 > Much respect and help for this installation method to [George Sukhanov](https://github.com/TheFueRr "our colleague with an equally interesting project on processing experimental data")!
 
+### Used libs and packages
+* [CMake](https://cmake.org/): main project build system
+* [Qt](https://www.qt.io/): main project library for full-working program
+* [QCustomPlot](https://www.qcustomplot.com/): library for drawing all objects on same place with autoscaling ([submodule](https://github.com/legerch/QCustomPlot-library "reference for submodule with lib in GitHub"))
+* [IceCream-Cpp](https://github.com/renatoGarcia/icecream-cpp): library for simple code debugging (we really recommend to use it in C++ projects)
+* [Doxygen](https://www.doxygen.nl/): full documentation generation
+* [Doxygen Awesome](https://github.com/jothepro/doxygen-awesome-css): convenient CSS theme for Doxygen HTML documentation (it is really awesome)
+* [Flaticon](https://www.flaticon.com/): perfect icons source
+* [GeoGebra](https://www.geogebra.org/): best platform for geometry calculations
+
 
 ### Authors
 **[Romanov Fedor](https://github.com/Romanov-Fedor "math greatest gigachad (Desmos proger)")**
+
 **[Rybalkin Ilya](https://github.com/Stargazer2005 "traveling salesman problem and Dijkstra algos enjoyer")**
+
 **[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, gui forms and cursors hero")**
+
 **[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy")**
