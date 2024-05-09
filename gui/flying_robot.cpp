@@ -63,9 +63,9 @@ void gui::FlyingRobot::SetNewPositionOnCircle() {
                     trajectory_.Segments()[index_of_segment_].Center().y;
 
     if (clockwise_)
-      curr_angle_on_circle_ -= distribution;
+      curr_angle_on_circle_ -= distribution / 3;
     else
-      curr_angle_on_circle_ += distribution;
+      curr_angle_on_circle_ += distribution / 3;
   }
 }
 
