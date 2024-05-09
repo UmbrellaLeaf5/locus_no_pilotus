@@ -11,14 +11,8 @@ class PlotItemArc : public QCPAbstractItem {
   virtual ~PlotItemArc() override;
 
   QPen Pen() const { return mPen; }
-  QPen SelectedPen() const { return mSelectedPen; }
-  QBrush Brush() const { return mBrush; }
-  QBrush SelectedBrush() const { return mSelectedBrush; }
 
   void SetPen(const QPen &pen);
-  void SetSelectedPen(const QPen &pen);
-  void SetBrush(const QBrush &brush);
-  void SetSelectedBrush(const QBrush &brush);
 
   virtual double selectTest(const QPointF &pos, bool onlySelectable,
                             QVariant *details = nullptr) const override;
@@ -36,8 +30,6 @@ class PlotItemArc : public QCPAbstractItem {
   QCPItemAnchor *const center;
 
   void SetCenterAndRadiusCoords(double center_x, double center_y, double rad);
-  void SetStart(double angle);
-  void SetLength(double angle);
   void SetStartAndEnd(double start_angle, double end_angle);
   void SetStartAndEnd(std::pair<double, double> start_and_end);
 
@@ -94,9 +86,6 @@ inline PlotItemArc::PlotItemArc(QCustomPlot *parentPlot)
   bottomRight->setCoords(1, 0);
 
   SetPen(QPen(Qt::black));
-  SetSelectedPen(QPen(Qt::blue, 2));
-  SetBrush(Qt::NoBrush);
-  SetSelectedBrush(Qt::NoBrush);
 }
 
 inline PlotItemArc::~PlotItemArc() {}
@@ -107,32 +96,6 @@ inline PlotItemArc::~PlotItemArc() {}
  * @see setSelectedPen, setBrush
  */
 inline void PlotItemArc::SetPen(const QPen &pen) { mPen = pen; }
-
-/**
- * @brief Sets the pen that will be used to draw the line of the arc when
- * selected
- * @param pen
- * @see setPen, setSelected
- */
-inline void PlotItemArc::SetSelectedPen(const QPen &pen) { mSelectedPen = pen; }
-
-/**
- * @brief Sets the brush that will be used to fill the arc
- * To disable filling, set @a brush to Qt::NoBrush
- * @param brush
- * @see setSelectedBrush, setPen
- */
-inline void PlotItemArc::SetBrush(const QBrush &brush) { mBrush = brush; }
-
-/**
- * @brief Sets the brush that will be used to fill the arc when selected
- * To disable filling, set @a brush to Qt::NoBrush
- * @param brush
- * @see setBrush
- */
-inline void PlotItemArc::SetSelectedBrush(const QBrush &brush) {
-  mSelectedBrush = brush;
-}
 
 /* check documentation from base class */
 inline double PlotItemArc::selectTest(const QPointF &pos, bool onlySelectable,
@@ -234,22 +197,6 @@ inline void PlotItemArc::SetCenterAndRadiusCoords(double center_x,
                                                   double center_y, double rad) {
   topLeft->setCoords(center_x - rad, center_y + rad);
   bottomRight->setCoords(center_x + rad, center_y - rad);
-}
-
-/**
- * @brief Sets start of current acr
- * @param angle: start value in degrees
- */
-inline void PlotItemArc::SetStart(double angle) {
-  arc_start_ = static_cast<int>(angle * arc_correction_value);
-}
-
-/**
- * @brief Sets length of current acr
- * @param angle: length value in degrees
- */
-inline void PlotItemArc::SetLength(double angle) {
-  arc_length_ = static_cast<int>(angle * arc_correction_value);
 }
 
 /**
