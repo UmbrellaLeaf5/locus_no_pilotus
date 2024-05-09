@@ -253,6 +253,8 @@ void TablesConnection::UpdateTables() {
   UpdateTable(manager_->GetHills());
   UpdateTable(manager_->GetTrappyLines());
   UpdateTable(manager_->GetTrappyCircles());
+
+  UpdateTablesConnections();
 }
 
 // TODO: переписать так, чтобы оно меняло конкретное поле, а не целую точку
