@@ -176,18 +176,6 @@ void OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
   if (!TangentGoesThroughOtherObstacle(p1, p2))
     graph_.AddEdge(graph_.nodes.size() - 2, graph_.nodes.size() - 1,
                    DistanceBetweenPoints(p1, p2));
-  // std::cout << normal_graph_size_ << std::endl;
-  // for (auto& elem : graph_.nodes) {
-  //   std::cout << "Point" << elem->number << ":" << std::endl;
-  //   std::cout << elem->point.x << " " << elem->point.y << std::endl;
-  //   std::cout << "Point`s edges:" << std::endl;
-  //   for (auto& elem1 : elem->edges) {
-  //     std::cout << "Point" << elem1->number << " " << elem1->point.x << " "
-  //               << elem1->point.y << std::endl;
-  //   }
-  //   std::cout << "\n" << std::endl;
-  // }
-
   DijkstrasAlgorithm da(graph_);
   optimal_way_ = da.Get_Min_Path();
   optimal_way_length_ = da.Get_Min_Len();
