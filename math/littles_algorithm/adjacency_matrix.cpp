@@ -1,3 +1,4 @@
+// header file:
 #include "adjacency_matrix.h"
 
 namespace math {

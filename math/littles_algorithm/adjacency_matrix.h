@@ -1,15 +1,17 @@
 #pragma once
 
-#include <./lib/point.h>
-
-#include <limits>
+// std libs:
 #include <vector>
+
+// our code libs:
+#include "lib/infinity.h"
+#include "lib/point.h"
 
 namespace math {
 
-constexpr double precision = lib::precision;
+using lib::precision;
 
-constexpr double inf = std::numeric_limits<double>::infinity();
+using lib::inf;
 
 /// @brief Структура для хранения двух минимумов строки/столбца
 struct Minimums {

@@ -1,10 +1,9 @@
 #pragma once
 
+// our code libs:
 #include "obstacles.h"
 
 namespace math {
-
-double DistanceBetweenPoints(const Point& p1, const Point& p2);
 
 double DistanceBetweenPointsOnCircle(const CircleObstacle& circle,
                                      const Point& p1, const Point& p2);
@@ -24,7 +23,7 @@ std::pair<Point, Point> TangentPoints(const LinearFunction& tangent,
                                       const CircleObstacle& circle2);
 
 /**
- * @brief Находит точки касания двух многугольников с их общей
+ * @brief Находит точки касания двух многоугольников с их общей
  * касательной
  * @param tangent: касательная
  * @param polygon1: многоугольник 1

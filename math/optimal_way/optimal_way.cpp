@@ -1,5 +1,7 @@
+// header file:
 #include "optimal_way.h"
 
+// our code libs:
 #include "helpers_functions.h"
 
 namespace math {

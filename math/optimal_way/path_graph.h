@@ -1,9 +1,9 @@
 #pragma once
 
+// std libs:
 #include <map>
-#include <memory>
-#include <vector>
 
+// our code libs:
 #include "obstacles.h"
 
 namespace math {

@@ -14,6 +14,11 @@ using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(lib_point, *utf::tolerance(1.0E-7))
 
+// random generator:
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_real_distribution<> dis(-1000, 1000);
+
 BOOST_AUTO_TEST_CASE(simple_construct) {
   struct {
     double x, y;
@@ -35,9 +40,6 @@ BOOST_AUTO_TEST_CASE(simple_construct) {
 }
 
 BOOST_AUTO_TEST_CASE(random_construct) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1000, 1000);
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen);
     Point p(x, y);
@@ -61,9 +63,6 @@ BOOST_AUTO_TEST_CASE(simple_comparison) {
 }
 
 BOOST_AUTO_TEST_CASE(random_comparison) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1000, 1000);
   for (int i = 0; i < 1000; i++) {
     double x_1 = dis(gen), y_1 = dis(gen);
     double x_2 = dis(gen), y_2 = dis(gen);
@@ -76,9 +75,6 @@ BOOST_AUTO_TEST_CASE(random_comparison) {
 }
 
 BOOST_AUTO_TEST_CASE(random_plus) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1000, 1000);
   for (int i = 0; i < 1000; i++) {
     double x_1 = dis(gen), y_1 = dis(gen);
     double x_2 = dis(gen), y_2 = dis(gen);
@@ -95,9 +91,6 @@ BOOST_AUTO_TEST_CASE(random_plus) {
 }
 
 BOOST_AUTO_TEST_CASE(random_minus) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1000, 1000);
   for (int i = 0; i < 1000; i++) {
     double x_1 = dis(gen), y_1 = dis(gen);
     double x_2 = dis(gen), y_2 = dis(gen);

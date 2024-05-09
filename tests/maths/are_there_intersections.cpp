@@ -125,8 +125,8 @@ BOOST_AUTO_TEST_CASE(semi_intersection) {
 
 BOOST_AUTO_TEST_CASE(no_intersections_2) {
   CircleObstacle circle({0, 0}, 1);
-  Point point1(0, pow(2, 0.5));
-  Point point2(-pow(2, 0.5), 0);
+  Point point1(0, sqrt(2));
+  Point point2(-sqrt(2), 0);
   BOOST_TEST(!AreThereIntersections(circle, point1, point2));
 }
 

@@ -1,7 +1,9 @@
 #pragma once
 
+// Qt libs:
 #include <QTableWidget>
 
+// our code libs:
 #include "data_tools/plot_area/plot_area.h"
 
 namespace data_tools {

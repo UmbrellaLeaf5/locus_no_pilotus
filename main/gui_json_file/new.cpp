@@ -1,5 +1,10 @@
+// header file:
 #include "gui_json_file.h"
 
+/**
+ * @brief Нужно для того, чтобы при открытии приложения менялось имя "Untitled"
+ * файла, так как может быть такое, что пользователь уже создавал такие файлы
+ */
 void GuiJsonFile::SetUntitledFile() {
   std::filesystem::path path;
   if (file_->filesystemFileName().has_parent_path())

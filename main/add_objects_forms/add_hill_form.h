@@ -1,12 +1,18 @@
 #pragma once
 
+// Qt libs:
 #include <QDialog>
+#include <QDoubleValidator>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
+
+// std libs:
 #include <memory>
 #include <vector>
 
+// our code libs:
 #include "lib/point.h"
 
 namespace Ui {
@@ -32,7 +38,7 @@ class AddHillForm : public QDialog {
   ~AddHillForm();
 
  signals:
-  void AddHill(std::vector<std::pair<std::string, std::string>> points);
+  void AddHill(std::vector<std::pair<double, double>> points);
 
  private slots:
   void on_createPushButton_clicked();

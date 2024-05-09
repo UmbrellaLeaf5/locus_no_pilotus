@@ -1,6 +1,7 @@
 #pragma once
 
-#include <qcustomplot.h>
+// QCP lib:
+#include <qcustomplot.h>  // used in Draw(QCustomPlot*)
 
 namespace gui {
 
@@ -14,12 +15,9 @@ class Drawable {
    * @param plot: указатель на соотв. полотно
    */
   virtual void Draw(QCustomPlot* plot) = 0;
-
- private:
-  size_t index_on_plot_{ULLONG_MAX};
 };
 
-// @brief Типы объектов по категориям
+/// @brief Типы объектов по категориям
 enum class ObjectType { Targets, Hills, TrappyCircles, TrappyLines };
 
 }  // namespace gui
