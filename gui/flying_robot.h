@@ -18,6 +18,10 @@ class FlyingRobot {
 
   size_t index_of_segment_ = 0;
   lib::Point curr_point_;
+  double cos_of_line_;
+  double sin_of_line_;
+
+  void SetAnglesOfLine();
 };
 
 }  // namespace gui
