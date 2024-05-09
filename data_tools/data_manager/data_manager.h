@@ -1,10 +1,7 @@
 #pragma once
 
-#include "gui/airport.h"
-#include "gui/hill.h"
-#include "gui/target.h"
-#include "gui/trappy_circle.h"
-#include "gui/trappy_line.h"
+// our code libs:
+#include "gui/_objects.h"
 
 namespace data_tools {
 

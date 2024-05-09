@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# source: https://askubuntu.com/questions/1291874/how-to-install-doxygen-on-ubuntu
+
 # Create a directory where you want to download it
 mkdir -p ~/Downloads/Install_Files/Doxygen
 cd ~/Downloads/Install_Files/Doxygen
@@ -25,12 +27,6 @@ sudo make install
 #       1.9.7 (ebc57c6dd303a980bd19dd74b8b61c8f3f5180ca)
 #
 doxygen --version
-
-# Check your man pages available by typing `man doxy` and pressing Tab twice. 
-# Output:
-#
-#       doxygen      doxyindexer  doxysearch   doxywizard  
-# 
 
 # View those man pages
 man doxygen

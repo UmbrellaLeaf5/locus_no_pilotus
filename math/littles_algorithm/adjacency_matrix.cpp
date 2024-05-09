@@ -1,3 +1,4 @@
+// header file:
 #include "adjacency_matrix.h"
 
 namespace math {
@@ -14,17 +15,6 @@ AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
   }
   m.CalculateData();
   return m;
-}
-
-AdjacencyMatrix& AdjacencyMatrix::operator=(const AdjacencyMatrix& m) {
-  size_ = m.size_;
-  matrix_ = m.matrix_;
-  reducted_matrix_ = m.reducted_matrix_;
-  min_numbers_ = m.min_numbers_;
-  evaluation_ = m.evaluation_;
-  selected_value_ = m.selected_value_;
-  selected_edge_ = m.selected_edge_;
-  return *this;
 }
 
 void AdjacencyMatrix::SetMatrixValue(std::size_t i, std::size_t j, double num) {

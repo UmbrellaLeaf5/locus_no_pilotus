@@ -1,5 +1,7 @@
+// header file:
 #include "trappy_line.h"
 
+// std libs:
 #include <stdexcept>
 
 namespace lib {
@@ -24,7 +26,7 @@ bool TrappyLine::IsChanged(const QJsonObject& trappy_line_obj) const {
 
 std::pair<Target, Target> TrappyLine::GetTargets() const {
   if (targets_.first == nullptr || targets_.second == nullptr)
-    throw std::runtime_error("target is nullptr");
+    throw std::runtime_error("dev: target is nullptr");
 
   return std::make_pair(*targets_.first, *targets_.second);
 }

@@ -1,11 +1,16 @@
 #pragma once
 
+// our code dirs:
 #include "lib/trappy_line.h"
 #include "target.h"
 
 namespace gui {
 
-/// @brief Фигура линии опасного перелета
+/**
+ * @brief Фигура линии опасного перелета
+ * @details Фигура представляет собой пунктирное красное соединение между
+ * заданными контрольными точками (причем эти точки выделяются)
+ */
 class TrappyLine : public Drawable {
  public:
   TrappyLine() = default;
@@ -45,6 +50,12 @@ class TrappyLine : public Drawable {
   const lib::TrappyLine& GetData() const { return data_; }
   lib::TrappyLine& GetData() { return data_; }
 
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой пунктирное красное соединение между
+   * заданными контрольными точками (причем эти точки выделяются)
+   * @param plot: указатель на полотно
+   */
   void Draw(QCustomPlot* plot) override;
 
   /**

@@ -1,3 +1,4 @@
+// header file:
 #include "gui_json_file.h"
 
 std::vector<lib::Target> GetTargetsFromFile(QJsonArray arr) {

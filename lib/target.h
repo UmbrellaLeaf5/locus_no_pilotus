@@ -1,11 +1,14 @@
 #pragma once
 
+// our code libs
 #include "base.h"
-#include "point.h"
 
 namespace lib {
 
-/// @brief Контрольная точка
+/**
+ * @brief Контрольная точка
+ * @details Самый лучший класс в мире: только с ним у нас не было проблем :)
+ */
 class Target : public JSONable {
  public:
   Target(double x, double y) : p_(x, y) { CheckErrorValues(); }
@@ -20,6 +23,7 @@ class Target : public JSONable {
 
   QJsonObject GetJsonInfo() const override;
   void SetJsonInfo(const QJsonObject& target_obj) override;
+
   bool IsChanged(const QJsonObject& target_obj) const override;
 
   Point GetPoint() const { return p_; }

@@ -1,11 +1,9 @@
+// header file:
 #include "trappy_line.h"
 
 namespace gui {
 
 void TrappyLine::Draw(QCustomPlot* plot) {
-  // фигура представляет собой пунктирное красное соединение между
-  // заданными контрольными точками (причем эти точки выделяются)
-
   graph_ = plot->addGraph(plot->xAxis, plot->yAxis);
 
   QPen pen;

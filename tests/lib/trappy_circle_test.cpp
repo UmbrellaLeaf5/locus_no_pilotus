@@ -14,6 +14,12 @@ using namespace lib;
 
 BOOST_AUTO_TEST_SUITE(lib_trappy_circle)
 
+// random generator:
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_real_distribution<> dis(-1000, 1000);
+static std::uniform_real_distribution<> dis_pos(0, 1000);
+
 BOOST_AUTO_TEST_CASE(simple_construct) {
   struct {
     double x, y, r;
@@ -39,11 +45,6 @@ BOOST_AUTO_TEST_CASE(simple_construct) {
 }
 
 BOOST_AUTO_TEST_CASE(random_get) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1000, 1000);
-  std::uniform_real_distribution<> dis_pos(0, 1000);
-
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen), r = dis_pos(gen);
 
@@ -56,11 +57,6 @@ BOOST_AUTO_TEST_CASE(random_get) {
 }
 
 BOOST_AUTO_TEST_CASE(random_set) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1000, 1000);
-  std::uniform_real_distribution<> dis_pos(0, 1000);
-
   TrappyCircle t_c({0, 0}, 0);
   for (int i = 0; i < 1000; i++) {
     double x = dis(gen), y = dis(gen), r = dis_pos(gen);
@@ -73,8 +69,5 @@ BOOST_AUTO_TEST_CASE(random_set) {
     BOOST_TEST(t_c.GetRadius() == r);
   }
 }
-
-BOOST_AUTO_TEST_CASE(json_load, *utf::disabled()) {}
-BOOST_AUTO_TEST_CASE(json_save, *utf::disabled()) {}
 
 BOOST_AUTO_TEST_SUITE_END()

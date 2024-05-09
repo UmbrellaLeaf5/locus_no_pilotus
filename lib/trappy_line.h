@@ -1,8 +1,9 @@
 #pragma once
 
-#include <initializer_list>
-#include <vector>
+// std libs:
+#include <utility>  // for pair
 
+// our code libs:
 #include "base.h"
 #include "target.h"
 
@@ -40,8 +41,10 @@ class TrappyLine : public JSONable {
   bool operator==(const TrappyLine&) const;
 
  private:
-  // невозможно проверить, так как класс не содержит координат
-  void CheckErrorValues() const override {}
+  /// @throw td::runtime_error: класс не содержит проверяемых данных
+  void CheckErrorValues() const override {
+    throw std::runtime_error("dev: no checkable error values in TrappyLines");
+  }
 
   // здесь нет смысла использовать умные указатели, так как мы не создаём новых
   std::pair<Target*, Target*> targets_;

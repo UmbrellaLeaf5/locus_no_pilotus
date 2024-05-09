@@ -1,11 +1,15 @@
 #pragma once
 
+// our code libs:
 #include "base.h"
 #include "lib/target.h"
 
 namespace gui {
 
-/// @brief Фигура контрольной точки
+/**
+ * @brief Фигура контрольной точки
+ * @details Фигура представляет собой малую серую окружность (точку)
+ */
 class Target : public Drawable {
  public:
   Target() = default;
@@ -27,6 +31,11 @@ class Target : public Drawable {
   lib::Target& GetData() { return data_; }
   const lib::Target& GetData() const { return data_; }
 
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой малую серую окружность (точку)
+   * @param plot: указатель на полотно
+   */
   virtual void Draw(QCustomPlot* plot) override;
 
   /**
@@ -44,5 +53,15 @@ class Target : public Drawable {
 
   QCPGraph* graph_{nullptr};
 };
+
+inline void Target::Draw(QCustomPlot* plot) {
+  graph_ = plot->addGraph(plot->xAxis, plot->yAxis);
+
+  graph_->setPen(QColor(50, 50, 50, 255));
+  graph_->setLineStyle(QCPGraph::lsNone);
+  graph_->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 4));
+
+  graph_->setData({GetPoint().x}, {GetPoint().y});
+}
 
 }  // namespace gui

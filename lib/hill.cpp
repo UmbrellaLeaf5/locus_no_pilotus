@@ -1,8 +1,8 @@
+// header file:
 #include "hill.h"
 
-#include <cmath>
+// std libs:
 #include <stdexcept>
-#include <string>
 
 namespace lib {
 
@@ -66,10 +66,10 @@ bool Hill::IsChanged(const QJsonObject& hill_obj) const {
 }
 
 bool Hill::operator==(const Hill& hill) const {
-  if (vertices_.size() != hill.GetPoints().size()) return false;
+  if (vertices_.size() != hill.GetVertices().size()) return false;
 
   for (size_t i = 0; i < vertices_.size(); i++)
-    if (vertices_[i] != hill.GetPoints()[i]) return false;
+    if (vertices_[i] != hill.GetVertices()[i]) return false;
 
   return true;
 }

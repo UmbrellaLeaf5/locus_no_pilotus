@@ -1,15 +1,17 @@
 #pragma once
 
-#include <./lib/point.h>
-
-#include <limits>
+// std libs:
 #include <vector>
+
+// our code libs:
+#include "lib/infinity.h"
+#include "lib/point.h"
 
 namespace math {
 
-constexpr double precision = lib::precision;
+using lib::precision;
 
-constexpr double inf = std::numeric_limits<double>::infinity();
+using lib::inf;
 
 /// @brief Структура для хранения двух минимумов строки/столбца
 struct Minimums {
@@ -31,8 +33,11 @@ class AdjacencyMatrix {
 
   enum Mins { Rows, Columns };
 
+  // Копирующий конструктор для матрицы
+  AdjacencyMatrix(const AdjacencyMatrix& other) = default;
+
   // Копирующее присваивание для матрицы
-  AdjacencyMatrix& operator=(const AdjacencyMatrix& m);
+  AdjacencyMatrix& operator=(const AdjacencyMatrix& other) = default;
 
   /**
    * @brief Меняет элемент матрицы

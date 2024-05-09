@@ -1,3 +1,4 @@
+// header file:
 #include "main/mainwindow.h"
 
 gui::ObjectType MainWindow::GetObjType() const {
@@ -82,18 +83,36 @@ void MainWindow::on_trappyLineAddFromTablePushButton_clicked() {
 }
 
 void MainWindow::on_xAxis_rangeChanged(QCPRange range) {
-  if (range.upper > max_scale || range.lower < -max_scale) {
-    range.lower = -max_scale;
+  if (range.upper > max_scale) {
     range.upper = max_scale;
+    range.lower = max_scale - (range.upper - range.lower);
+  }
+  if (range.lower < -max_scale) {
+    range.lower = -max_scale;
+    range.upper = -max_scale + (range.upper - range.lower);
+  }
+  if (range.upper - range.lower < min_scale) {
+    double mid = (range.upper + range.lower) / 2;
+    range.lower = mid - min_scale / 2;
+    range.upper = mid + min_scale / 2;
   }
 
   ui->plot->xAxis->setRange(range);
 }
 
 void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
-  if (range.upper > max_scale || range.lower < -max_scale) {
-    range.lower = -max_scale;
+  if (range.upper > max_scale) {
     range.upper = max_scale;
+    range.lower = max_scale - (range.upper - range.lower);
+  }
+  if (range.lower < -max_scale) {
+    range.lower = -max_scale;
+    range.upper = -max_scale + (range.upper - range.lower);
+  }
+  if (range.upper - range.lower < min_scale) {
+    double mid = (range.upper + range.lower) / 2;
+    range.lower = mid - min_scale / 2;
+    range.upper = mid + min_scale / 2;
   }
 
   ui->plot->yAxis->setRange(range);

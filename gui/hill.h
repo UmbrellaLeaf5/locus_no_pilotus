@@ -1,11 +1,17 @@
 #pragma once
 
+// our code libs:
 #include "base.h"
 #include "lib/hill.h"
 
 namespace gui {
 
-/// @brief Фигура рельефа с высотой
+/**
+ * @brief Фигура рельефа с высотой
+ * @details Фигура представляет собой зеленый
+ * многоугольник с полупрозрачной заливкой
+ * (зеленый по умолчанию, однако цвет задаётся в аргументах конструктора)
+ */
 class Hill : public Drawable {
  public:
   Hill() = default;
@@ -34,11 +40,20 @@ class Hill : public Drawable {
   const lib::Hill& GetData() const { return data_; }
   lib::Hill& GetData() { return data_; }
 
-  const std::vector<lib::Point>& GetPoints() const { return data_.GetPoints(); }
-  std::vector<lib::Point>& GetPoints() { return data_.GetPoints(); }
+  const std::vector<lib::Point>& GetVertices() const {
+    return data_.GetVertices();
+  }
+  std::vector<lib::Point>& GetVertices() { return data_.GetVertices(); }
 
   void AddVertice(lib::Point vertice) { data_.AddVertice(vertice); }
 
+  /**
+   * @brief Отрисовывает фигуру на полотне
+   * @details Фигура представляет собой зеленый
+   * многоугольник с полупрозрачной заливкой
+   * (зеленый по умолчанию, однако цвет задаётся в аргументах конструктора)
+   * @param plot: указатель на полотно
+   */
   void Draw(QCustomPlot* plot) override;
 
   /**
