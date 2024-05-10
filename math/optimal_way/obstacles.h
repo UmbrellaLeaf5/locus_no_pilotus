@@ -46,6 +46,8 @@ struct LinearFunction {
 struct Point : public lib::Point {
   Point() = default;
 
+  Point(const lib::Point& p) : lib::Point(p) {}
+
   Point(double xx, double yy) : lib::Point{xx, yy} {}
 
   // Вторая точка касательной

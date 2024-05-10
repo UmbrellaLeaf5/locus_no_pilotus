@@ -89,7 +89,7 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
     for (auto& point : circle.GetTangentPoints()) {
       PathWayNode new_node(point, graph_.nodes.size());
       new_node.circle_ptr = std::make_shared<CircleObstacle>(circle);
-      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
+      graph_.AddNode(std::make_shared<PathWayNode>(new_node));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
         if (graph_.nodes[i]->circle_ptr &&
             ((*graph_.nodes[i]->circle_ptr) == circle)) {
@@ -105,25 +105,34 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
       }
     }
 
-  for (auto& poly : polys_)
-    for (auto& point : poly.GetTangentPoints()) {
-      PathWayNode new_node(point, graph_.nodes.size());
-      new_node.poly_ptr = std::make_unique<PolygonObstacle>(poly);
-      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
+  for (auto& poly : polys_) {
+    std::vector<Point> vertexes = poly.GetVertexes();
+    for (std::size_t i = 0; i < vertexes.size(); ++i) {
+      PathWayNode new_node(vertexes[i], graph_.nodes.size());
+      new_node.poly_ptr = std::make_shared<PolygonObstacle>(poly);
+      graph_.AddNode(std::make_shared<PathWayNode>(new_node));
+      // Проводим ребра в графе только между соседними вершинами многоугольника
+      if (i != 0)
+        graph_.AddEdge(
+            graph_.nodes[graph_.nodes.size() - 2]->number, new_node.number,
+            DistanceBetweenPoints(graph_.nodes[graph_.nodes.size() - 2]->point,
+                                  new_node.point));
+      if (i == vertexes.size() - 1)
+        graph_.AddEdge(
+            graph_.nodes[graph_.nodes.size() - vertexes.size()]->number,
+            new_node.number,
+            DistanceBetweenPoints(
+                graph_.nodes[graph_.nodes.size() - vertexes.size()]->point,
+                new_node.point));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
-        if (graph_.nodes[i]->poly_ptr &&
-            ((*graph_.nodes[i]->poly_ptr) == poly)) {
-          graph_.AddEdge(graph_.nodes[i]->number, new_node.number,
-                         DistanceBetweenPointsOnPolygon(
-                             poly, graph_.nodes[i]->point, new_node.point));
-        } else if (new_node.point ==
-                   *graph_.nodes[i]->point.another_tangent_point) {
-          graph_.AddEdge(
-              graph_.nodes[i]->number, new_node.number,
-              DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
-        }
+        if (new_node.point != *graph_.nodes[i]->point.another_tangent_point)
+          continue;
+        graph_.AddEdge(
+            graph_.nodes[i]->number, new_node.number,
+            DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
       }
     }
+  }
 }
 
 std::size_t OptimalWayCalculator::AddGraphControlPoints(Point point) {
@@ -133,7 +142,7 @@ std::size_t OptimalWayCalculator::AddGraphControlPoints(Point point) {
       if (TangentGoesThroughOtherObstacle(tangent_point, point)) continue;
       PathWayNode new_node(tangent_point, graph_.nodes.size());
       new_node.circle_ptr = std::make_shared<CircleObstacle>(circle);
-      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
+      graph_.AddNode(std::make_shared<PathWayNode>(new_node));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
         if (*graph_.nodes[i]->circle_ptr == circle) {
           graph_.AddEdge(graph_.nodes[i]->number, new_node.number,
@@ -149,7 +158,7 @@ std::size_t OptimalWayCalculator::AddGraphControlPoints(Point point) {
       if (TangentGoesThroughOtherObstacle(tangent_point, point)) continue;
       PathWayNode new_node(tangent_point, graph_.nodes.size());
       new_node.poly_ptr = std::make_shared<PolygonObstacle>(poly);
-      graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node));
+      graph_.AddNode(std::make_shared<PathWayNode>(new_node));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
         if (*graph_.nodes[i]->poly_ptr == poly) {
           graph_.AddEdge(graph_.nodes[i]->number, new_node.number,
@@ -166,12 +175,12 @@ void OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
   std::size_t point1_new_nodes = AddGraphControlPoints(p1);
   std::size_t point2_new_nodes = AddGraphControlPoints(p2);
   PathWayNode new_node1(p1, graph_.nodes.size());
-  graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node1));
+  graph_.AddNode(std::make_shared<PathWayNode>(new_node1));
   for (std::size_t i = normal_graph_size_; i < point1_new_nodes; ++i)
     graph_.AddEdge(graph_.nodes[i]->number, new_node1.number,
                    DistanceBetweenPoints(graph_.nodes[i]->point, p1));
   PathWayNode new_node2(p2, graph_.nodes.size());
-  graph_.nodes.push_back(std::make_shared<PathWayNode>(new_node2));
+  graph_.AddNode(std::make_shared<PathWayNode>(new_node2));
   for (std::size_t i = point1_new_nodes; i < point2_new_nodes; ++i)
     graph_.AddEdge(graph_.nodes[i]->number, new_node2.number,
                    DistanceBetweenPoints(graph_.nodes[i]->point, p2));
