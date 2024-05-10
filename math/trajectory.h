@@ -75,7 +75,7 @@ class TrajectoryCalculator {
       std::vector<std::size_t> optimal_way,
       const std::vector<std::shared_ptr<PathWayNode>>& nodes);
 
-  /// @brief Расcчитывает траекторию
+  /// @brief Рассчитывает траекторию
   void CalculateTrajectory();
 };
 

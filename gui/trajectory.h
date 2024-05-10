@@ -2,6 +2,7 @@
 
 // our code libs:
 #include "lib/_objects.h"
+#include "math/trajectory.h"
 #include "segment.h"
 
 namespace gui {
