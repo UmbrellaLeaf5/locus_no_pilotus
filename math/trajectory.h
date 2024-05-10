@@ -28,7 +28,16 @@ class TrajectoryCalculator {
                        const std::vector<Hill>& hills) {
     for (auto& target : targets) targets_.push_back(Point(target.GetPoint()));
 
-    forbidden_lines_ = lines;
+    for (auto& line : lines) {
+      std::pair<std::size_t, std::size_t> indexes;
+      std::pair<Target, Target> points = line.GetTargets();
+      for (std::size_t i = 0; i < targets.size(); ++i)
+        if (targets[i] == points.first)
+          indexes.first = i;
+        else if (targets[i] == points.second)
+          indexes.second = i;
+      forbidden_lines_.push_back(indexes);
+    }
 
     for (auto& circle : circles)
       circles_.push_back(
@@ -43,6 +52,7 @@ class TrajectoryCalculator {
     CalculateTrajectory();
   }
 
+  /// @brief Возвращает траекторию
   std::vector<Segment> GetTrajectory() { return trajectory_; }
 
  private:
@@ -50,7 +60,7 @@ class TrajectoryCalculator {
   std::vector<Point> targets_;
 
   // Запрещенные перелёты
-  std::vector<TrappyLine> forbidden_lines_;
+  std::vector<std::pair<std::size_t, std::size_t>> forbidden_lines_;
 
   // Круговые препятствия
   std::vector<CircleObstacle> circles_;
@@ -64,11 +74,12 @@ class TrajectoryCalculator {
   /**
    * @brief Подсчет части траектории
    * @param optimal_way: порядок обхода точек
-   * @param graph: граф, содеражщий информацию о координатах точек
-   * @return Часть траектории
+   * @param nodes: вершины графа
+   * @return часть траектории
    */
-  std::vector<Segment> GetTrajectoryPart(std::vector<std::size_t> optimal_way,
-                                         const PathWayGraph& graph);
+  std::vector<Segment> GetTrajectoryPart(
+      std::vector<std::size_t> optimal_way,
+      const std::vector<std::shared_ptr<PathWayNode>>& nodes);
 
   /// @brief Расcчитывает траекторию
   void CalculateTrajectory();
