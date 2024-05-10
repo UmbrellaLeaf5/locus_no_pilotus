@@ -6,6 +6,7 @@
  */
 
 #include "airport.h"
+#include "flying_robot.h"
 #include "hill.h"
 #include "target.h"
 #include "trajectory.h"
