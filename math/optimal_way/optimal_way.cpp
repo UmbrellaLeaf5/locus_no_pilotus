@@ -125,11 +125,11 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
                 graph_.nodes[graph_.nodes.size() - vertexes.size()]->point,
                 new_node.point));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
-        if (new_node.point == *graph_.nodes[i]->point.another_tangent_point) {
-          graph_.AddEdge(
-              graph_.nodes[i]->number, new_node.number,
-              DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
-        }
+        if (new_node.point != *graph_.nodes[i]->point.another_tangent_point)
+          continue;
+        graph_.AddEdge(
+            graph_.nodes[i]->number, new_node.number,
+            DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
       }
     }
   }
