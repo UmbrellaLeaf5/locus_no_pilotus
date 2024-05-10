@@ -3,7 +3,7 @@
 
 namespace gui {
 
-class FlyingRobot {
+class FlyingRobot : public Drawable {
  public:
   FlyingRobot() = default;
 
@@ -15,7 +15,7 @@ class FlyingRobot {
       SetAnglesOfLine();
   }
 
-  void Draw(QCustomPlot* plot);
+  void Draw(QCustomPlot* plot) override;
   void ReDraw(QCustomPlot* plot);
 
  private:
