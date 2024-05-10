@@ -39,7 +39,6 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
-  void moveObject();
 
   // Slots for files:
   bool on_actionSave_as_triggered();

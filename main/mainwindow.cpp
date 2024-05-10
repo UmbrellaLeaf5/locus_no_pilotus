@@ -36,20 +36,6 @@ MainWindow::MainWindow(QWidget* parent)
       ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
   json_file_.SetUntitledFile();
-
-  std::vector<gui::Segment> segs{{{0, 0}, {5, 0}},
-                                 {{5, 0}, {7, -2}, {7, 0}},
-                                 {{7, -2}, {0, -5}},
-                                 {{0, -5}, {0, 0}, {0, -2.5}}};
-  trj = new gui::Trajectory(segs);
-  trj->Draw(ui->plot);
-  timer = new QTimer(this);
-  robot = new gui::FlyingRobot(*trj);
-  robot->Draw(ui->plot);
-  connect(timer, &QTimer::timeout, this, &MainWindow::moveObject);
-  timer->start(1000 / 360);
 }
 
 MainWindow::~MainWindow() { delete ui; }
-
-void MainWindow::moveObject() { robot->ReDraw(ui->plot); }
