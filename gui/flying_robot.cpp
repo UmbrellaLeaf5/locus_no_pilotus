@@ -1,5 +1,7 @@
 #include "flying_robot.h"
 
+// Константа, которая нужна для того, чтобы определить размер отрезков, на
+// которые будет делиться каждый Segment
 constexpr double distribution = 0.03;
 
 void gui::FlyingRobot::SetNewSegment() {
