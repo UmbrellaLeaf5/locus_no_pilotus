@@ -15,14 +15,23 @@ class Trajectory : private Drawable {
  public:
   Trajectory() = default;
 
+  /**
+   * @brief Инициализирует новый экземпляр Trajectory
+   * @param segments: вектор отрезков траектории
+   */
   Trajectory(const std::vector<gui::Segment>& segments) : segments_{segments} {}
 
+  /**
+   * @brief Инициализирует новый экземпляр Trajectory
+   * @param targets: контрольные точки
+   * @param hills: многоугольные препятствия
+   * @param tr_circles: круговые препятствия
+   * @param tr_lines: запрещённые перелеты
+   */
   Trajectory(const std::vector<lib::Target>& targets,
              const std::vector<lib::Hill>& hills,
              const std::vector<lib::TrappyCircle>& tr_circles,
-             const std::vector<lib::TrappyLine>& tr_lines) {
-    Calculate(targets, hills, tr_circles, tr_lines);
-  }
+             const std::vector<lib::TrappyLine>& tr_lines);
 
   /**
    * @brief Возвращает вектор сегментов
@@ -40,9 +49,20 @@ class Trajectory : private Drawable {
    * @brief Отрисовывает фигуру на полотне
    * @param plot: указатель на полотно
    */
-  void Draw(QCustomPlot* plot) override {
-    for (auto& segment : segments_) segment.Draw(plot);
-  }
+  void Draw(QCustomPlot* plot) override;
+
+  /**
+   * @brief Перерисовывает фигуру на полотне, пересчитывая траекторию
+   * @param targets: новые контрольные точки
+   * @param hills: новые многоугольные препятствия
+   * @param tr_circles: новые круговые препятствия
+   * @param tr_lines: новые запрещённые перелеты
+   * @param plot: указатель на полотно
+   */
+  void ReDraw(const std::vector<lib::Target>& targets,
+              const std::vector<lib::Hill>& hills,
+              const std::vector<lib::TrappyCircle>& tr_circles,
+              const std::vector<lib::TrappyLine>& tr_lines, QCustomPlot* plot);
 
  private:
   std::vector<gui::Segment> segments_;
@@ -51,20 +71,7 @@ class Trajectory : private Drawable {
   void Calculate(const std::vector<lib::Target>& targets,
                  const std::vector<lib::Hill>& hills,
                  const std::vector<lib::TrappyCircle>& tr_circles,
-                 const std::vector<lib::TrappyLine>& tr_lines) {
-    Q_UNUSED(targets);
-    Q_UNUSED(hills);
-    Q_UNUSED(tr_circles);
-    Q_UNUSED(tr_lines);
-
-    /**
-     * Здесь должно быть использование функционала из math
-
-     * Они должны нам вернуть std::vector<lib::Segment>,
-     * которые мы переведём в std::vector<gui::Segment*>
-     * и запишем в segments_
-     */
-  }
+                 const std::vector<lib::TrappyLine>& tr_lines);
 };
 
 }  // namespace gui

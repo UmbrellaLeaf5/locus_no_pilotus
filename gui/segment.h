@@ -14,6 +14,8 @@ class Segment : private Drawable {
  public:
   Segment() = default;
 
+  Segment(const lib::Segment& data) : data_{data} {}
+
   Segment(const lib::Point& start, const lib::Point& end) : data_(start, end) {}
 
   Segment(const lib::Point& start, const lib::Point& end,
