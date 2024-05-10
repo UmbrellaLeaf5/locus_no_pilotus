@@ -21,6 +21,8 @@ class OptimalWayCalculator {
     normal_graph_size_ = graph_.nodes.size();
   }
 
+  PathWayGraph GetGraph() { return graph_; }
+
   std::vector<std::size_t> GetOptimalWay(Point point1, Point point2) {
     FindOptimalWay(point1, point2);
     return optimal_way_;
@@ -36,25 +38,33 @@ class OptimalWayCalculator {
   // Граф для алгоритма Дейкстры
   PathWayGraph graph_;
 
+  // Количество вершин в графе без связей с контрольными точками
   std::size_t normal_graph_size_;
 
   // Оптимальный путь
   std::vector<std::size_t> optimal_way_;
 
+  // Длина оптимального пути
   double optimal_way_length_;
 
   /**
    * @brief Проверяет, пересекает ли общая касательная двух препятствий другое
    * препятствие
    * @param tangent: общая касательная
-   * @param circle1_index: номер препятствие 1
-   * @param circle2_index: номер препятствие 2
+   * @param obstacle1: номер препятствие 1
+   * @param obstacle2: номер препятствие 2
    * @return bool: результат проверки
    */
   template <typename T, typename U>
   bool TangentGoesThroughOtherObstacle(const LinearFunction& tangent,
                                        T& obstacle1, U& obstacle2);
 
+  /**
+   * @brief Проверяет, пересекает ли касательная препятствие
+   * @param tangent_point: точка касания
+   * @param control_point: контрольная точка
+   * @return результат проверки
+   */
   bool TangentGoesThroughOtherObstacle(const Point& tangent_point,
                                        const Point& control_point);
 
