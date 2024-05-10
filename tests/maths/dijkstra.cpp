@@ -20,7 +20,7 @@ void AddNodes(PathWayGraph& graph, std::size_t number_of_nodes) {
     graph.AddNode(std::make_shared<PathWayNode>(Point(0, 0), i));
 }
 
-void CHECK_GRAPH(std::vector<TestEdge> edges, double ans) {
+void CHECK_GRAPH(const std::vector<TestEdge>& edges, double ans) {
   PathWayGraph graph;
 
   std::size_t number_of_nodes = 0;

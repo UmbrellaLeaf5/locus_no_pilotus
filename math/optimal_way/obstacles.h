@@ -31,7 +31,7 @@ struct LinearFunction {
 
   double a_coef, b_coef, c_coef;
 
-  bool operator==(const LinearFunction& other) {
+  bool operator==(const LinearFunction& other) const {
     double proportion = ((std::abs(a_coef) >= precision) &&
                          (std::abs(other.a_coef) >= precision))
                             ? other.a_coef / a_coef
@@ -113,7 +113,7 @@ class PolygonObstacle {
    * @brief Инициализирует экземпляр PolygonObstacle
    * @param vertexes: вершины многоугольника
    */
-  PolygonObstacle(std::vector<Point> vertexes) : vertexes_{vertexes} {
+  PolygonObstacle(const std::vector<Point>& vertexes) : vertexes_{vertexes} {
     center_ = Point(0, 0);
     for (auto& elem : vertexes_) {
       center_.x += elem.x;

@@ -40,7 +40,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   }
 }
 
-void MainWindow::AddHill(std::vector<std::pair<double, double>> points) {
+void MainWindow::AddHill(const std::vector<std::pair<double, double>>& points) {
   try {
     std::vector<lib::Point> lib_points;
     for (const auto& point : points) {

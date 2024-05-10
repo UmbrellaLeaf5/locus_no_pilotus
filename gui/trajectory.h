@@ -15,11 +15,12 @@ class Trajectory : private Drawable {
  public:
   Trajectory() = default;
 
-  Trajectory(std::vector<gui::Segment> segments) : segments_{segments} {}
+  Trajectory(const std::vector<gui::Segment>& segments) : segments_{segments} {}
 
-  Trajectory(std::vector<lib::Target> targets, std::vector<lib::Hill> hills,
-             std::vector<lib::TrappyCircle> tr_circles,
-             std::vector<lib::TrappyLine> tr_lines) {
+  Trajectory(const std::vector<lib::Target>& targets,
+             const std::vector<lib::Hill>& hills,
+             const std::vector<lib::TrappyCircle>& tr_circles,
+             const std::vector<lib::TrappyLine>& tr_lines) {
     Calculate(targets, hills, tr_circles, tr_lines);
   }
 
@@ -47,9 +48,10 @@ class Trajectory : private Drawable {
   std::vector<gui::Segment> segments_;
 
   /// @brief Расчет вектора сегментов по заданным объектам на полотне
-  void Calculate(std::vector<lib::Target> targets, std::vector<lib::Hill> hills,
-                 std::vector<lib::TrappyCircle> tr_circles,
-                 std::vector<lib::TrappyLine> tr_lines) {
+  void Calculate(const std::vector<lib::Target>& targets,
+                 const std::vector<lib::Hill>& hills,
+                 const std::vector<lib::TrappyCircle>& tr_circles,
+                 const std::vector<lib::TrappyLine>& tr_lines) {
     Q_UNUSED(targets);
     Q_UNUSED(hills);
     Q_UNUSED(tr_circles);

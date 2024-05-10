@@ -13,8 +13,8 @@ class OptimalWayCalculator {
    * @param circles: круговые препятствия
    * @param polys: многоугольные препятствия
    */
-  OptimalWayCalculator(std::vector<CircleObstacle> circles,
-                       std::vector<PolygonObstacle> polys)
+  OptimalWayCalculator(const std::vector<CircleObstacle>& circles,
+                       const std::vector<PolygonObstacle>& polys)
       : circles_{circles}, polys_{polys} {
     AddCommonTangents();
     AddGraphTangentPoints();

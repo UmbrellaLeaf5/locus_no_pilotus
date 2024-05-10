@@ -18,10 +18,10 @@ class Hill : public JSONable {
    * @brief Инициализирует новый экземпляр Hill
    * (так как рельеф является многоугольником, его можно построить по точкам)
    * @param points: список точек
-   * @throw std::invalid_argument: если кол-во вершин 1 или 0
    */
-  Hill(std::initializer_list<Point> points);
-  Hill(std::vector<Point> points) : vertices_{points} { CheckErrorValues(); }
+  Hill(const std::vector<Point>& points) : vertices_{points} {
+    CheckErrorValues();
+  }
 
   Hill(const Hill&) = default;
   Hill(Hill&&) = default;

@@ -4,7 +4,7 @@
 namespace math {
 
 AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
-    std::vector<std::vector<double>> nums) {
+    const std::vector<std::vector<double>>& nums) {
   AdjacencyMatrix m(nums);
   m.matrix_.resize(m.size_ + 1);
   m.matrix_[m.size_].resize(m.size_ + 1);
@@ -40,7 +40,7 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
   return reducted;
 }
 
-AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
+AdjacencyMatrix::AdjacencyMatrix(const std::vector<std::vector<double>>& nums)
     : size_{nums.size()}, matrix_{nums}, min_numbers_(size_ + size_) {}
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {

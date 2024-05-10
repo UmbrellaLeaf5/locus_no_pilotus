@@ -38,7 +38,7 @@ class AddHillForm : public QDialog {
   ~AddHillForm();
 
  signals:
-  void AddHill(std::vector<std::pair<double, double>> points);
+  void AddHill(const std::vector<std::pair<double, double>>& points);
 
  private slots:
   void on_createPushButton_clicked();

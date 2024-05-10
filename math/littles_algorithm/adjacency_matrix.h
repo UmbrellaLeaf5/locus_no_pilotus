@@ -29,7 +29,8 @@ class AdjacencyMatrix {
    * @return AdjacencyMatrix: экземпляр AdjacencyMatrix по данной матрице
    * смежности
    */
-  static AdjacencyMatrix WithExtraRowCol(std::vector<std::vector<double>> nums);
+  static AdjacencyMatrix WithExtraRowCol(
+      const std::vector<std::vector<double>>& nums);
 
   enum Mins { Rows, Columns };
 
@@ -121,7 +122,7 @@ class AdjacencyMatrix {
    * @return AdjacencyMatrix: экземпляр AdjacencyMatrix по данной матрице
    * смежности
    */
-  AdjacencyMatrix(std::vector<std::vector<double>> nums);
+  AdjacencyMatrix(const std::vector<std::vector<double>>& nums);
 
   /**
    * @brief Находит 2 минимума в строке или столбце
