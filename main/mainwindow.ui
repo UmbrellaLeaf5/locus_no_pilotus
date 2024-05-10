@@ -59,7 +59,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="flyRobotPushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -314,7 +314,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -454,8 +454,8 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>341</width>
-          <height>917</height>
+          <width>350</width>
+          <height>1000</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="guiObjectsVerticalLayout">

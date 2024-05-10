@@ -5,7 +5,7 @@ namespace data_tools {
 
 void PlotArea::Setup(DataManager* manager) { manager_.reset(manager); }
 
-void PlotArea::Redraw() {
+void PlotArea::ReDraw() {
   plot_->clearPlottables();
   plot_->clearItems();
 
@@ -20,6 +20,10 @@ void PlotArea::Redraw() {
     tr_line->Draw(plot_.get());
 
   plot_->replot();
+}
+
+void PlotArea::ReDrawTrajectory() {
+  manager_->GetTrajectoryPtr()->Draw(plot_.get());
 }
 
 }  // namespace data_tools

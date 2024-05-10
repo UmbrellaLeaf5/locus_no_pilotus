@@ -21,7 +21,10 @@ class PlotArea {
   void SetPlot(QCustomPlot* plot) { plot_.reset(plot); }
 
   /// @brief Перерисовывает на полотне все объекты и обновляет данные
-  void Redraw();
+  void ReDraw();
+
+  /// @brief Перерисовывает на полотне траекторию
+  void ReDrawTrajectory();
 
  private:
   // i love unique_ptr's, i love logic schemes

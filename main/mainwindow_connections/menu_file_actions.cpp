@@ -71,7 +71,7 @@ void MainWindow::on_actionNew_triggered() {
   if (!is_closed) {
     manager_->Clear();
     json_file_.SetUntitledFile();
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTables();
   }
 }
@@ -113,7 +113,7 @@ void MainWindow::on_actionOpen_triggered() {
     json_file_.Open(manager_.get());
   }
 
-  area_->Redraw();
+  area_->ReDraw();
   t_connection_->UpdateTables();
 }
 

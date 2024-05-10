@@ -412,6 +412,26 @@ std::vector<gui::TrappyLine> DataManager::GetTrappyLines() const {
   return res;
 }
 
+void DataManager::CalculateTrajectory() {
+  auto lib_targets = std::vector<lib::Target>(targets_.size());
+  for (size_t i = 0; i < lib_targets.size(); i++)
+    lib_targets[i] = targets_[i]->GetData();
+
+  auto lib_hills = std::vector<lib::Hill>(hills_.size());
+  for (size_t i = 0; i < lib_hills.size(); i++)
+    lib_hills[i] = hills_[i]->GetData();
+
+  auto lib_tr_lines = std::vector<lib::TrappyLine>(tr_lines_.size());
+  for (size_t i = 0; i < lib_tr_lines.size(); i++)
+    lib_tr_lines[i] = tr_lines_[i]->GetData();
+
+  auto lib_tr_circles = std::vector<lib::TrappyCircle>(tr_circles_.size());
+  for (size_t i = 0; i < lib_tr_circles.size(); i++)
+    lib_tr_circles[i] = tr_circles_[i]->GetData();
+
+  trajectory_->Calculate(lib_targets, lib_hills, lib_tr_circles, lib_tr_lines);
+}
+
 void DataManager::CheckErrorValues() {
   if (targets_.size() > 10000 || hills_.size() > 10000 ||
       tr_circles_.size() > 10000 || tr_lines_.size() > 10000)

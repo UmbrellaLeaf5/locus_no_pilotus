@@ -70,7 +70,7 @@ void MainWindow::DeleteLastAddedObject() {
       break;
   }
 
-  area_->Redraw();
+  area_->ReDraw();
 
   what_obj_addition_ = WhatObjectAddition::Nothing;
 }
@@ -163,7 +163,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         break;
     }
 
-    area_->Redraw();
+    area_->ReDraw();
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -175,7 +175,7 @@ void MainWindow::mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
     DisconnectObject(gui::ObjectType::TrappyCircles);
     what_obj_addition_ = WhatObjectAddition::Nothing;
 
-    area_->Redraw();
+    area_->ReDraw();
 
     // после финального добавления обновляем таблицу
     t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
@@ -197,7 +197,7 @@ void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
   double r = sqrt(pow(x, 2) + pow(y, 2));
 
   manager_->GetTrappyCirclesPtrs()[last]->SetRadius(r);
-  area_->Redraw();
+  area_->ReDraw();
 }
 
 void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
@@ -218,7 +218,7 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
     DisconnectObject(gui::ObjectType::TrappyLines);
     what_obj_addition_ = WhatObjectAddition::Nothing;
 
-    area_->Redraw();
+    area_->ReDraw();
 
     // после финального добавления обновляем таблицу
     t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
@@ -269,7 +269,7 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     } else
       manager_->GetHillsPtrs()[last]->AddVertice({x, y});
 
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -290,7 +290,7 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
         DeleteLastAddedObject();
     }
 
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -307,6 +307,6 @@ void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
         manager_->GetHillsPtrs()[last]->GetVertices().begin() + last_vertice);
 
     manager_->GetHillsPtrs()[last]->AddVertice({x, y});
-    area_->Redraw();
+    area_->ReDraw();
   }
 }

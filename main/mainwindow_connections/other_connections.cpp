@@ -64,7 +64,7 @@ void MainWindow::on_editObjectsPushButton_clicked() {
 
 void MainWindow::on_actionBeautify_triggered() {
   ui->plot->xAxis->setScaleRatio(ui->plot->yAxis);
-  area_->Redraw();
+  area_->ReDraw();
 }
 
 void MainWindow::on_targetAddFromTablePushButton_clicked() {
@@ -166,7 +166,7 @@ void MainWindow::mousePressRemoveObject() {
       }
     }
 
-  area_->Redraw();
+  area_->ReDraw();
 }
 
 void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {

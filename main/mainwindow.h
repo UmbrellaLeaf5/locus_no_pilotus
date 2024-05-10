@@ -89,7 +89,7 @@ class MainWindow : public QMainWindow {
   void on_xAxis_rangeChanged(QCPRange range);
   void on_yAxis_rangeChanged(QCPRange range);
 
-  void on_drawTrajectoryPushButton_clicked() {}
+  void on_drawTrajectoryPushButton_clicked() { area_->ReDrawTrajectory(); }
   void on_flyRobotPushButton_clicked() {}
 
  public slots:

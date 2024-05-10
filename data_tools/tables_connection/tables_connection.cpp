@@ -170,7 +170,7 @@ void TablesConnection::UpdateTable(
                            "Wrong targets numbers in TrappyLines!");
 
       manager_->Remove(gui::ObjectType::TrappyLines, i);
-      area_->Redraw();
+      area_->ReDraw();
     }
   }
 
@@ -273,7 +273,7 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
       manager_->GetTargetsPtrs()[column]->SetPoint(x_item->text().toDouble(),
                                                    y_item->text().toDouble());
 
-      area_->Redraw();
+      area_->ReDraw();
     }
 
   } catch (const std::exception& e) {
@@ -284,7 +284,7 @@ void TablesConnection::TargetsItemChanged(int row, int column) {
 
     // (в случае удаления к.т., которая была привязана, надо обновить)
     UpdateTable(gui::ObjectType::TrappyLines);
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -319,7 +319,7 @@ void TablesConnection::HillsItemChanged(int row, int column) {
       manager_->GetHillsPtrs()[column]->GetVertices()[p_index].y =
           y_item->text().toDouble();
 
-      area_->Redraw();
+      area_->ReDraw();
     }
 
   } catch (const std::exception& e) {
@@ -327,7 +327,7 @@ void TablesConnection::HillsItemChanged(int row, int column) {
 
     manager_->Remove(gui::ObjectType::Hills, static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::Hills);
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -348,7 +348,7 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
       manager_->GetTrappyCirclesPtrs()[column]->SetRadius(
           r_item->text().toDouble());
 
-      area_->Redraw();
+      area_->ReDraw();
     }
 
   } catch (const std::exception& e) {
@@ -357,7 +357,7 @@ void TablesConnection::TrappyCirclesItemChanged(int row, int column) {
     manager_->Remove(gui::ObjectType::TrappyCircles,
                      static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::TrappyCircles);
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -382,7 +382,7 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
             manager_->GetTargetsPtrs()[t_1_index],
             manager_->GetTargetsPtrs()[t_2_index]);
 
-        area_->Redraw();
+        area_->ReDraw();
 
       } else
         throw std::invalid_argument("Wrong targets numbers in TrappyLines!");
@@ -393,7 +393,7 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
 
     manager_->Remove(gui::ObjectType::TrappyLines, static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::TrappyLines);
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -403,7 +403,7 @@ void TablesConnection::RemoveTargetItem() {
   DisableTablesConnections();
 
   manager_->Remove(gui::ObjectType::Targets, selected_column_);
-  area_->Redraw();
+  area_->ReDraw();
   UpdateTable(manager_->GetTargets());
   UpdateTable(manager_->GetTrappyLines());
 
@@ -414,7 +414,7 @@ void TablesConnection::RemoveHillItem() {
   DisableTablesConnections();
 
   manager_->Remove(gui::ObjectType::Hills, selected_column_);
-  area_->Redraw();
+  area_->ReDraw();
   UpdateTable(manager_->GetHills());
 
   UpdateTablesConnections();
@@ -424,7 +424,7 @@ void TablesConnection::RemoveTrappyCircleItem() {
   DisableTablesConnections();
 
   manager_->Remove(gui::ObjectType::TrappyCircles, selected_column_);
-  area_->Redraw();
+  area_->ReDraw();
   UpdateTable(manager_->GetTrappyCircles());
 
   UpdateTablesConnections();
@@ -434,7 +434,7 @@ void TablesConnection::RemoveTrappyLineItem() {
   DisableTablesConnections();
 
   manager_->Remove(gui::ObjectType::TrappyLines, selected_column_);
-  area_->Redraw();
+  area_->ReDraw();
   UpdateTable(manager_->GetTrappyLines());
 
   UpdateTablesConnections();

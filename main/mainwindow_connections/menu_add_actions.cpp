@@ -4,7 +4,7 @@
 void MainWindow::AddTarget(double x, double y) {
   try {
     manager_->Add(new gui::Target(x, y));
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::Targets);
 
   } catch (const std::exception& e) {
@@ -15,7 +15,7 @@ void MainWindow::AddTarget(double x, double y) {
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
   try {
     manager_->Add(new gui::TrappyCircle(x, y, radius));
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
 
   } catch (const std::exception& e) {
@@ -32,7 +32,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
         manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 2],
         manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 1]));
 
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
 
   } catch (const std::exception& e) {
@@ -49,7 +49,7 @@ void MainWindow::AddHill(const std::vector<std::pair<double, double>>& points) {
 
     manager_->Add(new gui::Hill(lib_points));
 
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::Hills);
 
   } catch (const std::exception& e) {
