@@ -55,23 +55,23 @@ class MainWindow : public QMainWindow {
   void keyPressEvent(QKeyEvent* key_event) override;
 
   // Slots for Target:
-  void on_pushButtonAddTarget_clicked();
+  void on_addTargetPushButton_clicked();
   void on_actionTarget_triggered();
 
   // Slots for TrappyCircle:
-  void on_pushButtonAddTrappyCircle_clicked();
+  void on_addTrappyCirclePushButton_clicked();
   void on_actionTrappy_Circle_triggered();
   void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
   // Slots for TrappyLine:
-  void on_pushButtonAddTrappyLine_clicked();
+  void on_addTrappyLinePushButton_clicked();
   void on_actionTrappy_Line_triggered();
   void on_actionHill_triggered();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
 
   // Slots for Hill:
-  void on_pushButtonAddHill_clicked();
+  void on_addHillPushButton_clicked();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
   void mouseMoveAddVertice(QMouseEvent* mouse_event);
@@ -81,13 +81,16 @@ class MainWindow : public QMainWindow {
   void on_hillAddFromTablePushButton_clicked();
   void on_trappyCircleAddFromTablePushButton_clicked();
   void on_trappyLineAddFromTablePushButton_clicked();
-  void on_pushButtonEditObjects_clicked();
+  void on_editObjectsPushButton_clicked();
 
   // Extra slots:
   void on_actionBeautify_triggered();
 
   void on_xAxis_rangeChanged(QCPRange range);
   void on_yAxis_rangeChanged(QCPRange range);
+
+  void on_drawTrajectoryPushButton_clicked() {}
+  void on_flyRobotPushButton_clicked() {}
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);

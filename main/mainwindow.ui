@@ -193,7 +193,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
+          <normaloff>../images/trappy_line.png</normaloff>../images/trappy_line.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -325,10 +325,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     <property name="title">
      <string>File 🗂</string>
     </property>
-    <addaction name="newFileAction"/>
-    <addaction name="openFileAction"/>
-    <addaction name="saveFileAction"/>
-    <addaction name="saveAsFileAction"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_as"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -351,10 +351,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <string>Add ➕</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="targetAction"/>
-    <addaction name="trappyCircleAction"/>
-    <addaction name="trappyLineAction"/>
-    <addaction name="hillAction"/>
+    <addaction name="actionTarget"/>
+    <addaction name="actionTrappy_Circle"/>
+    <addaction name="actionTrappy_Line"/>
+    <addaction name="actionHill"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
@@ -981,7 +981,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     </layout>
    </widget>
   </widget>
-  <action name="newFileAction">
+  <action name="actionNew">
    <property name="icon">
     <iconset>
      <normaloff>../images/new_file.png</normaloff>../images/new_file.png</iconset>
@@ -993,7 +993,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="openFileAction">
+  <action name="actionOpen">
    <property name="icon">
     <iconset>
      <normaloff>../images/open_file.png</normaloff>../images/open_file.png</iconset>
@@ -1005,7 +1005,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="saveFileAction">
+  <action name="actionSave">
    <property name="icon">
     <iconset>
      <normaloff>../images/save_file.png</normaloff>../images/save_file.png</iconset>
@@ -1017,7 +1017,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="saveAsFileAction">
+  <action name="actionSave_as">
    <property name="icon">
     <iconset>
      <normaloff>../images/save_file_as.png</normaloff>../images/save_file_as.png</iconset>
@@ -1050,7 +1050,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>F5</string>
    </property>
   </action>
-  <action name="targetAction">
+  <action name="actionTarget">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1065,7 +1065,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Target</string>
    </property>
   </action>
-  <action name="trappyCircleAction">
+  <action name="actionTrappy_Circle">
    <property name="icon">
     <iconset>
      <normaloff>../images/AA.png</normaloff>../images/AA.png</iconset>
@@ -1074,16 +1074,16 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Trappy Circle</string>
    </property>
   </action>
-  <action name="trappyLineAction">
+  <action name="actionTrappy_Line">
    <property name="icon">
     <iconset>
-     <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
+     <normaloff>../images/trappy_line.png</normaloff>../images/trappy_line.png</iconset>
    </property>
    <property name="text">
     <string>Trappy Line</string>
    </property>
   </action>
-  <action name="hillAction">
+  <action name="actionHill">
    <property name="icon">
     <iconset>
      <normaloff>../images/high_hills.png</normaloff>../images/high_hills.png</iconset>

@@ -14,7 +14,7 @@ gui::ObjectType MainWindow::GetObjType() const {
   }
 }
 
-void MainWindow::on_pushButtonAddTarget_clicked() {
+void MainWindow::on_addTargetPushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -24,7 +24,7 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
   cursor_ = CursorType::TargetCursor;
 }
 
-void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
+void MainWindow::on_addTrappyCirclePushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -34,7 +34,7 @@ void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   cursor_ = CursorType::TrCircleCursor;
 }
 
-void MainWindow::on_pushButtonAddTrappyLine_clicked() {
+void MainWindow::on_addTrappyLinePushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -44,7 +44,7 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   cursor_ = CursorType::TrLineCursor;
 }
 
-void MainWindow::on_pushButtonAddHill_clicked() {
+void MainWindow::on_addHillPushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -54,7 +54,7 @@ void MainWindow::on_pushButtonAddHill_clicked() {
   cursor_ = CursorType::HillCursor;
 }
 
-void MainWindow::on_pushButtonEditObjects_clicked() {
+void MainWindow::on_editObjectsPushButton_clicked() {
   manager_->RemoveAllDuplicates();
   t_connection_->UpdateTables();
 
