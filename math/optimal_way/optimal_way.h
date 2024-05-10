@@ -21,7 +21,9 @@ class OptimalWayCalculator {
     normal_graph_size_ = graph_.nodes.size();
   }
 
-  PathWayGraph GetGraph() { return graph_; }
+  std::vector<std::shared_ptr<PathWayNode>> GetGraphNodes() {
+    return graph_.nodes;
+  }
 
   std::vector<std::size_t> GetOptimalWay(Point point1, Point point2) {
     FindOptimalWay(point1, point2);
