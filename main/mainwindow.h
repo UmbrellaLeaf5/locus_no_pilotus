@@ -41,10 +41,10 @@ class MainWindow : public QMainWindow {
  private slots:
 
   // Slots for files:
-  bool on_actionSave_as_triggered();
-  bool on_actionSave_triggered();
-  void on_actionOpen_triggered();
-  void on_actionNew_triggered();
+  bool on_saveAsFileAction_triggered();
+  bool on_saveFileAction_triggered();
+  void on_openFileAction_triggered();
+  void on_newFileAction_triggered();
 
   // Slots for interaction objects adding:
   void mousePressObjectsButton(QMouseEvent* mouse_event);
@@ -56,22 +56,22 @@ class MainWindow : public QMainWindow {
 
   // Slots for Target:
   void on_addTargetPushButton_clicked();
-  void on_actionTarget_triggered();
+  void on_targetAction_triggered();
 
   // Slots for TrappyCircle:
   void on_addTrappyCirclePushButton_clicked();
-  void on_actionTrappy_Circle_triggered();
+  void on_trappyCircleAction_triggered();
   void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
   // Slots for TrappyLine:
   void on_addTrappyLinePushButton_clicked();
-  void on_actionTrappy_Line_triggered();
-  void on_actionHill_triggered();
+  void on_trappyLineAction_triggered();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
 
   // Slots for Hill:
   void on_addHillPushButton_clicked();
+  void on_hillAction_triggered();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
   void mouseMoveAddVertice(QMouseEvent* mouse_event);
@@ -89,7 +89,7 @@ class MainWindow : public QMainWindow {
   void on_xAxis_rangeChanged(QCPRange range);
   void on_yAxis_rangeChanged(QCPRange range);
 
-  void on_drawTrajectoryPushButton_clicked() { area_->ReDrawTrajectory(); }
+  void on_calcTrajectoryPushButton_clicked() { area_->ReDrawTrajectory(); }
   void on_flyRobotPushButton_clicked() {}
 
  public slots:

@@ -14,7 +14,7 @@ bool MainWindow::OpenMessageWindow() {
 
   switch (ret) {
     case QMessageBox::Save: {
-      bool is_closed = on_actionSave_triggered();
+      bool is_closed = on_saveFileAction_triggered();
       if (is_closed) return true;
       break;
     }
@@ -54,7 +54,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 /// @brief Кнопка "New"
-void MainWindow::on_actionNew_triggered() {
+void MainWindow::on_newFileAction_triggered() {
   DeleteLastAddedObject();
 
   bool is_closed = false;
@@ -77,7 +77,7 @@ void MainWindow::on_actionNew_triggered() {
 }
 
 /// @brief Кнопка "Open"
-void MainWindow::on_actionOpen_triggered() {
+void MainWindow::on_openFileAction_triggered() {
   DeleteLastAddedObject();
 
   bool is_closed = false;
@@ -121,11 +121,11 @@ void MainWindow::on_actionOpen_triggered() {
  * @brief Кнопка "Save"
  * @return true: закрыто окно сохранения файла
  */
-bool MainWindow::on_actionSave_triggered() {
+bool MainWindow::on_saveFileAction_triggered() {
   DeleteLastAddedObject();
 
   if (!json_file_.IsExistsFile())
-    return on_actionSave_as_triggered();
+    return on_saveAsFileAction_triggered();
   else {
     json_file_.Save(manager_.get());
     return false;
@@ -136,7 +136,7 @@ bool MainWindow::on_actionSave_triggered() {
  * @brief Кнопка "Save as"
  * @return true: закрыто окно сохранения файла
  */
-bool MainWindow::on_actionSave_as_triggered() {
+bool MainWindow::on_saveAsFileAction_triggered() {
   DeleteLastAddedObject();
 
   QString file_name = QFileDialog::getSaveFileName(
