@@ -5,12 +5,6 @@
 #include "math/littles_algorithm/travelling_salesmans_problem.h"
 #include "math/optimal_way/optimal_way.h"
 
-using lib::Hill;
-using lib::Segment;
-using lib::Target;
-using lib::TrappyCircle;
-using lib::TrappyLine;
-
 namespace math {
 
 class TrajectoryCalculator {
@@ -22,15 +16,15 @@ class TrajectoryCalculator {
    * @param circles: круговые препятствия
    * @param hills: многоугольные препятствия
    */
-  TrajectoryCalculator(const std::vector<Target>& targets,
-                       const std::vector<TrappyLine>& lines,
-                       const std::vector<TrappyCircle>& circles,
-                       const std::vector<Hill>& hills) {
+  TrajectoryCalculator(const std::vector<lib::Target>& targets,
+                       const std::vector<lib::TrappyLine>& lines,
+                       const std::vector<lib::TrappyCircle>& circles,
+                       const std::vector<lib::Hill>& hills) {
     for (auto& target : targets) targets_.push_back(Point(target.GetPoint()));
 
     for (auto& line : lines) {
       std::pair<std::size_t, std::size_t> indexes;
-      std::pair<Target, Target> points = line.GetTargets();
+      std::pair<lib::Target, lib::Target> points = line.GetTargets();
       for (std::size_t i = 0; i < targets.size(); ++i)
         if (targets[i] == points.first)
           indexes.first = i;
@@ -53,7 +47,7 @@ class TrajectoryCalculator {
   }
 
   /// @brief Возвращает траекторию
-  std::vector<Segment> GetTrajectory() { return trajectory_; }
+  std::vector<lib::Segment> GetTrajectory() { return trajectory_; }
 
  private:
   // Контрольные точки
@@ -69,7 +63,7 @@ class TrajectoryCalculator {
   std::vector<PolygonObstacle> polys_;
 
   // Траектория облета контрольных точек
-  std::vector<Segment> trajectory_;
+  std::vector<lib::Segment> trajectory_;
 
   /**
    * @brief Подсчет части траектории
@@ -77,7 +71,7 @@ class TrajectoryCalculator {
    * @param nodes: вершины графа
    * @return часть траектории
    */
-  std::vector<Segment> GetTrajectoryPart(
+  std::vector<lib::Segment> GetTrajectoryPart(
       std::vector<std::size_t> optimal_way,
       const std::vector<std::shared_ptr<PathWayNode>>& nodes);
 

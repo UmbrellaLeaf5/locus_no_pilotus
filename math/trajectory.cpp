@@ -1,6 +1,12 @@
 // header file:
 #include "trajectory.h"
 
+using lib::Hill;
+using lib::Segment;
+using lib::Target;
+using lib::TrappyCircle;
+using lib::TrappyLine;
+
 namespace math {
 
 std::vector<Segment> TrajectoryCalculator::GetTrajectoryPart(
