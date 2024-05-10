@@ -3,7 +3,27 @@
 
 namespace math {
 
-std::vector<Segment> TrajectoryCalculator::GetTrajectoryPart();
+std::vector<Segment> TrajectoryCalculator::GetTrajectoryPart(
+    std::vector<std::size_t> optimal_way, const PathWayGraph& graph) {
+  std::vector<Segment> trajectory_part;
+  for (std::size_t i = 0; i < optimal_way.size() - 1; ++i) {
+    // Если точки ляжат на одной окружности, их следует соединить дугой
+    if ((graph.nodes[optimal_way[i]]->circle_ptr) &&
+        (graph.nodes[optimal_way[i] + 1]->circle_ptr) &&
+        (graph.nodes[optimal_way[i]]->circle_ptr ==
+         graph.nodes[optimal_way[i] + 1]->circle_ptr))
+      trajectory_part.push_back(
+          Segment(graph.nodes[optimal_way[i]]->point,
+                  graph.nodes[optimal_way[i] + 1]->point,
+                  graph.nodes[optimal_way[i]]->circle_ptr->GetCenter()));
+    else {
+      trajectory_part.push_back(
+          Segment(graph.nodes[optimal_way[i]]->point,
+                  graph.nodes[optimal_way[i] + 1]->point));
+    }
+  }
+  return trajectory_part;
+}
 
 void TrajectoryCalculator::CalculateTrajectory() {
   std::vector<std::vector<double>> matrix(targets_.size());

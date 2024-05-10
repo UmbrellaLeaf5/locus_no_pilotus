@@ -68,7 +68,7 @@ class TrajectoryCalculator {
    * @return Часть траектории
    */
   std::vector<Segment> GetTrajectoryPart(std::vector<std::size_t> optimal_way,
-                                         PathWayGraph graph);
+                                         const PathWayGraph& graph);
 
   /// @brief Расcчитывает траекторию
   void CalculateTrajectory();
