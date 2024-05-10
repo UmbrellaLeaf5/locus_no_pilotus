@@ -20,9 +20,9 @@
   <widget class="QWidget" name="mainLayoutWidget">
    <layout class="QHBoxLayout" name="mainHorizontalLayout">
     <item>
-     <layout class="QVBoxLayout" name="buttonLayout">
+     <layout class="QVBoxLayout" name="buttonsLayout">
       <item>
-       <widget class="QPushButton" name="pushButtonDrawTrajectory">
+       <widget class="QPushButton" name="calcTrajectoryPushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -59,7 +59,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddTarget">
+       <widget class="QPushButton" name="addTargetPushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -95,7 +95,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddTrappyCircle">
+       <widget class="QPushButton" name="addTrappyCirclePushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -131,7 +131,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddTrappyLine">
+       <widget class="QPushButton" name="addTrappyLinePushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -167,7 +167,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddHill">
+       <widget class="QPushButton" name="addHillPushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -203,7 +203,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonEditObjects">
+       <widget class="QPushButton" name="editObjectsPushButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -288,10 +288,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     <property name="title">
      <string>File 🗂</string>
     </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionSave_as"/>
+    <addaction name="newFileAction"/>
+    <addaction name="openFileAction"/>
+    <addaction name="saveFileAction"/>
+    <addaction name="saveAsFileAction"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -314,10 +314,10 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
      <string>Add ➕</string>
     </property>
     <addaction name="separator"/>
-    <addaction name="actionTarget"/>
-    <addaction name="actionTrappy_Circle"/>
-    <addaction name="actionTrappy_Line"/>
-    <addaction name="actionHill"/>
+    <addaction name="targetAction"/>
+    <addaction name="trappyCircleAction"/>
+    <addaction name="trappyLineAction"/>
+    <addaction name="hillAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
@@ -553,7 +553,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
           </layout>
          </item>
          <item>
-          <widget class="Line" name="br_line_1">
+          <widget class="Line" name="firstBracingLine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -671,7 +671,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
           </layout>
          </item>
          <item>
-          <widget class="Line" name="br_line_2">
+          <widget class="Line" name="secondBracingLine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -810,7 +810,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
           </layout>
          </item>
          <item>
-          <widget class="Line" name="br_line_3">
+          <widget class="Line" name="thirdBracingLine">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -944,7 +944,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     </layout>
    </widget>
   </widget>
-  <action name="actionNew">
+  <action name="newFileAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/new_file.png</normaloff>../images/new_file.png</iconset>
@@ -956,7 +956,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="openFileAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/open_file.png</normaloff>../images/open_file.png</iconset>
@@ -968,7 +968,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSave">
+  <action name="saveFileAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/save_file.png</normaloff>../images/save_file.png</iconset>
@@ -980,7 +980,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionSave_as">
+  <action name="saveAsFileAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/save_file_as.png</normaloff>../images/save_file_as.png</iconset>
@@ -1013,7 +1013,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>F5</string>
    </property>
   </action>
-  <action name="actionTarget">
+  <action name="targetAction">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -1028,7 +1028,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Target</string>
    </property>
   </action>
-  <action name="actionTrappy_Circle">
+  <action name="trappyCircleAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/AA.png</normaloff>../images/AA.png</iconset>
@@ -1037,7 +1037,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Trappy Circle</string>
    </property>
   </action>
-  <action name="actionTrappy_Line">
+  <action name="trappyLineAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
@@ -1046,7 +1046,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Trappy Line</string>
    </property>
   </action>
-  <action name="actionHill">
+  <action name="hillAction">
    <property name="icon">
     <iconset>
      <normaloff>../images/high_hills.png</normaloff>../images/high_hills.png</iconset>

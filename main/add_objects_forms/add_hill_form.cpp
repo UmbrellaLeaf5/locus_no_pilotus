@@ -52,7 +52,7 @@ void AddHillForm::AddNewInputFields(size_t amount) {
   ui->gridLayout->addItem(
       ui->buttonsLayout, ui->gridLayout->count() + static_cast<int>(amount), 0);
 
-  // (-1, так как buttonLayout считается за отдельный уже находящийся элемент)
+  // (-1, так как buttonsLayout считается за отдельный уже находящийся элемент)
   auto old_size = ui->gridLayout->count() - 1;
   auto new_size = ui->gridLayout->count() - 1 + amount;
 
