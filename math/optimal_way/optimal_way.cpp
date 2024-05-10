@@ -105,25 +105,34 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
       }
     }
 
-  for (auto& poly : polys_)
-    for (auto& point : poly.GetTangentPoints()) {
-      PathWayNode new_node(point, graph_.nodes.size());
-      new_node.poly_ptr = std::make_unique<PolygonObstacle>(poly);
+  for (auto& poly : polys_) {
+    std::vector<Point> vertexes = poly.GetVertexes();
+    for (std::size_t i = 0; i < vertexes.size(); ++i) {
+      PathWayNode new_node(vertexes[i], graph_.nodes.size());
+      new_node.poly_ptr = std::make_shared<PolygonObstacle>(poly);
       graph_.AddNode(std::make_shared<PathWayNode>(new_node));
+      // Проводим ребра в графе только между соседними вершинами многоугольника
+      if (i != 0)
+        graph_.AddEdge(
+            graph_.nodes[graph_.nodes.size() - 2]->number, new_node.number,
+            DistanceBetweenPoints(graph_.nodes[graph_.nodes.size() - 2]->point,
+                                  new_node.point));
+      if (i == vertexes.size() - 1)
+        graph_.AddEdge(
+            graph_.nodes[graph_.nodes.size() - vertexes.size()]->number,
+            new_node.number,
+            DistanceBetweenPoints(
+                graph_.nodes[graph_.nodes.size() - vertexes.size()]->point,
+                new_node.point));
       for (std::size_t i = 0; i < graph_.nodes.size() - 1; ++i) {
-        if (graph_.nodes[i]->poly_ptr &&
-            ((*graph_.nodes[i]->poly_ptr) == poly)) {
-          graph_.AddEdge(graph_.nodes[i]->number, new_node.number,
-                         DistanceBetweenPointsOnPolygon(
-                             poly, graph_.nodes[i]->point, new_node.point));
-        } else if (new_node.point ==
-                   *graph_.nodes[i]->point.another_tangent_point) {
+        if (new_node.point == *graph_.nodes[i]->point.another_tangent_point) {
           graph_.AddEdge(
               graph_.nodes[i]->number, new_node.number,
               DistanceBetweenPoints(graph_.nodes[i]->point, new_node.point));
         }
       }
     }
+  }
 }
 
 std::size_t OptimalWayCalculator::AddGraphControlPoints(Point point) {
