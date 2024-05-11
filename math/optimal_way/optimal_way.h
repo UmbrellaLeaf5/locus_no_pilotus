@@ -4,6 +4,7 @@
 #include <set>
 
 // our code libs:
+#include "lib/segment.h"
 #include "path_graph.h"
 
 namespace math {
@@ -27,12 +28,14 @@ class OptimalWayCalculator {
     return graph_.nodes;
   }
 
-  std::vector<std::size_t> GetOptimalWay(Point point1, Point point2) {
-    FindOptimalWay(point1, point2);
-    return optimal_way_;
-  }
+  std::vector<std::size_t> GetOptimalWay() { return optimal_way_; }
 
   double GetOptimalWayLength() { return optimal_way_length_; }
+
+  std::vector<lib::Segment> GetTrajectoryPart() { return trajectory_part_; }
+
+  // Находит оптимальный маршрут
+  void FindOptimalWay(Point p1, Point p2);
 
  private:
   std::vector<CircleObstacle> circles_;
@@ -47,6 +50,9 @@ class OptimalWayCalculator {
 
   // Длина оптимального пути
   double optimal_way_length_;
+
+  // Часть траектории
+  std::vector<lib::Segment> trajectory_part_;
 
   /**
    * @brief Проверяет, пересекает ли общая касательная двух препятствий другое
@@ -87,8 +93,8 @@ class OptimalWayCalculator {
   // Добавляет в граф контрольные точки
   std::set<std::size_t> AddGraphControlPoints(Point point);
 
-  // Находит оптимальный маршрут
-  void FindOptimalWay(Point p1, Point p2);
+  // Создать часть траектории
+  void MakeTrajectoryPart();
 };
 
 }  // namespace math

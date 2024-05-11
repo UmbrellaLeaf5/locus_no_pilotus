@@ -1,6 +1,8 @@
 // header file:
 #include "trajectory.h"
 
+#include <icecream.hpp>
+
 using lib::Hill;
 using lib::Segment;
 using lib::Target;
@@ -8,27 +10,6 @@ using lib::TrappyCircle;
 using lib::TrappyLine;
 
 namespace math {
-
-std::vector<Segment> TrajectoryCalculator::GetTrajectoryPart(
-    std::vector<std::size_t> optimal_way,
-    const std::vector<std::shared_ptr<PathWayNode>>& nodes) {
-  std::vector<Segment> trajectory_part;
-  for (std::size_t i = 0; i < optimal_way.size() - 1; ++i) {
-    // Если точки лежат на одной окружности, их следует соединить дугой
-    if ((nodes[optimal_way[i]]->circle_ptr) &&
-        (nodes[optimal_way[i + 1]]->circle_ptr) &&
-        (nodes[optimal_way[i]]->circle_ptr ==
-         nodes[optimal_way[i + 1]]->circle_ptr)) {
-      trajectory_part.push_back(Segment(
-          nodes[optimal_way[i]]->point, nodes[optimal_way[i + 1]]->point,
-          nodes[optimal_way[i]]->circle_ptr->GetCenter()));
-    } else {
-      trajectory_part.push_back(Segment(nodes[optimal_way[i]]->point,
-                                        nodes[optimal_way[i + 1]]->point));
-    }
-  }
-  return trajectory_part;
-}
 
 void TrajectoryCalculator::CalculateTrajectory() {
   // Матрица смежности контрольных точек
@@ -45,10 +26,8 @@ void TrajectoryCalculator::CalculateTrajectory() {
   for (std::size_t i = 0; i < targets_.size(); ++i) {
     matrix[i][i] = inf;
     for (std::size_t j = 0; j < i; ++j) {
-      std::vector<std::size_t> optimal_way =
-          owc.GetOptimalWay(targets_[i], targets_[j]);
-      std::vector<std::shared_ptr<PathWayNode>> nodes = owc.GetGraphNodes();
-      std::vector<Segment> segment_way = GetTrajectoryPart(optimal_way, nodes);
+      owc.FindOptimalWay(targets_[i], targets_[j]);
+      std::vector<Segment> segment_way = owc.GetTrajectoryPart();
 
       optimal_ways[i][j] = segment_way;
       std::reverse(segment_way.begin(), segment_way.end());
@@ -71,7 +50,7 @@ void TrajectoryCalculator::CalculateTrajectory() {
   AdjacencyMatrix adj_matrix = AdjacencyMatrix::WithExtraRowCol(matrix);
   TravellingSalesmansProblem tsp(adj_matrix);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
-
+  for (auto& index : traj) IC(index);
   // Объединение частей траектории
   for (std::size_t i = 0; i < traj.size(); ++i) {
     trajectory_.insert(

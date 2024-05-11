@@ -16,7 +16,7 @@ void CHECK_OPTIMAL_WAY(
     std::vector<CircleObstacle> circles = std::vector<CircleObstacle>(0),
     std::vector<PolygonObstacle> polys = std::vector<PolygonObstacle>(0)) {
   OptimalWayCalculator optimal_way(circles, polys);
-  optimal_way.GetOptimalWay(point1, point2);
+  optimal_way.FindOptimalWay(point1, point2);
   BOOST_TEST(optimal_way.GetOptimalWayLength() == correct_length);
 }
 

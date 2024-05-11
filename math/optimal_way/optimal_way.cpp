@@ -4,6 +4,8 @@
 // our code libs:
 #include "helpers_functions.h"
 
+using lib::Segment;
+
 namespace math {
 
 template <typename T, typename U>
@@ -220,7 +222,27 @@ void OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
   DijkstrasAlgorithm da(graph_);
   optimal_way_ = da.Get_Min_Path();
   optimal_way_length_ = da.Get_Min_Len();
+  MakeTrajectoryPart();
   graph_.RemoveNonConstantNodes();
+}
+
+void OptimalWayCalculator::MakeTrajectoryPart() {
+  for (std::size_t i = 0; i < optimal_way_.size() - 1; ++i) {
+    // Если точки лежат на одной окружности, их следует соединить дугой
+    if ((graph_.nodes[optimal_way_[i]]->circle_ptr) &&
+        (graph_.nodes[optimal_way_[i + 1]]->circle_ptr) &&
+        (graph_.nodes[optimal_way_[i]]->circle_ptr ==
+         graph_.nodes[optimal_way_[i + 1]]->circle_ptr)) {
+      trajectory_part_.push_back(
+          Segment(graph_.nodes[optimal_way_[i]]->point,
+                  graph_.nodes[optimal_way_[i + 1]]->point,
+                  graph_.nodes[optimal_way_[i]]->circle_ptr->GetCenter()));
+    } else {
+      trajectory_part_.push_back(
+          Segment(graph_.nodes[optimal_way_[i]]->point,
+                  graph_.nodes[optimal_way_[i + 1]]->point));
+    }
+  }
 }
 
 template bool OptimalWayCalculator::TangentGoesThroughOtherObstacle<
