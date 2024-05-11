@@ -15,8 +15,8 @@ struct PathWayNode {
    * @param p координаты
    * @param n номер вершины
    */
-  PathWayNode(Point p, std::size_t n)
-      : point{p}, number{n}, is_visited{false} {}
+  PathWayNode(Point p, std::size_t n, bool is_const)
+      : point{p}, number{n}, is_visited{false}, is_constant{is_const} {}
 
   // Ребра данной вершины
   std::vector<std::shared_ptr<PathWayNode>> edges;
@@ -37,6 +37,9 @@ struct PathWayNode {
   // Была ли уже посещена вершина
   // в алгоритме Дейкстры
   bool is_visited;
+
+  // Явлеяется ли точка постоянной в графе
+  bool is_constant;
 };
 
 /// @brief Граф вершин между контрольными точками
@@ -45,21 +48,21 @@ struct PathWayGraph {
   std::vector<std::shared_ptr<PathWayNode>> nodes;
 
   // Добавить новую вершину
-  void AddNode(std::shared_ptr<PathWayNode> new_node) {
-    nodes.push_back(new_node);
-  }
+  void AddNode(PathWayNode* new_node) { nodes.emplace_back(new_node); }
 
-  /**
-   * @brief Удалить последние n вершин
-   * @param n: количество вершин
-   */
-  void RemoveLastNodes(std::size_t n) {
-    for (std::size_t i = 0; i < n; ++i) {
-      for (auto& other_node : nodes[nodes.size() - 1]->edges)
-        for (std::size_t j = 0; j < n; ++j)
-          if (other_node->edges[j] == nodes[nodes.size() - 1])
-            other_node->edges.erase(other_node->edges.begin() + j);
-      nodes.erase(nodes.begin() + nodes.size() - 1);
+  // Удалить временные вершины
+  void RemoveNonConstantNodes() {
+    for (std::size_t i = 0; i < nodes.size(); ++i) {
+      if (nodes[i]->is_constant) continue;
+      for (const auto& other_node : nodes[i]->edges) {
+        for (std::size_t j = 0; j < other_node->edges.size(); ++j) {
+          if (nodes[i]->point != other_node->edges[j]->point) continue;
+          other_node->edges.erase(other_node->edges.begin() + j);
+          break;
+        }
+        nodes[i]->edges.erase(nodes[i]->edges.begin(), nodes[i]->edges.end());
+      }
+      nodes.erase(nodes.begin() + i);
     }
   }
 
