@@ -136,31 +136,6 @@ class DataManager {
    */
   std::vector<gui::TrappyLine> GetTrappyLines() const;
 
-  // ----------------------  Trajectory methods  ----------------------
-
-  /// @brief Расчет вектора сегментов по заданным объектам на полотне
-  void CalculateTrajectory();
-
-  /**
-   * @brief Возвращает значение Trajectory
-   * @return gui::Trajectory*: указатель на траекторию
-   */
-  gui::Trajectory* GetTrajectoryPtr() {
-    CalculateTrajectory();
-    return trajectory_.get();
-  }
-
-  /**
-   * @brief Возвращает значение Trajectory
-   * @return gui::Trajectory*: объект траектории
-   */
-  gui::Trajectory GetTrajectory() {
-    CalculateTrajectory();
-    return *trajectory_.get();
-  }
-
-  // ------------------------------------------------------------------
-
   /**
    * @brief Удаляет последний объект в векторах, если он является дупликатом
    * другого
@@ -189,9 +164,6 @@ class DataManager {
   std::vector<std::unique_ptr<gui::Target>> targets_;
   std::vector<std::unique_ptr<gui::TrappyCircle>> tr_circles_;
   std::vector<std::unique_ptr<gui::TrappyLine>> tr_lines_;
-
-  std::unique_ptr<gui::Trajectory> trajectory_{new gui::Trajectory()};
-  std::unique_ptr<gui::FlyingRobot> robot_;
 };
 
 }  // namespace data_tools

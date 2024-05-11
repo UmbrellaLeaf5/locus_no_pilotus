@@ -27,10 +27,15 @@ class PlotArea {
   void ReDrawTrajectory();
 
  private:
+  /// @brief Расчет вектора сегментов по заданным объектам на полотне
+  void CalculateTrajectory();
+
   // i love unique_ptr's, i love logic schemes
   std::unique_ptr<QCustomPlot> plot_;
-
   std::unique_ptr<DataManager> manager_;
+
+  std::unique_ptr<gui::Trajectory> trajectory_{new gui::Trajectory()};
+  std::unique_ptr<gui::FlyingRobot> robot_;
 };
 
 }  // namespace data_tools

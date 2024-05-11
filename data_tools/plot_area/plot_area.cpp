@@ -23,7 +23,30 @@ void PlotArea::ReDraw() {
 }
 
 void PlotArea::ReDrawTrajectory() {
-  manager_->GetTrajectoryPtr()->Draw(plot_.get());
+  CalculateTrajectory();
+  trajectory_->Draw(plot_.get());
+}
+
+void PlotArea::CalculateTrajectory() {
+  auto lib_targets = std::vector<lib::Target>(manager_->GetTargets().size());
+  for (size_t i = 0; i < lib_targets.size(); i++)
+    lib_targets[i] = manager_->GetTargets()[i].GetData();
+
+  auto lib_hills = std::vector<lib::Hill>(manager_->GetHills().size());
+  for (size_t i = 0; i < lib_hills.size(); i++)
+    lib_hills[i] = manager_->GetHills()[i].GetData();
+
+  auto lib_tr_lines =
+      std::vector<lib::TrappyLine>(manager_->GetTrappyLines().size());
+  for (size_t i = 0; i < lib_tr_lines.size(); i++)
+    lib_tr_lines[i] = manager_->GetTrappyLines()[i].GetData();
+
+  auto lib_tr_circles =
+      std::vector<lib::TrappyCircle>(manager_->GetTrappyCircles().size());
+  for (size_t i = 0; i < lib_tr_circles.size(); i++)
+    lib_tr_circles[i] = manager_->GetTrappyCircles()[i].GetData();
+
+  trajectory_->Calculate(lib_targets, lib_hills, lib_tr_circles, lib_tr_lines);
 }
 
 }  // namespace data_tools
