@@ -8,8 +8,8 @@ void gui::FlyingRobot::SetNewPositionOnLine() {
 
     // Полотно обновляется раз в 5 миллисекунд, скорость робота такая: смещение
     // на 1 происходит за 20 вызовов функции, поэтому мы и умножаем на 1/20
-    curr_point_.x += 1 / 20 * cos_of_line_;
-    curr_point_.y += 1 / 20 * sin_of_line_;
+    curr_point_.x += 0.05 * cos_of_line_;
+    curr_point_.y += 0.05 * sin_of_line_;
   }
 }
 
