@@ -10,19 +10,13 @@ namespace math {
 class TravellingSalesmansProblem {
  public:
   /**
-   *  @brief Инициализирует новый экземпляр TravellingSalesmansProblem
-   *  @param matrix: матрица смежности графа
-   */
-  TravellingSalesmansProblem(AdjacencyMatrix& matrix);
-
-  /**
    *  @brief Инициализирует новый экземпляр TravellingSalesmansProblem для
    * нескольких коммивояжеров
    *  @param matrix: матрица смежности графа
    *  @param num_of_flyers: количество коммивояжеров
    */
   TravellingSalesmansProblem(AdjacencyMatrix& matrix,
-                             std::size_t num_of_flyers);
+                             std::size_t num_of_flyers = 1);
 
   // Возвращает длину оптимального маршрута
   double GetTrajLength() const { return paths_len_; }
@@ -34,7 +28,7 @@ class TravellingSalesmansProblem {
 
  private:
   // Количество коммивояжеров
-  std::size_t num_of_flyers_;
+  std::size_t num_of_flyers_{1};
 
   // Вектор с указателями на вершины графа
   // Отсортирован в порядке возрастания нижней оценки

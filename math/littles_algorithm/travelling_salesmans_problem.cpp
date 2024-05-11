@@ -6,15 +6,10 @@
 
 namespace math {
 
-TravellingSalesmansProblem::TravellingSalesmansProblem(AdjacencyMatrix& m) {
-  paths_stack_.push_back(std::make_shared<TSPNode>(m));
-  if (m.GetSize() == 2) CompleteEdgePath(paths_stack_[0]);
-}
-
 TravellingSalesmansProblem::TravellingSalesmansProblem(
     AdjacencyMatrix& m, std::size_t num_of_flyers)
     : num_of_flyers_{num_of_flyers} {
-  m.ExtendTo(num_of_flyers);
+  if (num_of_flyers > 1) m.ExtendTo(num_of_flyers);
   paths_stack_.push_back(std::make_shared<TSPNode>(m));
   if (m.GetSize() == 2) CompleteEdgePath(paths_stack_[0]);
 }

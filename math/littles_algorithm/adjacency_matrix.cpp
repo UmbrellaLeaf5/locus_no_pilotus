@@ -1,6 +1,9 @@
 // header file:
 #include "adjacency_matrix.h"
 
+// std libs:
+#include <stdexcept>
+
 namespace math {
 
 AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
@@ -143,6 +146,9 @@ void AdjacencyMatrix::CalculateData() {
 }
 
 void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
+  if (num_of_flyers < 2)
+    throw std::runtime_error("dev: num_of_flyers < 2 in ExtendTo");
+
   for (std::size_t i = 1; i < num_of_flyers; ++i) {
     matrix_.insert(matrix_.begin() + size_, matrix_[0]);
     for (std::size_t j = 0; j < size_ + 1; ++j) {

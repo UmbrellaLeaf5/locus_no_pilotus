@@ -38,8 +38,12 @@ void TrajectoryCalculator::CalculateTrajectory() {
 
       matrix[i][j] = owc.GetOptimalWayLength();
       matrix[j][i] = owc.GetOptimalWayLength();
+      IC(i);
+      IC(matrix);
     }
   }
+
+  IC(forbidden_lines_.size());
 
   for (auto& line : forbidden_lines_) {
     matrix[line.first][line.second] = inf;
@@ -50,7 +54,10 @@ void TrajectoryCalculator::CalculateTrajectory() {
   AdjacencyMatrix adj_matrix = AdjacencyMatrix::WithExtraRowCol(matrix);
   TravellingSalesmansProblem tsp(adj_matrix);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
+
   for (auto& index : traj) IC(index);
+  IC(traj.size());
+
   // Объединение частей траектории
   for (std::size_t i = 0; i < traj.size(); ++i) {
     trajectory_.insert(
