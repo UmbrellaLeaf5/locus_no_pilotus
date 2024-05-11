@@ -52,15 +52,18 @@ struct PathWayGraph {
 
   // Удалить временные вершины
   void RemoveNonConstantNodes() {
-    for (std::size_t i = 0; i < nodes.size(); ++i) {
-      if (nodes[i]->is_constant) continue;
+    std::size_t i = 0;
+    while (i < nodes.size()) {
+      if (nodes[i]->is_constant) {
+        ++i;
+        continue;
+      }
       for (const auto& other_node : nodes[i]->edges) {
         for (std::size_t j = 0; j < other_node->edges.size(); ++j) {
           if (nodes[i]->point != other_node->edges[j]->point) continue;
           other_node->edges.erase(other_node->edges.begin() + j);
           break;
         }
-        nodes[i]->edges.erase(nodes[i]->edges.begin(), nodes[i]->edges.end());
       }
       nodes.erase(nodes.begin() + i);
     }

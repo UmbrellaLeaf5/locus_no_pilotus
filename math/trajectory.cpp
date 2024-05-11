@@ -14,17 +14,17 @@ std::vector<Segment> TrajectoryCalculator::GetTrajectoryPart(
     const std::vector<std::shared_ptr<PathWayNode>>& nodes) {
   std::vector<Segment> trajectory_part;
   for (std::size_t i = 0; i < optimal_way.size() - 1; ++i) {
-    // Если точки ляжат на одной окружности, их следует соединить дугой
+    // Если точки лежат на одной окружности, их следует соединить дугой
     if ((nodes[optimal_way[i]]->circle_ptr) &&
-        (nodes[optimal_way[i] + 1]->circle_ptr) &&
+        (nodes[optimal_way[i + 1]]->circle_ptr) &&
         (nodes[optimal_way[i]]->circle_ptr ==
-         nodes[optimal_way[i] + 1]->circle_ptr))
+         nodes[optimal_way[i + 1]]->circle_ptr)) {
       trajectory_part.push_back(Segment(
-          nodes[optimal_way[i]]->point, nodes[optimal_way[i] + 1]->point,
+          nodes[optimal_way[i]]->point, nodes[optimal_way[i + 1]]->point,
           nodes[optimal_way[i]]->circle_ptr->GetCenter()));
-    else {
+    } else {
       trajectory_part.push_back(Segment(nodes[optimal_way[i]]->point,
-                                        nodes[optimal_way[i] + 1]->point));
+                                        nodes[optimal_way[i + 1]]->point));
     }
   }
   return trajectory_part;
@@ -42,15 +42,19 @@ void TrajectoryCalculator::CalculateTrajectory() {
   // Заполнение матриц
   OptimalWayCalculator owc(circles_, polys_);
 
-  for (std::size_t i = 0; i < targets_.size() - 1; ++i) {
+  for (std::size_t i = 0; i < targets_.size(); ++i) {
     matrix[i][i] = inf;
-    for (std::size_t j = i + 1; i < targets_.size(); ++j) {
+    for (std::size_t j = 0; j < i; ++j) {
       std::vector<std::size_t> optimal_way =
           owc.GetOptimalWay(targets_[i], targets_[j]);
       std::vector<std::shared_ptr<PathWayNode>> nodes = owc.GetGraphNodes();
       std::vector<Segment> segment_way = GetTrajectoryPart(optimal_way, nodes);
+
       optimal_ways[i][j] = segment_way;
-      std::reverse(segment_way.begin(), segment_way.begin());
+      std::reverse(segment_way.begin(), segment_way.end());
+      for (auto& seg_part : segment_way)
+        seg_part = Segment(seg_part.End(), seg_part.Start());
+
       optimal_ways[j][i] = segment_way;
 
       matrix[i][j] = owc.GetOptimalWayLength();
@@ -69,10 +73,11 @@ void TrajectoryCalculator::CalculateTrajectory() {
   std::vector<std::size_t> traj = tsp.GetTrajectory();
 
   // Объединение частей траектории
-  for (std::size_t i = 0; i < traj.size() - 1; ++i) {
-    trajectory_.insert(trajectory_.end(),
-                       optimal_ways[traj[i]][traj[i + 1]].begin(),
-                       optimal_ways[traj[i]][traj[i + 1]].end());
+  for (std::size_t i = 0; i < traj.size(); ++i) {
+    trajectory_.insert(
+        trajectory_.end(),
+        optimal_ways[traj[i]][traj[(i + 1) % traj.size()]].begin(),
+        optimal_ways[traj[i]][traj[(i + 1) % traj.size()]].end());
   }
 }
 
