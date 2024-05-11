@@ -22,6 +22,8 @@ void Trajectory::Calculate(const std::vector<lib::Target>& targets,
                            const std::vector<lib::TrappyLine>& tr_lines) {
   segments_.clear();
 
+  if (targets.empty()) return;
+
   for (auto seg :
        math::TrajectoryCalculator(targets, tr_lines, tr_circles, hills)
            .GetTrajectory()) {
