@@ -21,9 +21,9 @@ class FlyingRobot : public Drawable {
     // Сразу задаем нужные приватные поля при инициализации экземпляра класса, в
     // зависимости от того, lib::Segment является аркой или прямой линией
     if (trajectory_.Segments()[0].IsArc())
-      SetStartAngleAndClockwise();
+      UpdateCircleFields();
     else
-      SetAnglesOfLine();
+      UpdateLineFields();
   }
   /**
    * @brief Отрисовывает png картинку
@@ -43,41 +43,47 @@ class FlyingRobot : public Drawable {
 
   size_t index_of_segment_ = 0;
   lib::Point curr_point_;
+
+  // Количество отрезков, на которые будет делиться lib::Segment
+  int count_of_partitions_;
+
+  // Поля для положения на линии
   double cos_of_line_;
   double sin_of_line_;
+
+  // Поля для положения на окружности
+
   double curr_angle_on_circle_;
+  // Величина смещения угла
+  double distribution_of_angle_;
+  // Если true, что двигаемся по часовой
   bool clockwise_;
 
   /**
-   * @brief Обновляет поля cos_of_line_ и sin_of_line_, где
-   * cos_of_line_ - косинус, sin_of_line_ - синус между линией и осью Ox
-   * соответственно
+   * @brief Обновляет поля cos_of_line_ и sin_of_line_
    */
-  void SetAnglesOfLine();
+  void UpdateLineFields();
+
   /**
-   * @brief Обновляет поля curr_angle_on_circle_ и clockwise_, где
-   * curr_angle_on_circle_ - текущее положение точки на окружности в радианах,
-   * clockwise_ - если true, то двигаемся по часовой, если false - то против
+   * @brief Обновляет поля curr_angle_on_circle_, clockwise_ и
+   * distribution_of_angle_
    */
-  void SetStartAngleAndClockwise();
+  void UpdateCircleFields();
+
   /**
    * @brief Берет следующий Segment, обновляя приватные поля
    */
-  void SetNewSegment();
+  void UpdateSegment();
+
   /**
    * @brief Обновляет текущее положение точки на линии
    */
   void SetNewPositionOnLine();
+
   /**
    * @brief Обновляет текущее положение точки на окружности
    */
   void SetNewPositionOnCircle();
-  /**
-   * @brief Проверяет, что текущая точка находится близко к конечной точке
-   * Segment'a
-   * @return true, если точка находится близко
-   */
-  bool IsCloseToEndPoint();
 };
 
 }  // namespace gui
