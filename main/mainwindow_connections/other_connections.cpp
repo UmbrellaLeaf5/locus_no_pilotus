@@ -55,16 +55,13 @@ void MainWindow::on_addHillPushButton_clicked() {
 }
 
 void MainWindow::on_editObjectsPushButton_clicked() {
-  manager_->RemoveAllDuplicates();
-  t_connection_->UpdateTables();
-
   ui->plotSettingsDockWidget->setVisible(true);
   on_actionBeautify_triggered();
 }
 
 void MainWindow::on_actionBeautify_triggered() {
   ui->plot->xAxis->setScaleRatio(ui->plot->yAxis);
-  area_->ReDraw();
+  ui->plot->replot();
 }
 
 void MainWindow::on_targetAddFromTablePushButton_clicked() {

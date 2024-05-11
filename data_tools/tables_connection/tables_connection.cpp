@@ -170,6 +170,7 @@ void TablesConnection::UpdateTable(
                            "Wrong targets numbers in TrappyLines!");
 
       manager_->Remove(gui::ObjectType::TrappyLines, i);
+      tr_lines_table_->removeColumn(i);
       area_->ReDraw();
     }
   }
@@ -249,10 +250,10 @@ void TablesConnection::UpdateTable(gui::ObjectType obj_type) {
 }
 
 void TablesConnection::UpdateTables() {
-  UpdateTable(manager_->GetTargets());
-  UpdateTable(manager_->GetHills());
-  UpdateTable(manager_->GetTrappyLines());
-  UpdateTable(manager_->GetTrappyCircles());
+  UpdateTable(gui::ObjectType::Targets);
+  UpdateTable(gui::ObjectType::Hills);
+  UpdateTable(gui::ObjectType::TrappyCircles);
+  UpdateTable(gui::ObjectType::TrappyLines);
 
   UpdateTablesConnections();
 }
@@ -389,7 +390,7 @@ void TablesConnection::TrappyLinesItemChanged(int row, int column) {
     }
 
   } catch (const std::exception& e) {
-    QMessageBox::warning(targets_table_.get(), "Error!", e.what());
+    QMessageBox::warning(tr_lines_table_.get(), "Error!", e.what());
 
     manager_->Remove(gui::ObjectType::TrappyLines, static_cast<size_t>(column));
     UpdateTable(gui::ObjectType::TrappyLines);
@@ -404,8 +405,8 @@ void TablesConnection::RemoveTargetItem() {
 
   manager_->Remove(gui::ObjectType::Targets, selected_column_);
   area_->ReDraw();
-  UpdateTable(manager_->GetTargets());
-  UpdateTable(manager_->GetTrappyLines());
+  UpdateTable(gui::ObjectType::Targets);
+  UpdateTable(gui::ObjectType::TrappyLines);
 
   UpdateTablesConnections();
 }
@@ -415,7 +416,7 @@ void TablesConnection::RemoveHillItem() {
 
   manager_->Remove(gui::ObjectType::Hills, selected_column_);
   area_->ReDraw();
-  UpdateTable(manager_->GetHills());
+  UpdateTable(gui::ObjectType::Hills);
 
   UpdateTablesConnections();
 }
@@ -425,7 +426,7 @@ void TablesConnection::RemoveTrappyCircleItem() {
 
   manager_->Remove(gui::ObjectType::TrappyCircles, selected_column_);
   area_->ReDraw();
-  UpdateTable(manager_->GetTrappyCircles());
+  UpdateTable(gui::ObjectType::TrappyCircles);
 
   UpdateTablesConnections();
 }
@@ -435,7 +436,7 @@ void TablesConnection::RemoveTrappyLineItem() {
 
   manager_->Remove(gui::ObjectType::TrappyLines, selected_column_);
   area_->ReDraw();
-  UpdateTable(manager_->GetTrappyLines());
+  UpdateTable(gui::ObjectType::TrappyLines);
 
   UpdateTablesConnections();
 }
