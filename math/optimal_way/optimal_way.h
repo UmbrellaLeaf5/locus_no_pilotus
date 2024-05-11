@@ -1,5 +1,8 @@
 #pragma once
 
+// std libs:
+#include <set>
+
 // our code libs:
 #include "path_graph.h"
 
@@ -18,7 +21,6 @@ class OptimalWayCalculator {
       : circles_{circles}, polys_{polys} {
     AddCommonTangents();
     AddGraphTangentPoints();
-    normal_graph_size_ = graph_.nodes.size();
   }
 
   std::vector<std::shared_ptr<PathWayNode>> GetGraphNodes() {
@@ -39,9 +41,6 @@ class OptimalWayCalculator {
 
   // Граф для алгоритма Дейкстры
   PathWayGraph graph_;
-
-  // Количество вершин в графе без связей с контрольными точками
-  std::size_t normal_graph_size_;
 
   // Оптимальный путь
   std::vector<std::size_t> optimal_way_;
@@ -86,7 +85,7 @@ class OptimalWayCalculator {
   void AddGraphTangentPoints();
 
   // Добавляет в граф контрольные точки
-  std::size_t AddGraphControlPoints(Point point);
+  std::set<std::size_t> AddGraphControlPoints(Point point);
 
   // Находит оптимальный маршрут
   void FindOptimalWay(Point p1, Point p2);
