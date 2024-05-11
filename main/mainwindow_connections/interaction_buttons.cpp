@@ -249,7 +249,7 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     // пикселей. Если это так, то мы считаем, что он завершил создание Hill
     if (sqrt(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2)) <
             10 &&
-        manager_->GetHills()[last].GetVertices().size() > 2) {
+        manager_->GetHills()[last].GetVertices().size() > 3) {
       size_t last_vertice =
           manager_->GetHillsPtrs()[last]->GetVertices().size() - 1;
       manager_->GetHillsPtrs()[last]->GetVertices().erase(
