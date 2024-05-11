@@ -211,6 +211,7 @@ void OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
         new_node2->number, graph_.nodes[index]->number,
         DistanceBetweenPoints(new_node2->point, graph_.nodes[index]->point));
   }
+
   if (!TangentGoesThroughOtherObstacle(p1, p2)) {
     graph_.AddEdge(graph_.nodes.size() - 2, graph_.nodes.size() - 1,
                    DistanceBetweenPoints(p1, p2));

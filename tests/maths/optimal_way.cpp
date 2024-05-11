@@ -21,6 +21,7 @@ void CHECK_OPTIMAL_WAY(
 }
 
 BOOST_AUTO_TEST_SUITE(circles, *utf::tolerance(1.0E-5))
+
 BOOST_AUTO_TEST_CASE(no_obstacle) {
   Point point1(-4, -2);
   Point point2(2, 2);
