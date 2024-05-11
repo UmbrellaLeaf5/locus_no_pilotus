@@ -25,6 +25,7 @@ void PlotArea::ReDraw() {
 void PlotArea::ReDrawTrajectory() {
   CalculateTrajectory();
   trajectory_->Draw(plot_.get());
+  plot_->replot();
 }
 
 void PlotArea::CalculateTrajectory() {
