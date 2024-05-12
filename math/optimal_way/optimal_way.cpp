@@ -196,6 +196,7 @@ std::set<std::size_t> OptimalWayCalculator::AddGraphControlPoints(Point point) {
 }
 
 void OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
+  trajectory_part_.clear();
   std::set<std::size_t> point1_tangents = AddGraphControlPoints(p1);
   std::set<std::size_t> point2_tangents = AddGraphControlPoints(p2);
 
