@@ -36,6 +36,11 @@ class PlotArea {
 
   std::unique_ptr<gui::Trajectory> trajectory_{new gui::Trajectory()};
   std::unique_ptr<gui::FlyingRobot> robot_;
+
+  void CheckHills();
+  void CheckTrappyCircles();
+  void CheckIntersectionsBetweenTrappyCircles();
+  void CheckIntersectionsBetweenHills();
 };
 
 }  // namespace data_tools

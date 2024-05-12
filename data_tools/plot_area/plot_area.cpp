@@ -23,9 +23,16 @@ void PlotArea::ReDraw() {
 }
 
 void PlotArea::ReDrawTrajectory() {
-  CalculateTrajectory();
-  trajectory_->Draw(plot_.get());
-  plot_->replot();
+  try {
+    CheckTrappyCircles();
+    CheckHills();
+
+    CalculateTrajectory();
+    trajectory_->Draw(plot_.get());
+    plot_->replot();
+  } catch (const std::exception& e) {
+    QMessageBox::warning(nullptr, "Cannot calculate trajectory!", e.what());
+  }
 }
 
 void PlotArea::CalculateTrajectory() {
