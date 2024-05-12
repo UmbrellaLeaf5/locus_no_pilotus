@@ -140,7 +140,7 @@ bool MainWindow::on_saveAsFileAction_triggered() {
   DeleteLastAddedObject();
 
   QString file_name = QFileDialog::getSaveFileName(
-      this, tr("Save as"), json_file_.GetParentPath(), tr("File (*.json)"));
+      this, tr("Save as"), json_file_.GetAbsolutePath(), tr("File (*.json)"));
 
   if (!file_name.isEmpty()) {
     json_file_.SetFile(file_name);
