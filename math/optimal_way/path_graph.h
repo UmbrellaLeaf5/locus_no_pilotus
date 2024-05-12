@@ -59,9 +59,11 @@ struct PathWayGraph {
         continue;
       }
       for (const auto& other_node : nodes[i]->edges) {
-        for (std::size_t j = 0; j < other_node->edges.size(); ++j) {
-          if (nodes[i]->point != other_node->edges[j]->point) continue;
+        std::size_t j = 0;
+        while (j < other_node->edges.size()) {
+          if (nodes[i]->point != other_node->edges[j]->point) ++j;
           other_node->edges.erase(other_node->edges.begin() + j);
+          other_node->edges_lens.erase(other_node->edges_lens.begin() + j);
           break;
         }
       }
