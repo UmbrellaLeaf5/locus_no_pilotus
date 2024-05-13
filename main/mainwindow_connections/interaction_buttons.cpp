@@ -39,6 +39,7 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
 
   if (timer_) {
     disconnect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
+    area_->GetRobot()->SetTrajectory(nullptr);
     timer_->stop();
   }
 
@@ -318,8 +319,12 @@ void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
 }
 
 void MainWindow::on_flyRobotPushButton_clicked() {
-  area_->GetRobot()->Draw(ui->plot);
-  timer_ = new QTimer(this);
-  connect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
-  timer_->start(5);
+  try {
+    area_->GetRobot()->Draw(ui->plot);
+    timer_ = new QTimer(this);
+    connect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
+    timer_->start(5);
+  } catch (const std::exception& e) {
+    QMessageBox::warning(this, "Cannot add Robot!", e.what());
+  }
 }

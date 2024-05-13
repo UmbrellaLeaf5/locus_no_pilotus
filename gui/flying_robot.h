@@ -39,6 +39,8 @@ class FlyingRobot : public Drawable {
 
   void SetTrajectory(gui::Trajectory* trj) {
     trajectory_ = trj;
+    if (!trajectory_) return;
+
     curr_point_ = trj->Segments()[0].Start();
     index_of_segment_ = 0;
 

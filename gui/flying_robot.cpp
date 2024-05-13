@@ -79,6 +79,8 @@ void gui::FlyingRobot::UpdateCircleFields() {
 }
 
 void gui::FlyingRobot::Draw(QCustomPlot* plot) {
+  if (!trajectory_) throw std::invalid_argument("The trajectory is not built!");
+
   graph_ = plot->addGraph(plot->xAxis, plot->yAxis);
   graph_->setPen(QColor(50, 50, 50, 255));
   graph_->setLineStyle(QCPGraph::lsNone);
