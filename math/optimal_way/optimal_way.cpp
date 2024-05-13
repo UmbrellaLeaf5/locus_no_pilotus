@@ -120,11 +120,8 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
       PathWayNode* new_node =
           new PathWayNode(vertexes[i], graph_.nodes.size(), true);
       for (std::size_t j = 0; j < poly.GetTangentPoints().size(); ++j) {
-        if (poly.GetTangentPoints()[j] == vertexes[i]) {
+        if (poly.GetTangentPoints()[j] == vertexes[i])
           new_node->point = poly.GetTangentPoints()[j];
-          poly.DeleteTangentPoint(j);
-          break;
-        }
       }
       new_node->poly_ptr = std::make_shared<PolygonObstacle>(poly);
       graph_.AddNode(new_node);
