@@ -115,6 +115,27 @@ void PlotArea::CheckTrappyCircles() {
   }
 }
 
+#define GetRobots_size 1
+void PlotArea::CheckTrappyLines() {
+  auto l = manager_->GetTrappyLinesPtrs().size();
+  auto n = manager_->GetTargetsPtrs().size() + GetRobots_size - 1;
+  if (l == 0) return;
+
+  // прекрасная формула
+  if ((pow(n, 2) - n) / 2 - l < n)
+    throw std::invalid_argument("There are too many TrappyLines here!");
+}
+
+void PlotArea::CheckTargets() {
+  if (manager_->GetTargetsPtrs().size() > 30) {
+    std::string text = "There are too many Targets: ";
+    text += std::to_string(manager_->GetTargetsPtrs().size());
+    text += " > 30 \n";
+    text += "(sorry, but our algo is now to slow for more)";
+    throw std::invalid_argument(text);
+  }
+}
+
 void PlotArea::CheckHills() {
   for (const auto& hill : manager_->GetHills()) {
     // Проверка на пересечения с другими Hill

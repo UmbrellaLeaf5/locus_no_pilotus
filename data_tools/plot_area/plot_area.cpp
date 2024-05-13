@@ -30,6 +30,8 @@ void PlotArea::ReDrawTrajectory() {
   try {
     CheckTrappyCircles();
     CheckHills();
+    CheckTrappyLines();
+    CheckTargets();
 
     CalculateTrajectory();
     trajectory_->Draw(plot_.get());

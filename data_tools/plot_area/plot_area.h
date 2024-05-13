@@ -47,6 +47,8 @@ class PlotArea {
 
   void CheckHills();
   void CheckTrappyCircles();
+  void CheckTrappyLines();
+  void CheckTargets();
   void CheckIntersectionsBetweenTrappyCircles();
   void CheckIntersectionsBetweenHills();
 };
