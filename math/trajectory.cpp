@@ -29,9 +29,13 @@ void TrajectoryCalculator::CalculateTrajectory() {
 
       optimal_ways[i][j] = segment_way;
       std::reverse(segment_way.begin(), segment_way.end());
-      for (auto& seg_part : segment_way)
-        seg_part = Segment(seg_part.End(), seg_part.Start());
-
+      for (auto& seg_part : segment_way) {
+        if (seg_part.IsArc())
+          seg_part =
+              Segment(seg_part.End(), seg_part.Start(), seg_part.Center());
+        else
+          seg_part = Segment(seg_part.End(), seg_part.Start());
+      }
       optimal_ways[j][i] = segment_way;
 
       matrix[i][j] = owc.GetOptimalWayLength();

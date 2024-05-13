@@ -232,8 +232,8 @@ void OptimalWayCalculator::MakeTrajectoryPart() {
     // Если точки лежат на одной окружности, их следует соединить дугой
     if ((graph_.nodes[optimal_way_[i]]->circle_ptr) &&
         (graph_.nodes[optimal_way_[i + 1]]->circle_ptr) &&
-        (graph_.nodes[optimal_way_[i]]->circle_ptr ==
-         graph_.nodes[optimal_way_[i + 1]]->circle_ptr)) {
+        (*(graph_.nodes[optimal_way_[i]]->circle_ptr) ==
+         *(graph_.nodes[optimal_way_[i + 1]]->circle_ptr))) {
       trajectory_part_.push_back(
           Segment(graph_.nodes[optimal_way_[i]]->point,
                   graph_.nodes[optimal_way_[i + 1]]->point,
