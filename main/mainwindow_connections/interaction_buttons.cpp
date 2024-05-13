@@ -334,5 +334,5 @@ void MainWindow::on_homeScalePushButton_clicked() {
                             first_target.x + max_distance / 2);
   ui->plot->yAxis->setRange(first_target.y - max_distance / 2,
                             first_target.y + max_distance / 2);
-  ui->plot->replot();
+  on_actionBeautify_triggered();
 }

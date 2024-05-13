@@ -89,13 +89,9 @@ class MainWindow : public QMainWindow {
   void on_yAxis_rangeChanged(QCPRange range);
 
   void moveRobot();
-
   void on_calcTrajectoryPushButton_clicked();
-
   void on_flyRobotPushButton_clicked();
-
   void on_homeScalePushButton_clicked();
-
   void on_actionHelp_triggered();
 
  public slots:
