@@ -1,6 +1,22 @@
+// header file:
 #include "flying_robot.h"
 
-void gui::FlyingRobot::SetNewPositionOnLine() {
+namespace gui {
+
+void FlyingRobot::SetTrajectory(Trajectory* trj) {
+  trajectory_ = trj;
+  if (!trajectory_) return;
+
+  curr_point_ = trj->Segments()[0].Start();
+  index_of_segment_ = 0;
+
+  if (trajectory_->Segments()[0].IsArc())
+    UpdateCircleFields();
+  else
+    UpdateLineFields();
+}
+
+void FlyingRobot::SetNewPositionOnLine() {
   if (count_of_partitions_ == 0) {
     UpdateSegment();
   } else {
@@ -13,7 +29,7 @@ void gui::FlyingRobot::SetNewPositionOnLine() {
   }
 }
 
-void gui::FlyingRobot::SetNewPositionOnCircle() {
+void FlyingRobot::SetNewPositionOnCircle() {
   if (count_of_partitions_ == 0)
     UpdateSegment();
   else {
@@ -33,7 +49,7 @@ void gui::FlyingRobot::SetNewPositionOnCircle() {
   }
 }
 
-void gui::FlyingRobot::UpdateSegment() {
+void FlyingRobot::UpdateSegment() {
   index_of_segment_++;
 
   if (index_of_segment_ == trajectory_->Segments().size())
@@ -47,7 +63,7 @@ void gui::FlyingRobot::UpdateSegment() {
     UpdateLineFields();
 }
 
-void gui::FlyingRobot::UpdateLineFields() {
+void FlyingRobot::UpdateLineFields() {
   lib::Point p = trajectory_->Segments()[index_of_segment_].End() -
                  trajectory_->Segments()[index_of_segment_].Start();
   double R = sqrt(p.x * p.x + p.y * p.y);
@@ -76,7 +92,7 @@ void gui::FlyingRobot::UpdateLineFields() {
   sin_of_line_ = p.y / R;
 }
 
-void gui::FlyingRobot::UpdateCircleFields() {
+void FlyingRobot::UpdateCircleFields() {
   auto angles = trajectory_->Segments()[index_of_segment_].ToAnglesOnCircle();
 
   double len_sector = trajectory_->Segments()[index_of_segment_].Radius() *
@@ -107,7 +123,7 @@ void gui::FlyingRobot::UpdateCircleFields() {
     clockwise_ = false;
 }
 
-void gui::FlyingRobot::Draw(QCustomPlot* plot) {
+void FlyingRobot::Draw(QCustomPlot* plot) {
   if (!trajectory_) throw std::invalid_argument("The trajectory is not built!");
 
   graph_ = plot->addGraph(plot->xAxis, plot->yAxis);
@@ -119,7 +135,7 @@ void gui::FlyingRobot::Draw(QCustomPlot* plot) {
   graph_->setData({curr_point_.x}, {curr_point_.y});
 }
 
-void gui::FlyingRobot::ReDraw(QCustomPlot* plot) {
+void FlyingRobot::ReDraw(QCustomPlot* plot) {
   if (trajectory_->Segments()[index_of_segment_].IsArc())
     SetNewPositionOnCircle();
   else
@@ -129,3 +145,5 @@ void gui::FlyingRobot::ReDraw(QCustomPlot* plot) {
 
   plot->replot();
 }
+
+}  // namespace gui

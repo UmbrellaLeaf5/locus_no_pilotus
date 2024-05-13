@@ -1,6 +1,7 @@
+// header file:
 #include "helpers_functions.h"
 
-#include <QDebug>
+// std libs:
 #include <algorithm>
 
 namespace math {

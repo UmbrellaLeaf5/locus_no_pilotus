@@ -1,5 +1,8 @@
-#include "math/optimal_way/helpers_functions.h"
+// header file:
 #include "plot_area.h"
+
+// our code libs:
+#include "math/optimal_way/helpers_functions.h"
 
 namespace data_tools {
 

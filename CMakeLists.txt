@@ -58,5 +58,5 @@ add_subdirectory(main)
 
 # ------------------------------------------------------------------------------------------
 
-# add images to build directory
+# copy images to build directory
 file(COPY ${IMAGES_DIR} DESTINATION ${CMAKE_BINARY_DIR})

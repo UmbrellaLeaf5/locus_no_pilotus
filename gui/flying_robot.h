@@ -16,7 +16,7 @@ class FlyingRobot : public Drawable {
 
   /**
    * @brief Инициализирует новый экземпляр FlyingRobot
-   * @param gui::Trajectory: траетория
+   * @param gui::Trajectory: траектория
    */
   FlyingRobot(gui::Trajectory* trj)
       : trajectory_{trj}, curr_point_{trj->Segments()[0].Start()} {
@@ -34,8 +34,6 @@ class FlyingRobot : public Drawable {
    */
   void Draw(QCustomPlot* plot) override;
 
-  void UnDraw(QCustomPlot* plot);
-
   /**
    * @brief Эта функция нужна для того, чтобы обновлять позицию картинки на
    * полотне
@@ -43,18 +41,7 @@ class FlyingRobot : public Drawable {
    */
   void ReDraw(QCustomPlot* plot);
 
-  void SetTrajectory(gui::Trajectory* trj) {
-    trajectory_ = trj;
-    if (!trajectory_) return;
-
-    curr_point_ = trj->Segments()[0].Start();
-    index_of_segment_ = 0;
-
-    if (trajectory_->Segments()[0].IsArc())
-      UpdateCircleFields();
-    else
-      UpdateLineFields();
-  }
+  void SetTrajectory(gui::Trajectory* trj);
 
   gui::Trajectory* GetTrajectory() const { return trajectory_; }
 
