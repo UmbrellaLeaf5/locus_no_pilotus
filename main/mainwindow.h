@@ -89,7 +89,13 @@ class MainWindow : public QMainWindow {
   void on_yAxis_rangeChanged(QCPRange range);
 
   void moveRobot();
-  void on_calcTrajectoryPushButton_clicked() { area_->ReDrawTrajectory(); }
+
+  void on_calcTrajectoryPushButton_clicked() {
+    manager_->RemoveAllDuplicates();
+    t_connection_->UpdateTables();
+    area_->ReDrawTrajectory();
+  }
+
   void on_flyRobotPushButton_clicked();
 
   void on_homeScalePushButton_clicked();

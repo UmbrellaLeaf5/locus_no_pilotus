@@ -23,6 +23,8 @@ void PlotArea::ReDraw() {
 }
 
 void PlotArea::ReDrawTrajectory() {
+  ReDraw();
+
   try {
     CheckTrappyCircles();
     CheckHills();
