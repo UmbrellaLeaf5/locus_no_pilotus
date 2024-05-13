@@ -85,8 +85,8 @@ void gui::FlyingRobot::Draw(QCustomPlot* plot) {
   graph_->setPen(QColor(50, 50, 50, 255));
   graph_->setLineStyle(QCPGraph::lsNone);
   graph_->setScatterStyle(
-      QCPScatterStyle(QPixmap("../images/flying_robot.png")
-                          .scaled(QSize(24, 24), Qt::KeepAspectRatio)));
+      QCPScatterStyle(QPixmap("../images/flying_robot_pixel.png")
+                          .scaled(QSize(36, 16), Qt::KeepAspectRatio)));
   graph_->setData({curr_point_.x}, {curr_point_.y});
 }
 
