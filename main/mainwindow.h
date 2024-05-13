@@ -119,7 +119,7 @@ class MainWindow : public QMainWindow {
   WhatObjectAddition what_obj_addition_{WhatObjectAddition::Nothing};
 
   bool is_robot_flying_ = false;
-  bool is_drawed_trajectory_ = false;
+  bool is_drown_trajectory_ = false;
 
   bool OpenMessageWindow();
   gui::ObjectType GetObjType() const;

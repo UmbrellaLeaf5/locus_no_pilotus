@@ -58,6 +58,8 @@ void MainWindow::on_addHillPushButton_clicked() {
 void MainWindow::on_editObjectsPushButton_clicked() {
   ui->plotSettingsDockWidget->setVisible(true);
   on_actionBeautify_triggered();
+
+  ui->flyRobotPushButton->setEnabled(false);
 }
 
 void MainWindow::on_actionBeautify_triggered() {

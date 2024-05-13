@@ -9,7 +9,7 @@ void MainWindow::StopRobot() {
 
     ui->flyRobotPushButton->setIcon(QPixmap("../images/play_triangle.png"));
     area_->ReDraw();
-    if (is_drawed_trajectory_) area_->ReDrawTrajectory();
+    if (is_drown_trajectory_) area_->ReDrawTrajectory();
     area_->GetRobot()->SetTrajectory(nullptr);
     ui->plot->replot();
 
@@ -31,23 +31,24 @@ void MainWindow::FlyRobot() {
     area_->GetRobot()->Draw(ui->plot);
     ui->plot->replot();
 
-    ui->plotSettingsDockWidget->close();
+    ui->plotSettingsDockWidget->setVisible(false);
     ui->editObjectsPushButton->setEnabled(false);
   }
 }
 
 void MainWindow::CalcTrajectory() {
-  is_drawed_trajectory_ = true;
+  is_drown_trajectory_ = true;
 
   area_->ReDrawTrajectory();
 
   if (area_->TrajectorySize()) ui->calcTrajectoryPushButton->setEnabled(false);
 
-  if (area_->TrajectorySize()) ui->flyRobotPushButton->setEnabled(true);
+  if (area_->TrajectorySize() && !ui->plotSettingsDockWidget->isVisible())
+    ui->flyRobotPushButton->setEnabled(true);
 }
 
 void MainWindow::DeCalcTrajectory() {
-  is_drawed_trajectory_ = false;
+  is_drown_trajectory_ = false;
 
   area_->ClearTrajectory();
 
@@ -68,7 +69,6 @@ void MainWindow::on_calcTrajectoryPushButton_clicked() {
 }
 
 void MainWindow::on_flyRobotPushButton_clicked() {
-  on_actionBeautify_triggered();
   try {
     if (is_robot_flying_)
       StopRobot();

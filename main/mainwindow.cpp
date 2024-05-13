@@ -40,6 +40,10 @@ MainWindow::MainWindow(QWidget* parent)
   QIntValidator* int_validator{new QIntValidator()};
   int_validator->setRange(1, 9);
   ui->robotsAmountLineEdit->setValidator(int_validator);
+
+  connect(
+      ui->plotSettingsDockWidget, &QDockWidget::visibilityChanged, this,
+      [this](bool visible) { ui->flyRobotPushButton->setEnabled(!visible); });
 }
 
 MainWindow::~MainWindow() { delete ui; }
