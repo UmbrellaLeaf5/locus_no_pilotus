@@ -41,7 +41,9 @@ std::pair<double, double> Segment::ToAnglesOnCircle() {
 
   auto angle_pairs = std::array{
       std::make_pair(start_angles.positive_angle, end_angles.positive_angle),
-      std::make_pair(start_angles.positive_angle, end_angles.negative_angle)};
+      std::make_pair(start_angles.positive_angle, end_angles.negative_angle),
+      std::make_pair(start_angles.negative_angle, end_angles.positive_angle),
+      std::make_pair(start_angles.negative_angle, end_angles.negative_angle)};
 
   return *std::min_element(angle_pairs.begin(), angle_pairs.end(),
                            [](const auto& pair_1, const auto& pair_2) {
