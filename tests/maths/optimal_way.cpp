@@ -105,3 +105,108 @@ BOOST_AUTO_TEST_CASE(many_circles_2) {
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(polygons, *utf::tolerance(1.0E-5))
+
+BOOST_AUTO_TEST_CASE(one_poly) {
+  Point point1(-8.62, 1.33);
+  Point point2(3.4752511575043, 6.4339001323606);
+  std::vector<CircleObstacle> circles(0);
+  std::vector<Point> vertix{{-4.72, 3.65},
+                            {-1.84, 2.51},
+                            {0, 3.4729910311284},
+                            {-0.9088573459776, 5.828631421059},
+                            {-1.9558086303911, 6.5484104290933},
+                            {-3.6, 6.19},
+                            {-4.78, 4.95}};
+  std::vector<PolygonObstacle> polys{{vertix}};
+  double correct_length = 13.5242447275625;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles, polys);
+}
+
+BOOST_AUTO_TEST_CASE(two_polys) {
+  Point point1(-8.88, 5.55);
+  Point point2(10.84, -3.23);
+  std::vector<CircleObstacle> circles(0);
+  std::vector<Point> vertix1{{-5.82, 5.93}, {-6.54, 4.27}, {-4.94, 0.47},
+                             {-1.14, 2.11}, {-1.7, 4.55},  {-2.88, 6.17},
+                             {-4.54, 6.51}};
+  std::vector<Point> vertix2{{3.38, -0.11}, {3.56, 1.85},  {4.8, 2.79},
+                             {8.92, 2.55},  {5.66, -1.73}, {3.84, -1.33}};
+  std::vector<PolygonObstacle> polys{{vertix1}, {vertix2}};
+  double correct_length = 22.6368146106518;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles, polys);
+}
+
+BOOST_AUTO_TEST_CASE(two_polys_2) {
+  Point point1(16.0867119995807, 81.82110410565608);
+  Point point2(-26.39655465103465, -5.341297839758592);
+  std::vector<CircleObstacle> circles(0);
+  std::vector<Point> vertix1{{-21.9547, 12.0331},
+                             {-25.1369, 5.28401},
+                             {-13.7517, 4.58098},
+                             {-14.3881, 10.9082}};
+  std::vector<Point> vertix2{{23.426576955006283, 77.79346124390177},
+                             {38.245488935037955, 60.2493893479525},
+                             {28.936172434761644, 43.479320623883325},
+                             {12.977344148573707, 51.9933555145646},
+                             {7.087776566766259, 72.89144115532771}};
+  std::vector<PolygonObstacle> polys{{vertix1}, {vertix2}};
+  double correct_length = 98.2718720490988;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles, polys);
+}
+
+BOOST_AUTO_TEST_CASE(three_polys) {
+  Point point1(-10.8878429725857, -8.4678597369649);
+  Point point2(20.3621535335072, 11.5873162890166);
+  std::vector<CircleObstacle> circles(0);
+  std::vector<Point> vertix1{{4.710627269844334, -11.067604777369938},
+                             {-10.834786951352983, 0.39249580890520747},
+                             {-3.3008319363017242, 8.669235121215035},
+                             {6.726756076689037, 8.8284031849133},
+                             {7.734820480111389, 3.5228010616377703},
+                             {7.8409325225768995, -1.3583528917757175},
+                             {7.416484352714857, -4.913106314370323},
+                             {6.35536392805975, -9.369812097921768},
+                             {5.718691673266686, -10.59010058627514}};
+  std::vector<Point> vertix2{{11.0242937965422, -1.1991848280775},
+                             {10.2815094992836, 3.3636329979395},
+                             {11.7670780938008, 7.1306105054651},
+                             {14.8443273253006, 8.669235121215},
+                             {16.6482320472143, 5.857265995879},
+                             {16.6482320472143, 2.6739047219137},
+                             {15, 0},
+                             {13.570982815714478, -1.7828010616377599}};
+  std::vector<Point> vertix3{{21.6354980430933, -10.0595403739476},
+                             {16.6482320472143, -2.7908654650601},
+                             {3.8086749088875, -14.7284702424301}};
+  std::vector<PolygonObstacle> polys{{vertix1}, {vertix2}, {vertix3}};
+  double correct_length = 43.8106387108272;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles, polys);
+}
+
+BOOST_AUTO_TEST_CASE(weird_poly) {
+  Point point1(5, -3);
+  Point point2(0.8, 4.29);
+  std::vector<CircleObstacle> circles(0);
+  std::vector<Point> vertix1{{-1.66, -1.39}, {3.26, 4.67}};
+  std::vector<PolygonObstacle> polys{{vertix1}};
+  double correct_length = 10.3540669068468;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles, polys);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(circles_and_polys, *utf::tolerance(1.0E-5))
+BOOST_AUTO_TEST_CASE(one_poly_one_circle) {
+  Point point1(10.88, 3.65);
+  Point point2(2.04, 3.19);
+  std::vector<CircleObstacle> circles{{{4.18, 2.97}, 1.33}};
+  std::vector<Point> vertix{{6.96, 1.75}, {6.24, 3.59}, {6.4, 5.69},
+                            {7.8, 6.65},  {9.48, 5.31}, {10.52, 2.71},
+                            {9.88, 1.81}, {8.02, 0.69}};
+  std::vector<PolygonObstacle> polys{{vertix}};
+  double correct_length = 10.9484801817353;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles, polys);
+}
+BOOST_AUTO_TEST_SUITE_END()
