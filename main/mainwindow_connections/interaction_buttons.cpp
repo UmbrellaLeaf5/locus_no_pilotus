@@ -37,12 +37,6 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
   connect(ui->plot, &QCustomPlot::mousePress, this,
           &MainWindow::mousePressContextMenu);
 
-  if (timer_) {
-    disconnect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
-    area_->GetRobot()->SetTrajectory(nullptr);
-    timer_->stop();
-  }
-
   ui->plot->setCursor(Qt::CrossCursor);
   cursor_ = CursorType::DefaultCursor;
 }
@@ -78,6 +72,7 @@ void MainWindow::DeleteLastAddedObject() {
   }
 
   area_->ReDraw();
+  DeCalcTrajectory();
 
   what_obj_addition_ = WhatObjectAddition::Nothing;
 }
@@ -92,6 +87,8 @@ void MainWindow::keyPressEvent(QKeyEvent* key_event) {
 
 void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   if (mouse_event->button() != Qt::LeftButton) return;
+  disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+             &MainWindow::mousePressObjectsButton);
 
   double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
   double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
@@ -106,6 +103,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         // после финального добавления обновляем таблицу
         t_connection_->UpdateTable(gui::ObjectType::Targets);
+
         break;
       }
 
@@ -315,18 +313,6 @@ void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
 
     manager_->GetHillsPtrs()[last]->AddVertice({x, y});
     area_->ReDraw();
-  }
-}
-
-void MainWindow::on_flyRobotPushButton_clicked() {
-  try {
-    area_->GetRobot()->Draw(ui->plot);
-
-    timer_ = new QTimer(this);
-    connect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
-    timer_->start(5);
-  } catch (const std::exception& e) {
-    QMessageBox::warning(this, "Cannot add Robot!", e.what());
   }
 }
 

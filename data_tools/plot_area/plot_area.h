@@ -25,8 +25,14 @@ class PlotArea {
 
   gui::FlyingRobot* GetRobot() { return robot_.get(); }
 
+  gui::Trajectory* GetTrajectory() { return trajectory_.get(); }
+
   /// @brief Перерисовывает на полотне траекторию
   void ReDrawTrajectory();
+
+  void ClearTrajectory() { trajectory_->Clear(); }
+
+  size_t TrajectorySize() const { return trajectory_->Segments().size(); }
 
  private:
   /// @brief Расчет вектора сегментов по заданным объектам на полотне

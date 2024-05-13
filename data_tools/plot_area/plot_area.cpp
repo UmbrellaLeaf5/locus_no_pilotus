@@ -19,6 +19,8 @@ void PlotArea::ReDraw() {
   for (auto& tr_line : manager_->GetTrappyLinesPtrs())
     tr_line->Draw(plot_.get());
 
+  trajectory_->Clear();
+
   plot_->replot();
 }
 

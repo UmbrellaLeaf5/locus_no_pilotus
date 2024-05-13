@@ -121,6 +121,8 @@ void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
 }
 
 void MainWindow::mousePressRemoveObject() {
+  DeCalcTrajectory();
+
   if (ui->plot->selectedGraphs().size() > 0) {
     bool is_found = false;
     for (size_t i = 0; i < manager_->GetTargets().size(); i++) {

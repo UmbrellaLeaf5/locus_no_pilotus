@@ -90,11 +90,7 @@ class MainWindow : public QMainWindow {
 
   void moveRobot();
 
-  void on_calcTrajectoryPushButton_clicked() {
-    manager_->RemoveAllDuplicates();
-    t_connection_->UpdateTables();
-    area_->ReDrawTrajectory();
-  }
+  void on_calcTrajectoryPushButton_clicked();
 
   void on_flyRobotPushButton_clicked();
 
@@ -108,7 +104,7 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow* ui;
-  QTimer* timer_;
+  QTimer* timer_{new QTimer(this)};
 
   std::unique_ptr<data_tools::PlotArea> area_;
   std::unique_ptr<data_tools::DataManager> manager_;
@@ -118,7 +114,16 @@ class MainWindow : public QMainWindow {
   CursorType cursor_{CursorType::DefaultCursor};
   WhatObjectAddition what_obj_addition_{WhatObjectAddition::Nothing};
 
+  bool is_robot_flying_ = false;
+  bool is_drawed_trajectory_ = false;
+
   bool OpenMessageWindow();
   gui::ObjectType GetObjType() const;
   void DeleteLastAddedObject();
+
+  void CalcTrajectory();
+  void DeCalcTrajectory();
+
+  void StopRobot();
+  void FlyRobot();
 };

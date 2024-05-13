@@ -25,11 +25,15 @@ class FlyingRobot : public Drawable {
     else
       UpdateLineFields();
   }
+
   /**
    * @brief Отрисовывает png картинку
    * @param plot: указатель на полотно
    */
   void Draw(QCustomPlot* plot) override;
+
+  void UnDraw(QCustomPlot* plot);
+
   /**
    * @brief Эта функция нужна для того, чтобы обновлять позицию картинки на
    * полотне
@@ -49,6 +53,8 @@ class FlyingRobot : public Drawable {
     else
       UpdateLineFields();
   }
+
+  gui::Trajectory* GetTrajectory() const { return trajectory_; }
 
  private:
   gui::Trajectory* trajectory_;

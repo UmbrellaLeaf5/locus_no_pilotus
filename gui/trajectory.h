@@ -63,6 +63,8 @@ class Trajectory : private Drawable {
    */
   void Draw(QCustomPlot* plot) override;
 
+  void Clear() { segments_.clear(); }
+
  private:
   std::vector<gui::Segment> segments_;
 };
