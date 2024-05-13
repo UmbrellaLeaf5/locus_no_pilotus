@@ -92,6 +92,8 @@ class MainWindow : public QMainWindow {
   void on_calcTrajectoryPushButton_clicked() { area_->ReDrawTrajectory(); }
   void on_flyRobotPushButton_clicked();
 
+  void on_homeScalePushButton_clicked();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);

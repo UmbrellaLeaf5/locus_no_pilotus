@@ -321,10 +321,32 @@ void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
 void MainWindow::on_flyRobotPushButton_clicked() {
   try {
     area_->GetRobot()->Draw(ui->plot);
+
     timer_ = new QTimer(this);
     connect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
     timer_->start(5);
   } catch (const std::exception& e) {
     QMessageBox::warning(this, "Cannot add Robot!", e.what());
   }
+}
+
+void MainWindow::on_homeScalePushButton_clicked() {
+  lib::Point first_target = {0, 0};
+  double max_distance = 10;
+
+  if (!manager_->GetTargets().empty()) {
+    first_target = manager_->GetTargets()[0].GetPoint();
+    if (manager_->GetTargets().size() > 1)
+      for (size_t i = 1; i < manager_->GetTargets().size(); i++) {
+        double distance = lib::DistanceBetweenPoints(
+            first_target, manager_->GetTargets()[i].GetPoint());
+        if (max_distance < distance) max_distance = distance;
+      }
+  }
+
+  ui->plot->xAxis->setRange(first_target.x - max_distance / 2,
+                            first_target.x + max_distance / 2);
+  ui->plot->yAxis->setRange(first_target.y - max_distance / 2,
+                            first_target.y + max_distance / 2);
+  ui->plot->replot();
 }
