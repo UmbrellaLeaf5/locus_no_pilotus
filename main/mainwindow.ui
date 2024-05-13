@@ -421,14 +421,8 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
     <property name="title">
      <string>Settings ⚙</string>
     </property>
-    <addaction name="actionFormat"/>
-    <addaction name="actionStyle"/>
+    <addaction name="actionHelp"/>
     <addaction name="actionBeautify"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help ❔</string>
-    </property>
    </widget>
    <widget class="QMenu" name="menuAdd">
     <property name="styleSheet">
@@ -445,7 +439,6 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuAdd"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -1116,20 +1109,11 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="actionFormat">
-   <property name="text">
-    <string>Format</string>
-   </property>
-   <property name="shortcut">
-    <string>F1</string>
-   </property>
-  </action>
-  <action name="actionStyle">
-   <property name="text">
-    <string>Style</string>
-   </property>
-  </action>
   <action name="actionBeautify">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/beautify.png</normaloff>../images/beautify.png</iconset>
+   </property>
    <property name="text">
     <string>Beautify</string>
    </property>
@@ -1177,6 +1161,15 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
    </property>
    <property name="text">
     <string>Hill</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset>
+     <normaloff>../images/help.png</normaloff>../images/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help </string>
    </property>
   </action>
  </widget>

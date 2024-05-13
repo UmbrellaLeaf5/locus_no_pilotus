@@ -96,6 +96,8 @@ class MainWindow : public QMainWindow {
 
   void on_homeScalePushButton_clicked();
 
+  void on_actionHelp_triggered();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
