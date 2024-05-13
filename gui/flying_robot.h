@@ -16,11 +16,11 @@ class FlyingRobot : public Drawable {
    * @brief Инициализирует новый экземпляр FlyingRobot
    * @param gui::Trajectory: траетория
    */
-  FlyingRobot(gui::Trajectory trj)
-      : trajectory_{trj}, curr_point_{trj.Segments()[0].Start()} {
+  FlyingRobot(gui::Trajectory* trj)
+      : trajectory_{trj}, curr_point_{trj->Segments()[0].Start()} {
     // Сразу задаем нужные приватные поля при инициализации экземпляра класса, в
     // зависимости от того, lib::Segment является аркой или прямой линией
-    if (trajectory_.Segments()[0].IsArc())
+    if (trajectory_->Segments()[0].IsArc())
       UpdateCircleFields();
     else
       UpdateLineFields();
@@ -37,8 +37,19 @@ class FlyingRobot : public Drawable {
    */
   void ReDraw(QCustomPlot* plot);
 
+  void SetTrajectory(gui::Trajectory* trj) {
+    trajectory_ = trj;
+    curr_point_ = trj->Segments()[0].Start();
+    index_of_segment_ = 0;
+
+    if (trajectory_->Segments()[0].IsArc())
+      UpdateCircleFields();
+    else
+      UpdateLineFields();
+  }
+
  private:
-  gui::Trajectory trajectory_;
+  gui::Trajectory* trajectory_;
   QCPGraph* graph_{nullptr};
 
   size_t index_of_segment_ = 0;

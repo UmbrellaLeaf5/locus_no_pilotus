@@ -19,12 +19,12 @@ void gui::FlyingRobot::SetNewPositionOnCircle() {
   else {
     count_of_partitions_--;
 
-    curr_point_.x = trajectory_.Segments()[index_of_segment_].Radius() *
+    curr_point_.x = trajectory_->Segments()[index_of_segment_].Radius() *
                         cos(curr_angle_on_circle_) +
-                    trajectory_.Segments()[index_of_segment_].Center().x;
-    curr_point_.y = trajectory_.Segments()[index_of_segment_].Radius() *
+                    trajectory_->Segments()[index_of_segment_].Center().x;
+    curr_point_.y = trajectory_->Segments()[index_of_segment_].Radius() *
                         sin(curr_angle_on_circle_) +
-                    trajectory_.Segments()[index_of_segment_].Center().y;
+                    trajectory_->Segments()[index_of_segment_].Center().y;
 
     if (clockwise_)
       curr_angle_on_circle_ -= distribution_of_angle_;
@@ -36,24 +36,25 @@ void gui::FlyingRobot::SetNewPositionOnCircle() {
 void gui::FlyingRobot::UpdateSegment() {
   index_of_segment_++;
 
-  if (index_of_segment_ == trajectory_.Segments().size()) index_of_segment_ = 0;
+  if (index_of_segment_ == trajectory_->Segments().size())
+    index_of_segment_ = 0;
 
-  curr_point_ = trajectory_.Segments()[index_of_segment_].Start();
+  curr_point_ = trajectory_->Segments()[index_of_segment_].Start();
 
-  if (trajectory_.Segments()[index_of_segment_].IsArc())
+  if (trajectory_->Segments()[index_of_segment_].IsArc())
     UpdateCircleFields();
   else
     UpdateLineFields();
 }
 
 void gui::FlyingRobot::UpdateLineFields() {
-  lib::Point p = trajectory_.Segments()[index_of_segment_].End() -
-                 trajectory_.Segments()[index_of_segment_].Start();
+  lib::Point p = trajectory_->Segments()[index_of_segment_].End() -
+                 trajectory_->Segments()[index_of_segment_].Start();
   double R = sqrt(p.x * p.x + p.y * p.y);
 
   count_of_partitions_ = lib::DistanceBetweenPoints(
-                             trajectory_.Segments()[index_of_segment_].Start(),
-                             trajectory_.Segments()[index_of_segment_].End()) *
+                             trajectory_->Segments()[index_of_segment_].Start(),
+                             trajectory_->Segments()[index_of_segment_].End()) *
                          20;
 
   cos_of_line_ = p.x / R;
@@ -61,9 +62,9 @@ void gui::FlyingRobot::UpdateLineFields() {
 }
 
 void gui::FlyingRobot::UpdateCircleFields() {
-  auto angles = trajectory_.Segments()[index_of_segment_].ToAnglesOnCircle();
+  auto angles = trajectory_->Segments()[index_of_segment_].ToAnglesOnCircle();
 
-  double len_sector = trajectory_.Segments()[index_of_segment_].Radius() *
+  double len_sector = trajectory_->Segments()[index_of_segment_].Radius() *
                       (abs(angles.second - angles.first) * M_PI / 180);
 
   count_of_partitions_ = len_sector * 20;
@@ -88,7 +89,7 @@ void gui::FlyingRobot::Draw(QCustomPlot* plot) {
 }
 
 void gui::FlyingRobot::ReDraw(QCustomPlot* plot) {
-  if (trajectory_.Segments()[index_of_segment_].IsArc())
+  if (trajectory_->Segments()[index_of_segment_].IsArc())
     SetNewPositionOnCircle();
   else
     SetNewPositionOnLine();

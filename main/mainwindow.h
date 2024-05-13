@@ -39,7 +39,6 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
-
   // Slots for files:
   bool on_saveAsFileAction_triggered();
   bool on_saveFileAction_triggered();
@@ -89,8 +88,9 @@ class MainWindow : public QMainWindow {
   void on_xAxis_rangeChanged(QCPRange range);
   void on_yAxis_rangeChanged(QCPRange range);
 
+  void moveRobot();
   void on_calcTrajectoryPushButton_clicked() { area_->ReDrawTrajectory(); }
-  void on_flyRobotPushButton_clicked() {}
+  void on_flyRobotPushButton_clicked();
 
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
@@ -100,9 +100,7 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow* ui;
-  QTimer* timer;
-  gui::Trajectory* trj;
-  gui::FlyingRobot* robot;
+  QTimer* timer_;
 
   std::unique_ptr<data_tools::PlotArea> area_;
   std::unique_ptr<data_tools::DataManager> manager_;

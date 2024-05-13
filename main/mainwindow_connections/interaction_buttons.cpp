@@ -33,8 +33,14 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
 
   disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
              &MainWindow::mousePressObjectsButton);
+
   connect(ui->plot, &QCustomPlot::mousePress, this,
           &MainWindow::mousePressContextMenu);
+
+  if (timer_) {
+    disconnect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
+    timer_->stop();
+  }
 
   ui->plot->setCursor(Qt::CrossCursor);
   cursor_ = CursorType::DefaultCursor;
@@ -309,4 +315,11 @@ void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
     manager_->GetHillsPtrs()[last]->AddVertice({x, y});
     area_->ReDraw();
   }
+}
+
+void MainWindow::on_flyRobotPushButton_clicked() {
+  area_->GetRobot()->Draw(ui->plot);
+  timer_ = new QTimer(this);
+  connect(timer_, &QTimer::timeout, this, &MainWindow::moveRobot);
+  timer_->start(5);
 }

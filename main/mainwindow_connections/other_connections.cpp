@@ -182,3 +182,5 @@ void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {
     menu->exec(mouse_event->globalPosition().toPoint());
   }
 }
+
+void MainWindow::moveRobot() { area_->GetRobot()->ReDraw(ui->plot); }

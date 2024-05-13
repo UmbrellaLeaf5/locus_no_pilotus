@@ -23,6 +23,8 @@ class PlotArea {
   /// @brief Перерисовывает на полотне все объекты и обновляет данные
   void ReDraw();
 
+  gui::FlyingRobot* GetRobot() { return robot_.get(); }
+
   /// @brief Перерисовывает на полотне траекторию
   void ReDrawTrajectory();
 
@@ -35,7 +37,7 @@ class PlotArea {
   std::unique_ptr<DataManager> manager_;
 
   std::unique_ptr<gui::Trajectory> trajectory_{new gui::Trajectory()};
-  std::unique_ptr<gui::FlyingRobot> robot_;
+  std::unique_ptr<gui::FlyingRobot> robot_{new gui::FlyingRobot()};
 
   void CheckHills();
   void CheckTrappyCircles();
