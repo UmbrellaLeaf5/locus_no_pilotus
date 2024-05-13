@@ -330,9 +330,14 @@ void MainWindow::on_homeScalePushButton_clicked() {
       }
   }
 
-  ui->plot->xAxis->setRange(first_target.x - max_distance / 2,
-                            first_target.x + max_distance / 2);
-  ui->plot->yAxis->setRange(first_target.y - max_distance / 2,
-                            first_target.y + max_distance / 2);
+  if (first_target.x - max_distance <= -max_scale ||
+      first_target.x + max_distance >= max_scale ||
+      first_target.y - max_distance <= -max_scale ||
+      first_target.y + max_distance >= max_scale)
+    max_distance /= 2.;
+  ui->plot->xAxis->setRange(first_target.x - max_distance,
+                            first_target.x + max_distance);
+  ui->plot->yAxis->setRange(first_target.y - max_distance,
+                            first_target.y + max_distance);
   on_actionBeautify_triggered();
 }

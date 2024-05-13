@@ -68,6 +68,7 @@ void MainWindow::on_calcTrajectoryPushButton_clicked() {
 }
 
 void MainWindow::on_flyRobotPushButton_clicked() {
+  on_actionBeautify_triggered();
   try {
     if (is_robot_flying_)
       StopRobot();

@@ -446,7 +446,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}</string>
    <property name="minimumSize">
     <size>
      <width>175</width>
-     <height>153</height>
+     <height>186</height>
     </size>
    </property>
    <property name="baseSize">
@@ -534,7 +534,7 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="robotsAmountLabel">
          <property name="font">
           <font>
            <bold>true</bold>
@@ -542,6 +542,46 @@ QPushButton::pressed{background-color: rgb(135, 135, 135);}
          </property>
          <property name="text">
           <string>Robots amount:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QRadioButton" name="HighSpeedButton">
+         <property name="text">
+          <string>High</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="MediumSpeedButton">
+         <property name="text">
+          <string>Medium</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="LowSpeedButton">
+         <property name="text">
+          <string>Low</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="SpeedLabel">
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Speed of robot:</string>
          </property>
         </widget>
        </item>

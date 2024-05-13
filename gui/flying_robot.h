@@ -1,6 +1,8 @@
 #pragma once
 #include "trajectory.h"
 
+enum class SpeedOfRobot { Low, Medium, High };
+
 namespace gui {
 
 /**
@@ -56,9 +58,12 @@ class FlyingRobot : public Drawable {
 
   gui::Trajectory* GetTrajectory() const { return trajectory_; }
 
+  void SetSpeed(SpeedOfRobot speed) { speed_ = speed; }
+
  private:
   gui::Trajectory* trajectory_;
   QCPGraph* graph_{nullptr};
+  SpeedOfRobot speed_ = SpeedOfRobot::Medium;
 
   size_t index_of_segment_ = 0;
   lib::Point curr_point_;
@@ -67,6 +72,7 @@ class FlyingRobot : public Drawable {
   int count_of_partitions_;
 
   // Поля для положения на линии
+  double line_const_;
   double cos_of_line_;
   double sin_of_line_;
 

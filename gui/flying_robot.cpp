@@ -8,8 +8,8 @@ void gui::FlyingRobot::SetNewPositionOnLine() {
 
     // Полотно обновляется раз в 5 миллисекунд, скорость робота такая: смещение
     // на 1 происходит за 20 вызовов функции, поэтому мы и умножаем на 1/20
-    curr_point_.x += 0.05 * cos_of_line_;
-    curr_point_.y += 0.05 * sin_of_line_;
+    curr_point_.x += line_const_ * cos_of_line_;
+    curr_point_.y += line_const_ * sin_of_line_;
   }
 }
 
@@ -52,10 +52,25 @@ void gui::FlyingRobot::UpdateLineFields() {
                  trajectory_->Segments()[index_of_segment_].Start();
   double R = sqrt(p.x * p.x + p.y * p.y);
 
-  count_of_partitions_ = lib::DistanceBetweenPoints(
-                             trajectory_->Segments()[index_of_segment_].Start(),
-                             trajectory_->Segments()[index_of_segment_].End()) *
-                         20;
+  double dis = lib::DistanceBetweenPoints(
+      trajectory_->Segments()[index_of_segment_].Start(),
+      trajectory_->Segments()[index_of_segment_].End());
+
+  switch (speed_) {
+    case SpeedOfRobot::Low:
+      line_const_ = 0.01;
+      break;
+
+    case SpeedOfRobot::Medium:
+      line_const_ = 0.05;
+      break;
+
+    case SpeedOfRobot::High:
+      line_const_ = 0.375;
+      break;
+  }
+
+  count_of_partitions_ = dis / line_const_;
 
   cos_of_line_ = p.x / R;
   sin_of_line_ = p.y / R;
@@ -67,7 +82,21 @@ void gui::FlyingRobot::UpdateCircleFields() {
   double len_sector = trajectory_->Segments()[index_of_segment_].Radius() *
                       (abs(angles.second - angles.first) * M_PI / 180);
 
-  count_of_partitions_ = len_sector * 20;
+  switch (speed_) {
+    case SpeedOfRobot::Low: {
+      count_of_partitions_ = len_sector * 100;
+      break;
+    }
+    case SpeedOfRobot::Medium: {
+      count_of_partitions_ = len_sector * 20;
+      break;
+    }
+    case SpeedOfRobot::High: {
+      count_of_partitions_ = len_sector * 20 / 7.5;
+      break;
+    }
+  }
+
   curr_angle_on_circle_ = angles.first * M_PI / 180;
   distribution_of_angle_ =
       abs(angles.second - angles.first) / count_of_partitions_ * M_PI / 180;

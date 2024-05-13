@@ -1,4 +1,5 @@
 // header file:
+#include "gui/flying_robot.h"
 #include "main/mainwindow.h"
 
 gui::ObjectType MainWindow::GetObjType() const {
@@ -202,4 +203,16 @@ void MainWindow::on_robotsApplyAmountPushButton_clicked() {
   else
     QMessageBox::warning(this, "Zero flying robot!",
                          "Flying robots must be at list 1!");
+}
+
+void MainWindow::on_LowSpeedButton_clicked() {
+  area_->GetRobot()->SetSpeed(SpeedOfRobot::Low);
+}
+
+void MainWindow::on_MediumSpeedButton_clicked() {
+  area_->GetRobot()->SetSpeed(SpeedOfRobot::Medium);
+}
+
+void MainWindow::on_HighSpeedButton_clicked() {
+  area_->GetRobot()->SetSpeed(SpeedOfRobot::High);
 }

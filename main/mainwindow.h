@@ -96,6 +96,10 @@ class MainWindow : public QMainWindow {
 
   void on_robotsApplyAmountPushButton_clicked();
 
+  void on_LowSpeedButton_clicked();
+  void on_MediumSpeedButton_clicked();
+  void on_HighSpeedButton_clicked();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
