@@ -47,12 +47,22 @@ BOOST_AUTO_TEST_CASE(one_circle) {
   CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles);
 }
 
-BOOST_AUTO_TEST_CASE(two_circles) {
+BOOST_AUTO_TEST_CASE(two_circles_1) {
   Point point1(-7.98, 1.23);
   Point point2(8.16, 2.27);
   std::vector<CircleObstacle> circles{{{-6.44, 3.95}, 2.4186773244896},
                                       {{0.32, 1.17}, 4.1780856860529}};
   double correct_length = 18.0308833947264;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles);
+}
+
+BOOST_AUTO_TEST_CASE(two_circles_2) {
+  Point point1(2.8860028860028857, 3.02);
+  Point point2(0.6854256854256855, 3.15);
+  std::vector<CircleObstacle> circles{
+      {{2.2005772005772006, 3.43}, 0.5398077722761565},
+      {{0.9090909090909092, 2.3400000000000003}, 0.6977516532510056}};
+  double correct_length = 2.2359987212926;
   CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles);
 }
 
@@ -74,6 +84,23 @@ BOOST_AUTO_TEST_CASE(many_circles) {
       {{2.508, 2.434}, 1.067771511139},  {{3.406, -0.52}, 1.308214049764},
       {{5.43, 0.646}, 0.8281473298876},  {{7.056, -1.736}, 1.46175374123}};
   double correct_length = 24.3588408767565;
+  CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles);
+}
+
+BOOST_AUTO_TEST_CASE(many_circles_2) {
+  Point point1(3.10967, 3.27);
+  Point point2(1.29149, 0.84);
+  std::vector<CircleObstacle> circles{
+      {{1.6233766233766234, 2.44}, 0.6374372349316524},
+      {{0.3463203463203463, 3.54}, 0.40295210083288274},
+      {{2.647907647907648, 3.84}, 0.32875169441430113},
+      {{1.9336219336219338, 1.03}, 0.5693287325398032},
+      {{1.5007215007215007, 4.59}, 0.3984371374874696},
+      {{3.5714285714285716, 3.5}, 0.19135454700142618},
+      {{3.5642135642135644, 4.48}, 0.31775186959715124},
+      {{3.2323232323232327, 2.66}, 0.4448578559741175},
+      {{2.676767676767677, 1.96}, 0.2645089838359704}};
+  double correct_length = 3.0726744815740017;
   CHECK_OPTIMAL_WAY(point1, point2, correct_length, circles);
 }
 
