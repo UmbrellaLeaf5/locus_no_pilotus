@@ -22,28 +22,18 @@ class Trajectory : private Drawable {
   Trajectory(const std::vector<gui::Segment>& segments) : segments_{segments} {}
 
   /**
-   * @brief Инициализирует новый экземпляр Trajectory
-   * @param targets: контрольные точки
-   * @param hills: многоугольные препятствия
-   * @param tr_circles: круговые препятствия
-   * @param tr_lines: запрещённые перелеты
-   */
-  Trajectory(const std::vector<lib::Target>& targets,
-             const std::vector<lib::Hill>& hills,
-             const std::vector<lib::TrappyCircle>& tr_circles,
-             const std::vector<lib::TrappyLine>& tr_lines);
-
-  /**
    * @brief Расчет вектора сегментов по заданным объектам на полотне
    * @param targets: контрольные точки
    * @param hills: многоугольные препятствия
    * @param tr_circles: круговые препятствия
    * @param tr_lines: запрещённые перелеты
+   * @param amount_of_robots: кол-во летающих роботов
    */
   void Calculate(const std::vector<lib::Target>& targets,
                  const std::vector<lib::Hill>& hills,
                  const std::vector<lib::TrappyCircle>& tr_circles,
-                 const std::vector<lib::TrappyLine>& tr_lines);
+                 const std::vector<lib::TrappyLine>& tr_lines,
+                 unsigned short amount_of_robots);
 
   /**
    * @brief Возвращает вектор сегментов

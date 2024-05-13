@@ -34,6 +34,8 @@ class PlotArea {
 
   size_t TrajectorySize() const { return trajectory_->Segments().size(); }
 
+  void SetAmountOfRobots(unsigned short amount) { amount_of_robots_ = amount; }
+
  private:
   /// @brief Расчет вектора сегментов по заданным объектам на полотне
   void CalculateTrajectory();
@@ -44,6 +46,8 @@ class PlotArea {
 
   std::unique_ptr<gui::Trajectory> trajectory_{new gui::Trajectory()};
   std::unique_ptr<gui::FlyingRobot> robot_{new gui::FlyingRobot()};
+
+  unsigned short amount_of_robots_ = 1;
 
   void CheckHills();
   void CheckTrappyCircles();

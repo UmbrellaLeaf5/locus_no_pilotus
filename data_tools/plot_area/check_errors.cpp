@@ -115,10 +115,9 @@ void PlotArea::CheckTrappyCircles() {
   }
 }
 
-#define GetRobots_size 1
 void PlotArea::CheckTrappyLines() {
   auto l = manager_->GetTrappyLinesPtrs().size();
-  auto n = manager_->GetTargetsPtrs().size() + GetRobots_size - 1;
+  auto n = manager_->GetTargetsPtrs().size() + amount_of_robots_ - 1;
   if (l == 0) return;
 
   // прекрасная формула

@@ -60,7 +60,8 @@ void PlotArea::CalculateTrajectory() {
   for (size_t i = 0; i < lib_tr_circles.size(); i++)
     lib_tr_circles[i] = manager_->GetTrappyCircles()[i].GetData();
 
-  trajectory_->Calculate(lib_targets, lib_hills, lib_tr_circles, lib_tr_lines);
+  trajectory_->Calculate(lib_targets, lib_hills, lib_tr_circles, lib_tr_lines,
+                         amount_of_robots_);
   if (lib_targets.size() > 1) robot_->SetTrajectory(trajectory_.get());
 }
 

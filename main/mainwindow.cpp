@@ -36,6 +36,10 @@ MainWindow::MainWindow(QWidget* parent)
       ui->trappyCircleRemovePushButton, ui->trappyLineRemovePushButton);
 
   json_file_.SetUntitledFile();
+
+  QIntValidator* int_validator{new QIntValidator()};
+  int_validator->setRange(1, 9);
+  ui->robotsAmountLineEdit->setValidator(int_validator);
 }
 
 MainWindow::~MainWindow() { delete ui; }
