@@ -221,31 +221,29 @@ std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
 
 bool AreThereIntersections(const CircleObstacle& cr_obst, const Point& point1,
                            const Point& point2) {
-  double slope = (point2.y - point1.y) / (point2.x - point1.x);
-  double b_coef = point1.y - slope * point1.x;
+  double distance = 0;
   Point center = cr_obst.GetCenter();
   double radius = cr_obst.GetRadius();
-  double discriminant = (pow(slope * b_coef - center.x - slope * center.y, 2)) +
-                        (pow(radius, 2) - pow(center.x, 2) - pow(b_coef, 2) -
-                         pow(center.y, 2) + 2 * b_coef * center.y) *
-                            (1 + pow(slope, 2));
-  if (discriminant < precision)
-    return false;
-  else {
-    double x_1 =
-        (-(slope * b_coef - center.x - slope * center.y) + sqrt(discriminant)) /
-        (1 + pow(slope, 2));
-    double x_2 =
-        (-(slope * b_coef - center.x - slope * center.y) - sqrt(discriminant)) /
-        (1 + pow(slope, 2));
-    if (((std::min(point1.x, point2.x) <= x_1) &&
-         (x_1 <= std::max(point1.x, point2.x))) ||
-        ((std::min(point1.x, point2.x) <= x_2) &&
-         (x_2 <= std::max(point1.x, point2.x))))
-      return true;
-    else
-      return false;
+  Point vector_p1_c = center - point1;
+  Point vector_p2_c = center - point2;
+  Point vector_p1_p2 = point2 - point1;
+  auto module = [](Point p) {
+    return lib::DistanceBetweenPoints(p, Point(0, 0));
+  };
+  auto scalar = [](Point p1, Point p2) { return p1.x * p2.x + p1.y * p2.y; };
+  auto vect = [](Point p1, Point p2) {
+    return std::abs(p1.x * p2.y - p1.y * p2.x);
+  };
+
+  if (scalar(vector_p1_p2, vector_p2_c) >= precision) {
+    distance = module(vector_p2_c);
+  } else if (scalar(vector_p1_p2, vector_p1_c) <= -precision) {
+    distance = module(vector_p1_c);
+  } else {
+    distance = vect(vector_p1_p2, vector_p1_c) / module(vector_p1_p2);
   }
+  if (distance - radius <= -precision) return true;
+  return false;
 }
 
 bool AreThereIntersections(const CircleObstacle& cr_obst,
