@@ -1,8 +1,6 @@
 // header file
 #include "trajectory.h"
 
-#include <icecream.hpp>
-
 namespace gui {
 
 void Trajectory::Draw(QCustomPlot* plot) {
