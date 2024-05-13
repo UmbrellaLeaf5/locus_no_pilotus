@@ -1,5 +1,6 @@
 #include "helpers_functions.h"
 
+#include <QDebug>
 #include <algorithm>
 
 namespace math {
@@ -207,8 +208,8 @@ std::vector<LinearFunction> TangentsBetween(const PolygonObstacle& polygon,
     for (auto& tang_pnt : {tang_pnts.first, tang_pnts.second})
       if (vertex != tang_pnt) {
         LinearFunction line(vertex, tang_pnt);
-        if (!AreThereIntersections(polygon, line) &&
-            !AreThereIntersections(obstacle, line)) {
+        if ((!AreThereIntersections(polygon, line)) &&
+            (!AreThereIntersections(obstacle, line))) {
           bool is_unique = !_isnan(line.a_coef);
           for (std::size_t i = 0; i < tangents.size(); ++i)
             if (tangents[i] == line) is_unique = false;
@@ -264,8 +265,8 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst, const Point& pnt1,
     LinearFunction v_line(vertexes[i], vertexes[(i + 1) % vertexes.size()]);
     if ((line.Substitute(vertexes[i]) *
              line.Substitute(vertexes[(i + 1) % vertexes.size()]) <
-         0) &&
-        (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < 0))
+         -precision) &&
+        (v_line.Substitute(pnt1) * v_line.Substitute(pnt2) < -precision))
       return true;
   }
   std::size_t prev = ULONG_LONG_MAX;
@@ -286,7 +287,7 @@ bool AreThereIntersections(const PolygonObstacle& poly_obst,
   for (std::size_t i = 0; i < vertexes.size(); ++i)
     if ((line.Substitute(vertexes[i]) *
              line.Substitute(vertexes[(i + 1) % vertexes.size()]) <
-         0))
+         -precision))
       return true;
 
   std::size_t prev = ULONG_LONG_MAX;

@@ -131,6 +131,10 @@ class PolygonObstacle {
 
   std::vector<Point> GetTangentPoints() { return tangent_points_; }
 
+  void DeleteTangentPoint(std::size_t index) {
+    tangent_points_.erase(tangent_points_.begin() + index);
+  }
+
   void AddTangentLine(const LinearFunction& tangent) {
     tangents_.push_back(tangent);
   }

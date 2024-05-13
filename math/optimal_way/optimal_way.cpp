@@ -119,6 +119,13 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
     for (std::size_t i = 0; i < vertexes.size(); ++i) {
       PathWayNode* new_node =
           new PathWayNode(vertexes[i], graph_.nodes.size(), true);
+      for (std::size_t j = 0; j < poly.GetTangentPoints().size(); ++j) {
+        if (poly.GetTangentPoints()[j] == vertexes[i]) {
+          new_node->point = poly.GetTangentPoints()[j];
+          poly.DeleteTangentPoint(j);
+          break;
+        }
+      }
       new_node->poly_ptr = std::make_shared<PolygonObstacle>(poly);
       graph_.AddNode(new_node);
       // Проводим ребра в графе только между соседними вершинами
@@ -135,12 +142,13 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
             DistanceBetweenPoints(
                 graph_.nodes[graph_.nodes.size() - vertexes.size()]->point,
                 new_node->point));
-      for (std::size_t i = 0; i < graph_.nodes.size(); ++i) {
-        if ((graph_.nodes[i]->point.another_tangent_point) &&
-            (new_node->point == *graph_.nodes[i]->point.another_tangent_point))
+
+      for (std::size_t j = 0; j < graph_.nodes.size(); ++j) {
+        if ((graph_.nodes[j]->point.another_tangent_point) &&
+            (new_node->point == *graph_.nodes[j]->point.another_tangent_point))
           graph_.AddEdge(
-              graph_.nodes[i]->number, new_node->number,
-              DistanceBetweenPoints(graph_.nodes[i]->point, new_node->point));
+              graph_.nodes[j]->number, new_node->number,
+              DistanceBetweenPoints(graph_.nodes[j]->point, new_node->point));
       }
     }
   }
