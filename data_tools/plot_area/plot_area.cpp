@@ -55,7 +55,7 @@ void PlotArea::CalculateTrajectory() {
     lib_tr_circles[i] = manager_->GetTrappyCircles()[i].GetData();
 
   trajectory_->Calculate(lib_targets, lib_hills, lib_tr_circles, lib_tr_lines);
-  robot_->SetTrajectory(trajectory_.get());
+  if (lib_targets.size() > 1) robot_->SetTrajectory(trajectory_.get());
 }
 
 }  // namespace data_tools
