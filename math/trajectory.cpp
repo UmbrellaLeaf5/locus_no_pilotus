@@ -50,7 +50,7 @@ void TrajectoryCalculator::CalculateTrajectory() {
 
   // Просчет кратчайшей траектории по алгоритму Литтла
   AdjacencyMatrix adj_matrix = AdjacencyMatrix::WithExtraRowCol(matrix);
-  TravellingSalesmansProblem tsp(adj_matrix);
+  TravellingSalesmansProblem tsp(adj_matrix, number_of_flyers_);
   std::vector<std::size_t> traj = tsp.GetTrajectory();
 
   // Объединение частей траектории

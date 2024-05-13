@@ -25,7 +25,8 @@ void Trajectory::Calculate(const std::vector<lib::Target>& targets,
   if (targets.empty()) return;
 
   for (auto seg :
-       math::TrajectoryCalculator(targets, tr_lines, tr_circles, hills)
+       math::TrajectoryCalculator(targets, tr_lines, tr_circles, hills,
+                                  1)  // num_of_flyers argument needed
            .GetTrajectory()) {
     segments_.push_back(gui::Segment(seg));
   }
