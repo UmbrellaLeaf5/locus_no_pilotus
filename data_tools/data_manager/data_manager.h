@@ -96,13 +96,13 @@ class DataManager {
   void Set(const std::vector<lib::TrappyCircle>&);
 
   /**
-   * @brief Возвращает значение Trappy Circles
+   * @brief Возвращает значение TrappyCircles
    * @return std::vector<gui::TrappyCircle*>: указатели на объекты опасной зоны
    */
   std::vector<gui::TrappyCircle*> GetTrappyCirclesPtrs();
 
   /**
-   * @brief Возвращает значение Trappy Circles
+   * @brief Возвращает значение TrappyCircles
    * @return std::vector<gui::TrappyCircle>: объекты опасной зоны
    */
   std::vector<gui::TrappyCircle> GetTrappyCircles() const;
