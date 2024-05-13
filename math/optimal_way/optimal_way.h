@@ -95,6 +95,9 @@ class OptimalWayCalculator {
 
   // Создать часть траектории
   void MakeTrajectoryPart();
+
+  // Удаляет информацию от предыдущих точек
+  void ResetInformation();
 };
 
 }  // namespace math

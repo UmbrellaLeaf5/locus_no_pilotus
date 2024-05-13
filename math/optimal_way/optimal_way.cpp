@@ -196,7 +196,7 @@ std::set<std::size_t> OptimalWayCalculator::AddGraphControlPoints(Point point) {
 }
 
 void OptimalWayCalculator::FindOptimalWay(Point p1, Point p2) {
-  trajectory_part_.clear();
+  ResetInformation();
   std::set<std::size_t> point1_tangents = AddGraphControlPoints(p1);
   std::set<std::size_t> point2_tangents = AddGraphControlPoints(p2);
 
@@ -244,6 +244,11 @@ void OptimalWayCalculator::MakeTrajectoryPart() {
                   graph_.nodes[optimal_way_[i + 1]]->point));
     }
   }
+}
+
+void OptimalWayCalculator::ResetInformation() {
+  trajectory_part_.clear();
+  for (auto& node : graph_.nodes) node->is_visited = false;
 }
 
 template bool OptimalWayCalculator::TangentGoesThroughOtherObstacle<
