@@ -38,6 +38,7 @@ pacman -S mingw-w64-x86_64-ninja
 pacman -S mingw-w64-x86_64-cmake
 pacman -S mingw-w64-x86_64-qt-creator
 pacman -S mingw-w64-x86_64-boost
+pacman -S mingw-w64-x86_64-clang
 ```
 
 3) Install **[Git Bash](https://gitforwindows.org/)** to any convenient folder (if you haven't get it yet) 
