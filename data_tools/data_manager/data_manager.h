@@ -28,9 +28,14 @@ class DataManager {
   void Set(std::vector<gui::Target*>);
 
   // for lib::Target
-  void Add(lib::Target data);
-  void Add(std::vector<lib::Target>);
-  void Set(std::vector<lib::Target>);
+  void Add(lib::Target& data);
+  void Add(const lib::Target& data);
+
+  void Add(std::vector<lib::Target>&);
+  void Add(const std::vector<lib::Target>&);
+
+  void Set(std::vector<lib::Target>&);
+  void Set(const std::vector<lib::Target>&);
 
   /**
    * @brief Возвращает значение Targets
@@ -52,9 +57,14 @@ class DataManager {
   void Set(std::vector<gui::Hill*>);
 
   // for lib::Hill
-  void Add(lib::Hill data);
-  void Add(std::vector<lib::Hill>);
-  void Set(std::vector<lib::Hill>);
+  void Add(lib::Hill& data);
+  void Add(const lib::Hill& data);
+
+  void Add(std::vector<lib::Hill>&);
+  void Add(const std::vector<lib::Hill>&);
+
+  void Set(std::vector<lib::Hill>&);
+  void Set(const std::vector<lib::Hill>&);
 
   /**
    * @brief Возвращает значение Hills
@@ -76,21 +86,27 @@ class DataManager {
   void Set(std::vector<gui::TrappyCircle*>);
 
   // for lib::TrappyCircle
-  void Add(lib::TrappyCircle data);
-  void Add(std::vector<lib::TrappyCircle>);
-  void Set(std::vector<lib::TrappyCircle>);
+  void Add(lib::TrappyCircle& data);
+  void Add(const lib::TrappyCircle& data);
+
+  void Add(std::vector<lib::TrappyCircle>&);
+  void Add(const std::vector<lib::TrappyCircle>&);
+
+  void Set(std::vector<lib::TrappyCircle>&);
+  void Set(const std::vector<lib::TrappyCircle>&);
 
   /**
-   * @brief Возвращает значение Trappy Circles
+   * @brief Возвращает значение TrappyCircles
    * @return std::vector<gui::TrappyCircle*>: указатели на объекты опасной зоны
    */
   std::vector<gui::TrappyCircle*> GetTrappyCirclesPtrs();
 
   /**
-   * @brief Возвращает значение Trappy Circles
+   * @brief Возвращает значение TrappyCircles
    * @return std::vector<gui::TrappyCircle>: объекты опасной зоны
    */
   std::vector<gui::TrappyCircle> GetTrappyCircles() const;
+
   // ----------------------  TrappyLine methods  ----------------------
 
   // for gui::TrappyLine
@@ -99,18 +115,23 @@ class DataManager {
   void Set(std::vector<gui::TrappyLine*>);
 
   // for lib::TrappyLine
-  void Add(lib::TrappyLine data);
-  void Add(std::vector<lib::TrappyLine>);
-  void Set(std::vector<lib::TrappyLine>);
+  void Add(lib::TrappyLine& data);
+  void Add(const lib::TrappyLine& data);
+
+  void Add(std::vector<lib::TrappyLine>&);
+  void Add(const std::vector<lib::TrappyLine>&);
+
+  void Set(std::vector<lib::TrappyLine>&);
+  void Set(const std::vector<lib::TrappyLine>&);
 
   /**
-   * @brief Возвращает значение Trappy Lines
+   * @brief Возвращает значение TrappyLines
    * @return std::vector<gui::TrappyLine*>: указатели на объекты оп. перелета
    */
   std::vector<gui::TrappyLine*> GetTrappyLinesPtrs();
 
   /**
-   * @brief Возвращает значение Trappy Lines
+   * @brief Возвращает значение TrappyLines
    * @return std::vector<gui::TrappyLine>: объекты оп. перелета
    */
   std::vector<gui::TrappyLine> GetTrappyLines() const;

@@ -1,10 +1,13 @@
 // header file:
 #include "adjacency_matrix.h"
 
+// std libs:
+#include <stdexcept>
+
 namespace math {
 
 AdjacencyMatrix AdjacencyMatrix::WithExtraRowCol(
-    std::vector<std::vector<double>> nums) {
+    const std::vector<std::vector<double>>& nums) {
   AdjacencyMatrix m(nums);
   m.matrix_.resize(m.size_ + 1);
   m.matrix_[m.size_].resize(m.size_ + 1);
@@ -40,7 +43,7 @@ AdjacencyMatrix AdjacencyMatrix::Reducted() {
   return reducted;
 }
 
-AdjacencyMatrix::AdjacencyMatrix(std::vector<std::vector<double>> nums)
+AdjacencyMatrix::AdjacencyMatrix(const std::vector<std::vector<double>>& nums)
     : size_{nums.size()}, matrix_{nums}, min_numbers_(size_ + size_) {}
 
 Minimums AdjacencyMatrix::FindTwoMinimums(Mins type, std::size_t index) const {
@@ -143,6 +146,9 @@ void AdjacencyMatrix::CalculateData() {
 }
 
 void AdjacencyMatrix::ExtendTo(std::size_t num_of_flyers) {
+  if (num_of_flyers < 2)
+    throw std::runtime_error("dev: num_of_flyers < 2 in ExtendTo");
+
   for (std::size_t i = 1; i < num_of_flyers; ++i) {
     matrix_.insert(matrix_.begin() + size_, matrix_[0]);
     for (std::size_t j = 0; j < size_ + 1; ++j) {

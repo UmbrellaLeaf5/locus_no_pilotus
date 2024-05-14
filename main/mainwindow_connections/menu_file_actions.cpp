@@ -14,7 +14,7 @@ bool MainWindow::OpenMessageWindow() {
 
   switch (ret) {
     case QMessageBox::Save: {
-      bool is_closed = on_actionSave_triggered();
+      bool is_closed = on_saveFileAction_triggered();
       if (is_closed) return true;
       break;
     }
@@ -54,7 +54,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 /// @brief Кнопка "New"
-void MainWindow::on_actionNew_triggered() {
+void MainWindow::on_newFileAction_triggered() {
   DeleteLastAddedObject();
 
   bool is_closed = false;
@@ -71,13 +71,13 @@ void MainWindow::on_actionNew_triggered() {
   if (!is_closed) {
     manager_->Clear();
     json_file_.SetUntitledFile();
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTables();
   }
 }
 
 /// @brief Кнопка "Open"
-void MainWindow::on_actionOpen_triggered() {
+void MainWindow::on_openFileAction_triggered() {
   DeleteLastAddedObject();
 
   bool is_closed = false;
@@ -113,7 +113,7 @@ void MainWindow::on_actionOpen_triggered() {
     json_file_.Open(manager_.get());
   }
 
-  area_->Redraw();
+  area_->ReDraw();
   t_connection_->UpdateTables();
 }
 
@@ -121,11 +121,11 @@ void MainWindow::on_actionOpen_triggered() {
  * @brief Кнопка "Save"
  * @return true: закрыто окно сохранения файла
  */
-bool MainWindow::on_actionSave_triggered() {
+bool MainWindow::on_saveFileAction_triggered() {
   DeleteLastAddedObject();
 
   if (!json_file_.IsExistsFile())
-    return on_actionSave_as_triggered();
+    return on_saveAsFileAction_triggered();
   else {
     json_file_.Save(manager_.get());
     return false;
@@ -136,11 +136,11 @@ bool MainWindow::on_actionSave_triggered() {
  * @brief Кнопка "Save as"
  * @return true: закрыто окно сохранения файла
  */
-bool MainWindow::on_actionSave_as_triggered() {
+bool MainWindow::on_saveAsFileAction_triggered() {
   DeleteLastAddedObject();
 
   QString file_name = QFileDialog::getSaveFileName(
-      this, tr("Save as"), json_file_.GetParentPath(), tr("File (*.json)"));
+      this, tr("Save as"), json_file_.GetAbsolutePath(), tr("File (*.json)"));
 
   if (!file_name.isEmpty()) {
     json_file_.SetFile(file_name);

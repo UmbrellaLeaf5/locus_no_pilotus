@@ -19,7 +19,9 @@ class TrajectoryCalculator {
   TrajectoryCalculator(const std::vector<lib::Target>& targets,
                        const std::vector<lib::TrappyLine>& lines,
                        const std::vector<lib::TrappyCircle>& circles,
-                       const std::vector<lib::Hill>& hills) {
+                       const std::vector<lib::Hill>& hills,
+                       unsigned short num_of_flyers)
+      : number_of_flyers_{num_of_flyers} {
     for (auto& target : targets) targets_.push_back(Point(target.GetPoint()));
 
     for (auto& line : lines) {
@@ -50,6 +52,9 @@ class TrajectoryCalculator {
   std::vector<lib::Segment> GetTrajectory() { return trajectory_; }
 
  private:
+  // Количество роботов
+  unsigned short number_of_flyers_;
+
   // Контрольные точки
   std::vector<Point> targets_;
 
@@ -75,7 +80,7 @@ class TrajectoryCalculator {
       std::vector<std::size_t> optimal_way,
       const std::vector<std::shared_ptr<PathWayNode>>& nodes);
 
-  /// @brief Расcчитывает траекторию
+  /// @brief Рассчитывает траекторию
   void CalculateTrajectory();
 };
 

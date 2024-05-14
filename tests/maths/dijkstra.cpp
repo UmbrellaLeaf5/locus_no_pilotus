@@ -16,11 +16,13 @@ struct TestEdge {
 };
 
 void AddNodes(PathWayGraph& graph, std::size_t number_of_nodes) {
-  for (std::size_t i = 0; i < number_of_nodes; ++i)
-    graph.AddNode(std::make_shared<PathWayNode>(Point(0, 0), i));
+  for (std::size_t i = 0; i < number_of_nodes; ++i) {
+    PathWayNode* node = new PathWayNode(Point(0, 0), i, true);
+    graph.AddNode(node);
+  }
 }
 
-void CHECK_GRAPH(std::vector<TestEdge> edges, double ans) {
+void CHECK_GRAPH(const std::vector<TestEdge>& edges, double ans) {
   PathWayGraph graph;
 
   std::size_t number_of_nodes = 0;

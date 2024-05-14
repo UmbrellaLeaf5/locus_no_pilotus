@@ -10,7 +10,7 @@ TrappyCircle::TrappyCircle(Point center, double radius)
     : center_{center}, radius_{radius} {
   if (radius < 0)
     throw std::invalid_argument(
-        "Trappy circle cannot have of negative radius!");
+        "TrappyCircles cannot have of negative radius!");
 
   CheckErrorValues();
 }

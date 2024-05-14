@@ -4,7 +4,7 @@
 void MainWindow::AddTarget(double x, double y) {
   try {
     manager_->Add(new gui::Target(x, y));
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::Targets);
 
   } catch (const std::exception& e) {
@@ -15,7 +15,7 @@ void MainWindow::AddTarget(double x, double y) {
 void MainWindow::AddTrappyCircle(double x, double y, double radius) {
   try {
     manager_->Add(new gui::TrappyCircle(x, y, radius));
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
 
   } catch (const std::exception& e) {
@@ -32,7 +32,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
         manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 2],
         manager_->GetTargetsPtrs()[manager_->GetTargets().size() - 1]));
 
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
 
   } catch (const std::exception& e) {
@@ -40,7 +40,7 @@ void MainWindow::AddTrappyLine(double x1, double y1, double x2, double y2) {
   }
 }
 
-void MainWindow::AddHill(std::vector<std::pair<double, double>> points) {
+void MainWindow::AddHill(const std::vector<std::pair<double, double>>& points) {
   try {
     std::vector<lib::Point> lib_points;
     for (const auto& point : points) {
@@ -49,7 +49,7 @@ void MainWindow::AddHill(std::vector<std::pair<double, double>> points) {
 
     manager_->Add(new gui::Hill(lib_points));
 
-    area_->Redraw();
+    area_->ReDraw();
     t_connection_->UpdateTable(gui::ObjectType::Hills);
 
   } catch (const std::exception& e) {
@@ -57,7 +57,7 @@ void MainWindow::AddHill(std::vector<std::pair<double, double>> points) {
   }
 }
 
-void MainWindow::on_actionTarget_triggered() {
+void MainWindow::on_targetAction_triggered() {
   DeleteLastAddedObject();
 
   AddTargetForm* atf = new AddTargetForm;
@@ -65,7 +65,7 @@ void MainWindow::on_actionTarget_triggered() {
   connect(atf, &AddTargetForm::AddTarget, this, &MainWindow::AddTarget);
 }
 
-void MainWindow::on_actionTrappy_Circle_triggered() {
+void MainWindow::on_trappyCircleAction_triggered() {
   DeleteLastAddedObject();
 
   AddTrappyCircleForm* adf = new AddTrappyCircleForm;
@@ -74,7 +74,7 @@ void MainWindow::on_actionTrappy_Circle_triggered() {
           &MainWindow::AddTrappyCircle);
 }
 
-void MainWindow::on_actionTrappy_Line_triggered() {
+void MainWindow::on_trappyLineAction_triggered() {
   DeleteLastAddedObject();
 
   AddTrappyLineForm* adl = new AddTrappyLineForm;
@@ -83,7 +83,7 @@ void MainWindow::on_actionTrappy_Line_triggered() {
           &MainWindow::AddTrappyLine);
 }
 
-void MainWindow::on_actionHill_triggered() {
+void MainWindow::on_hillAction_triggered() {
   DeleteLastAddedObject();
 
   AddHillForm* adh = new AddHillForm;

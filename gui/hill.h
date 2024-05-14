@@ -21,11 +21,12 @@ class Hill : public Drawable {
    * @param points: список точек
    * @param color: цвет
    */
-  Hill(std::initializer_list<lib::Point> points,
+  Hill(const std::initializer_list<lib::Point>& points,
        QColor color = QColor(50, 200, 50, 255))
       : data_(points), color_{color} {}
 
-  Hill(std::vector<lib::Point> points, QColor color = QColor(50, 200, 50, 255))
+  Hill(const std::vector<lib::Point>& points,
+       QColor color = QColor(50, 200, 50, 255))
       : data_(points), color_{color} {}
 
   Hill(const lib::Hill& data, QColor color = QColor(50, 200, 50, 255))

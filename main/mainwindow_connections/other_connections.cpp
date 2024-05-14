@@ -1,4 +1,5 @@
 // header file:
+#include "gui/flying_robot.h"
 #include "main/mainwindow.h"
 
 gui::ObjectType MainWindow::GetObjType() const {
@@ -14,7 +15,7 @@ gui::ObjectType MainWindow::GetObjType() const {
   }
 }
 
-void MainWindow::on_pushButtonAddTarget_clicked() {
+void MainWindow::on_addTargetPushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -24,7 +25,7 @@ void MainWindow::on_pushButtonAddTarget_clicked() {
   cursor_ = CursorType::TargetCursor;
 }
 
-void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
+void MainWindow::on_addTrappyCirclePushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -34,7 +35,7 @@ void MainWindow::on_pushButtonAddTrappyCircle_clicked() {
   cursor_ = CursorType::TrCircleCursor;
 }
 
-void MainWindow::on_pushButtonAddTrappyLine_clicked() {
+void MainWindow::on_addTrappyLinePushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -44,7 +45,7 @@ void MainWindow::on_pushButtonAddTrappyLine_clicked() {
   cursor_ = CursorType::TrLineCursor;
 }
 
-void MainWindow::on_pushButtonAddHill_clicked() {
+void MainWindow::on_addHillPushButton_clicked() {
   DeleteLastAddedObject();
   connect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
           &MainWindow::mousePressObjectsButton);
@@ -54,33 +55,32 @@ void MainWindow::on_pushButtonAddHill_clicked() {
   cursor_ = CursorType::HillCursor;
 }
 
-void MainWindow::on_pushButtonEditObjects_clicked() {
-  manager_->RemoveAllDuplicates();
-  t_connection_->UpdateTables();
-
+void MainWindow::on_editObjectsPushButton_clicked() {
   ui->plotSettingsDockWidget->setVisible(true);
   on_actionBeautify_triggered();
+
+  ui->flyRobotPushButton->setEnabled(false);
 }
 
 void MainWindow::on_actionBeautify_triggered() {
   ui->plot->xAxis->setScaleRatio(ui->plot->yAxis);
-  area_->Redraw();
+  ui->plot->replot();
 }
 
 void MainWindow::on_targetAddFromTablePushButton_clicked() {
-  on_actionTarget_triggered();
+  on_targetAction_triggered();
 }
 
 void MainWindow::on_hillAddFromTablePushButton_clicked() {
-  on_actionHill_triggered();
+  on_hillAction_triggered();
 }
 
 void MainWindow::on_trappyCircleAddFromTablePushButton_clicked() {
-  on_actionTrappy_Circle_triggered();
+  on_trappyCircleAction_triggered();
 }
 
 void MainWindow::on_trappyLineAddFromTablePushButton_clicked() {
-  on_actionTrappy_Line_triggered();
+  on_trappyLineAction_triggered();
 }
 
 void MainWindow::on_xAxis_rangeChanged(QCPRange range) {
@@ -124,6 +124,8 @@ void MainWindow::on_yAxis_rangeChanged(QCPRange range) {
 }
 
 void MainWindow::mousePressRemoveObject() {
+  DeCalcTrajectory();
+
   if (ui->plot->selectedGraphs().size() > 0) {
     bool is_found = false;
     for (size_t i = 0; i < manager_->GetTargets().size(); i++) {
@@ -166,7 +168,7 @@ void MainWindow::mousePressRemoveObject() {
       }
     }
 
-  area_->Redraw();
+  area_->ReDraw();
 }
 
 void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {
@@ -184,4 +186,35 @@ void MainWindow::mousePressContextMenu(QMouseEvent* mouse_event) {
 
     menu->exec(mouse_event->globalPosition().toPoint());
   }
+}
+
+void MainWindow::moveRobot() { area_->GetRobot()->ReDraw(ui->plot); }
+
+void MainWindow::on_actionHelp_triggered() {
+  QDesktopServices::openUrl(
+      QUrl("https://umbrellaleaf5.github.io/locus_no_pilotus/index.html"));
+}
+
+void MainWindow::on_robotsApplyAmountPushButton_clicked() {
+  DeCalcTrajectory();
+  area_->ReDraw();
+  unsigned short amount = ui->robotsAmountLineEdit->displayText().toUShort();
+
+  if (amount > 0)
+    area_->SetAmountOfRobots(amount);
+  else
+    QMessageBox::warning(this, "Zero flying robot!",
+                         "Flying robots must be at list 1!");
+}
+
+void MainWindow::on_LowSpeedButton_clicked() {
+  area_->GetRobot()->SetSpeed(SpeedOfRobot::Low);
+}
+
+void MainWindow::on_MediumSpeedButton_clicked() {
+  area_->GetRobot()->SetSpeed(SpeedOfRobot::Medium);
+}
+
+void MainWindow::on_HighSpeedButton_clicked() {
+  area_->GetRobot()->SetSpeed(SpeedOfRobot::High);
 }

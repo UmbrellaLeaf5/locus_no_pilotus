@@ -11,6 +11,8 @@ namespace lib {
  */
 class Segment {
  public:
+  Segment() = default;
+
   /**
    * @brief Инициализирует новый экземпляр сегмента,
    * как отрезок с началом и концом

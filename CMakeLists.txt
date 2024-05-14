@@ -43,16 +43,13 @@ move_icecream_hpp_to_build_dir(${CMAKE_CURRENT_SOURCE_DIR})
 
 # and add it to CMAKE_PREFIX_PATH manually
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/icecream-cpp")
-find_package(IcecreamCpp) # here finding icecream-cpp
 add_subdirectory(${ICECREAM-CPP_DIR}) # here adding icecream-cpp subfolder
+find_package(IcecreamCpp) # here finding icecream-cpp
 
-# because of qcustomplot [module] CMake settings we need to change include in autogen
+# the command QCUSTOMPLOT_USE_LIBRARY does not work for an unknown reason
 include(${CMAKESCRIPTS_DIR}/scripts_for_qcustomplot.cmake)
-replace_include_qcustomplot_in_autogen(${CMAKE_BINARY_DIR})
+load_qcustomplot_dll(${CMAKE_CURRENT_SOURCE_DIR}) # copy one dll file
 add_subdirectory(${QCUSTOMPLOT_DIR}) # here adding qcustomplot subfolder
-
-# copy one dll file: the command QCUSTOMPLOT_USE_LIBRARY does not work for an unknown reason
-load_qcustomplot_dll(${CMAKE_CURRENT_SOURCE_DIR})
 
 # ---------------------------------    Our code subdirs    ---------------------------------
 add_subdirectory(lib)
@@ -61,5 +58,5 @@ add_subdirectory(main)
 
 # ------------------------------------------------------------------------------------------
 
-# add images to build directory
+# copy images to build directory
 file(COPY ${IMAGES_DIR} DESTINATION ${CMAKE_BINARY_DIR})

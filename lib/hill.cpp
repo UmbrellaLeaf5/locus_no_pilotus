@@ -6,13 +6,6 @@
 
 namespace lib {
 
-Hill::Hill(std::initializer_list<Point> points) : vertices_{points} {
-  if (points.size() == 0 || points.size() == 1)
-    throw std::invalid_argument("Hill cannot consist of one or zero points!");
-
-  CheckErrorValues();
-}
-
 QJsonObject Hill::GetJsonInfo() const {
   QVariantMap hill_map;
   hill_map.insert("Id", GetId());

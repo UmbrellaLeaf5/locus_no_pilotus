@@ -1,6 +1,10 @@
 #pragma once
 
+// std libs:
+#include <set>
+
 // our code libs:
+#include "lib/segment.h"
 #include "path_graph.h"
 
 namespace math {
@@ -13,24 +17,25 @@ class OptimalWayCalculator {
    * @param circles: круговые препятствия
    * @param polys: многоугольные препятствия
    */
-  OptimalWayCalculator(std::vector<CircleObstacle> circles,
-                       std::vector<PolygonObstacle> polys)
+  OptimalWayCalculator(const std::vector<CircleObstacle>& circles,
+                       const std::vector<PolygonObstacle>& polys)
       : circles_{circles}, polys_{polys} {
     AddCommonTangents();
     AddGraphTangentPoints();
-    normal_graph_size_ = graph_.nodes.size();
   }
 
   std::vector<std::shared_ptr<PathWayNode>> GetGraphNodes() {
     return graph_.nodes;
   }
 
-  std::vector<std::size_t> GetOptimalWay(Point point1, Point point2) {
-    FindOptimalWay(point1, point2);
-    return optimal_way_;
-  }
+  std::vector<std::size_t> GetOptimalWay() { return optimal_way_; }
 
   double GetOptimalWayLength() { return optimal_way_length_; }
+
+  std::vector<lib::Segment> GetTrajectoryPart() { return trajectory_part_; }
+
+  // Находит оптимальный маршрут
+  void FindOptimalWay(Point p1, Point p2);
 
  private:
   std::vector<CircleObstacle> circles_;
@@ -40,14 +45,14 @@ class OptimalWayCalculator {
   // Граф для алгоритма Дейкстры
   PathWayGraph graph_;
 
-  // Количество вершин в графе без связей с контрольными точками
-  std::size_t normal_graph_size_;
-
   // Оптимальный путь
   std::vector<std::size_t> optimal_way_;
 
   // Длина оптимального пути
   double optimal_way_length_;
+
+  // Часть траектории
+  std::vector<lib::Segment> trajectory_part_;
 
   /**
    * @brief Проверяет, пересекает ли общая касательная двух препятствий другое
@@ -86,10 +91,13 @@ class OptimalWayCalculator {
   void AddGraphTangentPoints();
 
   // Добавляет в граф контрольные точки
-  std::size_t AddGraphControlPoints(Point point);
+  std::set<std::size_t> AddGraphControlPoints(Point point);
 
-  // Находит оптимальный маршрут
-  void FindOptimalWay(Point p1, Point p2);
+  // Создать часть траектории
+  void MakeTrajectoryPart();
+
+  // Удаляет информацию от предыдущих точек
+  void ResetInformation();
 };
 
 }  // namespace math

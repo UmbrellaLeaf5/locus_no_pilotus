@@ -29,11 +29,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Add Trappy Line</string>
+   <string>Add TrappyLine</string>
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../images/flying_robot.png</normaloff>../images/flying_robot.png</iconset>
+    <normaloff>../images/trappy_line.png</normaloff>../images/trappy_line.png</iconset>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>

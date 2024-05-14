@@ -31,7 +31,7 @@ std::vector<lib::Hill> GetHillsFromFile(QJsonArray arr) {
   return hills;
 }
 
-bool IsExistId(std::vector<unsigned short> ids, unsigned short curr_id) {
+bool IsExistId(const std::vector<unsigned short>& ids, unsigned short curr_id) {
   for (const auto& id : ids) {
     if (curr_id == id) return true;
   }

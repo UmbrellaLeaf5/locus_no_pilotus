@@ -33,6 +33,7 @@ void MainWindow::DisconnectObject(gui::ObjectType obj_type) {
 
   disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
              &MainWindow::mousePressObjectsButton);
+
   connect(ui->plot, &QCustomPlot::mousePress, this,
           &MainWindow::mousePressContextMenu);
 
@@ -70,7 +71,8 @@ void MainWindow::DeleteLastAddedObject() {
       break;
   }
 
-  area_->Redraw();
+  area_->ReDraw();
+  DeCalcTrajectory();
 
   what_obj_addition_ = WhatObjectAddition::Nothing;
 }
@@ -85,6 +87,8 @@ void MainWindow::keyPressEvent(QKeyEvent* key_event) {
 
 void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
   if (mouse_event->button() != Qt::LeftButton) return;
+  disconnect(ui->plot, &QCustomPlot::mouseDoubleClick, this,
+             &MainWindow::mousePressObjectsButton);
 
   double x = ui->plot->xAxis->pixelToCoord(mouse_event->pos().x());
   double y = ui->plot->yAxis->pixelToCoord(mouse_event->pos().y());
@@ -99,6 +103,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
 
         // после финального добавления обновляем таблицу
         t_connection_->UpdateTable(gui::ObjectType::Targets);
+
         break;
       }
 
@@ -163,7 +168,7 @@ void MainWindow::mousePressObjectsButton(QMouseEvent* mouse_event) {
         break;
     }
 
-    area_->Redraw();
+    area_->ReDraw();
 
   } catch (const std::exception& e) {
     QMessageBox::critical(this, "Error!", e.what());
@@ -175,7 +180,7 @@ void MainWindow::mousePressSetRadiusFromPlot(QMouseEvent* mouse_event) {
     DisconnectObject(gui::ObjectType::TrappyCircles);
     what_obj_addition_ = WhatObjectAddition::Nothing;
 
-    area_->Redraw();
+    area_->ReDraw();
 
     // после финального добавления обновляем таблицу
     t_connection_->UpdateTable(gui::ObjectType::TrappyCircles);
@@ -197,7 +202,7 @@ void MainWindow::mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event) {
   double r = sqrt(pow(x, 2) + pow(y, 2));
 
   manager_->GetTrappyCirclesPtrs()[last]->SetRadius(r);
-  area_->Redraw();
+  area_->ReDraw();
 }
 
 void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
@@ -218,7 +223,7 @@ void MainWindow::mousePressSelectSecondTarget(QMouseEvent* mouse_event) {
     DisconnectObject(gui::ObjectType::TrappyLines);
     what_obj_addition_ = WhatObjectAddition::Nothing;
 
-    area_->Redraw();
+    area_->ReDraw();
 
     // после финального добавления обновляем таблицу
     t_connection_->UpdateTable(gui::ObjectType::TrappyLines);
@@ -249,7 +254,7 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     // пикселей. Если это так, то мы считаем, что он завершил создание Hill
     if (sqrt(pow(x_pixels - x2_pixels, 2) + pow(y_pixels - y2_pixels, 2)) <
             10 &&
-        manager_->GetHills()[last].GetVertices().size() > 2) {
+        manager_->GetHills()[last].GetVertices().size() > 3) {
       size_t last_vertice =
           manager_->GetHillsPtrs()[last]->GetVertices().size() - 1;
       manager_->GetHillsPtrs()[last]->GetVertices().erase(
@@ -269,7 +274,7 @@ void MainWindow::mousePressAddVertice(QMouseEvent* mouse_event) {
     } else
       manager_->GetHillsPtrs()[last]->AddVertice({x, y});
 
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -290,7 +295,7 @@ void MainWindow::mousePressDeleteLastVertice(QMouseEvent* mouse_event) {
         DeleteLastAddedObject();
     }
 
-    area_->Redraw();
+    area_->ReDraw();
   }
 }
 
@@ -307,6 +312,32 @@ void MainWindow::mouseMoveAddVertice(QMouseEvent* mouse_event) {
         manager_->GetHillsPtrs()[last]->GetVertices().begin() + last_vertice);
 
     manager_->GetHillsPtrs()[last]->AddVertice({x, y});
-    area_->Redraw();
+    area_->ReDraw();
   }
+}
+
+void MainWindow::on_homeScalePushButton_clicked() {
+  lib::Point first_target = {0, 0};
+  double max_distance = 10;
+
+  if (!manager_->GetTargets().empty()) {
+    first_target = manager_->GetTargets()[0].GetPoint();
+    if (manager_->GetTargets().size() > 1)
+      for (size_t i = 1; i < manager_->GetTargets().size(); i++) {
+        double distance = lib::DistanceBetweenPoints(
+            first_target, manager_->GetTargets()[i].GetPoint());
+        if (max_distance < distance) max_distance = distance;
+      }
+  }
+
+  if (first_target.x - max_distance <= -max_scale ||
+      first_target.x + max_distance >= max_scale ||
+      first_target.y - max_distance <= -max_scale ||
+      first_target.y + max_distance >= max_scale)
+    max_distance /= 2.;
+  ui->plot->xAxis->setRange(first_target.x - max_distance,
+                            first_target.x + max_distance);
+  ui->plot->yAxis->setRange(first_target.y - max_distance,
+                            first_target.y + max_distance);
+  on_actionBeautify_triggered();
 }

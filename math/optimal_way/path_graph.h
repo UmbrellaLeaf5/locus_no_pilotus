@@ -15,8 +15,8 @@ struct PathWayNode {
    * @param p координаты
    * @param n номер вершины
    */
-  PathWayNode(Point p, std::size_t n)
-      : point{p}, number{n}, is_visited{false} {}
+  PathWayNode(Point p, std::size_t n, bool is_const)
+      : point{p}, number{n}, is_visited{false}, is_constant{is_const} {}
 
   // Ребра данной вершины
   std::vector<std::shared_ptr<PathWayNode>> edges;
@@ -37,6 +37,9 @@ struct PathWayNode {
   // Была ли уже посещена вершина
   // в алгоритме Дейкстры
   bool is_visited;
+
+  // Явлеяется ли точка постоянной в графе
+  bool is_constant;
 };
 
 /// @brief Граф вершин между контрольными точками
@@ -45,21 +48,29 @@ struct PathWayGraph {
   std::vector<std::shared_ptr<PathWayNode>> nodes;
 
   // Добавить новую вершину
-  void AddNode(std::shared_ptr<PathWayNode> new_node) {
-    nodes.push_back(new_node);
-  }
+  void AddNode(PathWayNode* new_node) { nodes.emplace_back(new_node); }
 
-  /**
-   * @brief Удалить последние n вершин
-   * @param n: количество вершин
-   */
-  void RemoveLastNodes(std::size_t n) {
-    for (std::size_t i = 0; i < n; ++i) {
-      for (auto& other_node : nodes[nodes.size() - 1]->edges)
-        for (std::size_t j = 0; j < n; ++j)
-          if (other_node->edges[j] == nodes[nodes.size() - 1])
-            other_node->edges.erase(other_node->edges.begin() + j);
-      nodes.erase(nodes.begin() + nodes.size() - 1);
+  // Удалить временные вершины
+  void RemoveNonConstantNodes() {
+    std::size_t i = 0;
+    while (i < nodes.size()) {
+      if (nodes[i]->is_constant) {
+        ++i;
+        continue;
+      }
+      for (const auto& other_node : nodes[i]->edges) {
+        std::size_t j = 0;
+        while (j < other_node->edges.size()) {
+          if (nodes[i]->point != other_node->edges[j]->point) {
+            ++j;
+            continue;
+          }
+          other_node->edges.erase(other_node->edges.begin() + j);
+          other_node->edges_lens.erase(other_node->edges_lens.begin() + j);
+          break;
+        }
+      }
+      nodes.erase(nodes.begin() + i);
     }
   }
 

@@ -39,12 +39,11 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
  private slots:
-
   // Slots for files:
-  bool on_actionSave_as_triggered();
-  bool on_actionSave_triggered();
-  void on_actionOpen_triggered();
-  void on_actionNew_triggered();
+  bool on_saveAsFileAction_triggered();
+  bool on_saveFileAction_triggered();
+  void on_openFileAction_triggered();
+  void on_newFileAction_triggered();
 
   // Slots for interaction objects adding:
   void mousePressObjectsButton(QMouseEvent* mouse_event);
@@ -55,23 +54,23 @@ class MainWindow : public QMainWindow {
   void keyPressEvent(QKeyEvent* key_event) override;
 
   // Slots for Target:
-  void on_pushButtonAddTarget_clicked();
-  void on_actionTarget_triggered();
+  void on_addTargetPushButton_clicked();
+  void on_targetAction_triggered();
 
   // Slots for TrappyCircle:
-  void on_pushButtonAddTrappyCircle_clicked();
-  void on_actionTrappy_Circle_triggered();
+  void on_addTrappyCirclePushButton_clicked();
+  void on_trappyCircleAction_triggered();
   void mousePressSetRadiusFromPlot(QMouseEvent* mouse_event);
   void mouseMoveSetRadiusFromPlot(QMouseEvent* mouse_event);
 
   // Slots for TrappyLine:
-  void on_pushButtonAddTrappyLine_clicked();
-  void on_actionTrappy_Line_triggered();
-  void on_actionHill_triggered();
+  void on_addTrappyLinePushButton_clicked();
+  void on_trappyLineAction_triggered();
   void mousePressSelectSecondTarget(QMouseEvent* mouse_event);
 
   // Slots for Hill:
-  void on_pushButtonAddHill_clicked();
+  void on_addHillPushButton_clicked();
+  void on_hillAction_triggered();
   void mousePressAddVertice(QMouseEvent* mouse_event);
   void mousePressDeleteLastVertice(QMouseEvent* mouse_event);
   void mouseMoveAddVertice(QMouseEvent* mouse_event);
@@ -81,7 +80,7 @@ class MainWindow : public QMainWindow {
   void on_hillAddFromTablePushButton_clicked();
   void on_trappyCircleAddFromTablePushButton_clicked();
   void on_trappyLineAddFromTablePushButton_clicked();
-  void on_pushButtonEditObjects_clicked();
+  void on_editObjectsPushButton_clicked();
 
   // Extra slots:
   void on_actionBeautify_triggered();
@@ -89,17 +88,27 @@ class MainWindow : public QMainWindow {
   void on_xAxis_rangeChanged(QCPRange range);
   void on_yAxis_rangeChanged(QCPRange range);
 
+  void moveRobot();
+  void on_calcTrajectoryPushButton_clicked();
+  void on_flyRobotPushButton_clicked();
+  void on_homeScalePushButton_clicked();
+  void on_actionHelp_triggered();
+
+  void on_robotsApplyAmountPushButton_clicked();
+
+  void on_LowSpeedButton_clicked();
+  void on_MediumSpeedButton_clicked();
+  void on_HighSpeedButton_clicked();
+
  public slots:
   void AddTrappyCircle(double x, double y, double radius);
   void AddTarget(double x, double y);
   void AddTrappyLine(double x1, double y1, double x2, double y2);
-  void AddHill(std::vector<std::pair<double, double>> points);
+  void AddHill(const std::vector<std::pair<double, double>>& points);
 
  private:
   Ui::MainWindow* ui;
-  QTimer* timer;
-  gui::Trajectory* trj;
-  gui::FlyingRobot* robot;
+  QTimer* timer_{new QTimer(this)};
 
   std::unique_ptr<data_tools::PlotArea> area_;
   std::unique_ptr<data_tools::DataManager> manager_;
@@ -109,7 +118,16 @@ class MainWindow : public QMainWindow {
   CursorType cursor_{CursorType::DefaultCursor};
   WhatObjectAddition what_obj_addition_{WhatObjectAddition::Nothing};
 
+  bool is_robot_flying_ = false;
+  bool is_drown_trajectory_ = false;
+
   bool OpenMessageWindow();
   gui::ObjectType GetObjType() const;
   void DeleteLastAddedObject();
+
+  void CalcTrajectory();
+  void DeCalcTrajectory();
+
+  void StopRobot();
+  void FlyRobot();
 };

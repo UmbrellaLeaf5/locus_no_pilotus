@@ -9,8 +9,8 @@ namespace tt = boost::test_tools;
 namespace utf = boost::unit_test;
 using namespace math;
 
-void CHECK_TANGENTS(std::vector<LinearFunction> func_tangents,
-                    std::vector<LinearFunction> correct_tangents) {
+void CHECK_TANGENTS(const std::vector<LinearFunction>& func_tangents,
+                    const std::vector<LinearFunction>& correct_tangents) {
   std::size_t amount_of_matches = 0;
   BOOST_TEST(func_tangents.size() == correct_tangents.size());
   for (std::size_t i = 0; i < func_tangents.size(); ++i)
