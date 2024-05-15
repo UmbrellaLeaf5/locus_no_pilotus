@@ -41,9 +41,11 @@ MainWindow::MainWindow(QWidget* parent)
   int_validator->setRange(1, 9);
   ui->robotsAmountLineEdit->setValidator(int_validator);
 
-  connect(
-      ui->plotSettingsDockWidget, &QDockWidget::visibilityChanged, this,
-      [this](bool visible) { ui->flyRobotPushButton->setEnabled(!visible); });
+  connect(ui->plotSettingsDockWidget, &QDockWidget::visibilityChanged, this,
+          [this](bool visible) {
+            if (is_drown_trajectory_)
+              ui->flyRobotPushButton->setEnabled(!visible);
+          });
 }
 
 MainWindow::~MainWindow() { delete ui; }
