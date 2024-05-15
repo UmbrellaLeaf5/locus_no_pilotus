@@ -70,7 +70,7 @@ git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus
 ## Used libs and packages
 * [CMake](https://cmake.org/): main project build system
 * [Qt](https://www.qt.io/): main project library for full-working program
-* [QCustomPlot](https://www.qcustomplot.com/): library for drawing all objects on same place with autoscaling ([submodule](https://github.com/legerch/QCustomPlot-library "reference for submodule with lib in GitHub"))
+* [QCustomPlot](https://www.qcustomplot.com/): library for drawing all objects on same place with autoscaling ([submodule](https://github.com/UmbrellaLeaf5/qcustomplot "reference for submodule with lib in GitHub"))
 * [IceCream-Cpp](https://github.com/renatoGarcia/icecream-cpp): library for simple code debugging (we really recommend to use it in C++ projects)
 * [Doxygen](https://www.doxygen.nl/): full documentation generation
 * [Doxygen Awesome](https://github.com/jothepro/doxygen-awesome-css): convenient CSS theme for Doxygen HTML documentation (it is really awesome)
