@@ -43,9 +43,7 @@ void OptimalWayCalculator::AddTangent(const LinearFunction& tangent,
       std::make_shared<Point>(tangent_points.second);
   tangent_points.second.another_tangent_point =
       std::make_shared<Point>(tangent_points.first);
-  obstacle1.AddTangentLine(tangent);
   obstacle1.AddTangentPoint(tangent_points.first);
-  obstacle2.AddTangentLine(tangent);
   obstacle2.AddTangentPoint(tangent_points.second);
 }
 
