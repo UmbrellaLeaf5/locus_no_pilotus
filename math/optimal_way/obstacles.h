@@ -71,13 +71,7 @@ class CircleObstacle {
 
   double GetRadius() const { return radius_; }
 
-  std::vector<LinearFunction> GetTangentLines() { return tangents_; }
-
   std::vector<Point> GetTangentPoints() { return tangent_points_; }
-
-  void AddTangentLine(const LinearFunction& tangent) {
-    tangents_.push_back(tangent);
-  }
 
   void AddTangentPoint(const Point& tangent_point) {
     tangent_points_.push_back(tangent_point);
@@ -97,9 +91,6 @@ class CircleObstacle {
   Point center_;
 
   double radius_;
-
-  // Касательные
-  std::vector<LinearFunction> tangents_;
 
   // Точки касания
   std::vector<Point> tangent_points_;
@@ -127,17 +118,7 @@ class PolygonObstacle {
 
   std::vector<Point> GetVertexes() const { return vertexes_; }
 
-  std::vector<LinearFunction> GetTangentLines() { return tangents_; }
-
   std::vector<Point> GetTangentPoints() { return tangent_points_; }
-
-  void DeleteTangentPoint(std::size_t index) {
-    tangent_points_.erase(tangent_points_.begin() + index);
-  }
-
-  void AddTangentLine(const LinearFunction& tangent) {
-    tangents_.push_back(tangent);
-  }
 
   void AddTangentPoint(const Point& tangent_point) {
     tangent_points_.push_back(tangent_point);
@@ -157,9 +138,6 @@ class PolygonObstacle {
 
   // Вершины
   std::vector<Point> vertexes_;
-
-  // Касательные
-  std::vector<LinearFunction> tangents_;
 
   // Точки касания
   std::vector<Point> tangent_points_;

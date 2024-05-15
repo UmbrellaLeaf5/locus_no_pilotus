@@ -43,9 +43,7 @@ void OptimalWayCalculator::AddTangent(const LinearFunction& tangent,
       std::make_shared<Point>(tangent_points.second);
   tangent_points.second.another_tangent_point =
       std::make_shared<Point>(tangent_points.first);
-  obstacle1.AddTangentLine(tangent);
   obstacle1.AddTangentPoint(tangent_points.first);
-  obstacle2.AddTangentLine(tangent);
   obstacle2.AddTangentPoint(tangent_points.second);
 }
 
@@ -139,13 +137,13 @@ void OptimalWayCalculator::AddGraphTangentPoints() {
             DistanceBetweenPoints(
                 graph_.nodes[graph_.nodes.size() - vertexes.size()]->point,
                 new_node->point));
-
-      for (std::size_t j = 0; j < graph_.nodes.size(); ++j) {
-        if ((graph_.nodes[j]->point.another_tangent_point) &&
-            (new_node->point == *graph_.nodes[j]->point.another_tangent_point))
-          graph_.AddEdge(
-              graph_.nodes[j]->number, new_node->number,
-              DistanceBetweenPoints(graph_.nodes[j]->point, new_node->point));
+      for (auto& tangent_point : poly.GetTangentPoints()) {
+        if (tangent_point != new_node->point) continue;
+        for (auto& node : graph_.nodes) {
+          if (*tangent_point.another_tangent_point != node->point) continue;
+          graph_.AddEdge(node->number, new_node->number,
+                         DistanceBetweenPoints(node->point, new_node->point));
+        }
       }
     }
   }
