@@ -57,7 +57,7 @@ git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus
 8) Set the compiler that allow *CMake* configuration in the kits list and click ```Configure Project```
 
 9) To use the full working version: **Build** (hammer button in the lower left corner) the project, and after ending process with error use ***Build > Run CMake*** in the top menu to reconfigure and fix error with including QCustomPlot
-> *P.S. because of using QCustomPlot as GitHib submodule with repo author's solution to include QCustomPlot files to extra *lib* folder, we have problem with Qt autogen files (was fixed by using regex in extra cmake_scripts and the need to reconfigure the project after building)*
+> *P.S. because of using QCustomPlot, we need to copy additional .lib file to build directory, and our script does this when activating the Run CMake command*
 
 10) Now you can use full working project with **Run** (green triangle button in the lower left corner)!
 
@@ -78,10 +78,10 @@ git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus
 * [GeoGebra](https://www.geogebra.org/): best platform for geometry calculations
 
 ## Authors
-**[Romanov Fedor](https://github.com/Romanov-Fedor "math greatest gigachad (Desmos proger)")**
+**[Romanov Fedor](https://github.com/Romanov-Fedor "math greatest gigachad and refactor guy (also Desmos and GeoGebra proger)")**
 
-**[Rybalkin Ilya](https://github.com/Stargazer2005 "traveling salesman problem and Dijkstra algos enjoyer")**
+**[Rybalkin Ilya](https://github.com/Stargazer2005 "traveling salesman problem and Dijkstra algos enjoyer, the trajectory guy")**
 
-**[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, gui forms and cursors hero")**
+**[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, add forms, cursors, animation, scale hero")**
 
-**[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy")**
+**[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy with tables instead of muscles and arcs instead of veins")**
