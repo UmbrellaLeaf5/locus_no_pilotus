@@ -1,15 +1,20 @@
 # Locus No Pilotus: Trajectory Calculator
 
+<div align="center">
+  <img src=".extra/images/icon.png" alt="Logo" width="80" height="80">
+</div>
+
 **Project of four first grade MIPT DAFE/RSE students (for engineering practical work in the second semester) in Qt C++**
 
 ## Documentation
-Project's [documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html) generated with Doxygen with [convenient CSS theme](#used-libs-and-packages).
+Project's [documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index.html) generated with Doxygen with [convenient CSS theme](#used-libs-and-sources).
 
 # Contents
   * [Description](#description)
   * [Installation and configuring](#installation-and-configuring "with using MSYS")
-  * [Used libs and packages](#used-libs-and-packages "we are using GitHub submodules feature 😎")
+  * [Used libs and sources](#used-libs-and-sources "we are using GitHub submodules feature 😎")
   * [Authors](#authors "the best guys")
+  * [Presentation](#presentation "video link")
 
 ## Description
 
@@ -18,7 +23,7 @@ On its way, it may encounter high mountains that it cannot fly over: **Hills**; 
 Also, through some control points, the robot is simply unable to move, as the cargo may not be ready for transportation at that time, these are **TrappyLines**. 
 
 The robot's trajectory is calculated using several mathematical algorithms: [...]. 
-The graphical interface for constructing the trajectory was created using [Qt](#used-libs-and-packages) and [QCustomPlot](#used-libs-and-packages). 
+The graphical interface for constructing the trajectory was created using [Qt](#used-libs-and-sources) and [QCustomPlot](#used-libs-and-sources). 
 
 In the application, you can add objects using window forms, interact with the trajectory calculation plot using the mouse cursor, create and open files in ```.json``` format with a specific style for this application. Editing objects can also be done with cursors or using a special dynamic input field with tables, opened in a separate window mode or embedded in the main one. 
 
@@ -67,7 +72,7 @@ git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus
 
 > Much respect and help for this installation method to [George Sukhanov](https://github.com/TheFueRr "our colleague with an equally interesting project on processing experimental data")!
 
-## Used libs and packages
+## Used libs and sources
 * [CMake](https://cmake.org/): main project build system
 * [Qt](https://www.qt.io/): main project library for full-working program
 * [QCustomPlot](https://www.qcustomplot.com/): library for drawing all objects on same place with autoscaling ([submodule](https://github.com/UmbrellaLeaf5/qcustomplot "reference for submodule with lib in GitHub"))
@@ -85,3 +90,6 @@ git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus
 **[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, add forms, cursors, animation, scale hero")**
 
 **[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy with tables instead of muscles and arcs instead of veins")**
+
+## Presentation
+**[Video-presentation](https://disk.yandex.ru/i/R-6LPpjHcT5Fdw)** of out project on Russian language (with all team members).
