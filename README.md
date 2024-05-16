@@ -10,6 +10,7 @@ Project's [documentation](https://umbrellaleaf5.github.io/locus_no_pilotus/index
   * [Installation and configuring](#installation-and-configuring "with using MSYS")
   * [Used libs and packages](#used-libs-and-packages "we are using GitHub submodules feature 😎")
   * [Authors](#authors "the best guys")
+  * [Presentation](#presentation "video link")
 
 ## Description
 
@@ -85,3 +86,6 @@ git clone --recurse-submodules https://github.com/UmbrellaLeaf5/locus_no_pilotus
 **[Akramov Nikita](https://github.com/MrWh1teF0x "jsons, add forms, cursors, animation, scale hero")**
 
 **[Krivoruchko Dmitry](https://github.com/UmbrellaLeaf5 "repo manager and gui guy with tables instead of muscles and arcs instead of veins")**
+
+## Presentation
+**[Video-presentation](https://disk.yandex.ru/i/R-6LPpjHcT5Fdw)** of out project on Russian language (with all team members).
