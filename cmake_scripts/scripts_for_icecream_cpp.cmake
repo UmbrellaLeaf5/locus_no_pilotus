@@ -9,7 +9,7 @@ function(move_icecream_hpp_to_build_dir START_DIR)
 
     # copy from ICLUDEHEADERFILES to include dir in binary
     foreach(file ${ICLUDEHEADERFILES})
-      file(COPY ${file} DESTINATION "${CMAKE_BINARY_DIR}/include")
+      file(COPY ${file} DESTINATION "${PROJECT_BIN_DIR}/include")
     endforeach()
     return()
   else()

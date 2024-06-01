@@ -3,7 +3,7 @@
 function(load_qcustomplot_dll START_DIR)
   if(EXISTS "${START_DIR}/qcustomplot")
     # add needed files to QCUSTOMPLOTDLLFILES
-    file(GLOB_RECURSE QCUSTOMPLOTDLLFILES "${CMAKE_BINARY_DIR}/libqcustomplot.dll")
+    file(GLOB_RECURSE QCUSTOMPLOTDLLFILES "${PROJECT_BIN_DIR}/libqcustomplot.dll")
 
     if(QCUSTOMPLOTDLLFILES)
       message(STATUS "Found libqcustomplot.dll, copying to build")
@@ -21,7 +21,7 @@ function(load_qcustomplot_dll START_DIR)
     foreach(file ${QCUSTOMPLOTDLLFILES})
       if(QCUSTOMPLOTDLLFILES)
         # copy to main, where qcustomplot is used
-        file(COPY ${file} DESTINATION ${CMAKE_BINARY_DIR}/main)
+        file(COPY ${file} DESTINATION ${PROJECT_BIN_DIR}/main)
       endif()
     endforeach()
     return()

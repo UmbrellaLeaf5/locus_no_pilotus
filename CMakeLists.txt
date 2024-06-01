@@ -42,7 +42,7 @@ include(${CMAKESCRIPTS_DIR}/scripts_for_icecream_cpp.cmake)
 move_icecream_hpp_to_build_dir(${CMAKE_CURRENT_SOURCE_DIR})
 
 # and add it to CMAKE_PREFIX_PATH manually
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/icecream-cpp")
+list(APPEND CMAKE_PREFIX_PATH "${PROJECT_BIN_DIR}/icecream-cpp")
 add_subdirectory(${ICECREAM-CPP_DIR}) # here adding icecream-cpp subfolder
 find_package(IcecreamCpp) # here finding icecream-cpp
 
@@ -59,4 +59,4 @@ add_subdirectory(main)
 # ------------------------------------------------------------------------------------------
 
 # copy images to build directory
-file(COPY ${IMAGES_DIR} DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${IMAGES_DIR} DESTINATION ${PROJECT_BIN_DIR})
