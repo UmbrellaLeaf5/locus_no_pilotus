@@ -41,7 +41,7 @@ pacman -S mingw-w64-x86_64-gcc
 pacman -S mingw-w64-x86_64-gdb
 pacman -S mingw-w64-x86_64-ninja
 pacman -S mingw-w64-x86_64-cmake
-pacman -S mingw-w64-x86_64-qt-creator
+pacman -U https://mirror.msys2.org/mingw/mingw64/mingw-w64-x86_64-qt-creator-13.0.1-1-any.pkg.tar.zst
 pacman -S mingw-w64-x86_64-boost
 pacman -S mingw-w64-x86_64-clang
 ```
