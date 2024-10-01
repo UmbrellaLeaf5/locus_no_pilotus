@@ -28,9 +28,6 @@ target_link_libraries(main PRIVATE
 target_compile_definitions(main PRIVATE QCUSTOMPLOT_USE_LIBRARY)
 target_link_libraries(main PUBLIC qcustomplot)
 
-# IceCreamCpp lib:
-include_directories(${IcecreamCpp_INCLUDE_DIRS})
-
 # Our lib:
 target_link_libraries(main PRIVATE lib)
 
