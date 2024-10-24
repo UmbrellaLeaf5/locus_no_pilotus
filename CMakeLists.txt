@@ -37,15 +37,6 @@ find_package(Boost REQUIRED COMPONENTS locale unit_test_framework)
 # ---------------------------------   Submodules folders   ---------------------------------
 # ---------------------------------      (and sripts)      ---------------------------------
 
-# because of icecream-cpp CMake settings we need to move one file to bin dir
-include(${CMAKESCRIPTS_DIR}/scripts_for_icecream_cpp.cmake)
-move_icecream_hpp_to_build_dir(${CMAKE_CURRENT_SOURCE_DIR})
-
-# and add it to CMAKE_PREFIX_PATH manually
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/icecream-cpp")
-add_subdirectory(${ICECREAM-CPP_DIR}) # here adding icecream-cpp subfolder
-find_package(IcecreamCpp) # here finding icecream-cpp
-
 # the command QCUSTOMPLOT_USE_LIBRARY does not work for an unknown reason
 include(${CMAKESCRIPTS_DIR}/scripts_for_qcustomplot.cmake)
 load_qcustomplot_dll(${CMAKE_CURRENT_SOURCE_DIR}) # copy one dll file
